@@ -135,9 +135,12 @@ fnorme:
 	@find ./includes -name "*.h" -maxdepth 1 -type f -exec norminette  {} \;
 
 qme:
-	@if [ ! -f author ]; then \
-		whoami > author; \
-	fi
+	@rm -Rf author
+	@echo bsaunder > author
+	@echo cdebruyn >> author
+	@echo ghavenga >> author
+	@echo khansman >> author
+	@echo ggroener >> author
 	
 me: qme
 	cat -e author
