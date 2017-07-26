@@ -70,7 +70,7 @@ class Logger
 
 # ifdef LOGGER_GLOBAL
 
-Logger		logger("avm_log.txt", ALL);
+Logger		logger("bomberman_log.txt", ALL);
 
 # else
 
