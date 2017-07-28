@@ -1,19 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Gamestate.hpp                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ghavenga <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/26 20:09:52 by ghavenga          #+#    #+#             */
-/*   Updated: 2017/05/26 20:14:43 by ghavenga         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef GAMESTATE_HPP
 # define GAMESTATE_HPP
 
-# include "../includes/Log.hpp"
+# include "../includes/Gamestate.hpp"
+
+typedef std::unordered_map<IEntity> t_entityMap;
 
 class Gamestate
 {
@@ -24,13 +14,21 @@ class Gamestate
 		~Gamestate();
 
 		// Operators Overloads
-		Gamestate& operator =(const Gamestate &obj);
+		Gamestate&		operator =(const Gamestate &obj);
 
 		// Setters
+
+		// Getters
+		t_entityMap		getEntities(); 
 		
 		// Member Methods
+		void			spawnPlayer(Vector pos);
+		void			spawnOpponent(Vector pos);
+		void			spawnObstacle(Vector pos);
+		void			spawnBomb(Vector pos);
 
 	private:
+		t_entityMap 	_entities;
 
 };
 

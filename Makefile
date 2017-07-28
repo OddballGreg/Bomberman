@@ -1,20 +1,34 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ghavenga <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/09/28 11:16:22 by ghavenga          #+#    #+#              #
-#    Updated: 2016/12/09 16:35:20 by ghavenga         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = bomberman
 
-SRCS_NAME =		Bomberman.cpp \
+SRCS_NAME =		bomberman.cpp \
+				Wall.cpp \
+				Vector.cpp \
+				Powerup.cpp \
+				Player.cpp \
+				Opponent.cpp \
+				Obstacle.cpp \
+				Logger.cpp \
+				Log.cpp \
+				IEntity.cpp \
+				ICharacter.cpp \
+				Gamestate.cpp \
+				Explosion.cpp \
+				Bomb.cpp \
 
-HEADER_NAMES =	Bomberman.hpp \
+HEADER_NAMES =	bomberman.hpp \
+				Wall.hpp \
+				Vector.hpp \
+				Powerup.hpp \
+				Player.hpp \
+				Opponent.hpp \
+				Obstacle.hpp \
+				Logger.hpp \
+				Log.hpp \
+				IEntity.hpp \
+				ICharacter.hpp \
+				Gamestate.hpp \
+				Explosion.hpp \
+				Bomb.hpp \
 
 ifeq ($(shell uname -s), Darwin) # Changes rules for MAC and Linux
 SYS = OSX
