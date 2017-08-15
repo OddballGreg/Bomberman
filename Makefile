@@ -9,8 +9,8 @@ SRCS_NAME =		bomberman.cpp \
 				Obstacle.cpp \
 				Logger.cpp \
 				Log.cpp \
-				IEntity.cpp \
-				ICharacter.cpp \
+				Entity.cpp \
+				Character.cpp \
 				Gamestate.cpp \
 				Explosion.cpp \
 				Bomb.cpp \
@@ -24,8 +24,8 @@ HEADER_NAMES =	bomberman.hpp \
 				Obstacle.hpp \
 				Logger.hpp \
 				Log.hpp \
-				IEntity.hpp \
-				ICharacter.hpp \
+				Entity.hpp \
+				Character.hpp \
 				Gamestate.hpp \
 				Explosion.hpp \
 				Bomb.hpp \
@@ -99,6 +99,7 @@ $(NAME): $(OBJS)
 	@$(call colourecho, "Make Done!")
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
+	./cpp_class_generator/ClassGenerator.rb
 	@$(call colourecho, " - Compiling $<")
 	@$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $< -I$(INCLUDES_PATH)
 	@$(call colourecho, "Compiling Done!")
