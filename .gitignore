@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+# Other
+bomberman_log.txt
