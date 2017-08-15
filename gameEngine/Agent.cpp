@@ -9,11 +9,11 @@ Agent::Agent() {
 }
 
 Agent::~Agent() {
-    
+
 }
 
 void    Agent::draw(gameEngine::SpriteBatch& _spriteBatch) {
-    
+
     static int textureID = gameEngine::ResourceManager::getTexture("gameEngine/textures/jimmyJump_pack/PNG/CharacterRight_Walk1.png").id;
     const glm::vec4 uvRect(0.0f, 0.0f, 1.0f, 1.0f);
 
@@ -51,7 +51,7 @@ bool Agent::collideWithLevel(const std::vector<std::string>& levelData) {
 
     for (int i = 0; i < collideTilePosition.size(); i++) {
         collideWithTile(collideTilePosition[i]);
-    }    
+    }
     return true;
 }
 
@@ -84,7 +84,7 @@ void Agent::checkTilePosition(const std::vector<std::string>& levelData,
                                 float x, 
                                 float y) {
     glm::vec2 cornerPos = glm::vec2(floor(x / (float)TILE_WIDTH), floor(y / (float)TILE_WIDTH));
-    
+
     // if the agent spawns outside the map, return
     if (cornerPos.x < 0 || cornerPos.x >= levelData[0].size() || cornerPos.x < 0 || cornerPos.y >= levelData.size()) {
         return ;
