@@ -1,7 +1,8 @@
 #ifndef PLAYER_HPP
 # define PLAYER_HPP
 
-# include "../includes/Player.hpp"
+# include "../includes/Log.hpp"
+
 
 class Player
 {
@@ -15,21 +16,21 @@ class Player
 		Player&		operator =(const Player &obj);
 
 		// Setters
-		void		setPlayername(std::string playerName);
-		void		setWin(bool win);
-		void		setActive(bool active);
+		void	setPlayername(std::string playerName);
+		void	setWin(bool win);
+		void	setActive(bool active);
 
 		// Getters
 		std::string	getPlayername();
-		bool		getWin();
-		bool		getActive();
+		bool	getWin();
+		bool	getActive();
 		
 		// Member Methods
 
 	private:
-		std::string	_Playername;
-		bool		_Win;
-		bool		_Active;
+		std::string	_playerName;
+		bool	_win;
+		bool	_active;
 };
 
 #endif

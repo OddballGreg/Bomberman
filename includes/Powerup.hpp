@@ -1,7 +1,8 @@
 #ifndef POWERUP_HPP
 # define POWERUP_HPP
 
-# include "Powerup.hpp"
+# include "../includes/Log.hpp"
+
 
 class Powerup
 {
@@ -21,10 +22,9 @@ class Powerup
 		double	getValue();
 		
 		// Member Methods
-		bool	applyPowerup(IEntity target);
 
 	private:
-		double	_Value;
+		double	_value;
 };
 
 #endif

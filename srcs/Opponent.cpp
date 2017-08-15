@@ -3,16 +3,22 @@
 //Constructors
 Opponent::Opponent()
 {
+	Log.log("Opponent", "Constructor", CRITICAL);
 }
 
 Opponent::Opponent(const Opponent &obj)
 {
+	Log.log("Opponent", "Copy Constructor", CRITICAL);
 }
 
-Opponent::~Opponent(){}
+Opponent::~Opponent()
+{
+	Log.log("Opponent", "Deconstructor", CRITICAL);
+}
 
 Opponent &Opponent::operator =(const Opponent &obj)
 { 
+	Log.log("Opponent", "= Operator", CRITICAL);
 	return *this; 
 }
 
@@ -21,8 +27,3 @@ Opponent &Opponent::operator =(const Opponent &obj)
 // Getters
 
 // Methods
-void	Opponent::runAI(t_entityMap entities)
-{
-
-}
-

@@ -1,7 +1,8 @@
 #ifndef EXPLOSION_HPP
 # define EXPLOSION_HPP
 
-# include "Explosion.hpp"
+# include "../includes/Log.hpp"
+
 
 class Explosion
 {
@@ -21,10 +22,9 @@ class Explosion
 		double	getDuration();
 		
 		// Member Methods
-		void	tick();
 
 	private:
-		double	_Duration;
+		double	_duration;
 };
 
 #endif

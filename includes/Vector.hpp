@@ -1,17 +1,13 @@
-#ifndef Vector_HPP
-# define Vector_HPP
+#ifndef VECTOR_HPP
+# define VECTOR_HPP
 
-# include "../includes/Vector.hpp"
+# include "../includes/Log.hpp"
 
-/*
-	The Vector Class is a defintion of a point in 3D space with definition of it's velocity along these 3 axes.
-*/
 
 class Vector
 {
 	public:
 		// Constructors & Destructors
-		Vector(double x, double y, double z);
 		Vector(double x, double y, double z, double dx, double dy, double dz);
 		Vector(const Vector &obj);
 		~Vector();
@@ -20,34 +16,30 @@ class Vector
 		Vector&		operator =(const Vector &obj);
 
 		// Setters
-		double		setX(); 
-		double		setY(); 
-		double		setZ(); 
-		double		setDeltaX(); 
-		double		setDeltaY(); 
-		double		setDeltaZ(); 
+		void	setX(double x);
+		void	setY(double y);
+		void	setZ(double z);
+		void	setDx(double dx);
+		void	setDy(double dy);
+		void	setDz(double dz);
 
 		// Getters
-		double		getX(); 
-		double		getY(); 
-		double		getZ(); 
-		double		getDeltaX(); 
-		double		getDeltaY(); 
-		double		getDeltaZ(); 
+		double	getX();
+		double	getY();
+		double	getZ();
+		double	getDx();
+		double	getDy();
+		double	getDz();
 		
 		// Member Methods
-		void		proceedVector(int times);
-		void		reverseVector(int times);
-		void		inverseVector();
 
 	private:
-		double 		_x;
-		double 		_y;
-		double 		_z;
-		double 		_deltaX;
-		double 		_deltaY;
-		double 		_deltaZ;
-
+		double	_x;
+		double	_y;
+		double	_z;
+		double	_dx;
+		double	_dy;
+		double	_dz;
 };
 
 #endif
