@@ -26,6 +26,10 @@ class Gamestate
 		t_entityMap	getEntities();
 		
 		// Member Methods
+		void	spawnPlayer(Vector pos);
+		void	spawnOpponent(Vector pos);
+		void	spawnObstacle(Vector pos);
+		void	spawnBomb(Vector pos);
 
 	private:
 		t_entityMap	_entities;

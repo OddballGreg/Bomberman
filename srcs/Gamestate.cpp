@@ -37,3 +37,19 @@ void	Gamestate::setEntities(t_entityMap entities) { this->_entities = entities; 
 t_entityMap	Gamestate::getEntities() { return this->_entities; }
 
 // Methods
+void	Gamestate::spawnPlayer(Vector pos)
+{
+}
+
+void	Gamestate::spawnOpponent(Vector pos)
+{
+}
+
+void	Gamestate::spawnObstacle(Vector pos)
+{
+}
+
+void	Gamestate::spawnBomb(Vector pos)
+{
+}
+

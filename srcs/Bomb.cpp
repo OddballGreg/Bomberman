@@ -38,3 +38,11 @@ double	Bomb::getSecondstodetonation() { return this->_secondstodetonation; }
 double	Bomb::getSpread() { return this->_spread; }
 
 // Methods
+void	Bomb::tick()
+{
+}
+
+t_entityMap	Bomb::*reverseVector(t_entityMap entities)
+{
+}
+

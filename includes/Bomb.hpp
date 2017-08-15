@@ -24,6 +24,8 @@ class Bomb
 		double	getSpread();
 		
 		// Member Methods
+		void	tick();
+		t_entityMap	*reverseVector(t_entityMap entities);
 
 	private:
 		double	_secondstodetonation;
