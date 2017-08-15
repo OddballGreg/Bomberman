@@ -2,6 +2,7 @@
 # define BOMB_HPP
 
 # include "../includes/Log.hpp"
+# include "../includes/Gamestate.hpp"
 
 
 class Bomb
@@ -25,7 +26,7 @@ class Bomb
 		
 		// Member Methods
 		void	tick();
-		t_entityMap	*reverseVector(t_entityMap entities);
+		t_entityMap*	reverseVector(t_entityMap entities);
 
 	private:
 		double	_secondstodetonation;

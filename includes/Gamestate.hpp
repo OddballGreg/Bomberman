@@ -12,7 +12,7 @@ class Gamestate
 	public:
 		// Constructors & Destructors
 		Gamestate(t_entityMap entities);
-		Gamestate::Gamestate();
+		Gamestate();
 		Gamestate(const Gamestate &obj);
 		~Gamestate();
 
@@ -26,6 +26,7 @@ class Gamestate
 		t_entityMap	getEntities();
 		
 		// Member Methods
+		void	run();
 		void	spawnPlayer(Vector pos);
 		void	spawnOpponent(Vector pos);
 		void	spawnObstacle(Vector pos);

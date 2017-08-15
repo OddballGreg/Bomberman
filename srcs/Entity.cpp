@@ -3,7 +3,7 @@
 //Constructors
 Entity::Entity(std::string name, std::string type, Vector location, Vector facing, bool destructable, std::string sprite, double collisionRadius, bool collideable)
 {
-	Log.log("Entity", "Constructor", CRITICAL);
+	Log log("Entity", "Constructor", CRITICAL);
 	this->_name = name;
 	this->_type = type;
 	this->_location = location;
@@ -17,7 +17,7 @@ Entity::Entity(std::string name, std::string type, Vector location, Vector facin
 
 Entity::Entity(const Entity &obj)
 {
-	Log.log("Entity", "Copy Constructor", CRITICAL);
+	Log log("Entity", "Copy Constructor", CRITICAL);
 	this->_name = obj._name;
 	this->_type = obj._type;
 	this->_location = obj._location;
@@ -30,12 +30,12 @@ Entity::Entity(const Entity &obj)
 
 Entity::~Entity()
 {
-	Log.log("Entity", "Deconstructor", CRITICAL);
+	Log log("Entity", "Deconstructor", CRITICAL);
 }
 
 Entity &Entity::operator =(const Entity &obj)
 { 
-	Log.log("Entity", "= Operator", CRITICAL);
+	Log log("Entity", "= Operator", CRITICAL);
 	this->_name = obj._name;
 	this->_type = obj._type;
 	this->_location = obj._location;

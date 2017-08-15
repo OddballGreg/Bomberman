@@ -3,7 +3,7 @@
 //Constructors
 Character::Character(double lives, double max_lives, double speed, double attack_power, double bombs, double max_bombs)
 {
-	Log.log("Character", "Constructor", CRITICAL);
+	Log log("Character", "Constructor", CRITICAL);
 	this->_lives = lives;
 	this->_max_lives = max_lives;
 	this->_speed = speed;
@@ -15,7 +15,7 @@ Character::Character(double lives, double max_lives, double speed, double attack
 
 Character::Character(const Character &obj)
 {
-	Log.log("Character", "Copy Constructor", CRITICAL);
+	Log log("Character", "Copy Constructor", CRITICAL);
 	this->_lives = obj._lives;
 	this->_max_lives = obj._max_lives;
 	this->_speed = obj._speed;
@@ -26,12 +26,12 @@ Character::Character(const Character &obj)
 
 Character::~Character()
 {
-	Log.log("Character", "Deconstructor", CRITICAL);
+	Log log("Character", "Deconstructor", CRITICAL);
 }
 
 Character &Character::operator =(const Character &obj)
 { 
-	Log.log("Character", "= Operator", CRITICAL);
+	Log log("Character", "= Operator", CRITICAL);
 	this->_lives = obj._lives;
 	this->_max_lives = obj._max_lives;
 	this->_speed = obj._speed;

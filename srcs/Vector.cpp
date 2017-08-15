@@ -3,7 +3,7 @@
 //Constructors
 Vector::Vector(double x, double y, double z, double dx, double dy, double dz)
 {
-	Log.log("Vector", "Constructor", CRITICAL);
+	Log log("Vector", "Constructor", CRITICAL);
 	this->_x = x;
 	this->_y = y;
 	this->_z = z;
@@ -12,10 +12,19 @@ Vector::Vector(double x, double y, double z, double dx, double dy, double dz)
 	this->_dz = dz;
 }
 
+Vector::Vector()
+{
+	_x = 0;
+	_y = 0;
+	_z = 0;
+	_dx = 0;
+	_dy = 0;
+	_dz = 0;
+}
 
 Vector::Vector(const Vector &obj)
 {
-	Log.log("Vector", "Copy Constructor", CRITICAL);
+	Log log("Vector", "Copy Constructor", CRITICAL);
 	this->_x = obj._x;
 	this->_y = obj._y;
 	this->_z = obj._z;
@@ -26,12 +35,12 @@ Vector::Vector(const Vector &obj)
 
 Vector::~Vector()
 {
-	Log.log("Vector", "Deconstructor", CRITICAL);
+	Log log("Vector", "Deconstructor", CRITICAL);
 }
 
 Vector &Vector::operator =(const Vector &obj)
 { 
-	Log.log("Vector", "= Operator", CRITICAL);
+	Log log("Vector", "= Operator", CRITICAL);
 	this->_x = obj._x;
 	this->_y = obj._y;
 	this->_z = obj._z;
@@ -58,3 +67,15 @@ double	Vector::getDy() { return this->_dy; }
 double	Vector::getDz() { return this->_dz; }
 
 // Methods
+void	Vector::proceedVector(int times)
+{
+}
+
+void	Vector::reverseVector(int times)
+{
+}
+
+void	Vector::inverseVector(int times)
+{
+}
+

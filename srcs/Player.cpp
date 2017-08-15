@@ -3,7 +3,7 @@
 //Constructors
 Player::Player(std::string playerName, bool win, bool active)
 {
-	Log.log("Player", "Constructor", CRITICAL);
+	Log log("Player", "Constructor", CRITICAL);
 	this->_playerName = playerName;
 	this->_win = win;
 	this->_active = active;
@@ -12,7 +12,7 @@ Player::Player(std::string playerName, bool win, bool active)
 
 Player::Player(const Player &obj)
 {
-	Log.log("Player", "Copy Constructor", CRITICAL);
+	Log log("Player", "Copy Constructor", CRITICAL);
 	this->_playerName = obj._playerName;
 	this->_win = obj._win;
 	this->_active = obj._active;
@@ -20,12 +20,12 @@ Player::Player(const Player &obj)
 
 Player::~Player()
 {
-	Log.log("Player", "Deconstructor", CRITICAL);
+	Log log("Player", "Deconstructor", CRITICAL);
 }
 
 Player &Player::operator =(const Player &obj)
 { 
-	Log.log("Player", "= Operator", CRITICAL);
+	Log log("Player", "= Operator", CRITICAL);
 	this->_playerName = obj._playerName;
 	this->_win = obj._win;
 	this->_active = obj._active;

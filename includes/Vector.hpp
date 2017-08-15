@@ -9,6 +9,7 @@ class Vector
 	public:
 		// Constructors & Destructors
 		Vector(double x, double y, double z, double dx, double dy, double dz);
+		Vector();
 		Vector(const Vector &obj);
 		~Vector();
 
@@ -32,6 +33,9 @@ class Vector
 		double	getDz();
 		
 		// Member Methods
+		void	proceedVector(int times);
+		void	reverseVector(int times);
+		void	inverseVector(int times);
 
 	private:
 		double	_x;

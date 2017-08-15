@@ -3,23 +3,23 @@
 //Constructors
 Obstacle::Obstacle()
 {
-	Log.log("Obstacle", "Constructor", CRITICAL);
+	Log log("Obstacle", "Constructor", CRITICAL);
 }
 
 
 Obstacle::Obstacle(const Obstacle &obj)
 {
-	Log.log("Obstacle", "Copy Constructor", CRITICAL);
+	Log log("Obstacle", "Copy Constructor", CRITICAL);
 }
 
 Obstacle::~Obstacle()
 {
-	Log.log("Obstacle", "Deconstructor", CRITICAL);
+	Log log("Obstacle", "Deconstructor", CRITICAL);
 }
 
 Obstacle &Obstacle::operator =(const Obstacle &obj)
 { 
-	Log.log("Obstacle", "= Operator", CRITICAL);
+	Log log("Obstacle", "= Operator", CRITICAL);
 	return *this; 
 }
 

@@ -3,7 +3,7 @@
 //Constructors
 Bomb::Bomb(double secondstodetonation, double spread)
 {
-	Log.log("Bomb", "Constructor", CRITICAL);
+	Log log("Bomb", "Constructor", CRITICAL);
 	this->_secondstodetonation = secondstodetonation;
 	this->_spread = spread;
 }
@@ -11,19 +11,19 @@ Bomb::Bomb(double secondstodetonation, double spread)
 
 Bomb::Bomb(const Bomb &obj)
 {
-	Log.log("Bomb", "Copy Constructor", CRITICAL);
+	Log log("Bomb", "Copy Constructor", CRITICAL);
 	this->_secondstodetonation = obj._secondstodetonation;
 	this->_spread = obj._spread;
 }
 
 Bomb::~Bomb()
 {
-	Log.log("Bomb", "Deconstructor", CRITICAL);
+	Log log("Bomb", "Deconstructor", CRITICAL);
 }
 
 Bomb &Bomb::operator =(const Bomb &obj)
 { 
-	Log.log("Bomb", "= Operator", CRITICAL);
+	Log log("Bomb", "= Operator", CRITICAL);
 	this->_secondstodetonation = obj._secondstodetonation;
 	this->_spread = obj._spread;
 	return *this; 
@@ -40,9 +40,11 @@ double	Bomb::getSpread() { return this->_spread; }
 // Methods
 void	Bomb::tick()
 {
+	
 }
 
-t_entityMap	Bomb::*reverseVector(t_entityMap entities)
+t_entityMap*	Bomb::reverseVector(t_entityMap entities)
 {
+	return new t_entityMap;
 }
 
