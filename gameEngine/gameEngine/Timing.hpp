@@ -2,22 +2,22 @@
 
 namespace gameEngine {
 
-    class FpsLimiter {
+	class FpsLimiter {
 
-        public:
-            FpsLimiter();
-            
-            void            setMaxFPS(float maxFPS);
-            void            init(float maxFPS);
-            void            beginFrame();
-            float           end();
+		public:
+			FpsLimiter();
+			
+			void			setMaxFPS(float maxFPS);
+			void			init(float maxFPS);
+			void			beginFrame();
+			float			end();
 
-        private:
-            void            calculateFPS();
+		private:
+			void			calculateFPS();
 
-            float           _maxFPS;
-            unsigned int    _startTicks;
-            float           _fps;
-            float           _frameTime;
-    };
+			float			_maxFPS;
+			unsigned int	_startTicks;
+			float			_fps;
+			float			_frameTime;
+	};
 }

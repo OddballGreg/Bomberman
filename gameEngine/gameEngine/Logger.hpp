@@ -20,12 +20,12 @@
 // # include "Direction.hpp"
 // # include "Coord.hpp"
 
-# define NONE        0
-# define CRITICAL    1
-# define IMPORTANT   2
-# define AVERAGE     3
-# define UNIMPORTANT 4
-# define ALL         5
+# define NONE			0
+# define CRITICAL		1
+# define IMPORTANT		2
+# define AVERAGE		3
+# define UNIMPORTANT	4
+# define ALL			5
 
 class Logger
 {
@@ -40,7 +40,7 @@ class Logger
 
 		// Setters
 		void setVerbosity(int verbosity);
-		
+
 		// Member Methods
 		void step_in();
 		void step_out();

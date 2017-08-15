@@ -6,24 +6,24 @@
 #include <string>
 
 namespace gameEngine {
-    class Sprite {
-        public:
+	class Sprite {
+		public:
 
-            Sprite();
-            ~Sprite();
+			Sprite();
+			~Sprite();
 
-            void init(float x, float y, float width, float height, std::string texturePath);
-            void draw();
-        
-        private:
+			void init(float x, float y, float width, float height, std::string texturePath);
+			void draw();
 
-            float _x;
-            float _y;
-            float _width;
-            float _height;
+		private:
 
-            GLuint _vboID; //vertex buffer id
+			float _x;
+			float _y;
+			float _width;
+			float _height;
 
-            GLTexture _texture;
-    };
+			GLuint _vboID; //vertex buffer id
+
+			GLTexture _texture;
+	};
 }

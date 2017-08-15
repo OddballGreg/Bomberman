@@ -4,77 +4,77 @@
 #include "Logger.hpp"
 
 gameEngine::Window::Window() {
-    // Log log("Window", "Window", CRITICAL);
+	// Log log("Window", "Window", CRITICAL);
 }
 
 gameEngine::Window::~Window() {
-    // Log log("Window", "~Window", CRITICAL);
+	// Log log("Window", "~Window", CRITICAL);
 }
 
 int gameEngine::Window::create(int width, int height, std::string windowName){
-    // Log log("Window", "create", CRITICAL);
-  
-    glWindow = glfwCreateWindow(width, height, windowName.c_str(), NULL, NULL);
-    
-    if (!glWindow) {
-        glfwTerminate();
-        exit(EXIT_FAILURE);
-    }
+	// Log log("Window", "create", CRITICAL);
 
-    glfwMakeContextCurrent(glWindow);
+	glWindow = glfwCreateWindow(width, height, windowName.c_str(), NULL, NULL);
 
-    glewExperimental = true;
-    GLenum glewError = glewInit();
+	if (!glWindow) {
+		glfwTerminate();
+		exit(EXIT_FAILURE);
+	}
 
-    if (glewError != GLEW_OK) {
-        printf("glew init error\n");
-    }
+	glfwMakeContextCurrent(glWindow);
 
-    if (!GLEW_VERSION_2_1) {
-        printf("opengl 2.1 not supported\n");
-        return false;
-    }
+	glewExperimental = true;
+	GLenum glewError = glewInit();
 
-    const GLubyte * p = glGetString(GL_VERSION);
-    std::cout << "Graphics Driver: " << p << std::endl;
+	if (glewError != GLEW_OK) {
+		printf("glew init error\n");
+	}
 
-    const GLubyte * q = glGetString(GL_SHADING_LANGUAGE_VERSION);
-    std::cout << "GLSL Version: " << q << std::endl;
+	if (!GLEW_VERSION_2_1) {
+		printf("opengl 2.1 not supported\n");
+		return false;
+	}
 
-    if (GLEW_ARB_vertex_array_object) {
-        printf("genVertexArrays supported\n");
-    }
-    if (GLEW_APPLE_vertex_array_object) {
-        printf("genVertexArrayAPPLE supported\n");
-    }
+	const GLubyte * p = glGetString(GL_VERSION);
+	std::cout << "Graphics Driver: " << p << std::endl;
 
-    GLuint vertexBuffer;
-    glGenBuffers(1, &vertexBuffer);
+	const GLubyte * q = glGetString(GL_SHADING_LANGUAGE_VERSION);
+	std::cout << "GLSL Version: " << q << std::endl;
 
-    std::printf("%u\n", vertexBuffer);
-    GLuint vertexArrayID;
+	if (GLEW_ARB_vertex_array_object) {
+		printf("genVertexArrays supported\n");
+	}
+	if (GLEW_APPLE_vertex_array_object) {
+		printf("genVertexArrayAPPLE supported\n");
+	}
 
-    glGenVertexArrays(1, &vertexArrayID);
-    glBindVertexArray(vertexArrayID);
+	GLuint vertexBuffer;
+	glGenBuffers(1, &vertexBuffer);
 
-    // enable alpha blending
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	std::printf("%u\n", vertexBuffer);
+	GLuint vertexArrayID;
 
-    return 0;
+	glGenVertexArrays(1, &vertexArrayID);
+	glBindVertexArray(vertexArrayID);
+
+	// enable alpha blending
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	return 0;
 }
 
 void gameEngine::Window::swapBuffer() {
-    // Log log("Window", "swapBuffer", CRITICAL);
-     glfwSwapBuffers(glWindow); 
+	// Log log("Window", "swapBuffer", CRITICAL);
+	 glfwSwapBuffers(glWindow);
 }
 
 int gameEngine::Window::getScreenWidth(){
-    // Log log("Window", "getScreenWidth", CRITICAL);
-    return _width;
+	// Log log("Window", "getScreenWidth", CRITICAL);
+	return _width;
 }
 
 int gameEngine::Window::getScreenHeight(){
-    // Log log("Window", "getScreenHeight", CRITICAL);
-    return _height;
+	// Log log("Window", "getScreenHeight", CRITICAL);
+	return _height;
 }
