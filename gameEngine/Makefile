@@ -30,10 +30,10 @@ OBJS = 	main.cpp  \
 CC = g++
 
 # INCLUDE_PATHS specifies the additional include paths we'll need
-INCLUDE_PATHS = -I ~/.brew/Cellar/glfw/3.2.1/include -I ~/.brew/Cellar/glew/2.0.0/include
+INCLUDE_PATHS = -I ~/.brew/Cellar/glfw/3.2.1/include -I ~/.brew/Cellar/glew/2.0.0/include -I ~/.brew/Cellar/glew/2.1.0/include/
 INCLUDE_PATHS += -I ~/.brew/Cellar/glm/0.9.8.4/include
 # LIBRARY_PATHS specifies the additional library paths we'll need
-LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib -L ~/.brew/Cellar/glew/2.0.0/lib
+LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib -L ~/.brew/Cellar/glew/2.0.0/lib -L ~/.brew/Cellar/glew/2.1.0/lib
 
 # COMPILER_FLAGS specifies the additional compilation options we're using
 # -w suppresses all warnings

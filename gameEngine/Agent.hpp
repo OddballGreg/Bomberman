@@ -24,11 +24,11 @@ class Agent {
         bool                applyDamage(float damage);
         
         glm::vec2           getPosition() const;
-    
+
     protected:
 
         void                checkTilePosition(const std::vector<std::string>& levelData, std::vector<glm::vec2>& collideTilePosition, float x, float y);
-        
+
         void                collideWithTile(glm::vec2 tilePos);
         float               _health;
         glm::vec2           _position;
