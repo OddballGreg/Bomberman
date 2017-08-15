@@ -1,13 +1,14 @@
 #ifndef WALL_HPP
 # define WALL_HPP
 
-# include "Wall.hpp"
+# include "../includes/Log.hpp"
+
 
 class Wall
 {
 	public:
 		// Constructors & Destructors
-		Wall(double radius);
+		Wall();
 		Wall(const Wall &obj);
 		~Wall();
 

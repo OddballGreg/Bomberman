@@ -17,23 +17,23 @@
 
 Logger::Logger(std::string filename, int verbosity)
 {
-	_log_lock         = PTHREAD_MUTEX_INITIALIZER;
-	this->_logfile    = new std::ofstream(filename, std::ofstream::out | std::ofstream::app);
-	this->_verbosity  = verbosity;
-	this->_depth      = 0;
-	this->_buffer     = "";
-	this->_printCount = 0;
+	_log_lock			= PTHREAD_MUTEX_INITIALIZER;
+	this->_logfile		= new std::ofstream(filename, std::ofstream::out | std::ofstream::app);
+	this->_verbosity	= verbosity;
+	this->_depth		= 0;
+	this->_buffer		= "";
+	this->_printCount	= 0;
 	// if (this->_verbosity >= CRITICAL)
 		*this->_logfile << std::endl << std::endl << "<----- |Logger|-----> Instantiated" << std::endl;
 }
 
 Logger::Logger(const Logger &obj)
 {
-	this->_logfile    = obj._logfile;
-	this->_verbosity  = obj._verbosity;
-	this->_depth      = obj._depth;
-	this->_buffer     = obj._buffer;
-	this->_printCount = obj._printCount;
+	this->_logfile		= obj._logfile;
+	this->_verbosity	= obj._verbosity;
+	this->_depth		= obj._depth;
+	this->_buffer		= obj._buffer;
+	this->_printCount	= obj._printCount;
 }
 
 Logger::~Logger()
@@ -45,11 +45,11 @@ Logger::~Logger()
 
 Logger &Logger::operator =(const Logger &obj)
 {
-	this->_logfile    = obj._logfile;
-	this->_verbosity  = obj._verbosity;
-	this->_depth      = obj._depth;
-	this->_buffer     = obj._buffer;
-	this->_printCount = obj._printCount;
+	this->_logfile		= obj._logfile;
+	this->_verbosity	= obj._verbosity;
+	this->_depth		= obj._depth;
+	this->_buffer		= obj._buffer;
+	this->_printCount	= obj._printCount;
 	return *this;
 }
 
@@ -61,27 +61,27 @@ void Logger::step_in(){this->_depth++;}
 void Logger::step_out(){this->_depth--;}
 
 void Logger::log(std::string message, int verbosity)
-{	
+{
 	if (verbosity > this->_verbosity) return;
 	this->tracked_print(message);
 }
 
 void Logger::log_step_in(std::string message, int verbosity)
-{	
+{
 	if (verbosity > this->_verbosity) return;
 	this->_depth += 1;
 	this->tracked_print(message);
 }
 
 void Logger::log_step_out(std::string message, int verbosity)
-{	
+{
 	if (verbosity > this->_verbosity) return;
 	this->tracked_print(message);
 	this->_depth -= 1;
 }
 
 void Logger::log(std::string message, int depth_step, int verbosity)
-{	
+{
 	if (verbosity > this->_verbosity) return;
 	if (depth_step > 0) this->_depth += 1;
 	this->tracked_print(message);
@@ -89,7 +89,7 @@ void Logger::log(std::string message, int depth_step, int verbosity)
 }
 
 void Logger::die(std::string message, int verbosity)
-{	
+{
 	if (verbosity > this->_verbosity) return;
 	this->tracked_print(message);
 	exit(1);
@@ -98,7 +98,7 @@ void Logger::die(std::string message, int verbosity)
 // Special Overloads
 /*
 void Logger::log(std::string message, Coord coord, int verbosity)
-{	
+{
 	if (verbosity > this->_verbosity)
 		return;
 	pthread_mutex_lock(&this->_log_lock);
@@ -110,7 +110,7 @@ void Logger::log(std::string message, Coord coord, int verbosity)
 }
 
 void Logger::log(std::string message, Direction direction, int verbosity)
-{	
+{
 	if (verbosity > this->_verbosity)
 		return;
 	pthread_mutex_lock(&this->_log_lock);
@@ -123,7 +123,7 @@ void Logger::log(std::string message, Direction direction, int verbosity)
 */
 
 void Logger::log_num(std::string message, int num, int verbosity)
-{	
+{
 	if (verbosity > this->_verbosity)
 		return;
 	pthread_mutex_lock(&this->_log_lock);

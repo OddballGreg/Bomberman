@@ -3,12 +3,12 @@
 #include <glm/glm.hpp>
 
 int main(int argc, char **argv) {
-    mainGame game;
+	mainGame game;
 
-    game.run();
+	game.run();
 
-    // std::cout << "Test window: press a key to exit";
-    // int a;
-    // std::cin >> a;
-    return 0;
+	// std::cout << "Test window: press a key to exit";
+	// int a;
+	// std::cin >> a;
+	return 0;
 }

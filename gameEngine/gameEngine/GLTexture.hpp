@@ -4,8 +4,8 @@
 
 namespace gameEngine {
 	struct GLTexture {
-    	GLuint  id;
-    	int     width;
-    	int     height;
+		GLuint	id;
+		int		width;
+		int		height;
 	};
 }

@@ -4,6 +4,6 @@
 #include <iostream>
 
 class FatalError {
-    public:
-        void fatalError(std::string errorString);
+	public:
+		void fatalError(std::string errorString);
 };

@@ -14,74 +14,74 @@
 class Zombie;
 
 enum class GameState {
-    PLAY,
-    EXIT
+	PLAY,
+	EXIT
 };
 
 class MainGame
 {
 public:
-    MainGame();
-    ~MainGame();
+	MainGame();
+	~MainGame();
 
-    /// Runs the game
-    void run();
-
-private:
-    /// Initializes the core systems
-    void initSystems();
-    void initLevel();
-    /// Initializes the shaders
-    void initShaders();
-    void addGun(Gun* gun);
-
-    /// Main game loop for the program
-    void gameLoop();
-
-    void updateAgents();
-    void updateBullets();
-
-    /// Handles input processing
-    void processInput();
-    /// Renders the game
-    void drawGame();
-
-    static void cursorPositionCallback(GLFWwindow *window, double xPos, double yPos);
-    static void cursorEnterCallback(GLFWwindow *window, int entered);
-    static void mouseButtonCallback(GLFWwindow *window, int button, int action, int mods);
+	/// Runs the game
+	void run();
 
 private:
+	/// Initializes the core systems
+	void initSystems();
+	void initLevel();
+	/// Initializes the shaders
+	void initShaders();
+	void addGun(Gun* gun);
 
-    std::vector<Bullet>         _bullets;
-    std::vector<Bomb>           _bombs;
-    int                         _width;
-    int                         _height;
+	/// Main game loop for the program
+	void gameLoop();
 
-    double                      _xPos;
-    double                      _yPos;
-    int                         _mouseLeft;
-    int                         _mouseRight;
+	void updateAgents();
+	void updateBullets();
 
-    int                         _fps;
-    int                         _currentLevel;
-    int                         _currentGunIndex;
-    
-    /// Member Variables
-    gameEngine::Window          _window; ///< The game window
-	gameEngine::GLSLProgram     _textureProgram; ///< The shader program
-	gameEngine::InputManager    _inputManager; ///< Handles input
-    gameEngine::Camera2D        _camera; ///< Main Camera
+	/// Handles input processing
+	void processInput();
+	/// Renders the game
+	void drawGame();
 
-    std::vector<Level*>         _levels;
-    GameState                   _gameState;
+	static void cursorPositionCallback(GLFWwindow *window, double xPos, double yPos);
+	static void cursorEnterCallback(GLFWwindow *window, int entered);
+	static void mouseButtonCallback(GLFWwindow *window, int button, int action, int mods);
 
-    Player*                     _player;
-    std::vector<Human*>         _humans;
-    std::vector<Zombie*>        _zombies;
-    std::vector<Gun*>           _guns;
-    // std::vector<Bullet>const    _bullets;
+private:
 
-    gameEngine::SpriteBatch     _agentSpriteBatch;
+	std::vector<Bullet>			_bullets;
+	std::vector<Bomb>			_bombs;
+	int							_width;
+	int							_height;
+
+	double						_xPos;
+	double						_yPos;
+	int							_mouseLeft;
+	int							_mouseRight;
+
+	int							_fps;
+	int							_currentLevel;
+	int							_currentGunIndex;
+
+	/// Member Variables
+	gameEngine::Window			_window; ///< The game window
+	gameEngine::GLSLProgram		_textureProgram; ///< The shader program
+	gameEngine::InputManager	_inputManager; ///< Handles input
+	gameEngine::Camera2D		_camera; ///< Main Camera
+
+	std::vector<Level*>			_levels;
+	GameState					_gameState;
+
+	Player*						_player;
+	std::vector<Human*>			_humans;
+	std::vector<Zombie*>		_zombies;
+	std::vector<Gun*>			_guns;
+	// std::vector<Bullet>const	_bullets;
+
+	gameEngine::SpriteBatch		_agentSpriteBatch;
 
 };
 

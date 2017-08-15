@@ -1,7 +1,9 @@
 #ifndef OPPONENT_HPP
 # define OPPONENT_HPP
 
-# include "Opponent.hpp"
+# include "../includes/Log.hpp"
+# include "../includes/Gamestate.hpp"
+
 
 class Opponent
 {
@@ -19,7 +21,6 @@ class Opponent
 		// Getters
 		
 		// Member Methods
-		void	runAI(t_entityMap entities);
 
 	private:
 };

@@ -1,43 +1,50 @@
 #include "Bomb.hpp" 
 
 //Constructors
-Bomb::Bomb(double SecondsToDetonation, double spread)
+Bomb::Bomb(double secondstodetonation, double spread)
 {
-	this->_SecondsToDetonation = SecondsToDetonation;
+	Log log("Bomb", "Constructor", CRITICAL);
+	this->_secondstodetonation = secondstodetonation;
 	this->_spread = spread;
 }
 
+
 Bomb::Bomb(const Bomb &obj)
 {
-	this->_SecondsToDetonation = obj.SecondsToDetonation;
-	this->_spread = obj.spread;
+	Log log("Bomb", "Copy Constructor", CRITICAL);
+	this->_secondstodetonation = obj._secondstodetonation;
+	this->_spread = obj._spread;
 }
 
-Bomb::~Bomb(){}
+Bomb::~Bomb()
+{
+	Log log("Bomb", "Deconstructor", CRITICAL);
+}
 
 Bomb &Bomb::operator =(const Bomb &obj)
 { 
-	this->_SecondsToDetonation = obj.SecondsToDetonation;
-	this->_spread = obj.spread;
+	Log log("Bomb", "= Operator", CRITICAL);
+	this->_secondstodetonation = obj._secondstodetonation;
+	this->_spread = obj._spread;
 	return *this; 
 }
 
 // Setters
-void	Bomb::setSecondstodetonation(double SecondsToDetonation) { this->_SecondsToDetonation = SecondsToDetonation; }
+void	Bomb::setSecondstodetonation(double secondstodetonation) { this->_secondstodetonation = secondstodetonation; }
 void	Bomb::setSpread(double spread) { this->_spread = spread; }
 
 // Getters
-double	Bomb::getSecondstodetonation() { return this->_SecondsToDetonation; }
+double	Bomb::getSecondstodetonation() { return this->_secondstodetonation; }
 double	Bomb::getSpread() { return this->_spread; }
 
 // Methods
 void	Bomb::tick()
 {
-
+	
 }
 
-t_entityMap	Bomb::*detonate(t_entityMap entities)
+t_entityMap*	Bomb::reverseVector(t_entityMap entities)
 {
-
+	return new t_entityMap;
 }
 

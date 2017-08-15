@@ -9,26 +9,26 @@
 namespace gameEngine {
 	class GLSLProgram {
 
-    	public:
-        	GLSLProgram();
-        	~GLSLProgram();
+		public:
+			GLSLProgram();
+			~GLSLProgram();
 
-        	void    compileShaders(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
-        	void    linkShaders();
-        	void    addAttribute(const std::string& attributeName);
+			void	compileShaders(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
+			void	linkShaders();
+			void	addAttribute(const std::string& attributeName);
 
-        	GLint   getUniformLocation(const std::string& uniformName);
+			GLint   getUniformLocation(const std::string& uniformName);
 
-        	void    use();
-        	void    unUse();
-    
-    	private:
+			void	use();
+			void	unUse();
 
-        	void    compileShader(const std::string& filePath, GLuint id);
-        
-        	GLuint  _programID;
-        	GLuint  _vertexShaderID;
-        	GLuint  _fragmentShaderID;
-        	int     _numAttributes;
+		private:
+
+			void	compileShader(const std::string& filePath, GLuint id);
+
+			GLuint	_programID;
+			GLuint	_vertexShaderID;
+			GLuint	_fragmentShaderID;
+			int		_numAttributes;
 	};
 }

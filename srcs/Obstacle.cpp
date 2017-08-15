@@ -1,28 +1,30 @@
 #include "Obstacle.hpp" 
 
 //Constructors
-Obstacle::Obstacle(double radius)
+Obstacle::Obstacle()
 {
-	this->_radius = radius;
+	Log log("Obstacle", "Constructor", CRITICAL);
 }
+
 
 Obstacle::Obstacle(const Obstacle &obj)
 {
-	this->_radius = obj.radius;
+	Log log("Obstacle", "Copy Constructor", CRITICAL);
 }
 
-Obstacle::~Obstacle(){}
+Obstacle::~Obstacle()
+{
+	Log log("Obstacle", "Deconstructor", CRITICAL);
+}
 
 Obstacle &Obstacle::operator =(const Obstacle &obj)
 { 
-	this->_radius = obj.radius;
+	Log log("Obstacle", "= Operator", CRITICAL);
 	return *this; 
 }
 
 // Setters
-void	Obstacle::setRadius(double radius) { this->_radius = radius; }
 
 // Getters
-double	Obstacle::getRadius() { return this->_radius; }
 
 // Methods

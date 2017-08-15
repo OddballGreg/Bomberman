@@ -9,8 +9,8 @@ SRCS_NAME =		bomberman.cpp \
 				Obstacle.cpp \
 				Logger.cpp \
 				Log.cpp \
-				IEntity.cpp \
-				ICharacter.cpp \
+				Entity.cpp \
+				Character.cpp \
 				Gamestate.cpp \
 				Explosion.cpp \
 				Bomb.cpp \
@@ -24,8 +24,8 @@ HEADER_NAMES =	bomberman.hpp \
 				Obstacle.hpp \
 				Logger.hpp \
 				Log.hpp \
-				IEntity.hpp \
-				ICharacter.hpp \
+				Entity.hpp \
+				Character.hpp \
 				Gamestate.hpp \
 				Explosion.hpp \
 				Bomb.hpp \
@@ -39,12 +39,9 @@ endif
 CFLAGS =	-std=c++14 -O3
 
 ifeq ($(SYS), OSX) 
-
 CFLAGS2 = 	-O3 
 else
-
 CFLAGS2 =	-O3
-
 endif
 
 CC = g++
@@ -62,22 +59,14 @@ OBJS_NAME = $(SRCS_NAME:.cpp=.o)
 OBJS = $(addprefix $(OBJS_PATH), $(OBJS_NAME))
 
 ifeq ($(SYS), OSX)
-
-LIBRARY = 
- 
 INCLUDES = -I includes/
-
 else
-
-LIBRARY = 
-
 INCLUDES = -I includes/
-
 endif
 
 HEADER = $(addprefix $(INCLUDES_PATH), $(HEADER_NAMES))
 
-all: qme odir $(NAME)
+all: ruppie qme odir $(NAME)
 
 define colourecho
 	@tput setaf 14
@@ -94,7 +83,7 @@ endef
 $(NAME): $(OBJS)
 	@$(call colourecho, " - Making $(NAME)")
 	@clear
-	@$(CC) $(CFLAGS2) -o $(NAME) $^ $(LIBRARY) $(INCLUDES) -I$(INCLUDES_PATH)
+	@$(CC) $(CFLAGS2) -o $(NAME) $^ $(INCLUDES) -I$(INCLUDES_PATH)
 	@clear
 	@$(call colourecho, "Make Done!")
 
@@ -102,6 +91,9 @@ $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
 	@$(call colourecho, " - Compiling $<")
 	@$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $< -I$(INCLUDES_PATH)
 	@$(call colourecho, "Compiling Done!")
+
+ruppie:
+	@ruby RuPPie/ClassGenerator.rb -f
 
 odir:
 	@mkdir -p $(OBJS_PATH)
