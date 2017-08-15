@@ -99,7 +99,7 @@ $(NAME): $(OBJS)
 	@$(call colourecho, "Make Done!")
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
-	./cpp_class_generator/ClassGenerator.rb
+	./RuPPie/ClassGenerator.rb
 	@$(call colourecho, " - Compiling $<")
 	@$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $< -I$(INCLUDES_PATH)
 	@$(call colourecho, "Compiling Done!")
