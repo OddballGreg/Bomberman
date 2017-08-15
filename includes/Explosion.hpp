@@ -19,7 +19,7 @@ class Explosion
 
 		// Getters
 		double	getDuration();
-		
+
 		// Member Methods
 		void	tick();
 

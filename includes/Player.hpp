@@ -23,7 +23,7 @@ class Player
 		std::string	getPlayername();
 		bool		getWin();
 		bool		getActive();
-		
+
 		// Member Methods
 
 	private:

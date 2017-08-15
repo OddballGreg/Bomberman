@@ -17,7 +17,7 @@ class Wall
 		// Setters
 
 		// Getters
-		
+
 		// Member Methods
 
 	private:

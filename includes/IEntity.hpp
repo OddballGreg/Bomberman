@@ -31,7 +31,7 @@ class IEntity
 		std::string	getSprite();
 		double		getCollisionRadius();
 		bool		getCollideable();
-		
+
 		// Member Methods
 		void		move();
 		void		die();

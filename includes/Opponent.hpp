@@ -17,7 +17,7 @@ class Opponent
 		// Setters
 
 		// Getters
-		
+
 		// Member Methods
 		void	runAI(t_entityMap entities);
 

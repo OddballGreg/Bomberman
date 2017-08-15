@@ -2,5 +2,5 @@
 #include <string>
 
 void FatalError::fatalError(std::string errorString) {
-    std::cout << errorString << std::endl;
+	std::cout << errorString << std::endl;
 }

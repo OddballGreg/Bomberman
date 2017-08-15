@@ -17,12 +17,12 @@
 // # include "Coord.hpp"
 # include "Logger.hpp"
 
-# define NONE        0
-# define CRITICAL    1
-# define IMPORTANT   2
-# define AVERAGE     3
-# define UNIMPORTANT 4
-# define ALL         5
+# define NONE			0
+# define CRITICAL		1
+# define IMPORTANT		2
+# define AVERAGE		3
+# define UNIMPORTANT	4
+# define ALL			5
 
 class Log
 {
@@ -37,7 +37,7 @@ class Log
 
 		// Setters
 		void setVerbosity(int verbosity);
-		
+
 		// Member Methods
 		void log(std::string message, int verbosity);
 		void log(std::string message, int depth_step, int verbosity);
@@ -48,10 +48,10 @@ class Log
 		void die(std::string message, int verbosity);
 
 	private:
-		int         _verbosity;
+		int			_verbosity;
 		int 		_calls;
-		std::string _class;
-		std::string _function;
+		std::string	_class;
+		std::string	_function;
 };
 
 #endif

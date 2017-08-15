@@ -25,53 +25,53 @@
 #include <cmath>
 
 enum class gameState {
-    PLAY,
-    EXIT
+	PLAY,
+	EXIT
 };
 
 class mainGame {
-    public:
-        mainGame();
-        ~mainGame();
+	public:
+		mainGame();
+		~mainGame();
 
-        void run();
-    
-    private:
+		void run();
 
-        bool        initSystems();
-        void        initShaders();
-        // void        drawTriangle();
-        void        render();
-        // GLFWwindow * window;
-        gameEngine::Window      window;
-        
-        int         _width;
-        int         _height;
-        void        gameLoop();
-        void        processInput();
-        void        drawGame();
-        static void cursorPositionCallback(GLFWwindow *window, double xPos, double yPos);
-        static void cursorEnterCallback(GLFWwindow *window, int entered);
-        static void mouseButtonCallback(GLFWwindow *window, int button, int action, int mods);
-        
-        gameState   _gameState;
+	private:
 
-        gameEngine::GLSLProgram     _colourProgram;
-        gameEngine::Camera2D        _camera;
-        gameEngine::SpriteBatch     _spriteBatch;
-        gameEngine::InputManager    _inputManager;
-        gameEngine::FpsLimiter      _fpsLimiter;
-        std::vector<Bullet>         _bullets;
-        std::vector<Bomb>           _bombs;
+		bool		initSystems();
+		void		initShaders();
+		// void		drawTriangle();
+		void		render();
+		// GLFWwindow * window;
+		gameEngine::Window	  window;
 
-        float                       _time;
-        float                       _fps;
-        float                       _maxFPS;
+		int			_width;
+		int			_height;
+		void		gameLoop();
+		void		processInput();
+		void		drawGame();
+		static void	cursorPositionCallback(GLFWwindow *window, double xPos, double yPos);
+		static void	cursorEnterCallback(GLFWwindow *window, int entered);
+		static void	mouseButtonCallback(GLFWwindow *window, int button, int action, int mods);
 
-        double                      _xPos;
-        double                      _yPos;
-        int                         _mouseLeft;
-        int                         _mouseRight;
+		gameState	_gameState;
+
+		gameEngine::GLSLProgram		_colourProgram;
+		gameEngine::Camera2D		_camera;
+		gameEngine::SpriteBatch		_spriteBatch;
+		gameEngine::InputManager	_inputManager;
+		gameEngine::FpsLimiter		_fpsLimiter;
+		std::vector<Bullet>			_bullets;
+		std::vector<Bomb>			_bombs;
+
+		float						_time;
+		float						_fps;
+		float						_maxFPS;
+
+		double						_xPos;
+		double						_yPos;
+		int							_mouseLeft;
+		int							_mouseRight;
 };
 
 #endif

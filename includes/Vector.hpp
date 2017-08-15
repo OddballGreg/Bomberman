@@ -20,21 +20,21 @@ class Vector
 		Vector&		operator =(const Vector &obj);
 
 		// Setters
-		double		setX(); 
-		double		setY(); 
-		double		setZ(); 
-		double		setDeltaX(); 
-		double		setDeltaY(); 
-		double		setDeltaZ(); 
+		double		setX();
+		double		setY();
+		double		setZ();
+		double		setDeltaX();
+		double		setDeltaY();
+		double		setDeltaZ();
 
 		// Getters
-		double		getX(); 
-		double		getY(); 
-		double		getZ(); 
-		double		getDeltaX(); 
-		double		getDeltaY(); 
-		double		getDeltaZ(); 
-		
+		double		getX();
+		double		getY();
+		double		getZ();
+		double		getDeltaX();
+		double		getDeltaY();
+		double		getDeltaZ();
+
 		// Member Methods
 		void		proceedVector(int times);
 		void		reverseVector(int times);

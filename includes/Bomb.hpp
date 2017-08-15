@@ -15,20 +15,20 @@ class Bomb
 		Bomb&		operator =(const Bomb &obj);
 
 		// Setters
-		void	setSecondstodetonation(double SecondsToDetonation);
-		void	setSpread(double spread);
+		void		setSecondstodetonation(double SecondsToDetonation);
+		void		setSpread(double spread);
 
 		// Getters
-		double	getSecondstodetonation();
-		double	getSpread();
-		
+		double		getSecondstodetonation();
+		double		getSpread();
+
 		// Member Methods
-		void	tick();
+		void		tick();
 		t_entityMap	*detonate(t_entityMap entities);
 
 	private:
-		double	_Secondstodetonation;
-		double	_Spread;
+		double		_Secondstodetonation;
+		double		_Spread;
 };
 
 #endif

@@ -19,7 +19,7 @@ class Powerup
 
 		// Getters
 		double	getValue();
-		
+
 		// Member Methods
 		bool	applyPowerup(IEntity target);
 

@@ -20,12 +20,12 @@
 // # include "Direction.hpp"
 // # include "Coord.hpp"
 
-# define NONE        0
-# define CRITICAL    1
-# define IMPORTANT   2
-# define AVERAGE     3
-# define UNIMPORTANT 4
-# define ALL         5
+# define NONE			0
+# define CRITICAL		1
+# define IMPORTANT		2
+# define AVERAGE		3
+# define UNIMPORTANT	4
+# define ALL			5
 
 class Logger
 {
@@ -40,7 +40,7 @@ class Logger
 
 		// Setters
 		void setVerbosity(int verbosity);
-		
+
 		// Member Methods
 		void step_in();
 		void step_out();
@@ -55,17 +55,17 @@ class Logger
 
 	private:
 		pthread_mutex_t _log_lock;
-		int  			_verbosity;
-		int  			_depth;
-		std::string 	_buffer;
-		int  			_printCount;
-		std::ofstream* 	_logfile;
+		int				_verbosity;
+		int				_depth;
+		std::string		_buffer;
+		int				_printCount;
+		std::ofstream*	_logfile;
 
-		void tracked_print(std::string message);
-		void print_indent();
-		void print(std::string message);
-		void puts(std::string message);
-		void printEndl();
+		void	tracked_print(std::string message);
+		void	print_indent();
+		void	print(std::string message);
+		void	puts(std::string message);
+		void	printEndl();
 };
 
 # ifdef LOGGER_GLOBAL

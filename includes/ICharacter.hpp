@@ -29,7 +29,7 @@ class ICharacter
 		double	getBombs();
 		double	getMax_health();
 		double	getMax_bombs();
-		
+
 		// Member Methods
 		void	move_north();
 		void	move_east();

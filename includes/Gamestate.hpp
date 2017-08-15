@@ -19,8 +19,8 @@ class Gamestate
 		// Setters
 
 		// Getters
-		t_entityMap		getEntities(); 
-		
+		t_entityMap		getEntities();
+
 		// Member Methods
 		void			spawnPlayer(Vector pos);
 		void			spawnOpponent(Vector pos);

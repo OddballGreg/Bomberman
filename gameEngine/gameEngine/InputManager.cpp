@@ -10,59 +10,59 @@ gameEngine::InputManager::~InputManager()
 }
 
 void gameEngine::InputManager::update() {
-    // Loop through _keyMap using a for each loop, and copy it over to _previousKeyMap
-    for (auto& it : _keyMap) {
-        _previousKeyMap[it.first] = it.second;
-    }
+	// Loop through _keyMap using a for each loop, and copy it over to _previousKeyMap
+	for (auto& it : _keyMap) {
+		_previousKeyMap[it.first] = it.second;
+	}
 }
 
 void gameEngine::InputManager::pressKey(unsigned int keyID) {
-    // Here we are treating _keyMap as an associative array.
-    // if keyID doesn't already exist in _keyMap, it will get added
-    _keyMap[keyID] = true;
+	// Here we are treating _keyMap as an associative array.
+	// if keyID doesn't already exist in _keyMap, it will get added
+	_keyMap[keyID] = true;
 }
 
 void gameEngine::InputManager::releaseKey(unsigned int keyID) {
-    _keyMap[keyID] = false;
+	_keyMap[keyID] = false;
 }
 
 void gameEngine::InputManager::setMouseCoords(float x, float y) {
-    _mouseCoords.x = x;
-    _mouseCoords.y = y;
+	_mouseCoords.x = x;
+	_mouseCoords.y = y;
 }
 
 bool gameEngine::InputManager::isKeyDown(unsigned int keyID) {
-    // We dont want to use the associative array approach here
-    // because we don't want to create a key if it doesnt exist.
-    // So we do it manually
-    auto it = _keyMap.find(keyID);
-    if (it != _keyMap.end()) {
-        // Found the key
-        return it->second;
-    } else {
-        // Didn't find the key
-        return false;
-    }
+	// We dont want to use the associative array approach here
+	// because we don't want to create a key if it doesnt exist.
+	// So we do it manually
+	auto it = _keyMap.find(keyID);
+	if (it != _keyMap.end()) {
+		// Found the key
+		return it->second;
+	} else {
+		// Didn't find the key
+		return false;
+	}
 }
 
 bool gameEngine::InputManager::isKeyPressed(unsigned int keyID) {
-    // Check if it is pressed this frame, and wasn't pressed last frame
-    if (isKeyDown(keyID) == true && wasKeyDown(keyID) == false) {
-        return true;
-    }
-    return false;
+	// Check if it is pressed this frame, and wasn't pressed last frame
+	if (isKeyDown(keyID) == true && wasKeyDown(keyID) == false) {
+		return true;
+	}
+	return false;
 }
 
 bool gameEngine::InputManager::wasKeyDown(unsigned int keyID) {
-    // We dont want to use the associative array approach here
-    // because we don't want to create a key if it doesnt exist.
-    // So we do it manually
-    auto it = _previousKeyMap.find(keyID);
-    if (it != _previousKeyMap.end()) {
-        // Found the key
-        return it->second;
-    } else {
-        // Didn't find the key
-        return false;
-    }
+	// We dont want to use the associative array approach here
+	// because we don't want to create a key if it doesnt exist.
+	// So we do it manually
+	auto it = _previousKeyMap.find(keyID);
+	if (it != _previousKeyMap.end()) {
+		// Found the key
+		return it->second;
+	} else {
+		// Didn't find the key
+		return false;
+	}
 }

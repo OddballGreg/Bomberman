@@ -19,7 +19,7 @@ class Obstacle
 
 		// Getters
 		double	getRadius();
-		
+
 		// Member Methods
 
 	private:
