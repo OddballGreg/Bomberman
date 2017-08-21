@@ -53,13 +53,14 @@ LINKER_FLAGS = -framework SDL2 -framework Cocoa -framework OpenGL -framework IOK
 
 else
 
-INCLUDE_PATHS = -I /usr/include/GLFW -I /usr/include/GL -I /usr/include/GLES3
-INCLUDE_PATHS += -I /usr/include/X11 -I /usr/include/glm
-LIBRARY_PATHS = -L /usr/lib/x86_64-linux-gnu
+INCLUDE_PATHS = -I /usr/include/GLFW -I /usr/include/GL \
+								-I /usr/include/X11 -I /usr/include/glm
+LIBRARY_PATHS = -L /usr/lib/x86_64-linux-gnu/libGLU.so \
+								-L /usr/lib/x86_64-linux-gnu/libGL.so \
+								-L /usr/lib/x86_64-linux-gnu/libGLESv2.so \
+								-L /usr/lib/x86_64-linux-gnu/libglfw.so
 COMPILER_FLAGS = -w -std=c++11
-LINKER_FLAGS = -lGLEW -lGLU -lGL -lGLESv2 -lglfw -lm -lXrandr
-LINKER_FLAGS += -lXi -lX11 -lXxf86vm -lpthread
-LINKER_FLAGS += `sdl2-config --cflags --libs`
+LINKER_FLAGS = -lglfw -lGLU -lGLEW -lGL -lGLESv2 -lm `sdl2-config --cflags --libs`
 
 endif
 

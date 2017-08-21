@@ -1,6 +1,3 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 #if ((uname -s), Darwin) 
 	#include <OpenGL/gl3.h>
 #else
@@ -8,6 +5,8 @@
 	#include <GLES3/gl3.h>
 #endif
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 #include "Log.hpp"
 #include "Logger.hpp"
