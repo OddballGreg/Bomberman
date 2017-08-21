@@ -1,3 +1,9 @@
+ifeq ($(shell uname -s), Darwin) # Changes rules for MAC and Linux
+SYS = OSX
+elseif
+SYS = LINUX
+endif
+
 # OBJS specifies which files to compile as part of the project
 OBJS = 	main.cpp  \
 		mainGame.cpp \
@@ -29,6 +35,8 @@ OBJS = 	main.cpp  \
 # CC specifies which compiler we're using
 CC = g++
 
+ifeq ($(SYS), OSX) 
+
 # INCLUDE_PATHS specifies the additional include paths we'll need
 INCLUDE_PATHS = -I ~/.brew/Cellar/glfw/3.2.1/include -I ~/.brew/Cellar/glew/2.0.0/include -I ~/.brew/Cellar/glew/2.1.0/include/
 INCLUDE_PATHS += -I ~/.brew/Cellar/glm/0.9.8.4/include
@@ -42,6 +50,19 @@ COMPILER_FLAGS = -w -std=c++11 -stdlib=libc++
 # LINKER_FLAGS specifies the libraries we're linking against
 # Cocoa, IOKit, and CoreVideo are needed for static GLFW3.
 LINKER_FLAGS = -framework SDL2 -framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lglfw -lGLEW
+
+else
+
+INCLUDE_PATHS = -I /usr/include/GLFW -I /usr/include/GL -I /usr/include/GLES3
+INCLUDE_PATHS += -I /usr/include/X11 -I /usr/include/glm
+LIBRARY_PATHS = -L /usr/lib/x86_64-linux-gnu
+COMPILER_FLAGS = -w -std=c++11
+LINKER_FLAGS = -lGLEW -lGLU -lGL -lGLESv2 -lglfw -lm -lXrandr
+LINKER_FLAGS += -lXi -lX11 -lXxf86vm -lpthread
+LINKER_FLAGS += `sdl2-config --cflags --libs`
+
+endif
+
 
 # OBJ_NAME specifies the name of our exectuable
 OBJ_NAME = game

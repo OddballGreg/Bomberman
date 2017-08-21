@@ -3,8 +3,13 @@
 #include "gameEngine/InputManager.hpp"
 #include "gameEngine/Camera2D.hpp"
 
+#if ((uname -s), Darwin) 
+	#include <OpenGL/gl3.h>
+#else
+	#include <GLES3/gl3.h>
+#endif
+
 #include <GL/glew.h>
-#include <OpenGL/gl3.h>
 #include <GLFW/glfw3.h>
 
 #include "Human.hpp"

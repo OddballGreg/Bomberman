@@ -1,10 +1,17 @@
 #pragma once
+
+#if ((uname -s), Darwin) 
+	#include <OpenGL/gl3.h>
+#else
+	#define GLFW_INCLUDE_ES2
+	#include <GLES3/gl3.h>
+#endif
+
 #include <string>
 #include <fstream>
 #include <vector>
 #include <iostream>
 #include <GL/glew.h>
-#include <OpenGL/gl3.h>
 
 namespace gameEngine {
 	class GLSLProgram {
