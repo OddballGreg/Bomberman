@@ -1,7 +1,13 @@
 #include "Timing.hpp"
 
+#if ((uname -s), Darwin) 
+	#include <OpenGL/gl3.h>
+#else
+	#define GLFW_INCLUDE_ES2
+	#include <GLES3/gl3.h>
+#endif
+
 #include <GL/glew.h>
-#include <OpenGL/gl3.h>
 #include <GLFW/glfw3.h>
 #include <SDL2/SDL.h>
 
@@ -26,8 +32,8 @@ float gameEngine::FpsLimiter::end() {
 
 	float frameTicks = glfwGetTime() - _startTicks;
 		if (1.0f / _maxFPS > frameTicks) {
-			// usleep(1.0f / _maxFPS - frameTicks);
-			SDL_Delay((Uint32)(1000.0f / _maxFPS - frameTicks));
+			system("usleep(1.0f)");
+			//SDL_Delay((Uint32)(1000.0f / _maxFPS - frameTicks));
 		}
 	return _fps;
 }
