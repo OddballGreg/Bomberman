@@ -1,8 +1,6 @@
 #ifndef MAIN_COMPONENT_H
 # define MAIN_COMPONENT_H
 
-
-
 class MainComponent {
 
 protected:
