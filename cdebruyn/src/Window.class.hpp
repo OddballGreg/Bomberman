@@ -1,6 +1,15 @@
 #ifndef WINDOW_H
 # define WINDOW_H
 
+#if ((uname -s), Darwin) 
+	# include <OpenGL/gl3.h>
+#else
+	# define GLFW_INCLUDE_ES2
+	# include <GLES3/gl3.h>
+#endif
+
+# include <GL/glew.h>
+# include <GLFW/glfw3.h>
 # include <iostream>
 # include <cstring>
 
@@ -11,11 +20,11 @@ protected:
 
 public:
 
-    MainComponent( void );
-    ~MainComponent( void );
+	Window( void );
+	~Window( void );
 
-    MainComponent( MainComponent const & copy );
-    MainComponent& operator=( MainComponent const & copy );
+	Window( Window const & copy );
+	Window& operator=( Window const & copy );
 
 	const void			createWindow( int width, int height, \
 						std::string title );

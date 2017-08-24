@@ -19,7 +19,7 @@ Window&		Window::operator=(Window const &copy) {
 	return *this;
 }
 
-const void			createWindow( int width, int height, \
+const void			Window::createWindow( int width, int height, \
 					std::string title ) {
 	Display.setTitle(title);
 	try {
@@ -30,22 +30,22 @@ const void			createWindow( int width, int height, \
 	}
 };
 
-const void			render( void ) {
+const void			Window::render( void ) {
 	Display.update();
 };
 
-const bool			isCloseRequested( void ) {
+const bool			Window::isCloseRequested( void ) {
 	return Display.isCloseRequested();
 };
 
-const int			getWidth( void ) {
+const int			Window::getWidth( void ) {
 	return Display.getDisplayMode().getWidth();
 };
 
-const int			getHeight( void ) {
+const int			Window::getHeight( void ) {
 	return Display.getDisplayMode().getHeight();
 };
 
-const std::string	getTitle( void ) {
+const std::string	Window::getTitle( void ) {
 	return Display.getTitle();
 };
