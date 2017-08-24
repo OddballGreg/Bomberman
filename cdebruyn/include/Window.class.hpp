@@ -16,7 +16,9 @@
 class Window {
 
 protected:
-
+	GLFWwindow*	window;
+	GLuint	vertex_buffer, vertex_shader, fragment_shader, program;
+	GLint mvp_location, vpos_location, vcol_location;
 
 public:
 
@@ -34,6 +36,8 @@ public:
 	const int			getWidth( void );
 	const int			getHeight( void );
 	const std::string	getTitle( void );
+
+	static void std::error	errorCallback(int error, std::string descr);
 };
 
 #endif
