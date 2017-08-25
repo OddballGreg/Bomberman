@@ -9,13 +9,19 @@ HEADER_NAMES = Window.class.hpp MainComponent.class.hpp
 SHARED =	./shared/Coord.cpp \
 			./shared/Direction.cpp
 
+ifeq ($(shell uname -s), Darwin)
+SYS = OSX
+else
+SYS = LINUX
+endif
+
 CC = g++
 
 COMPILER_FLAGS = -Wall -Werror -Wextra
 
 OPENGL = ./src/Window.class.cpp
 
-ifeq ($(shell uname -s), Darwin)
+ifeq ($(SYS), OSX)
 
 INCLUDE_PATHS = -I ~/.brew/Cellar/glfw/3.2.1/include \
 				-I ~/.brew/Cellar/glew/2.0.0/include \
@@ -49,6 +55,7 @@ LINKER_FLAGS = -lglfw -lGLU -lGLEW -lGL -lGLESv2 -lm `sdl2-config --cflags --lib
 endif
 
 INCL_PATH = $(BOMBERMAN)/include/
+INCL = -I $(BOMBERMAN)/include/
 
 SRCS_PATH = $(BOMBERMAN)/src/
 
@@ -74,14 +81,22 @@ $(NAME): $(OBJS)
 ifeq ($(SYS), OSX)
 	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(LINKER_FLAGS) Shared.so -o OpenGL.so \
 	$(OPENGL)
-	$(CC) $(COMPILER_FLAGS) -c $(SRCS) $(END_FLAGS) -I ~/.brew/include/
-	$(CC) $(COMPILER_FLAGS) -o $(NAME) $(OBJS) Shared.so $(END_FLAGS) \
-	-I ~/.brew/include/ 
+	$(CC) $(OBJS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) \
+	-o $(NAME) $^ $(INCL) $(INCL_PATH) Shared.so $(END_FLAGS) -I ~/.brew/include/ 
+
+	$(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
+		$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(END_FLAGS) \
+		-I ~/.brew/include/
+
 else
 	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(LINKER_FLAGS) Shared.so -o OpenGL.so \
 	$(OPENGL)
-	$(CC) $(COMPILER_FLAGS) -c $(SRCS) $(END_FLAGS)
-	$(CC) $(COMPILER_FLAGS) -o $(NAME) $(OBJS) Shared.so $(END_FLAGS) 
+	$(CC) $(OBJS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) \
+	-o $(NAME) $^ $(INCL) $(INCL_PATH) Shared.so $(END_FLAGS) 
+
+	$(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
+		$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(END_FLAGS)
+
 endif
 
 odir:
