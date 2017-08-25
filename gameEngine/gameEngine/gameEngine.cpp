@@ -1,5 +1,11 @@
+#if ((uname -s), Darwin) 
+	#include <OpenGL/gl3.h>
+#else
+	#define GLFW_INCLUDE_ES2
+	#include <GLES3/gl3.h>
+#endif
+
 #include <GL/glew.h>
-#include <OpenGL/gl3.h>
 #include <GLFW/glfw3.h>
 
 #include "Log.hpp"
