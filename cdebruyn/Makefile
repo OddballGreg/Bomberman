@@ -81,8 +81,8 @@ $(NAME): $(OBJS)
 ifeq ($(SYS), OSX)
 	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(LINKER_FLAGS) Shared.so -o OpenGL.so \
 	$(OPENGL)
-	$(CC) $(OBJS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) \
-	-o $(NAME) $^ $(INCL) $(INCL_PATH) Shared.so $(END_FLAGS) -I ~/.brew/include/ 
+	$(CC) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) \
+	-o $(NAME) $^ $(INCL) Shared.so $(END_FLAGS) -I ~/.brew/include/ 
 
 	$(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
 		$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(END_FLAGS) \
@@ -91,8 +91,8 @@ ifeq ($(SYS), OSX)
 else
 	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(LINKER_FLAGS) Shared.so -o OpenGL.so \
 	$(OPENGL)
-	$(CC) $(OBJS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) \
-	-o $(NAME) $^ $(INCL) $(INCL_PATH) Shared.so $(END_FLAGS) 
+	$(CC) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) \
+	-o $(NAME) $^ $(INCL) Shared.so $(END_FLAGS) 
 
 	$(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
 		$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(END_FLAGS)
