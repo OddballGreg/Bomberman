@@ -84,9 +84,9 @@ ifeq ($(SYS), OSX)
 	$(CC) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) \
 	-o $(NAME) $^ $(INCL) Shared.so $(END_FLAGS) -I ~/.brew/include/ 
 
-	$(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
-		$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(END_FLAGS) \
-		-I ~/.brew/include/
+$(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
+	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(END_FLAGS) \
+	-I ~/.brew/include/
 
 else
 	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(LINKER_FLAGS) Shared.so -o OpenGL.so \
@@ -94,8 +94,8 @@ else
 	$(CC) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) \
 	-o $(NAME) $^ $(INCL) Shared.so $(END_FLAGS) 
 
-	$(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
-		$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(END_FLAGS)
+$(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
+	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(END_FLAGS)
 
 endif
 
