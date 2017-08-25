@@ -4,6 +4,7 @@
 # include <freetype.h>
 # include FT_FREETYPE_H
 
+
 class Rendertext
 {
 	public:

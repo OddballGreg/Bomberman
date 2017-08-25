@@ -40,11 +40,11 @@ double	Bomb::getSpread() { return this->_spread; }
 // Methods
 void	Bomb::tick()
 {
-	
+
 }
 
 t_entityMap*	Bomb::reverseVector(t_entityMap entities)
 {
-	return new t_entityMap;
+return new t_entityMap;
 }
 
