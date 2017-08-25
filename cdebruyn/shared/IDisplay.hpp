@@ -21,21 +21,9 @@
 class IDisplay {
 
 public:
-	virtual void		drawMap(MAP map) = 0;
-	virtual void		drawScore(int score) = 0;
-	virtual void		drawPause(void) = 0;
-	virtual void		drawGameOver(int finalScore) = 0;
-
 	virtual	void		initWindow(void) = 0;
 	virtual void		initWindow(Coord size) = 0;
 	virtual void		exitWindow(void) = 0;
-
-	virtual Direction	getDirection(void) = 0;
-	virtual Coord		getWindowSize(void) = 0;
-	virtual bool		getPaused(void) = 0;
-	virtual bool		getExit(void) = 0;
-
-	virtual void		setWindowSize(Coord size) = 0;
 };
 
 extern "C" {
