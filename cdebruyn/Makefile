@@ -2,9 +2,9 @@ BOMBERMAN = /home/cameron/Projects/Bomberman/cdebruyn
 
 NAME = bomberman
 
-SRCS_NAME = Window.class.cpp MainComponent.class.cpp main.cpp
+SRCS_NAME = Window.class.cpp MainComponent.class.cpp ReadLib.class.cpp main.cpp
 
-HEADER_NAMES = Window.class.hpp MainComponent.class.hpp
+HEADER_NAMES = Window.class.hpp MainComponent.class.hpp ReadLib.class.hpp
 
 SHARED =	./shared/Coord.cpp \
 			./shared/Direction.cpp
@@ -77,22 +77,19 @@ endif
 
 $(NAME): $(OBJS)
 	bash ./lib/install.sh
-	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(SHARED) -I ./shared/ -o Shared.so
 ifeq ($(SYS), OSX)
-	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(LINKER_FLAGS) Shared.so -o OpenGL.so \
-	$(OPENGL)
+	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(LINKER_FLAGS) -o OpenGL.so $(OPENGL)
 	$(CC) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) \
-	-o $(NAME) $^ $(INCL) Shared.so $(END_FLAGS) -I ~/.brew/include/ 
+	-o $(NAME) $^ $(INCL) $(END_FLAGS) -I ~/.brew/include/ 
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
 	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(END_FLAGS) \
 	-I ~/.brew/include/
 
 else
-	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(LINKER_FLAGS) Shared.so -o OpenGL.so \
-	$(OPENGL)
+	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(LINKER_FLAGS) -o OpenGL.so $(OPENGL)
 	$(CC) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) \
-	-o $(NAME) $^ $(INCL) Shared.so $(END_FLAGS) 
+	-o $(NAME) $^ $(INCL) $(END_FLAGS) 
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
 	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(END_FLAGS)
