@@ -38,7 +38,7 @@ t_entityMap	Gamestate::getEntities() { return this->_entities; }
 // Methods
 void	Gamestate::run()
 {
-		std::cout << "Game Has Started" << std::endl;
+	std::cout << "Game Has Started" << std::endl;
 }
 
 void	Gamestate::spawnPlayer(Vector pos)
