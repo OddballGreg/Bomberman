@@ -1,97 +1,108 @@
+BOMBERMAN = /home/cameron/Projects/Bomberman/cdebruyn
+
 NAME = bomberman
 
 SRCS_NAME = Window.class.cpp MainComponent.class.cpp main.cpp
 
 HEADER_NAMES = Window.class.hpp MainComponent.class.hpp
 
-ifeq ($(shell uname -s), Darwin) # Changes rules for MAC and Linux
-SYS = OSX
-else
-SYS = LINUX
-endif
-
-CFLAGS =	-std=c++14 -O3
-
-ifeq ($(SYS), OSX) 
-CFLAGS2 = 	-O3 
-else
-CFLAGS2 =	-O3
-endif
+SHARED =	./shared/Coord.cpp \
+			./shared/Direction.cpp
 
 CC = g++
 
-INCLUDES_PATH = include/
+COMPILER_FLAGS = -Wall -Werror -Wextra
 
-SRCS_PATH = src/
+OPENGL = ./src/Window.class.cpp
+
+ifeq ($(shell uname -s), Darwin)
+
+INCLUDE_PATHS = -I ~/.brew/Cellar/glfw/3.2.1/include \
+				-I ~/.brew/Cellar/glew/2.0.0/include \
+				-I ~/.brew/Cellar/glew/2.1.0/include \
+				-I ~/.brew/Cellar/glm/0.9.8.4/include
+
+LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib \
+				-L ~/.brew/Cellar/glew/2.0.0/lib \
+				-L ~/.brew/Cellar/glew/2.1.0/lib
+
+COMPILER_FLAGS += -w -std=c++11 -stdlib=libc++
+
+LINKER_FLAGS =	-framework SDL2 -framework Cocoa -framework OpenGL \
+				-framework IOKit -framework CoreFoundation \
+				-framework CoreVideo -framework Carbon -lglfw -lGLEW
+
+else
+
+INCLUDE_PATHS = -I /usr/include/GLFW -I /usr/include/GL \
+				-I /usr/include/X11 -I /usr/include/glm
+
+LIBRARY_PATHS = -L /usr/lib/x86_64-linux-gnu/libGLU.so \
+				-L /usr/lib/x86_64-linux-gnu/libGL.so \
+				-L /usr/lib/x86_64-linux-gnu/libGLESv2.so \
+				-L /usr/lib/x86_64-linux-gnu/libglfw.so
+
+COMPILER_FLAGS += -w -std=c++11
+
+LINKER_FLAGS = -lglfw -lGLU -lGLEW -lGL -lGLESv2 -lm `sdl2-config --cflags --libs`
+
+endif
+
+INCL_PATH = $(BOMBERMAN)/include/
+
+SRCS_PATH = $(BOMBERMAN)/src/
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
-OBJS_PATH = obj/
+OBJS_PATH = $(BOMBERMAN)/obj/
 
 OBJS_NAME = $(SRCS_NAME:.cpp=.o)
 
 OBJS = $(addprefix $(OBJS_PATH), $(OBJS_NAME))
 
-ifeq ($(SYS), OSX)
-INCLUDES = -I include/
-else
-INCLUDES = -I include/
-endif
-
-HEADER = $(addprefix $(INCLUDES_PATH), $(HEADER_NAMES))
+HEADER = $(addprefix $(INCL_PATH), $(HEADER_NAMES))
 
 all: qme odir $(NAME)
 
-define colourecho
-	@tput setaf 14
-	@echo $1
-	@tput sgr0
-endef
-
-define colourecho2
-	@tput setaf 2
-	@echo $1
-	@tput sgr0
-endef
+ifeq ($(shell uname -s), Linux)
+	END_FLAGS = -ldl
+endif
 
 $(NAME): $(OBJS)
-	@$(call colourecho, " - Making $(NAME)")
-	@clear
-	@$(CC) $(CFLAGS2) -o $(NAME) $^ $(INCLUDES) -I$(INCLUDES_PATH)
-	@clear
-	@$(call colourecho, "Make Done!")
-
-$(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
-	@$(call colourecho, " - Compiling $<")
-	@$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $< -I$(INCLUDES_PATH)
-	@$(call colourecho, "Compiling Done!")
+	bash ./lib/install.sh
+	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(SHARED) -I ./shared/ -o Shared.so
+ifeq ($(SYS), OSX)
+	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(LINKER_FLAGS) Shared.so -o OpenGL.so \
+	$(OPENGL)
+	$(CC) $(COMPILER_FLAGS) -c $(SRCS) $(END_FLAGS) -I ~/.brew/include/
+	$(CC) $(COMPILER_FLAGS) -o $(NAME) $(OBJS) Shared.so $(END_FLAGS) \
+	-I ~/.brew/include/ 
+else
+	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(LINKER_FLAGS) Shared.so -o OpenGL.so \
+	$(OPENGL)
+	$(CC) $(COMPILER_FLAGS) -c $(SRCS) $(END_FLAGS)
+	$(CC) $(COMPILER_FLAGS) -o $(NAME) $(OBJS) Shared.so $(END_FLAGS) 
+endif
 
 odir:
 	@mkdir -p $(OBJS_PATH)
 
 clean:
-	@$(call colourecho, " - Clearing object files")
 	@rm -f $(OBJS)
-	@$(call colourecho, "clean done!")
 
 fclean: clean
-	@$(call colourecho, "Clearing executable files")
 	@rm -f $(NAME)
-	@$(call colourecho, "fclean done")
 
 re: fclean all
-	@$(call colourecho, "re Done!")
 
 run: $(NAME)
 	./$(NAME)
 
 qre:
-	@$(call colourecho, " - Clearing object files")
-	@rm -f $(OBJS)
-	@rm -f $(NAME)
-	@$(call colourecho, "clean done!")
-	@make odir
-	@make $(NAME)
+	rm -f $(OBJS)
+	rm -f $(NAME)
+	make odir
+	make $(NAME)
 
 qme:
 	@if [ ! -f author ]; then \

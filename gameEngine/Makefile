@@ -51,7 +51,6 @@ COMPILER_FLAGS = -w -std=c++11 -stdlib=libc++
 # Cocoa, IOKit, and CoreVideo are needed for static GLFW3.
 LINKER_FLAGS = -framework SDL2 -framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lglfw -lGLEW
 
-<<<<<<< HEAD
 else
 
 INCLUDE_PATHS = -I /usr/include/GLFW -I /usr/include/GL \

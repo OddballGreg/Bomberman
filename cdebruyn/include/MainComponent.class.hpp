@@ -4,12 +4,11 @@
 # include <iostream>
 # include <cstring>
 
+# include "Window.class.hpp"
+
 class MainComponent {
 
 protected:
-	static const& int WIDTH{800};
-	static const& int HEIGHT{600};
-	static const& std::string TITLE{"Bomberman"};
 
 public:
 
@@ -19,13 +18,6 @@ public:
     MainComponent( MainComponent const & copy );
     MainComponent& operator=( MainComponent const & copy );
 
-	void	start( void );
-	void	stop( void );
-	void	run( void );
-	void	render( void );
-	void	cleanUp( void );
-
-	static void main( int argc, std::string argv );
 };
 
 #endif
