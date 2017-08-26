@@ -1,4 +1,4 @@
-BOMBERMAN = /home/cameron/Projects/Bomberman/cdebruyn
+BOMBERMAN = $(HOME)/Projects/Bomberman/cdebruyn
 
 NAME = bomberman
 
@@ -78,21 +78,22 @@ endif
 $(NAME): $(OBJS)
 	bash ./lib/install.sh
 ifeq ($(SYS), OSX)
-	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(LINKER_FLAGS) -o OpenGL.so $(OPENGL)
-	$(CC) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) \
-	-o $(NAME) $^ $(INCL) $(END_FLAGS) -I ~/.brew/include/ 
-
-$(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
-	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(END_FLAGS) \
-	-I ~/.brew/include/
-
-else
-	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(LINKER_FLAGS) -o OpenGL.so $(OPENGL)
-	$(CC) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) \
-	-o $(NAME) $^ $(INCL) $(END_FLAGS) 
+	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(INCLUDE_PATHS) $(LIBRARY_PATHS) \
+	$(LINKER_FLAGS) -o OpenGL.so $(OPENGL)
+	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) $(INCLUDE_PATHS) \
+	-o $(NAME) $^ $(INCL) $(END_FLAGS) $(LIBRARY_PATHS) 
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
 	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(END_FLAGS)
+
+else
+	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(INCLUDE_PATHS) $(LIBRARY_PATHS) \
+	$(LINKER_FLAGS) -o OpenGL.so $(OPENGL)
+	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(NAME) $^ $(INCL) $(END_FLAGS) \
+	$(INCLUDES_PATH) $(LIBRARY_PATHS) 
+
+$(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
+	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(INCLUDES_PATH) $(END_FLAGS)
 
 endif
 
