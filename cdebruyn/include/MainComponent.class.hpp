@@ -4,8 +4,6 @@
 # include <iostream>
 # include <cstring>
 
-# include "../environ/GLFW/GLFW.class.hpp"
-
 class MainComponent {
 
 protected:

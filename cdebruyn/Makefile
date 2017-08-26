@@ -43,7 +43,7 @@ INCLUDE_PATHS = -I /usr/include/GLFW -I /usr/include/GL \
 LIBRARY_PATHS = -L /usr/lib/x86_64-linux-gnu/libGLU.so \
 				-L /usr/lib/x86_64-linux-gnu/libGL.so \
 				-L /usr/lib/x86_64-linux-gnu/libGLESv2.so \
-				-L /usr/lib/x86_64-linux-gnu/libglfw.so
+				-L /usr/local/lib/libglfw3.a
 
 COMPILER_FLAGS += -w -std=c++11
 
@@ -82,10 +82,10 @@ $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
 else
 	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(INCLUDE_PATHS) $(LIBRARY_PATHS) \
 	$(LINKER_FLAGS) -o OpenGL.so $(OPENGL)
-	$(CC) $(COMPILER_FLAGS) -o $(NAME) $^ -ldl OpenGL.so 
+	$(CC) -L/usr/local/lib $(COMPILER_FLAGS) -o $(NAME) $^ -ldl -L OpenGL.so 
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
-	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -ldl -I$(INCL_PATH) $(INCLUDES_PATH)
+	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(INCLUDES_PATH)
 
 endif
 
