@@ -2,7 +2,7 @@
 # define READLIB_CLASS_H
 
 # include <iostream>
-# include <string>
+# include <cstring>
 # include <stdlib.h>
 # include <vector>
 # include <fstream>

@@ -45,19 +45,21 @@ void			ReadLib::runlib( const int & i ) {
 
 void		ReadLib::openLib( const int & i ) {
 
-	if (std::strncmp() != NULL)
+	if (std::strncmp(OPENGL, "OpenGL.so", 9) == 0) {
 
-	this->_libHandle = dlopen(OPENGL, RTLD_LAZY | RTLD_LOCAL);
+		this->_libHandle = dlopen(OPENGL, RTLD_LAZY | RTLD_LOCAL);
 	
-	if (this->_libHandle == NULL) {
-		std::cout << "Falied loading library: OpenGL" << std::endl; 
-		std::cout << dlerror() << std::endl;
-		return;
-	} else {
-		std::cout << "Cool beans... You library has loaded." << std::endl;
-		callRun();
-		dlclose(this->_libHandle);
+		if (this->_libHandle == NULL) {
+			std::cout << "Falied loading library: OpenGL" << std::endl; 
+			std::cout << dlerror() << std::endl;
+			return;
+		} else {
+			std::cout << "Cool beans... You library has loaded." << std::endl;
+			callRun();
+			dlclose(this->_libHandle);
+		}
 	}
+	return;
 }
 
 /**
@@ -68,14 +70,17 @@ void		ReadLib::callRun( void ) {
 	IDisplay* (*create)();
 	void	(*destroy)(IDisplay*);
 
-	// reset errors
-	dlerror();
-	create = (IDisplay* (*)())dlsym(_libHandle, "createObject");
-	destroy = (void (*)(IDisplay*))dlsym(_libHandle, "destroyObject");
-	const char *dlsym_error = dlerror();
-	if (dlsym_error) {
-		std::cerr << "Trouble finding `run`: " << dlerror() << std::endl;
-		dlclose(_libHandle);
+	if (std::strncmp(OPENGL, "OpenGL.so", 9) == 0) {
+
+		// reset errors
+		dlerror();
+		create = (IDisplay* (*)())dlsym(_libHandle, "createObject");
+		destroy = (void (*)(IDisplay*))dlsym(_libHandle, "destroyObject");
+		const char *dlsym_error = dlerror();
+		if (dlsym_error) {
+			std::cerr << "Trouble finding `run`: " << dlerror() << std::endl;
+			dlclose(_libHandle);
+		}
 	}
 
 	IDisplay* display = (IDisplay*)create();
