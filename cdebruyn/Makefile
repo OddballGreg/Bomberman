@@ -29,7 +29,7 @@ LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib \
 				-L ~/.brew/Cellar/glew/2.0.0/lib \
 				-L ~/.brew/Cellar/glew/2.1.0/lib
 
-COMPILER_FLAGS += -w -std=c++11 -stdlib=libc++
+COMPILER_FLAGS += -w -std=c++14 -stdlib=libc++
 
 LINKER_FLAGS =	-framework SDL2 -framework Cocoa -framework OpenGL \
 				-framework IOKit -framework CoreFoundation \
@@ -45,7 +45,7 @@ LIBRARY_PATHS = -L/usr/lib/x86_64-linux-gnu/libGLU.so \
 				-L/usr/lib/x86_64-linux-gnu/libGLESv2.so \
 				-L/usr/lib/x86_64-linux-gnu/libglfw.so
 
-COMPILER_FLAGS += -w -std=c++11
+COMPILER_FLAGS += -w -std=c++14
 
 LINKER_FLAGS = -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl -lXinerama -lXcursor
 

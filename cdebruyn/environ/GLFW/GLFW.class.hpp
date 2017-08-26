@@ -2,6 +2,7 @@
 # define GLFW_H
 
 //# include <GL/glew.h>
+# include <glad/glad.h>
 # include <GLFW/glfw3.h>
 
 # ifdef __APPLE__ 
@@ -18,6 +19,13 @@
 class GLFW : public IDisplay {
 
 protected:
+	static int WIDTH{800} final;
+	static int HEIGHT{600} final;
+	static int std::string TITLE{"Bomberman"} final;
+
+    GLFWwindow* _window;
+    GLuint _vertex_buffer, _vertex_shader, _fragment_shader, _program;
+    GLint _mvp_location, _vpos_location, _vcol_location;
 
 public:
 

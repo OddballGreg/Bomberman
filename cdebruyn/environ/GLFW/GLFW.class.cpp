@@ -2,11 +2,14 @@
 #include "./GLFW.class.hpp"
 
 GLFW::GLFW( void ) {
-	//
+
+	/* Initialize the GLFW library */
+	if (!glfwInit())
+		exit(EXIT_FAILURE);
 };
 
 GLFW::~GLFW( void ) {
-	//
+	glfwTerminate();
 };
 
 GLFW::GLFW(GLFW const &copy) {
@@ -21,13 +24,21 @@ GLFW&		GLFW::operator=(GLFW const &copy) {
 };
 
 const int		GLFW::initWindow( void ) {
-	GLFWwindow* window;
+	GLFWwindow* _window;
 
-	/* Initialize the GLFW library */
-	glfwInit();
-	//if (glfwInit())
-	//	return (-1);
-	//return (0);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+	
+	_window = glfwCreateWindow(WIDTH, HEIGHT, TITLE, NULL, NULL);
+	if (!_window) {
+		glfwTerminate();
+		exit(EXIT_FAILURE);
+	}
+
+	wait(4);
+	//glfwSetKeyCallback();
+
+	glfwDestroyWindow(_window);
 };
 
 const int		GLFW::exitWindow( void ) {
