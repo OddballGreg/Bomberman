@@ -25,7 +25,7 @@ void			ReadLib::runlib( const int & i ) {
 	read.open("./lib/lib.txt");
 	if (read.is_open()) {
 		std::cout << "File ./lib/lib.txt is open." << std::endl;
-		for (_j = 0; _j < 10 ; _j++) {
+		for (_j = 0; _j < 3 ; _j++) {
 			getline(read, str);
 			_libraries.push_back(str);
 			std::cout << "Reading _libraries from ./lib: " << _libraries.at(_j)
@@ -44,10 +44,13 @@ void			ReadLib::runlib( const int & i ) {
  */
 
 void		ReadLib::openLib( const int & i ) {
-	this->_libHandle = dlopen("OpenGL.so", RTLD_LAZY | RTLD_LOCAL);
+
+	if (std::strncmp() != NULL)
+
+	this->_libHandle = dlopen(OPENGL, RTLD_LAZY | RTLD_LOCAL);
 	
 	if (this->_libHandle == NULL) {
-		std::cout << "Falied loading library: " << _libraries.at(static_cast<size_t>(i)) << std::endl; 
+		std::cout << "Falied loading library: OpenGL" << std::endl; 
 		std::cout << dlerror() << std::endl;
 		return;
 	} else {

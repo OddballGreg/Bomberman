@@ -37,17 +37,17 @@ LINKER_FLAGS =	-framework SDL2 -framework Cocoa -framework OpenGL \
 
 else
 
-INCLUDE_PATHS = -I /usr/include/GLFW -I /usr/include/GL \
-				-I /usr/include/X11 -I /usr/include/glm
+INCLUDE_PATHS = -I/usr/include/GL -I/usr/include/GLFW \
+				-I/usr/include/X11 -I/usr/include/glm
 
-LIBRARY_PATHS = -L /usr/lib/x86_64-linux-gnu/libGLU.so \
-				-L /usr/lib/x86_64-linux-gnu/libGL.so \
-				-L /usr/lib/x86_64-linux-gnu/libGLESv2.so \
-				-L /usr/local/lib/libglfw3.a
+LIBRARY_PATHS = -L/usr/lib/x86_64-linux-gnu/libGLU.so \
+				-L/usr/lib/x86_64-linux-gnu/libGL.so \
+				-L/usr/lib/x86_64-linux-gnu/libGLESv2.so \
+				-L/usr/lib/x86_64-linux-gnu/libglfw.so
 
 COMPILER_FLAGS += -w -std=c++11
 
-LINKER_FLAGS = -lglfw -lGLU -lGLEW -lGL -lGLESv2 -lm -ldl `sdl2-config --cflags --libs`
+LINKER_FLAGS = -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl -lXinerama -lXcursor
 
 endif
 
@@ -80,12 +80,11 @@ $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
 	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(BREW_INCL)
 
 else
-	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(INCLUDE_PATHS) $(LIBRARY_PATHS) \
-	$(LINKER_FLAGS) -o OpenGL.so $(OPENGL)
-	$(CC) -L/usr/local/lib $(COMPILER_FLAGS) -o $(NAME) $^ -ldl -L OpenGL.so 
+	#$(CC) $(COMPILER_FLAGS) -shared -fPIC $(LINKER_FLAGS) -o OpenGL.so $(OPENGL)
+	$(CC) $(COMPILER_FLAGS) -o $(NAME) $^ -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl -lXinerama -lXcursor 
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
-	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(INCLUDES_PATH)
+	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH)
 
 endif
 
@@ -93,10 +92,11 @@ odir:
 	@mkdir -p $(OBJS_PATH)
 
 clean:
-	@rm -f $(OBJS)
+	/bin/rm -rf $(OBJS)
+	/bin/rm -rf OpenGL.so
 
 fclean: clean
-	@rm -f $(NAME)
+	/bin/rm -f $(NAME)
 
 re: fclean all
 
@@ -104,8 +104,8 @@ run: $(NAME)
 	./$(NAME)
 
 qre:
-	rm -f $(OBJS)
-	rm -f $(NAME)
+	/bin/rm -f $(OBJS)
+	/bin/rm -f $(NAME)
 	make odir
 	make $(NAME)
 

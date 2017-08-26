@@ -13,6 +13,12 @@
 # include <stdio.h>
 # include <memory>
 
+# ifdef __APPLE__
+#  define OPENGL "OpenGL.so"
+# else
+#  define OPENGL ""
+# endif
+
 # ifdef __linux__
 #  define _GNU_SOURCE
 # endif

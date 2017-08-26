@@ -24,9 +24,10 @@ const int		GLFW::initWindow( void ) {
 	GLFWwindow* window;
 
 	/* Initialize the GLFW library */
-	if (!glfwInit())
-		return (-1);
-	return (0);
+	glfwInit();
+	//if (glfwInit())
+	//	return (-1);
+	//return (0);
 };
 
 const int		GLFW::exitWindow( void ) {
