@@ -3,6 +3,8 @@
 
 GLFW::GLFW( void ) {
 
+	glfwSetErrorCallback(error_callback);
+
 	/* Initialize the GLFW library */
 	if (!glfwInit())
 		exit(EXIT_FAILURE);
@@ -29,14 +31,24 @@ const int		GLFW::initWindow( void ) {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 	
-	_window = glfwCreateWindow(WIDTH, HEIGHT, TITLE, NULL, NULL);
+	_window = glfwCreateWindow(WIDTH, HEIGHT, TITLE, glfwGetPrimaryMonitor(), NULL);
 	if (!_window) {
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
 
-	wait(4);
-	//glfwSetKeyCallback();
+	glfwSetKeyCallback(_window, key_callback);
+
+	/* Make the current window's context current */
+	glfwMakeContextCurrent(_window);
+//	gladLoadGLLoader((GLADloadproc), glfwGetProcAddress);
+	glfwSwapInterval(1);
+
+	while (!glfwWindowShouldClose(_window)) {
+		glfwGetFrameBufferSize(_window, &WIDTH, &HEIGHT);
+		glfwSwapBuffers(_window);
+		glfwPollEvents();
+	}
 
 	glfwDestroyWindow(_window);
 };
@@ -44,6 +56,18 @@ const int		GLFW::initWindow( void ) {
 const int		GLFW::exitWindow( void ) {
 	//
 };
+
+void	GLFW::error_callback(int error, std::string descr)
+{
+    std::fprintf(stderr, "Error: %s\n", descr);
+}
+
+void 	GLFW::key_callback(GLFWwindow* window, int key, int scancode, \
+		int action, int mods)
+{
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, GLFW_TRUE);
+}
 
 /*
 ** Linker Functions

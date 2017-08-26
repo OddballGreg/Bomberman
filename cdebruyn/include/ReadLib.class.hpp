@@ -13,18 +13,18 @@
 # include <stdio.h>
 # include <memory>
 
+# ifdef __linux__
+#  define _GNU_SOURCE
+# endif
+# include <dlfcn.h> 
+# include <unistd.h>
+
 # ifdef __APPLE__
 #  define OPENGL "OpenGL.so"
 # else
 #  define OPENGL ""
 # endif
 
-# ifdef __linux__
-#  define _GNU_SOURCE
-# endif
-# include <dlfcn.h> 
-
-# include <unistd.h>
 # include "../shared/IDisplay.hpp"
 
 # ifdef READ_LIB_FILE

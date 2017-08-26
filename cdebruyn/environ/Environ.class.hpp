@@ -9,8 +9,8 @@ class Environ {
 		Environ( void );
 
 		extern "C" {
-			GLFW*			createWindow( void );
-			void			destroyWindow( GLFW* object );
+			GLFW*			createGLFW( void );
+			void			destroyGLFW( GLFW* object );
 		}
 };
 

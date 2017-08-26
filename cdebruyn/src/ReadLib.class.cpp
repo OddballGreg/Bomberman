@@ -58,6 +58,8 @@ void		ReadLib::openLib( const int & i ) {
 			callRun();
 			dlclose(this->_libHandle);
 		}
+	} else {
+		callRun();
 	}
 	return;
 }
@@ -81,23 +83,25 @@ void		ReadLib::callRun( void ) {
 			std::cerr << "Trouble finding `run`: " << dlerror() << std::endl;
 			dlclose(_libHandle);
 		}
-	}
 
-	IDisplay* display = (IDisplay*)create();
-	try {
-		display->initWindow();
-		//
-	}
-	catch (std::runtime_error(&e)) {
+		IDisplay* display = (IDisplay*)create();
 		try {
-			display->exitWindow();
+			std::cout << "Initializing initWindow()" << std::endl;
+			display->initWindow();
 		}
-	 	catch (...) {
-	 	}
-		std::cout << e.what() << std::endl;
-	}
+		catch (std::runtime_error(&e)) {
+			try {
+				display->exitWindow();
+			}
+		 	catch (...) {
+		 	}
+			std::cout << e.what() << std::endl;
+		}
 
-	destroy( display );
+		destroy( display );
+	} else {
+		//IDisplay* display;
+	}
 };
 
 /**

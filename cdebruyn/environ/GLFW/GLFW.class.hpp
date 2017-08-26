@@ -2,7 +2,7 @@
 # define GLFW_H
 
 //# include <GL/glew.h>
-# include <glad/glad.h>
+//# include <glad/glad.h>
 # include <GLFW/glfw3.h>
 
 # ifdef __APPLE__ 
@@ -14,14 +14,15 @@
 
 # include <iostream>
 # include <cstring>
+# include <cstdio>
 # include "../../shared/IDisplay.hpp"
 
 class GLFW : public IDisplay {
 
 protected:
-	static int WIDTH{800} final;
-	static int HEIGHT{600} final;
-	static int std::string TITLE{"Bomberman"} final;
+	int WIDTH{800};
+	int HEIGHT{600};
+	std::string TITLE{"Bomberman"};
 
     GLFWwindow* _window;
     GLuint _vertex_buffer, _vertex_shader, _fragment_shader, _program;
@@ -37,13 +38,18 @@ public:
 
 	virtual const int		initWindow( void );
 	virtual const int		exitWindow( void );
+
+	void		error_callback(int error, std::string descr);
+	void		key_callback(GLFWwindow* window, int key, int scancode, \
+					int action, int mods);
+
 };
 
-extern "C" IDisplay*	createWindow(void) {
+extern "C" IDisplay*	createGLFW(void) {
 	return new GLFW;
 }
 
-extern "C" void			deleteWindow(IDisplay* window) {
+extern "C" void			deleteGLFW(IDisplay* window) {
 	delete window;
 }
 
