@@ -21,7 +21,7 @@ const ReadLib&	ReadLib::operator=( ReadLib const &lib ) {
  * This is where the libraries are loaded dynamically.
  */
 
-void		ReadLib::openLib( const int & i ) {
+void		ReadLib::openLib( void ) {
 	extern char **environ;
 
 	_libHandle = dlopen("OpenGL.so", RTLD_LAZY | RTLD_LOCAL);

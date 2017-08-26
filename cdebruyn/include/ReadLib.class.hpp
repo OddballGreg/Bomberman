@@ -27,7 +27,7 @@ class ReadLib {
 
 		void			runlib( const int & i );
 		std::string		execute( const char* cmd );
-		void			openLib( const int & i );
+		void			openLib( void );
 		void			callRun( void );
 		void			runGame(IDisplay *window) const;
 };
