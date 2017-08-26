@@ -1,23 +1,30 @@
-#include <iostream>
-#include <string>
-#include <stdlib.h>
-#include <vector>
-#include <fstream>
-#include <cstdio>
-#include <array>
-#include <algorithm>
-#include <fcntl.h>
-#include <stdio.h>
-#include <memory>
-#include <dlfcn.h> 
-#include <unistd.h>
-#include "../shared/IDisplay.hpp"
+#ifndef READLIB_CLASS_H
+# define READLIB_CLASS_H
 
+# include <iostream>
+# include <string>
+# include <stdlib.h>
+# include <vector>
+# include <fstream>
+# include <cstdio>
+# include <array>
+# include <algorithm>
+# include <fcntl.h>
+# include <stdio.h>
+# include <memory>
+
+# ifdef __linux__
+#  define _GNU_SOURCE
+# endif
+# include <dlfcn.h> 
+
+# include <unistd.h>
+# include "../shared/IDisplay.hpp"
 
 # ifdef READ_LIB_FILE
-char			**g_av;
+char		**g_av;
 # else
-extern char		**g_av;
+extern char	**g_av;
 # endif
 
 class ReadLib {
@@ -42,3 +49,5 @@ class ReadLib {
 		void			openLib( const int & i );
 		void			callRun( void );
 };
+
+#endif

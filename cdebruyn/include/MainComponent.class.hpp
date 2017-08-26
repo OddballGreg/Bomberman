@@ -4,7 +4,7 @@
 # include <iostream>
 # include <cstring>
 
-# include "../GLFW/GLFW.class.hpp"
+# include "../environ/GLFW/GLFW.class.hpp"
 
 class MainComponent {
 

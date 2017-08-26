@@ -47,7 +47,7 @@ LIBRARY_PATHS = -L /usr/lib/x86_64-linux-gnu/libGLU.so \
 
 COMPILER_FLAGS += -w -std=c++11
 
-LINKER_FLAGS = -lglfw -lGLU -lGLEW -lGL -lGLESv2 -lm `sdl2-config --cflags --libs`
+LINKER_FLAGS = -lglfw -lGLU -lGLEW -lGL -lGLESv2 -lm -ldl `sdl2-config --cflags --libs`
 
 endif
 
@@ -69,28 +69,23 @@ HEADER = $(addprefix $(INCL_PATH), $(HEADER_NAMES))
 
 all: qme odir $(NAME)
 
-ifeq ($(shell uname -s), Linux)
-	END_FLAGS = -ldl
-endif
-
 $(NAME): $(OBJS)
 	bash ./lib/install.sh
 ifeq ($(SYS), OSX)
 	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(INCLUDE_PATHS) $(LIBRARY_PATHS) \
 	$(LINKER_FLAGS) -o OpenGL.so $(OPENGL)
-	$(CC) $(COMPILER_FLAGS) -o $(NAME) $^ OpenGL.so $(END_FLAGS) $(BREW_INCL)
+	$(CC) $(COMPILER_FLAGS) -o $(NAME) $^ OpenGL.so $(BREW_INCL)
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
-	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(BREW_INCL) $(END_FLAGS)
+	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(BREW_INCL)
 
 else
 	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(INCLUDE_PATHS) $(LIBRARY_PATHS) \
 	$(LINKER_FLAGS) -o OpenGL.so $(OPENGL)
-	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(NAME) $^ $(INCL) $(END_FLAGS) \
-	$(INCLUDES_PATH) $(LIBRARY_PATHS)
+	$(CC) $(COMPILER_FLAGS) -o $(NAME) $^ -ldl OpenGL.so 
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
-	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(INCLUDES_PATH) $(END_FLAGS)
+	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -ldl -I$(INCL_PATH) $(INCLUDES_PATH)
 
 endif
 

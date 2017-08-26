@@ -1,7 +1,7 @@
 #ifndef GLFW_H
 # define GLFW_H
 
-# include <GL/glew.h>
+//# include <GL/glew.h>
 # include <GLFW/glfw3.h>
 
 # ifdef __APPLE__ 

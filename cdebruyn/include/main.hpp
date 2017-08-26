@@ -10,6 +10,7 @@
 # include <stdio.h>
 
 extern "C" {
+	#define _GNU_SOURCE
 	#include <dlfcn.h>
 }
 
