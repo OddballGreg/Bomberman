@@ -2,12 +2,9 @@ BOMBERMAN = $(HOME)/Projects/Bomberman/cdebruyn
 
 NAME = bomberman
 
-SRCS_NAME = Window.class.cpp MainComponent.class.cpp ReadLib.class.cpp main.cpp
+SRCS_NAME = MainComponent.class.cpp ReadLib.class.cpp Environ.class.cpp main.cpp
 
-HEADER_NAMES = Window.class.hpp MainComponent.class.hpp ReadLib.class.hpp
-
-SHARED =	./shared/Coord.cpp \
-			./shared/Direction.cpp
+HEADER_NAMES =  MainComponent.class.hpp ReadLib.class.hpp Environ.class.hpp main.hpp
 
 ifeq ($(shell uname -s), Darwin)
 SYS = OSX
@@ -19,7 +16,7 @@ CC = g++
 
 COMPILER_FLAGS = -Wall -Werror -Wextra
 
-OPENGL = ./src/Window.class.cpp
+OPENGL = ./environ/GLFW/GLFW.class.cpp
 
 ifeq ($(SYS), OSX)
 
@@ -81,7 +78,7 @@ ifeq ($(SYS), OSX)
 	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(INCLUDE_PATHS) $(LIBRARY_PATHS) \
 	$(LINKER_FLAGS) -o OpenGL.so $(OPENGL)
 	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) $(INCLUDE_PATHS) -o $(NAME) $^ \
-	$(INCL) $(END_FLAGS) $(LIBRARY_PATHS) 
+	$(INCL) $(END_FLAGS) $(LIBRARY_PATHS)
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
 	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(INCLUDE_PATHS) $(END_FLAGS)
@@ -90,7 +87,7 @@ else
 	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(INCLUDE_PATHS) $(LIBRARY_PATHS) \
 	$(LINKER_FLAGS) -o OpenGL.so $(OPENGL)
 	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(NAME) $^ $(INCL) $(END_FLAGS) \
-	$(INCLUDES_PATH) $(LIBRARY_PATHS) 
+	$(INCLUDES_PATH) $(LIBRARY_PATHS)
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
 	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(INCLUDES_PATH) $(END_FLAGS)

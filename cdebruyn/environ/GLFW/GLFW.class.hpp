@@ -1,5 +1,5 @@
-#ifndef WINDOW_H
-# define WINDOW_H
+#ifndef GLFW_H
+# define GLFW_H
 
 # include <GL/glew.h>
 # include <GLFW/glfw3.h>
@@ -16,17 +16,17 @@
 # include <cstring>
 # include "../shared/IDisplay.hpp"
 
-class Window : public IDisplay {
+class GLFW : public IDisplay {
 
 protected:
 
 public:
 
-	Window( void );
-	~Window( void );
+	GLFW( void );
+	~GLFW( void );
 
-	Window( Window const & copy );
-	Window& operator=( Window const & copy );
+	GLFW( GLFW const & copy );
+	GLFW& operator=( GLFW const & copy );
 
 	virtual const int		initWindow( void );
 	virtual const int		exitWindow( void );
