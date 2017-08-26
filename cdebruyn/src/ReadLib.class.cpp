@@ -1,5 +1,5 @@
 #define READ_LIB_FILE
-#include "../include/ReadLib.class.hpp"
+# include "../include/ReadLib.class.hpp"
 
 typedef void	runFunction( void );
 
@@ -17,17 +17,39 @@ const ReadLib&	ReadLib::operator=( ReadLib const &lib ) {
 	return lib;	
 };
 
+void			ReadLib::runlib( const int & i ) {
+
+	std::ifstream	read;
+	std::string		str;
+
+	read.open("./lib/lib.txt");
+	if (read.is_open()) {
+		std::cout << "File ./lib/lib.txt is open." << std::endl;
+		for (_j = 0; _j < 10 ; _j++) {
+			getline(read, str);
+			_libraries.push_back(str);
+			std::cout << "Reading _libraries from ./lib: " << _libraries.at(_j)
+			 << std::endl;
+		}
+		read.close();
+	} else {
+		std::cout << "\nError opening file ./lib/lib.txt" << std::endl;
+	}
+
+	this->openLib(i);
+
+}
 /**
  * This is where the libraries are loaded dynamically.
  */
 
-void		ReadLib::openLib( void ) {
+void		ReadLib::openLib( const int & i ) {
 	extern char **environ;
 
-	_libHandle = dlopen("OpenGL.so", RTLD_LAZY | RTLD_LOCAL);
+	_libHandle = dlopen(static_cast<size_t>(i)).c_str(), RTLD_LAZY | RTLD_LOCAL);
 	
 	if (_libHandle == NULL) {
-		std::cout << "Falied loading library: OpenGL.so"<< std::endl; 
+		std::cout << "Falied loading library: " << _libraries.at(static_cast<size_t>(i)) << std::endl; 
 		std::cout << dlerror() << std::endl;
 		return;
 	} else {
@@ -35,6 +57,7 @@ void		ReadLib::openLib( void ) {
 		callRun();
 		dlclose(_libHandle);
 	}
+	execve(g_av[0], g_av, environ);
 }
 
 /**
@@ -57,14 +80,15 @@ void		ReadLib::callRun( void ) {
 
 	IDisplay* display = (IDisplay*)create();
 	try {
+		display->initWindow();
 		//
 	}
 	catch (std::runtime_error(&e)) {
 		try {
-			//
+			display->exitWindow();
 		}
-		catch (...) {
-		}
+	 	catch (...) {
+	 	}
 		std::cout << e.what() << std::endl;
 	}
 
@@ -74,7 +98,7 @@ void		ReadLib::callRun( void ) {
 /**
  * The bash script is executed to load the library.
  */
-std::string		ReadLib::execute( const char* cmd ) {
+ std::string		ReadLib::execute( const char* cmd ) {
     std::array<char, 512> buffer;
     std::string result;
     std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);

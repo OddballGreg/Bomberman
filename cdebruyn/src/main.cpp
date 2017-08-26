@@ -1,6 +1,5 @@
-#include "../include/ReadLib.class.hpp"
-#include <iostream>
-#include <cstring>
+#define MAIN_FILE
+#include "../include/main.hpp"
 
 int		main(int argc, char **argv)
 {
@@ -8,7 +7,8 @@ int		main(int argc, char **argv)
 		std::cout << argv[0] << std::endl;
 		
 		ReadLib* lib = new ReadLib();
-		lib->openLib();
+		lib->runlib(0);
+		delete lib;
 	}
 	return (0);
 }

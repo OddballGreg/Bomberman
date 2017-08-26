@@ -14,8 +14,9 @@
 
 # include <iostream>
 # include <cstring>
+# include "../shared/IDisplay.hpp"
 
-class Window {
+class Window : public IDisplay {
 
 protected:
 
@@ -27,7 +28,8 @@ public:
 	Window( Window const & copy );
 	Window& operator=( Window const & copy );
 
-	int		createWindow( void );
+	virtual const int		initWindow( void );
+	virtual const int		exitWindow( void );
 };
 
 #endif

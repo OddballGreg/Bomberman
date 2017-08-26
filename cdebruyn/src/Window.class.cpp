@@ -20,11 +20,15 @@ Window&		Window::operator=(Window const &copy) {
 	return *this;
 };
 
-int		Window::createWindow( void ) {
+const int		Window::initWindow( void ) {
 	GLFWwindow* window;
 
 	/* Initialize the GLFW library */
 	if (!glfwInit())
 		return (-1);
 	return (0);
+};
+
+const int		Window::exitWindow( void ) {
+	//
 };
