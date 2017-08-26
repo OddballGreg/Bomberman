@@ -11,10 +11,9 @@
 #  include <GLES3/gl3.h>
 # endif
 
-
 # include <iostream>
 # include <cstring>
-# include "../shared/IDisplay.hpp"
+# include "../../shared/IDisplay.hpp"
 
 class GLFW : public IDisplay {
 
@@ -31,5 +30,13 @@ public:
 	virtual const int		initWindow( void );
 	virtual const int		exitWindow( void );
 };
+
+extern "C" IDisplay*	createWindow(void) {
+	return new GLFW;
+}
+
+extern "C" void			deleteWindow(IDisplay* window) {
+	delete window;
+}
 
 #endif

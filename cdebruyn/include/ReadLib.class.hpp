@@ -23,7 +23,7 @@ extern char		**g_av;
 class ReadLib {
 
 	private:
-		void*		_libHandle;
+		void*	_libHandle;
 		std::string	_exect;
 
 	protected:

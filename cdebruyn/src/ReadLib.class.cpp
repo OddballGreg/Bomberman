@@ -44,20 +44,17 @@ void			ReadLib::runlib( const int & i ) {
  */
 
 void		ReadLib::openLib( const int & i ) {
-	extern char **environ;
-
-	_libHandle = dlopen(static_cast<size_t>(i)).c_str(), RTLD_LAZY | RTLD_LOCAL);
+	this->_libHandle = dlopen("OpenGL.so", RTLD_LAZY | RTLD_LOCAL);
 	
-	if (_libHandle == NULL) {
+	if (this->_libHandle == NULL) {
 		std::cout << "Falied loading library: " << _libraries.at(static_cast<size_t>(i)) << std::endl; 
 		std::cout << dlerror() << std::endl;
 		return;
 	} else {
 		std::cout << "Cool beans... You library has loaded." << std::endl;
 		callRun();
-		dlclose(_libHandle);
+		dlclose(this->_libHandle);
 	}
-	execve(g_av[0], g_av, environ);
 }
 
 /**

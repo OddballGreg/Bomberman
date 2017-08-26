@@ -12,9 +12,8 @@ public:
 	virtual const int	exitWindow( void ) = 0;
 };
 
-extern "C" {
-	IDisplay	*createWindow(void);
-	void		deleteWindow(IDisplay *window);
-}
+
+typedef IDisplay*	createWindow_t();
+typedef void		deleteWindow_t(IDisplay*);
 
 #endif

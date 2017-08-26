@@ -2,9 +2,9 @@ BOMBERMAN = $(HOME)/Projects/Bomberman/cdebruyn
 
 NAME = bomberman
 
-SRCS_NAME = MainComponent.class.cpp ReadLib.class.cpp Environ.class.cpp main.cpp
+SRCS_NAME = MainComponent.class.cpp ReadLib.class.cpp main.cpp
 
-HEADER_NAMES =  MainComponent.class.hpp ReadLib.class.hpp Environ.class.hpp main.hpp
+HEADER_NAMES =  MainComponent.class.hpp ReadLib.class.hpp main.hpp
 
 ifeq ($(shell uname -s), Darwin)
 SYS = OSX
@@ -51,6 +51,7 @@ LINKER_FLAGS = -lglfw -lGLU -lGLEW -lGL -lGLESv2 -lm `sdl2-config --cflags --lib
 
 endif
 
+BREW_INCL = -I ~/.brew/include/
 INCL_PATH = $(BOMBERMAN)/include/
 INCL = -I $(BOMBERMAN)/include/
 
@@ -77,11 +78,10 @@ $(NAME): $(OBJS)
 ifeq ($(SYS), OSX)
 	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(INCLUDE_PATHS) $(LIBRARY_PATHS) \
 	$(LINKER_FLAGS) -o OpenGL.so $(OPENGL)
-	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) $(INCLUDE_PATHS) -o $(NAME) $^ \
-	$(INCL) $(END_FLAGS) $(LIBRARY_PATHS)
+	$(CC) $(COMPILER_FLAGS) -o $(NAME) $^ OpenGL.so $(END_FLAGS) $(BREW_INCL)
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
-	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(INCLUDE_PATHS) $(END_FLAGS)
+	$(CC) $(COMPILER_FLAGS) $(INCL) -o $@ -c $< -I$(INCL_PATH) $(BREW_INCL) $(END_FLAGS)
 
 else
 	$(CC) $(COMPILER_FLAGS) -shared -fPIC $(INCLUDE_PATHS) $(LIBRARY_PATHS) \

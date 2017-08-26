@@ -1,4 +1,4 @@
-#define OPENGL_FILE
+#define GLFW_FILE
 #include "./GLFW.class.hpp"
 
 GLFW::GLFW( void ) {
@@ -9,7 +9,7 @@ GLFW::~GLFW( void ) {
 	//
 };
 
-GLFW::GLFW(Window const &copy) {
+GLFW::GLFW(GLFW const &copy) {
 	*this = copy;
 };
 
@@ -37,19 +37,9 @@ const int		GLFW::exitWindow( void ) {
 ** Linker Functions
 */
 extern "C" GLFW*	createObject() {
-	return new Window;
+	return new GLFW;
 }
 
 extern "C" void destroyObject( GLFW* object ) {
 	delete object;
-}
-
-IDisplay			*createWindow(void) {
-	return new GLFW;
-}
-
-void				deleteWindow(IDisplay *window) {
-	GLFW	*win = static_cast<GLFW *>(window);
-
-	delete win;
 }

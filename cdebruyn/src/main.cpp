@@ -7,7 +7,7 @@ int		main(int argc, char **argv)
 		std::cout << argv[0] << std::endl;
 		
 		ReadLib* lib = new ReadLib();
-		lib->runlib(0);
+		lib->openLib(0);
 		delete lib;
 	}
 	return (0);

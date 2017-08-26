@@ -1,4 +1,4 @@
-#include "../Environ.class.hpp"
+#include "./Environ.class.hpp"
 
 Environ::Environ( void ) {};
 

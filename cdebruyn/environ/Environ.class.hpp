@@ -1,7 +1,7 @@
 #ifndef __ENVIRON_H__
 # define __ENVIRON_H__
 
-# include "./GLFW/"
+# include "./GLFW/GLFW.class.hpp"
 
 class Environ {
 
