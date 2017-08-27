@@ -43,7 +43,7 @@ void			ReadLib::runlib( const int & i ) {
  * This is where the libraries are loaded dynamically.
  */
 
-void		ReadLib::openLib( const int & i ) {
+int		ReadLib::openLib( const int & i ) {
 
 	if (std::strncmp(OPENGL, "OpenGL.so", 9) == 0) {
 
@@ -52,56 +52,48 @@ void		ReadLib::openLib( const int & i ) {
 		if (this->_libHandle == NULL) {
 			std::cout << "Falied loading library: OpenGL" << std::endl; 
 			std::cout << dlerror() << std::endl;
-			return;
+			exit(EXIT_FAILURE);
 		} else {
 			std::cout << "Cool beans... You library has loaded." << std::endl;
 			callRun();
 			dlclose(this->_libHandle);
 		}
-	} else {
-		callRun();
+		return (0);
 	}
-	return;
+	return (-1);
 }
 
 /**
  * This calls the `run` function in the indicated library
  */
-void		ReadLib::callRun( void ) {
+void	ReadLib::callRun( void ) {
 
 	IDisplay* (*create)();
 	void	(*destroy)(IDisplay*);
 
-	if (std::strncmp(OPENGL, "OpenGL.so", 9) == 0) {
-
-		// reset errors
-		dlerror();
-		create = (IDisplay* (*)())dlsym(_libHandle, "createObject");
-		destroy = (void (*)(IDisplay*))dlsym(_libHandle, "destroyObject");
-		const char *dlsym_error = dlerror();
-		if (dlsym_error) {
-			std::cerr << "Trouble finding `run`: " << dlerror() << std::endl;
-			dlclose(_libHandle);
-		}
-
-		IDisplay* display = (IDisplay*)create();
-		try {
-			std::cout << "Initializing initWindow()" << std::endl;
-			display->initWindow();
-		}
-		catch (std::runtime_error(&e)) {
-			try {
-				display->exitWindow();
-			}
-		 	catch (...) {
-		 	}
-			std::cout << e.what() << std::endl;
-		}
-
-		destroy( display );
-	} else {
-		//IDisplay* display;
+	// reset errors
+	dlerror();
+	create = (IDisplay* (*)())dlsym(_libHandle, "createObject");
+	destroy = (void (*)(IDisplay*))dlsym(_libHandle, "destroyObject");
+	const char *dlsym_error = dlerror();
+	if (dlsym_error) {
+		std::cerr << "Trouble finding `run`: " << dlerror() << std::endl;
+		dlclose(_libHandle);
 	}
+
+	IDisplay* display = (IDisplay*)create();
+	try {
+		std::cout << "Initializing initWindow()" << std::endl;
+		display->initWindow();
+	}
+	catch (std::runtime_error(&e)) {
+		try {
+			display->exitWindow();
+		} catch (...) {}
+		std::cout << e.what() << std::endl;
+	}
+
+	destroy( display );
 };
 
 /**

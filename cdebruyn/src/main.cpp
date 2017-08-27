@@ -3,11 +3,17 @@
 
 int		main(int argc, char **argv)
 {
+	int	ret{0};
+
 	if (argc == 1) {
 		std::cout << argv[0] << std::endl;
 		
 		ReadLib* lib = new ReadLib();
-		lib->openLib(0);
+		if ((ret = lib->openLib(0)) == -1) {
+			//GLFW* gl = new GLFW();
+			//gl->initWindow();
+		}
+		std::cout << ret << std::endl;
 		delete lib;
 	}
 	return (0);

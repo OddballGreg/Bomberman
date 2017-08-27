@@ -45,6 +45,8 @@ public:
 
 };
 
+# ifdef __APPLE__
+
 extern "C" IDisplay*	createGLFW(void) {
 	return new GLFW;
 }
@@ -52,5 +54,7 @@ extern "C" IDisplay*	createGLFW(void) {
 extern "C" void			deleteGLFW(IDisplay* window) {
 	delete window;
 }
+
+# endif
 
 #endif

@@ -52,7 +52,7 @@ class ReadLib {
 
 		void			runlib( const int & i );
 		std::string		execute( const char* cmd );
-		void			openLib( const int & i );
+		int				openLib( const int & i );
 		void			callRun( void );
 };
 

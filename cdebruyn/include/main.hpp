@@ -14,6 +14,9 @@ extern "C" {
 	#include <dlfcn.h>
 }
 
+// Graphic Library
+#include "../environ/GLFW/GLFW.class.hpp"
+
 // Library Reading Class
 #include "./ReadLib.class.hpp"
 
