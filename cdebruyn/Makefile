@@ -31,7 +31,7 @@ LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib \
 
 COMPILER_FLAGS += -w -std=c++14 -stdlib=libc++
 
-LINKER_FLAGS =	-framework SDL2 -framework Cocoa -framework OpenGL \
+LINKER_FLAGS =	-framework Cocoa -framework OpenGL \
 				-framework IOKit -framework CoreFoundation \
 				-framework CoreVideo -framework Carbon -lglfw -lGLEW
 
