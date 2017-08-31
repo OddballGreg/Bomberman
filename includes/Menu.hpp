@@ -1,7 +1,12 @@
 #ifndef MENU_HPP
 # define MENU_HPP
 
+#include <glm/glm.hpp>
+
 # include "../gameEngine/gameEngine/gameEngine.hpp"
+# include "../gameEngine/gameEngine/SpriteBatch.hpp"
+# include "Logger.hpp"
+# include "Log.hpp"
 
 enum menuCode {
 	menuCodeExit,
