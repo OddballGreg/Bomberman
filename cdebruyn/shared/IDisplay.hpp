@@ -5,11 +5,16 @@
 # include <iostream>
 # include <sstream>
 
+# include <GLFW/glfw3.h>
+
 class IDisplay {
 
 public:
-	virtual const int	initWindow( void ) = 0;
-	virtual const int	exitWindow( void ) = 0;
+	virtual void		start( void ) = 0;
+	virtual void		stop( void ) = 0;
+
+	virtual const void	run( void ) = 0;
+	virtual const void	render( void ) = 0;
 };
 
 

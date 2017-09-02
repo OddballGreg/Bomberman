@@ -36,12 +36,18 @@ public:
 	GLFW( GLFW const & copy );
 	GLFW& operator=( GLFW const & copy );
 
-	virtual const int		initWindow( void );
-	virtual const int		exitWindow( void );
+	virtual void	start( void );
+	virtual void	stop( void );
 
 	static void		error_callback(int error, std::string descr);
 	static void		key_callback(GLFWwindow* window, int key, int scancode, \
 						int action, int mods);
+
+private:
+	bool	isRunning;
+
+	virtual const void		run( void );
+	virtual const void		render( void );
 
 };
 

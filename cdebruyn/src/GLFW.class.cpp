@@ -2,8 +2,6 @@
 #include "../include/GLFW.class.hpp"
 
 GLFW::GLFW( void ) {
-
-
 	//glfwSetErrorCallback(error_callback);
 
 	/* Initialize the GLFW library */
@@ -26,69 +24,47 @@ GLFW&		GLFW::operator=(GLFW const &copy) {
 	return *this;
 };
 
-const int		GLFW::initWindow( void ) {
-/*	GLFWwindow* _window;
+void	GLFW::start( void ) {
+	if (isRunning)
+		return;
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+	this->run();
+};
+
+void	GLFW::stop( void ) {
+	if (!isRunning)
+		return;
 	
-	_window = glfwCreateWindow(WIDTH, HEIGHT, TITLE, NULL, NULL);
-	if (!_window) {
-		glfwTerminate();
-		exit(EXIT_FAILURE);
-	}
+	isRunning = false;
+};
 
-	glfwSetKeyCallback(_window, key_callback);
-
-	// Make the current window's context current
-	glfwMakeContextCurrent(_window);
-	// gladLoadGLLoader((GLADloadproc), glfwGetProcAddress);
-	glfwSwapInterval(1);
-
-	while (!glfwWindowShouldClose(_window)) {
-		glfwGetFramebufferSize(_window, &WIDTH, &HEIGHT);
-		glfwSwapBuffers(_window);
-		glfwPollEvents();
-	}
-
-	glfwDestroyWindow(_window);
-*/
-	GLFWwindow* window;
-
-    /* Initialize the library */
-    if (!glfwInit())
-        return -1;
-
+const void		GLFW::run( void ) {
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-    if (!window)
+    _window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+
+    if (!_window)
     {
         glfwTerminate();
-        return -1;
+        exit(EXIT_FAILURE);
     }
 
     /* Make the window's context current */
-    glfwMakeContextCurrent(window);
+    glfwMakeContextCurrent(_window);
 
-    /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
-    {
+	while (!glfwWindowShouldClose(_window)) {
+		render();
+	}
+};
+
+const void		GLFW::render( void ) {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
         /* Swap front and back buffers */
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(_window);
 
         /* Poll for and process events */
         glfwPollEvents();
-    }
-
-    glfwTerminate();
-    return 0;
-};
-
-const int		GLFW::exitWindow( void ) {
-	//
 };
 
 void	GLFW::error_callback(int error, std::string descr)

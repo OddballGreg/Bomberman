@@ -84,11 +84,11 @@ void	ReadLib::callRun( void ) {
 	IDisplay* display = (IDisplay*)create();
 	try {
 		std::cout << "Initializing initWindow()" << std::endl;
-		display->initWindow();
+		display->start();
 	}
 	catch (std::runtime_error(&e)) {
 		try {
-			display->exitWindow();
+			display->stop();
 		} catch (...) {}
 		std::cout << e.what() << std::endl;
 	}
