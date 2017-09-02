@@ -39,24 +39,14 @@ void	GLFW::stop( void ) {
 	isRunning = false;
 };
 
-const void		GLFW::run( void ) {
+const void		GLFW::run( void )
+{
 	isRunning = true;
 
-    /* Create a windowed mode window and its OpenGL context */
-    _window = glfwCreateWindow(WIDTH, HEIGHT, TITLE, NULL, NULL);
+    createWindow(HEIGHT, WIDTH);
 
-    if (!_window)
-    {
-        glfwTerminate();
-        exit(EXIT_FAILURE);
-    }
-
-    /* Make the window's context current */
-    glfwMakeContextCurrent(_window);
-
-	while (!glfwWindowShouldClose(_window)) {
+	while (!glfwWindowShouldClose(_window))
 		render();
-	}
 };
 
 const void		GLFW::render( void ) {
@@ -76,8 +66,83 @@ void	GLFW::error_callback(int error, std::string descr) {
 
 void 	GLFW::key_callback(GLFWwindow* window, int key, int scancode, \
 		int action, int mods) {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, GLFW_TRUE);
+    if (!(action == GLFW_PRESS))
+        return;
+
+    _key = key;
+    switch (key)
+    {
+        case GLFW_KEY_ESCAPE:
+            glfwSetWindowShouldClose(window, GLFW_TRUE);
+            break;
+        case GLFW_KEY_LEFT:
+            break;
+        case GLFW_KEY_RIGHT:
+            break;
+        case GLFW_KEY_DOWN:
+            break;
+        case GLFW_KEY_UP:
+            break;
+        case GLFW_KEY_SPACE:
+            break;
+        case GLFW_KEY_W:
+            break;
+        case GLFW_KEY_S:
+            break;
+        case GLFW_KEY_A:
+            break;
+        case GLFW_KEY_D:
+            break;
+    }
+};
+
+int     GLFW::getKey()
+{
+    return (this->_key);
+};
+
+bool    GLFW::createWindow(int height, int width)
+{
+    /* Create a windowed mode window and its OpenGL context */
+    _window = glfwCreateWindow(width, height, TITLE, NULL, NULL);
+
+    if (!_window)
+    {
+        glfwTerminate();
+        exit(EXIT_FAILURE);
+    }
+
+    /* Make the window's context current */
+    glfwMakeContextCurrent(_window);
+};
+
+void    GLFW::refresh()
+{
+
+};
+
+void    GLFW::draw(int, int, char)
+{
+
+};
+
+void    GLFW::clearWindow()
+{
+
+};
+
+void    GLFW::display( void )
+{
+
+};
+
+void    GLFW::reshape(GLsizei width, GLsizei height)
+{
+};
+
+void    GLFW::keyboard(unsigned char key, int x, int y)
+{
+    //glfwSetKeyCallback()
 };
 
 /*

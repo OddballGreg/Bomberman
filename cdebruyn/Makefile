@@ -1,4 +1,4 @@
-BOMBERMAN = $(HOME)/Projects/Bomberman/cdebruyn
+BOMBERMAN = $(HOME)/Desktop/Bomberman/cdebruyn
 
 NAME = bomberman
 
@@ -46,7 +46,8 @@ LINKER_FLAGS =	-framework Cocoa -framework OpenGL \
 else
 
 INCLUDE_PATHS = -I/usr/include/GL -I/usr/include/GLFW \
-				-I/usr/include/X11 -I/usr/include/glm
+		-I/usr/include/X11 -I/usr/include/glm \
+		-I/usr/include/GLES3
 
 LIBRARY_PATHS = -L/usr/lib/x86_64-linux-gnu/libGLU.so \
 				-L/usr/lib/x86_64-linux-gnu/libGL.so \

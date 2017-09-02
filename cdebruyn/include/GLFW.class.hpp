@@ -17,39 +17,54 @@
 # include <cstdio>
 # include "../shared/IDisplay.hpp"
 
-class GLFW : public IDisplay {
+class GLFW : public IDisplay
+{
+	protected:
+		int 			WIDTH{800};
+		int 			HEIGHT{600};
+		const char* 	TITLE{"Bomberman"};
+		int				_key{0};
 
-protected:
-	int WIDTH{800};
-	int HEIGHT{600};
-	const char* TITLE{"Bomberman"};
+    	GLuint _vertex_buffer, _vertex_shader, _fragment_shader, _program;
+    	GLint _mvp_location, _vpos_location, _vcol_location;
 
-    GLFWwindow* _window;
-    GLuint _vertex_buffer, _vertex_shader, _fragment_shader, _program;
-    GLint _mvp_location, _vpos_location, _vcol_location;
+	public:
+    	GLFWwindow* _window;
 
-public:
+		GLFW( void );
+		~GLFW( void );
 
-	GLFW( void );
-	~GLFW( void );
+		GLFW( GLFW const & copy );
+		GLFW& operator=( GLFW const & copy );
 
-	GLFW( GLFW const & copy );
-	GLFW& operator=( GLFW const & copy );
+		virtual void		start( void );
+		virtual void		stop( void );
 
-	virtual void	start( void );
-	virtual void	stop( void );
+		static void			error_callback(int error, std::string descr);
+		void				key_callback(GLFWwindow* window, int key, int scancode, \
+							int action, int mods);
 
-	static void		error_callback(int error, std::string descr);
-	static void		key_callback(GLFWwindow* window, int key, int scancode, \
-						int action, int mods);
+        int         		getKey();
+        bool        		createWindow(int, int);
+        void        		refresh();
+        void        		draw(int, int, char);
+        void        		clearWindow();
 
-private:
-	bool	isRunning;
+        void				display( void );
+        void				reshape(GLsizei width, GLsizei height);
+		void				specialKeys(int key, int x, int y) const;
+        void				keyboard(unsigned char key, int x, int y);
 
-	virtual const void		run( void );
-	virtual const void		render( void );
+	private:
+		bool	isRunning;
+
+		virtual const void		run( void );
+		virtual const void		render( void );
 
 };
+
+//        static void Timer(int value);
+//        void				initGL();
 
 # ifdef __APPLE__
 

@@ -15,6 +15,13 @@ public:
 
 	virtual const void	run( void ) = 0;
 	virtual const void	render( void ) = 0;
+
+    virtual int     getKey() = 0;
+    virtual bool    createWindow(int, int) = 0;
+    virtual void    refresh() = 0;
+    virtual void    draw(int, int, char) = 0;
+	virtual void    clearWindow() = 0;
+
 };
 
 
