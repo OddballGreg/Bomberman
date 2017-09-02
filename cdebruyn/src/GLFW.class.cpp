@@ -140,11 +140,6 @@ void    GLFW::reshape(GLsizei width, GLsizei height)
 {
 };
 
-void    GLFW::keyboard(unsigned char key, int x, int y)
-{
-    //glfwSetKeyCallback()
-};
-
 /*
 ** Linker Functions
 */
