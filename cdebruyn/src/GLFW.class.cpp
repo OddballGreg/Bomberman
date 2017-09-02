@@ -10,6 +10,7 @@ GLFW::GLFW( void ) {
 };
 
 GLFW::~GLFW( void ) {
+	glfwDestroyWindow(_window);
 	glfwTerminate();
 };
 
@@ -39,6 +40,8 @@ void	GLFW::stop( void ) {
 };
 
 const void		GLFW::run( void ) {
+	isRunning = true;
+
     /* Create a windowed mode window and its OpenGL context */
     _window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
 
@@ -67,25 +70,23 @@ const void		GLFW::render( void ) {
         glfwPollEvents();
 };
 
-void	GLFW::error_callback(int error, std::string descr)
-{
+void	GLFW::error_callback(int error, std::string descr) {
     std::fprintf(stderr, "Error: %s\n", descr.c_str());
-}
+};
 
 void 	GLFW::key_callback(GLFWwindow* window, int key, int scancode, \
-		int action, int mods)
-{
+		int action, int mods) {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GLFW_TRUE);
-}
+};
 
 /*
 ** Linker Functions
 */
 extern "C" GLFW*	createObject() {
 	return new GLFW;
-}
+};
 
 extern "C" void destroyObject( GLFW* object ) {
 	delete object;
-}
+};
