@@ -43,7 +43,7 @@ const void		GLFW::run( void ) {
 	isRunning = true;
 
     /* Create a windowed mode window and its OpenGL context */
-    _window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    _window = glfwCreateWindow(WIDTH, HEIGHT, TITLE, NULL, NULL);
 
     if (!_window)
     {
