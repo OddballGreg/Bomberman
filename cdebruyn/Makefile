@@ -2,9 +2,9 @@ BOMBERMAN = $(HOME)/Projects/Bomberman/cdebruyn
 
 NAME = bomberman
 
-SRCS_NAME = MainComponent.class.cpp ReadLib.class.cpp main.cpp
+SRCS_NAME = MainComponent.class.cpp ReadLib.class.cpp GLFW.class.cpp main.cpp
 
-HEADER_NAMES =  MainComponent.class.hpp ReadLib.class.hpp main.hpp
+HEADER_NAMES =  MainComponent.class.hpp ReadLib.class.hpp GLFW.class.hpp main.hpp
 
 ifeq ($(shell uname -s), Darwin)
 SYS = OSX

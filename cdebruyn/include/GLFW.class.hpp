@@ -15,7 +15,7 @@
 # include <iostream>
 # include <cstring>
 # include <cstdio>
-# include "../../shared/IDisplay.hpp"
+# include "../shared/IDisplay.hpp"
 
 class GLFW : public IDisplay {
 

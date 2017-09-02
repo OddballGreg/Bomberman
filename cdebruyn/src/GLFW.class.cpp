@@ -1,9 +1,9 @@
 #define GLFW_FILE
-#include "./GLFW.class.hpp"
+#include "../include/GLFW.class.hpp"
 
 GLFW::GLFW( void ) {
 
-	glfwSetErrorCallback(error_callback);
+//	glfwSetErrorCallback(error_callback);
 
 	/* Initialize the GLFW library */
 	if (!glfwInit())
@@ -26,7 +26,7 @@ GLFW&		GLFW::operator=(GLFW const &copy) {
 };
 
 const int		GLFW::initWindow( void ) {
-	GLFWwindow* _window;
+/*	GLFWwindow* _window;
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
@@ -39,9 +39,9 @@ const int		GLFW::initWindow( void ) {
 
 	glfwSetKeyCallback(_window, key_callback);
 
-	/* Make the current window's context current */
+	// Make the current window's context current
 	glfwMakeContextCurrent(_window);
-//	gladLoadGLLoader((GLADloadproc), glfwGetProcAddress);
+	// gladLoadGLLoader((GLADloadproc), glfwGetProcAddress);
 	glfwSwapInterval(1);
 
 	while (!glfwWindowShouldClose(_window)) {
@@ -51,6 +51,39 @@ const int		GLFW::initWindow( void ) {
 	}
 
 	glfwDestroyWindow(_window);
+*/
+	GLFWwindow* window;
+
+    /* Initialize the library */
+    if (!glfwInit())
+        return -1;
+
+    /* Create a windowed mode window and its OpenGL context */
+    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    if (!window)
+    {
+        glfwTerminate();
+        return -1;
+    }
+
+    /* Make the window's context current */
+    glfwMakeContextCurrent(window);
+
+    /* Loop until the user closes the window */
+    while (!glfwWindowShouldClose(window))
+    {
+        /* Render here */
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        /* Swap front and back buffers */
+        glfwSwapBuffers(window);
+
+        /* Poll for and process events */
+        glfwPollEvents();
+    }
+
+    glfwTerminate();
+    return 0;
 };
 
 const int		GLFW::exitWindow( void ) {

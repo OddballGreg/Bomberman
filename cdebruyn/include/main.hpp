@@ -15,7 +15,7 @@ extern "C" {
 }
 
 // Graphic Library
-#include "../environ/GLFW/GLFW.class.hpp"
+#include "./GLFW.class.hpp"
 
 // Library Reading Class
 #include "./ReadLib.class.hpp"
