@@ -3,6 +3,8 @@ https://ffainelli.github.io/openal-example/
 code:
 https://github.com/ffainelli/openal-example
 
+
+brew install openal-soft
 This is important to set your .
 This formula is keg-only, which means it was not symlinked into /nfs/zfs-student-6/users/ggroener/.brew,
 because macOS provides OpenAL.framework.
