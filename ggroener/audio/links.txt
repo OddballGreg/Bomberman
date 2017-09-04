@@ -2,3 +2,14 @@ Documentation:
 https://ffainelli.github.io/openal-example/
 code:
 https://github.com/ffainelli/openal-example
+
+This is important to set your .
+This formula is keg-only, which means it was not symlinked into /nfs/zfs-student-6/users/ggroener/.brew,
+because macOS provides OpenAL.framework.
+
+If you need to have this software first in your PATH run:
+    echo 'export PATH="/nfs/zfs-student-6/users/ggroener/.brew/opt/openal-soft/bin:$PATH"' >> ~/.zshrc
+
+For compilers to find this software you may need to set:
+    LDFLAGS:  -L/nfs/zfs-student-6/users/ggroener/.brew/opt/openal-soft/lib
+    CPPFLAGS: -I/nfs/zfs-student-6/users/ggroener/.brew/opt/openal-soft/include
