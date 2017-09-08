@@ -1,15 +1,26 @@
 #!/bin/sh
 
+brew install cmake
 brew install fmod
 brew install glm
 brew install glfw
 brew install glew
 brew install openal
-brew install openal
 brew install dumb
 brew install alure
 brew install openal-soft
 brew install freealut
+brew install pkg-config
+brew install libsndfile
+
+brew install autoconf 
+brew install autogen 
+brew install automake 
+brew install flac 
+brew install libogg 
+brew install libtool 
+brew install libvorbis 
+brew install pkg-config
 
 brew install freetype
 

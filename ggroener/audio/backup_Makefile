@@ -1,11 +1,13 @@
-CC?=gcc
+CC?=gcc -Wall -Wextra -Werror
 LDLIBS?=-lopenal
 ifeq ($(LIBAUDIO),1)
 CFLAGS+=-DLIBAUDIO
 LDLIBS+=-laudio
 else
-LDLIBS+=-lalut
+CFLAGS+= -I ~/.brew/Cellar/openal-soft/1.18.1/include/AL/
+LDLIBS+=-lalut -L ~/.brew/Cellar/openal-soft/1.18.1/lib/
 endif
+
 APP:=openal-example
 OBJS:= $(APP).o
 
@@ -19,4 +21,3 @@ $(APP): $(OBJS)
 
 clean:
 	-rm -f $(OBJS) $(APP)
-
