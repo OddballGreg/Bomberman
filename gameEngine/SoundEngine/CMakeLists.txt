@@ -64,7 +64,6 @@ endif()
 
 # Directories to find the header files
 include_directories(
-        #~/.brew/Cellar/libsndfile/1.0.28/include/sndfile.h
         ~/.brew/Cellar/freealut/1.1.0/include/AL
         includes
         ${GLEW_INCLUDE_DIRS}
@@ -79,8 +78,6 @@ include_directories(
 
 # Directories to find the libraries
 link_directories(
-        #~/.brew/Cellar/freealut/1.1.0/lib
-        #~/.brew/Cellar/freealut/1.1.0/lib/pkgconfig
         ~/.brew/opt/alut/lib
         ~/.brew/Cellar/sdl/1.2.15/lib
         ~/.brew/Cellar/sdl2/2.0.5/lib
@@ -95,8 +92,6 @@ add_executable(audio ${SOURCE_FILES})
 
 # Link executable with libraries
 target_link_libraries(${PROJECT_NAME}
-        #        ~/.brew/Cellar/freealut/1.1.0/lib/
-        #        ~/.brew/Cellar/freealut/1.1.0/lib/libalut.a
         ${OPENGL_LIBRARIES}
         ${OPENAL_LIBRARY}
         ${GLEW_LIBRARIES}
