@@ -9,5 +9,8 @@ int main(int argc,char** argv)
     Sound music;
     music.initialize("music/test.wav");
     music.play(0, true);
+    while (1)
+    {
+    }
     return(0);
 }

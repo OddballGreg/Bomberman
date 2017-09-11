@@ -100,12 +100,8 @@ set(SOURCE_FILES
         gameEngine/textures/jimmyJump_pack/license.txt
         gameEngine/Bomb.cpp
         gameEngine/Bomb.hpp
-        gameEngine/BulletOld.cpp
-        gameEngine/BulletOld.hpp
         gameEngine/Camera2D.cpp
         gameEngine/Camera2D.hpp
-        gameEngine/FatalError.cpp
-        gameEngine/FatalError.hpp
         gameEngine/gameEngine.cpp
         gameEngine/gameEngine.hpp
         gameEngine/GLSLProgram.cpp
@@ -121,9 +117,6 @@ set(SOURCE_FILES
         gameEngine/Log.hpp
         gameEngine/Logger.cpp
         gameEngine/Logger.hpp
-        gameEngine/main.cpp
-        gameEngine/mainGame.cpp
-        gameEngine/mainGame.hpp
         gameEngine/picoPNG.cpp
         gameEngine/picoPNG.hpp
         gameEngine/ResourceManager.cpp
@@ -150,8 +143,6 @@ set(SOURCE_FILES
         Textures/red_bricks.png
         Agent.cpp
         Agent.hpp
-        Bomb.cpp
-        Bomb.hpp
         Bullet.cpp
         Bullet.hpp
         Gun.cpp
@@ -202,22 +193,26 @@ include_directories(
         ${GLM_INCLUDE_DIRS}
         ${OPENAL_INCLUDE_DIR}
         ~/.brew/opt/alut/include
-        ~/.brew/Cellar/sdl/1.2.15/include/SDL
-        ~/.brew/opt/sdl/include/SDL
+#        ~/.brew/Cellar/sdl/1.2.15/include/SDL
+#        ~/.brew/opt/sdl/include/SDL
         ~/.brew/Cellar/sdl2/2.0.5/include/SDL2
         ~/.brew/opt/sdl2/include/SDL2
+        ~/.brew/Cellar/glfw/3.2.1/include/
 )
 
 # Directories to find the libraries
 link_directories(
         ~/.brew/opt/alut/lib
-        ~/.brew/Cellar/sdl/1.2.15/lib
+#       ~/.brew/Cellar/sdl/1.2.15/lib
         ~/.brew/Cellar/sdl2/2.0.5/lib
-        ~/.brew/opt/sdl/lib
+        ~/.brew/opt/sdl2/include/SDL2/
+#       ~/.brew/opt/sdl/lib
+        ~/.brew/Cellar/glfw/3.2.1/lib
         ~/.brew/opt/sdl2/lib
         ${PROJECT_SOURCE_DIR}
         ${GLEW_LIBRARY_DIRS}
         ${GLM_LIBRARY_DIRS}
+        ${GLFW_LIBRARY_DIRS}
 )
 
 add_executable(gameEngine ${SOURCE_FILES})
@@ -228,7 +223,10 @@ target_link_libraries(${PROJECT_NAME}
         ${OPENAL_LIBRARY}
         ${GLEW_LIBRARIES}
         ${GLM_LIBRARIES}
+        ${GLFW_LIBRARIES}
         alut
+        glfw
+        sdl2
         )
 
 
