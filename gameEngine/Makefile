@@ -30,10 +30,14 @@ OBJS = 	main.cpp  \
 CC = g++
 
 # INCLUDE_PATHS specifies the additional include paths we'll need
-INCLUDE_PATHS = -I ~/.brew/Cellar/glfw/3.2.1/include -I ~/.brew/Cellar/glew/2.0.0/include -I ~/.brew/Cellar/glew/2.1.0/include/
+INCLUDE_PATHS = -I ~/.brew/Cellar/glfw/3.2.1/include 
+INCLUDE_PATHS += -I ~/.brew/Cellar/sdl2/2.0.5/include
+INCLUDE_PATHS += -I ~/.brew/Cellar/glew/2.1.0/include
 INCLUDE_PATHS += -I ~/.brew/Cellar/glm/0.9.8.5/include
 # LIBRARY_PATHS specifies the additional library paths we'll need
-LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib -L ~/.brew/Cellar/glew/2.0.0/lib -L ~/.brew/Cellar/glew/2.1.0/lib
+LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib 
+LIBRARY_PATHS += -L ~/.brew/Cellar/glew/2.1.0/lib
+LIBRARY_PATHS += -L ~/.brew/Cellar/sdl2/2.0.5/lib
 
 # COMPILER_FLAGS specifies the additional compilation options we're using
 # -w suppresses all warnings
@@ -41,10 +45,10 @@ COMPILER_FLAGS = -w -std=c++11 -stdlib=libc++
 
 # LINKER_FLAGS specifies the libraries we're linking against
 # Cocoa, IOKit, and CoreVideo are needed for static GLFW3.
-LINKER_FLAGS = -framework SDL2 -framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lglfw -lGLEW
+LINKER_FLAGS = -framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lglfw -lGLEW -lSDL2
 
 # OBJ_NAME specifies the name of our exectuable
-OBJ_NAME = game
+OBJ_NAME = bomberman
 
 #This is the target that compiles our executable
 all : $(OBJS)
