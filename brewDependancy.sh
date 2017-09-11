@@ -9,3 +9,4 @@ brew install alure
 brew install openal-soft
 brew install freealut
 brew install pkg-config
+brew install SDL2
