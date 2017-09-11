@@ -9,6 +9,10 @@ set(CMAKE_CXX_STANDARD 14)
 set(RESOURCE_DIRS
         Shaders
         Textures
+        Art
+        Levels
+        colourshading.vert
+        colourshading.frag
         )
 
 set(INSTALLED_PACKAGE FALSE)
@@ -134,6 +138,8 @@ set(SOURCE_FILES
         gameEngine/Window.cpp
         gameEngine/Window.hpp
         Levels/level1.txt
+        colourshading.vert
+        colourshading.frag
         Shaders/textureShading.frag
         Shaders/textureShading.vert
         Textures/circle.png
