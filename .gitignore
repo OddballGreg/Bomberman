@@ -33,6 +33,7 @@
 
 #Cmake files to ignore
 .idea*
+cmake-build-debug
 
 # Other
 bomberman_log.txt
