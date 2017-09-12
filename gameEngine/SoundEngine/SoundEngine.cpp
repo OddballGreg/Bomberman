@@ -1,6 +1,8 @@
 #include <al.h>
 #include "SoundEngine.hpp"
 
+//put the sound on the stack and not on the heap.
+
 void *worker(void *argc){
     std::cout << "playing from thread" << std::endl;
     return  argc;
@@ -32,9 +34,13 @@ Sound::Sound() {
 }
 
 Sound::~Sound() {
-    //alutExit();
     alDeleteSources(1, &_source);
     alDeleteBuffers(1, &_buffer);
+    _rc = pthread_detach(_thread[2]);
+    if (!_thread[2])
+    {
+        std::cout << stderr << "Thread been deleted" << std::endl;
+    }
 }
 
 void Sound::initialize(const char* File) {
