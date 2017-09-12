@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <OpenGL/gl3.h>
 #include <GLFW/glfw3.h>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 gameEngine::FpsLimiter::FpsLimiter() {
 

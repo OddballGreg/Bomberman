@@ -14,7 +14,7 @@ Agent::~Agent() {
 
 void	Agent::draw(gameEngine::SpriteBatch& _spriteBatch) {
 
-	static int textureID = gameEngine::ResourceManager::getTexture("gameEngine/textures/jimmyJump_pack/PNG/CharacterRight_Walk1.png").id;
+	static int textureID = gameEngine::ResourceManager::getTexture("../Art/CharacterRight_Walk1.png").id;
 	const glm::vec4 uvRect(0.0f, 0.0f, 1.0f, 1.0f);
 
 	glm::vec4 destRect;
