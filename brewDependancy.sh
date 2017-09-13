@@ -10,3 +10,4 @@ brew install openal-soft
 brew install freealut
 brew install pkg-config
 brew install SDL2
+brew install python

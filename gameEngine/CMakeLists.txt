@@ -15,6 +15,17 @@ set(RESOURCE_DIRS
         colourshading.frag
         )
 
+if (NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/nanogui/build")
+    message(INFO "The Bomberman dependency repositories (NanoGUI) are missing! "
+            "You probably did not clone the project with --recursive.\n"
+            "Automatically cloning submodules...")
+    execute_process(COMMAND git submodule update --init --recursive)
+    message(INFO "Build NanoGUI")
+    execute_process(COMMAND /bin/sh ${PROJECT_SOURCE_DIR}/install_dependencies.sh
+            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/dependencies/nanogui/)
+endif ()
+
+
 set(INSTALLED_PACKAGE FALSE)
 
 function(installPkg pkgApple pkgLinux)
