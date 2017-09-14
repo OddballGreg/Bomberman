@@ -35,6 +35,9 @@
 .idea*
 cmake-build-debug
 
+#NANOGUI library
+.nanogui
+
 # Other
 bomberman_log.txt
 bomberman

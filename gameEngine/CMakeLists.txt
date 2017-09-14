@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.8)
 project(gameEngine)
 
 set(CMAKE_CXX_STANDARD 14)
-#set(CMAKE_CXX_FLAGS “${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror”)
 #set(CMAKE_CXX_FLAGS “${CMAKE_CXX_FLAGS} -g -g3)
+#set(CMAKE_CXX_FLAGS “${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror”)
 
 # These directories get symlinked into the build directory after compilation
 set(RESOURCE_DIRS
@@ -15,15 +15,24 @@ set(RESOURCE_DIRS
         colourshading.frag
         )
 
-if (NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/nanogui/build")
-    message(INFO "The Bomberman dependency repositories (NanoGUI) are missing! "
-            "You probably did not clone the project with --recursive.\n"
-            "Automatically cloning submodules...")
-    execute_process(COMMAND git submodule update --init --recursive)
-    message(INFO "Build NanoGUI")
-    execute_process(COMMAND /bin/sh ${PROJECT_SOURCE_DIR}/install_dependencies.sh
-            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/dependencies/nanogui/)
-endif ()
+include(ExternalProject)
+set(NANOGUI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/.nanogui)
+
+
+#if (NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/dependencies/nanogui/build")
+#    message(INFO "The Bomberman dependency repositories (NanoGUI) are missing! "
+#            "You probably did not clone the project with --recursive.\n"
+#            "Automatically cloning submodules...")
+#    execute_process(COMMAND git submodule update --init --recursive)
+#    message(INFO "Build NanoGUI")
+#    execute_process(COMMAND /bin/sh ${PROJECT_SOURCE_DIR}/install_dependencies.sh
+#            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/dependencies/nanogui/)
+#endif ()
+
+if (NOT IS_DIRECTORY "${NANOGUI_DIR}")
+    execute_process(COMMAND git clone https://github.com/wjakob/nanogui.git --recursive .nanogui)
+    execute_process(COMMAND sh install_dependencies.sh)
+endif()
 
 
 set(INSTALLED_PACKAGE FALSE)
@@ -210,26 +219,29 @@ include_directories(
         ${GLM_INCLUDE_DIRS}
         ${OPENAL_INCLUDE_DIR}
         ~/.brew/opt/alut/include
-#        ~/.brew/Cellar/sdl/1.2.15/include/SDL
-#        ~/.brew/opt/sdl/include/SDL
         ~/.brew/Cellar/sdl2/2.0.5/include/SDL2
         ~/.brew/opt/sdl2/include/SDL2
         ~/.brew/Cellar/glfw/3.2.1/include/
+        ${NANOGUI_DIR}/ext/glfw/include
+        ${NANOGUI_DIR}/include
+        ${NANOGUI_DIR}/ext/eigen
+        ${NANOGUI_DIR}/ext/nanovg/src
 )
 
 # Directories to find the libraries
 link_directories(
         ~/.brew/opt/alut/lib
-#       ~/.brew/Cellar/sdl/1.2.15/lib
         ~/.brew/Cellar/sdl2/2.0.5/lib
         ~/.brew/opt/sdl2/include/SDL2/
-#       ~/.brew/opt/sdl/lib
         ~/.brew/Cellar/glfw/3.2.1/lib
         ~/.brew/opt/sdl2/lib
         ${PROJECT_SOURCE_DIR}
         ${GLEW_LIBRARY_DIRS}
         ${GLM_LIBRARY_DIRS}
         ${GLFW_LIBRARY_DIRS}
+        ${NANOGUI_DIR}
+        ${NANOGUI_DIR}/ext/eigen
+        ${NANOGUI_DIR}/ext/nanovg/src
 )
 
 add_executable(gameEngine ${SOURCE_FILES})
@@ -244,6 +256,7 @@ target_link_libraries(${PROJECT_NAME}
         alut
         glfw
         sdl2
+#        nanogui
         )
 
 
