@@ -6,9 +6,12 @@
 
 int main(int argc,char** argv)
 {
-    Sound music;
-    music.initialize("music/loop.wav");
-    music.play(0, true);
+    Sound musicloop;
+    musicloop.initialize("music/loop.wav");
+    musicloop.play(0, true);
+    Sound musicbounce;
+    musicbounce.initialize("music/bounce.wav");
+    musicbounce.play(0, false);
     while (1)
     {
     }

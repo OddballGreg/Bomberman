@@ -94,6 +94,7 @@ void Sound::initialize(const char* File) {
     std::cout << "format: " << _format << std::endl;
     std::cout << "data: " << &_data << std::endl;
 
+    delete(_data);
 }
 
 char* Sound::loadWAV(const char* fn,int& chan,int& samplerate,int& bps,int& size){
