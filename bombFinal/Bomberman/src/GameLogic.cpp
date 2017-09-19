@@ -59,9 +59,9 @@ namespace Bomberman {
     renderer->cameraPosition.z = 0;
 
     // Initialize camera angles
-    renderer->cameraRotation.x = 0.8567;
-    renderer->cameraRotation.y = 0.1433;
-    renderer->cameraRotation.z = 0;
+    renderer->cameraRotation.x = 0.8567f;
+    renderer->cameraRotation.y = 0.0f;
+    renderer->cameraRotation.z = 0.0f;
 
   }
 
