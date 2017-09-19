@@ -62,7 +62,7 @@ namespace Bomberman {
 
     Renderer *renderer;
     GameLogic();
-    ~GameLogic() = default;
+    ~GameLogic();
     void process(const KeyInput &keyInput);
 
     void render();

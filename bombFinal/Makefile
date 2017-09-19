@@ -22,8 +22,8 @@ CC = g++
 
 # INCLUDE_PATHS specifies the additional include paths we'll need
 INCLUDE_PATHS = -I ~/.brew/Cellar/sfml/2.4.2_1/include
-INCLUDE_PATHS += -I ~/.brew/Cellar/freetype/2.8/include
-INCLUDE_PATHS += -I ~/.brew/Cellar/freetype/2.8/include/freetype2
+INCLUDE_PATHS += -I ~/.brew/Cellar/freetype/2.8.1/include
+INCLUDE_PATHS += -I ~/.brew/Cellar/freetype/2.8.1/include/freetype2
 INCLUDE_PATHS += -I ~/.brew/Cellar/libpng/1.6.32/include
 INCLUDE_PATHS += -I ~/.brew/Cellar/glfw/3.2.1/include 
 INCLUDE_PATHS += -I ~/.brew/Cellar/sdl2/2.0.5/include
@@ -35,7 +35,7 @@ LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib
 LIBRARY_PATHS += -L ~/.brew/Cellar/glew/2.1.0/lib
 LIBRARY_PATHS += -L ~/.brew/Cellar/sdl2/2.0.5/lib
 LIBRARY_PATHS += -L ~/.brew/Cellar/sfml/2.4.2_1/lib
-LIBRARY_PATHS += -L ~/.brew/Cellar/freetype/2.8/lib
+LIBRARY_PATHS += -L ~/.brew/Cellar/freetype/2.8.1/lib
 LIBRARY_PATHS += -L ~/.brew/Cellar/libpng/1.6.32/lib
 LIBRARY_PATHS += -L ~/.brew/lib
 # COMPILER_FLAGS specifies the additional compilation options we're using

@@ -51,6 +51,27 @@ namespace Bomberman {
     
     ENEMY_ROTATION_SPEED = 0.1f;
     ENEMY_SPEED = 0.05f;
+
+    // player chase camera
+    renderer->cameraPosition = player.offset;
+    renderer->cameraPosition.x = 0;
+    renderer->cameraPosition.y = 14;
+    renderer->cameraPosition.z = 0;
+
+    // Initialize camera angles
+    renderer->cameraRotation.x = 0.8567;
+    renderer->cameraRotation.y = 0.1433;
+    renderer->cameraRotation.z = 0;
+
+  }
+
+  GameLogic::~GameLogic() {
+      std::cout << "Camera Rotation x: " << renderer->cameraRotation.x << std::endl;
+      std::cout << "Camera Rotation y: " << renderer->cameraRotation.y << std::endl;
+      std::cout << "Camera Rotation z: " << renderer->cameraRotation.z << std::endl;
+      std::cout << "Camera Position x: " << renderer->cameraPosition.x << std::endl;
+      std::cout << "Camera Position y: " << renderer->cameraPosition.y << std::endl;
+      std::cout << "Camera Position z: " << renderer->cameraPosition.z << std::endl;
   }
   
   void GameLogic::initGame() {
@@ -190,7 +211,7 @@ namespace Bomberman {
     if (keyInput.left) {
       player.rotation.y -= PLAYER_ROTATION_SPEED;
       
-      // while (player.collidesWith(tree)) {
+      // while (player.collidesWith(tree.offset)) {
       //   player.rotation.y += PLAYER_ROTATION_SPEED;
       // }
       
@@ -198,15 +219,16 @@ namespace Bomberman {
         player.rotation.y = 0.0f;
       player.startAnimating();
       
-    } else if (keyInput.right) {
+    } 
+    else if (keyInput.right) {
       player.rotation.y += PLAYER_ROTATION_SPEED;
-      // while (player.collidesWith(tree)) {
+      // while (player.collidesWith(tree.offset)) {
       //   player.rotation.y -= PLAYER_ROTATION_SPEED;
       // }
       
       
       if (player.rotation.y > FULL_ROTATION)
-      player.rotation.y = 0.0f;
+        player.rotation.y = 0.0f;
       player.startAnimating();
     }
     
@@ -254,15 +276,34 @@ namespace Bomberman {
     if (player.offset.x < MIN_X)
       player.offset.x = MIN_X;
 
-    // player chase camera
-    renderer->cameraPosition = player.offset;
-    renderer->cameraPosition.x -= sin(player.rotation.y) * 4.0f;
-    renderer->cameraPosition.z += cos(player.rotation.y) * 4.0f;
-    // renderer->cameraPosition.y += sin(player.rotation.x) * 3.0f;
-    renderer->cameraPosition.y = 1.0f;
-    renderer->cameraRotation = player.rotation;
-    
-      player.animate();
+
+    if (keyInput.camRotXUp) {
+      renderer->cameraRotation.x += cos(player.rotation.y) * 0.05f;
+    } else if (keyInput.camRotXDown) {
+      renderer->cameraRotation.x -= cos(player.rotation.y) * 0.05f;
+    } else if (keyInput.camRotYUp) {
+      renderer->cameraRotation.y += cos(player.rotation.y) * 0.05f;
+    } else if (keyInput.camRotYDown) {
+      renderer->cameraRotation.y -= cos(player.rotation.y) * 0.05f;
+    } else if (keyInput.camRotZUp) {
+      renderer->cameraRotation.z += cos(player.rotation.y) * 0.05f;
+    } else if (keyInput.camRotZDown) {
+      renderer->cameraRotation.z -= cos(player.rotation.y) * 0.05f;
+    } else if (keyInput.camPosXUp) {
+      renderer->cameraPosition.x += 0.5f;
+    } else if (keyInput.camPosXDown) {
+      renderer->cameraPosition.x -= 0.5f;
+    } else if (keyInput.camPosYUp) {
+      renderer->cameraPosition.y += 0.5f;
+    } else if (keyInput.camPosYDown) {
+      renderer->cameraPosition.y -= 0.5f;
+    } else if (keyInput.camPosZUp) {
+      renderer->cameraPosition.z += 0.5f;
+    } else if (keyInput.camPosZDown) {
+      renderer->cameraPosition.z -= 0.5f;
+    }
+
+    player.animate();
     
     // Uncomment to see the player's view of the world
     // renderer->cameraPosition = player.offset;
