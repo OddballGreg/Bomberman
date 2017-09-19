@@ -40,10 +40,10 @@ cmake-build-debug
 
 # Other
 bomberman_log.txt
-bomberman
-game
+
+
 ._*
 .DS_Store
-.vscode
+vscode
 .classdigest
-bomberman
+
