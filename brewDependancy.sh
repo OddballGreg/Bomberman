@@ -11,3 +11,5 @@ brew install freealut
 brew install pkg-config
 brew install SDL2
 brew install python
+brew install libpng
+brew install freetype
