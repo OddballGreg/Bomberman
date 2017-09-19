@@ -1,6 +1,7 @@
 
 #include <memory>
 #include <stdexcept>
+#include <iostream>
 #include "../include/GameLogic.hpp"
 
 
@@ -38,7 +39,7 @@ namespace Bomberman {
     seconds = 0;
     lightModifier = -0.01f;
     enemyState = WALKING_STRAIGHT;
-    MAX_Z = -1.0f;
+    MAX_Z = 24.0f;
     MIN_Z = -24.0f;
     MAX_X = 24.0f;
     MIN_X = -24.0f;
@@ -54,7 +55,7 @@ namespace Bomberman {
   
   void GameLogic::initGame() {
     enemy.offset = glm::vec3(-1.2f, GROUND_Y, -4.0f);
-    player.offset = glm::vec3(3.6f, GROUND_Y, -5.0f);
+    player.offset = glm::vec3(3.6f, GROUND_Y, 0.0f);
     player.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
     
     player.startAnimating();
@@ -213,8 +214,9 @@ namespace Bomberman {
       
       player.offset.x += sin(player.rotation.y) * PLAYER_SPEED;
       player.offset.z -= cos(player.rotation.y) * PLAYER_SPEED;
+      std::cout << "x: " << player.offset.x << " z: " << player.offset.z << std::endl;
       
-      // while (player.collidesWith(tree)) {
+      // while (player.collidesWith(wall)) {
       //   player.offset.x -= sin(player.rotation.y) * PLAYER_SPEED;
       //   player.offset.z += cos(player.rotation.y) * PLAYER_SPEED;
       // }
@@ -233,15 +235,24 @@ namespace Bomberman {
       player.startAnimating();
     }
     
-    if (player.offset.z < MIN_Z + 1.0f)
-      player.offset.z = MIN_Z + 1.0f;
-    if (player.offset.z > MAX_Z - 1.0f)
-      player.offset.z = MAX_Z - 1.0f;
+    // if (player.offset.z < MIN_Z + 1.0f)
+    //   player.offset.z = MIN_Z + 1.0f;
+    // if (player.offset.z > MAX_Z - 1.0f)
+    //   player.offset.z = MAX_Z - 1.0f;
     
-    if (player.offset.x < player.offset.z)
-      player.offset.x = player.offset.z;
-    if (player.offset.x > -(player.offset.z))
-      player.offset.x = -(player.offset.z);
+    // if (player.offset.x < player.offset.z)
+    //   player.offset.x = player.offset.z;
+    // if (player.offset.x > -(player.offset.z))
+    //   player.offset.x = -(player.offset.z);
+
+    if (player.offset.z > MAX_Z)
+      player.offset.z = MAX_Z;
+    if (player.offset.z < MIN_Z)
+      player.offset.z = MIN_Z;
+    if (player.offset.x > MAX_X)
+      player.offset.x = MAX_X;
+    if (player.offset.x < MIN_X)
+      player.offset.x = MIN_X;
 
     // player chase camera
     renderer->cameraPosition = player.offset;
@@ -305,12 +316,12 @@ namespace Bomberman {
       
       // Draw the background
       
-      renderer->renderRectangle("ground", glm::vec3(-25.0f, GROUND_Y, MIN_Z),
-			      glm::vec3(25.0f, GROUND_Y, MAX_Z), true);
+      renderer->renderRectangle("ground", glm::vec3(MIN_X, GROUND_Y, MIN_Z),
+			      glm::vec3(MAX_X, GROUND_Y, MAX_Z), true);
       
 
-      for (float i = 0; i < 3; i++) {
-        player.offset = glm::vec3(i, GROUND_Y, 1.0f);
+      for (float i = 8; i < 14; i++) {
+        wall.offset = glm::vec3(-i * 2, GROUND_Y + 1, -10.0f);
         renderer->render(wall, "wallTexture");
       }
       renderer->render(enemy, "enemyTexture");
