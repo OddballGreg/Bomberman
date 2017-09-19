@@ -17,6 +17,7 @@ namespace Bomberman {
 
     SceneObject enemy;
     SceneObject player;
+    SceneObject wall;
     //SceneObject bomber;
 
 

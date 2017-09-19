@@ -10,7 +10,8 @@ namespace Bomberman {
   
   GameLogic::GameLogic() :
     enemy("enemy", "Bomberman/resources/models/bomber/untitled", 20, "Bomberman/resources/models/bomberBB/bomberBB.obj"),
-    player("enemy", "Bomberman/resources/models/bomber/untitled", 20, "Bomberman/resources/models/bomberBB/bomberBB.obj") {
+    player("enemy", "Bomberman/resources/models/bomber/untitled", 20, "Bomberman/resources/models/bomberBB/bomberBB.obj"),
+    wall("wall", "Bomberman/resources/models/bomberman/cube.obj", 1, "Bomberman/resources/models/bomberman/cube.obj") {
     
     renderer = &Renderer::getInstance("BombermanTestV1", 0, 0, 1.2f);
     
@@ -22,6 +23,9 @@ namespace Bomberman {
     
     Image skyTexture("Bomberman/resources/images/sky.png");
     renderer->generateTexture("sky", skyTexture);
+
+    Image wallTexture("Bomberman/resources/images/floor.png");
+    renderer->generateTexture("wall", wallTexture);
 
     Image enemyTexture("Bomberman/resources/images/floor.png");
     renderer->generateTexture("enemyTexture", enemyTexture);
@@ -304,6 +308,11 @@ namespace Bomberman {
       renderer->renderRectangle("ground", glm::vec3(-25.0f, GROUND_Y, MIN_Z),
 			      glm::vec3(25.0f, GROUND_Y, MAX_Z), true);
       
+
+      for (float i = 0; i < 3; i++) {
+        player.offset = glm::vec3(i, GROUND_Y, 1.0f);
+        renderer->render(wall, "wallTexture");
+      }
       renderer->render(enemy, "enemyTexture");
       renderer->render(player, "enemyTexture");
       
