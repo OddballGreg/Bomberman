@@ -18,6 +18,19 @@ pkg_search_module(SDL REQUIRED sdl)
 pkg_search_module(SDL2 REQUIRED sdl2)
 pkg_search_module(LIBPNG REQUIRED libpng)
 
+# Add external libraries via gitsubmodules
+set(ExternalProjectCMakeArgs
+	-DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/external
+	-DCMAKE_Fortran_COMPILER=${CMAKE_Fortran_COMPILER}
+	-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
+	-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+	-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+	-DCBLAS_ROOT=${CBLAS_ROOT}
+	-DEIGEN3_ROOT=${EIGEN3_ROOT}
+)
+
+add_external(nano_gui)
+
 # These directories get symlinked into the build directory after compilation
 set(RESOURCE_DIRS
         resources
