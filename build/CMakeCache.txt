@@ -179,6 +179,12 @@ CMAKE_STRIP:FILEPATH=/Applications/Xcode.app/Contents/Developer/Toolchains/Xcode
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//Value Computed by CMake
+NanoGUI_BINARY_DIR:STATIC=/goinfre/cdebruyn/Documents/Bomberman/build
+
+//Value Computed by CMake
+NanoGUI_SOURCE_DIR:STATIC=/goinfre/cdebruyn/Documents/Bomberman
+
 //Include for OpenGL on OS X
 OPENGL_INCLUDE_DIR:PATH=/System/Library/Frameworks/OpenGL.framework
 

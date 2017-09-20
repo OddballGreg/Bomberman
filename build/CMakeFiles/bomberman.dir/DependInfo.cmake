@@ -21,6 +21,10 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include"
   "/goinfre/cdebruyn/.brew/include"
   "/goinfre/cdebruyn/.brew/include/freetype2"
+  "../external/nano_gui/ext/glfw/include"
+  "../external/nano_gui/include"
+  "../external/nano_gui/ext/eigen"
+  "../external/nano_gui/ext/nanovg/src"
   )
 
 # Targets to which this target links.

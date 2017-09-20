@@ -9,10 +9,13 @@ find_package(PkgConfig REQUIRED)
 # Run install script
 set(BASH_CMD "bash")
 set(BASH_ARG "../INSTALL.sh")
-set(GIT_ARG "git submodule update --init --recursive")
+set(GIT_CMD "git submodule")
+set(GIT_ARG "update")
+set(GIT_FLAG "--init --recursive")
 execute_process(COMMAND ${BASH_CMD} ${BASH_ARG})
-execute_process(COMMAND	${GIT_ARG}
-	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+execute_process(COMMAND	${GIT_CMD} ${GIT_ARG} ${GIT_FLAG})
+
+set(NANOGUI_DIR external/nano_gui)
 
 # Adding dependencies
 pkg_search_module(GLEW REQUIRED glew)
@@ -57,10 +60,10 @@ include_directories(
         include
 		~/.brew/include
 		~/.brew/include/freetype2
-		#${NANOGUI_DIR}/ext/glfw/include
-		#${NANOGUI_DIR}/include
-		#${NANOGUI_DIR}/ext/eigen
-		#${NANOGUI_DIR}/ext/nanovg/src
+		${NANOGUI_DIR}/ext/glfw/include
+		${NANOGUI_DIR}/include
+		${NANOGUI_DIR}/ext/eigen
+		${NANOGUI_DIR}/ext/nanovg/src
 )
 
 # Directories to find the libraries
@@ -70,9 +73,9 @@ link_directories(
         ${GLEW_LIBRARY_DIRS}
         ${GLM_LIBRARY_DIRS}
         ${GLFW_LIBRARY_DIRS}
-		#${NANOGUI_DIR}
-		#${NANOGUI_DIR}/ext/eigen
-		#${NANOGUI_DIR}/ext/nanovg/src
+		${NANOGUI_DIR}
+		${NANOGUI_DIR}/ext/eigen
+		${NANOGUI_DIR}/ext/nanovg/src
 )
 
 add_executable(bomberman ${SOURCE_FILES})
