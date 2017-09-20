@@ -8,6 +8,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/bomberman.dir/gameEngine/src/Model.cpp.o"
   "CMakeFiles/bomberman.dir/gameEngine/src/Renderer.cpp.o"
   "CMakeFiles/bomberman.dir/gameEngine/src/SceneObject.cpp.o"
+  "CMakeFiles/bomberman.dir/gameEngine/src/Menu.cpp.o"
   "bomberman.pdb"
   "bomberman"
 )

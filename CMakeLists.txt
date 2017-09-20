@@ -15,7 +15,7 @@ set(GIT_FLAG "--init --recursive")
 execute_process(COMMAND ${BASH_CMD} ${BASH_ARG})
 execute_process(COMMAND	${GIT_CMD} ${GIT_ARG} ${GIT_FLAG})
 
-set(NANOGUI_DIR external/nano_gui)
+set(NANOGUI_DIR "external/nano_gui")
 
 # Adding dependencies
 pkg_search_module(GLEW REQUIRED glew)
@@ -46,6 +46,7 @@ set(SOURCE_FILES
         gameEngine/src/Model.cpp
         gameEngine/src/Renderer.cpp
         gameEngine/src/SceneObject.cpp
+		gameEngine/src/Menu.cpp
         gameEngine/include/BoundingBoxSet.hpp
         gameEngine/include/GetTokens.hpp
         gameEngine/include/Image.hpp
@@ -53,6 +54,7 @@ set(SOURCE_FILES
         gameEngine/include/Model.hpp
         gameEngine/include/Renderer.hpp
         gameEngine/include/SceneObject.hpp
+		gameEngine/include/Menu.hpp
 		)
 
 # Directories to find the header files
@@ -60,10 +62,10 @@ include_directories(
         include
 		~/.brew/include
 		~/.brew/include/freetype2
-		${NANOGUI_DIR}/ext/glfw/include
+		~/.brew/include/eigen3
 		${NANOGUI_DIR}/include
-		${NANOGUI_DIR}/ext/eigen
 		${NANOGUI_DIR}/ext/nanovg/src
+		${NANOGUI_DIR}/ext/pybind11/include
 )
 
 # Directories to find the libraries

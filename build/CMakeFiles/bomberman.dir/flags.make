@@ -6,5 +6,5 @@ CXX_FLAGS =   -std=gnu++14
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/goinfre/cdebruyn/Documents/Bomberman/include -I/goinfre/cdebruyn/.brew/include -I/goinfre/cdebruyn/.brew/include/freetype2 -I/goinfre/cdebruyn/Documents/Bomberman/external/nano_gui/ext/glfw/include -I/goinfre/cdebruyn/Documents/Bomberman/external/nano_gui/include -I/goinfre/cdebruyn/Documents/Bomberman/external/nano_gui/ext/eigen -I/goinfre/cdebruyn/Documents/Bomberman/external/nano_gui/ext/nanovg/src 
+CXX_INCLUDES = -I/goinfre/cdebruyn/Documents/Bomberman/include -I/goinfre/cdebruyn/.brew/include -I/goinfre/cdebruyn/.brew/include/freetype2 -I/goinfre/cdebruyn/.brew/include/eigen3 -I/goinfre/cdebruyn/Documents/Bomberman/external/nano_gui/ext/glfw/include -I/goinfre/cdebruyn/Documents/Bomberman/external/nano_gui/include -I/goinfre/cdebruyn/Documents/Bomberman/external/nano_gui/ext/eigen -I/goinfre/cdebruyn/Documents/Bomberman/external/nano_gui/ext/nanovg/src 
 

@@ -1,3 +1,9 @@
 [submodule "external/nano_gui"]
 	path = external/nano_gui
 	url = https://github.com/wjakob/nanogui.git
+[submodule "external/nano_gui/ext/nanovg"]
+	path = external/nano_gui/ext/nanovg
+	url = https://github.com/wjakob/nanovg.git
+[submodule "external/nano_gui/ext/pybind11"]
+	path = external/nano_gui/ext/pybind11
+	url = https://github.com/pybind/pybind11.git

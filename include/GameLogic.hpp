@@ -4,7 +4,7 @@
 #include "../gameEngine/include/Logger.hpp"
 #include "../gameEngine/include/SceneObject.hpp"
 #include "../gameEngine/include/Renderer.hpp"
-//#include "../gameEngine/include/Sound.hpp"
+#include "../gameEngine/include/Menu.hpp"
 
 #include "KeyInput.hpp"
 

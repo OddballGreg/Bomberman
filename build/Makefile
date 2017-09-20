@@ -231,6 +231,33 @@ gameEngine/src/Logger.cpp.s:
 	$(MAKE) -f CMakeFiles/bomberman.dir/build.make CMakeFiles/bomberman.dir/gameEngine/src/Logger.cpp.s
 .PHONY : gameEngine/src/Logger.cpp.s
 
+gameEngine/src/Menu.o: gameEngine/src/Menu.cpp.o
+
+.PHONY : gameEngine/src/Menu.o
+
+# target to build an object file
+gameEngine/src/Menu.cpp.o:
+	$(MAKE) -f CMakeFiles/bomberman.dir/build.make CMakeFiles/bomberman.dir/gameEngine/src/Menu.cpp.o
+.PHONY : gameEngine/src/Menu.cpp.o
+
+gameEngine/src/Menu.i: gameEngine/src/Menu.cpp.i
+
+.PHONY : gameEngine/src/Menu.i
+
+# target to preprocess a source file
+gameEngine/src/Menu.cpp.i:
+	$(MAKE) -f CMakeFiles/bomberman.dir/build.make CMakeFiles/bomberman.dir/gameEngine/src/Menu.cpp.i
+.PHONY : gameEngine/src/Menu.cpp.i
+
+gameEngine/src/Menu.s: gameEngine/src/Menu.cpp.s
+
+.PHONY : gameEngine/src/Menu.s
+
+# target to generate assembly for a file
+gameEngine/src/Menu.cpp.s:
+	$(MAKE) -f CMakeFiles/bomberman.dir/build.make CMakeFiles/bomberman.dir/gameEngine/src/Menu.cpp.s
+.PHONY : gameEngine/src/Menu.cpp.s
+
 gameEngine/src/Model.o: gameEngine/src/Model.cpp.o
 
 .PHONY : gameEngine/src/Model.o
@@ -387,6 +414,9 @@ help:
 	@echo "... gameEngine/src/Logger.o"
 	@echo "... gameEngine/src/Logger.i"
 	@echo "... gameEngine/src/Logger.s"
+	@echo "... gameEngine/src/Menu.o"
+	@echo "... gameEngine/src/Menu.i"
+	@echo "... gameEngine/src/Menu.s"
 	@echo "... gameEngine/src/Model.o"
 	@echo "... gameEngine/src/Model.i"
 	@echo "... gameEngine/src/Model.s"
