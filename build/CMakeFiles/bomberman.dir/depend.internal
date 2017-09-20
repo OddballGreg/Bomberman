@@ -98,28 +98,28 @@ CMakeFiles/bomberman.dir/gameEngine/src/BoundingBoxSet.cpp.o
  /goinfre/cdebruyn/.brew/include/glm/vec3.hpp
  /goinfre/cdebruyn/.brew/include/glm/vec4.hpp
  /goinfre/cdebruyn/.brew/include/glm/vector_relational.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/BoundingBoxSet.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/GetTokens.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Logger.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/src/BoundingBoxSet.cpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/BoundingBoxSet.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/GetTokens.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Logger.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/src/BoundingBoxSet.cpp
 CMakeFiles/bomberman.dir/gameEngine/src/GetTokens.cpp.o
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/GetTokens.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/src/GetTokens.cpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/GetTokens.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/src/GetTokens.cpp
 CMakeFiles/bomberman.dir/gameEngine/src/Image.cpp.o
  /goinfre/cdebruyn/.brew/include/png.h
  /goinfre/cdebruyn/.brew/include/pngconf.h
  /goinfre/cdebruyn/.brew/include/pnglibconf.h
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Image.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Logger.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/src/Image.cpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Image.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Logger.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/src/Image.cpp
 CMakeFiles/bomberman.dir/gameEngine/src/Logger.cpp.o
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Logger.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/src/Logger.cpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Logger.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/src/Logger.cpp
 CMakeFiles/bomberman.dir/gameEngine/src/Model.cpp.o
  /goinfre/cdebruyn/.brew/include/GL/glew.h
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/GetTokens.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Model.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/src/Model.cpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/GetTokens.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Model.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/src/Model.cpp
 CMakeFiles/bomberman.dir/gameEngine/src/Renderer.cpp.o
  /goinfre/cdebruyn/.brew/include/GL/glew.h
  /goinfre/cdebruyn/.brew/include/GLFW/glfw3.h
@@ -230,13 +230,13 @@ CMakeFiles/bomberman.dir/gameEngine/src/Renderer.cpp.o
  /goinfre/cdebruyn/.brew/include/png.h
  /goinfre/cdebruyn/.brew/include/pngconf.h
  /goinfre/cdebruyn/.brew/include/pnglibconf.h
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/BoundingBoxSet.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Image.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Logger.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Model.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Renderer.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/SceneObject.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/src/Renderer.cpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/BoundingBoxSet.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Image.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Logger.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Model.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Renderer.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/SceneObject.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/src/Renderer.cpp
 CMakeFiles/bomberman.dir/gameEngine/src/SceneObject.cpp.o
  /goinfre/cdebruyn/.brew/include/GL/glew.h
  /goinfre/cdebruyn/.brew/include/glm/common.hpp
@@ -334,12 +334,12 @@ CMakeFiles/bomberman.dir/gameEngine/src/SceneObject.cpp.o
  /goinfre/cdebruyn/.brew/include/png.h
  /goinfre/cdebruyn/.brew/include/pngconf.h
  /goinfre/cdebruyn/.brew/include/pnglibconf.h
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/BoundingBoxSet.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Image.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Logger.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Model.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/SceneObject.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/src/SceneObject.cpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/BoundingBoxSet.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Image.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Logger.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Model.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/SceneObject.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/src/SceneObject.cpp
 CMakeFiles/bomberman.dir/src/GameLogic.cpp.o
  /goinfre/cdebruyn/.brew/include/GL/glew.h
  /goinfre/cdebruyn/.brew/include/GLFW/glfw3.h
@@ -441,15 +441,15 @@ CMakeFiles/bomberman.dir/src/GameLogic.cpp.o
  /goinfre/cdebruyn/.brew/include/png.h
  /goinfre/cdebruyn/.brew/include/pngconf.h
  /goinfre/cdebruyn/.brew/include/pnglibconf.h
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/BoundingBoxSet.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Image.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Logger.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Model.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Renderer.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/SceneObject.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/include/GameLogic.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/include/KeyInput.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/src/GameLogic.cpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/BoundingBoxSet.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Image.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Logger.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Model.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Renderer.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/SceneObject.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/include/GameLogic.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/include/KeyInput.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/src/GameLogic.cpp
 CMakeFiles/bomberman.dir/src/main.cpp.o
  /goinfre/cdebruyn/.brew/include/GL/glew.h
  /goinfre/cdebruyn/.brew/include/GLFW/glfw3.h
@@ -551,12 +551,12 @@ CMakeFiles/bomberman.dir/src/main.cpp.o
  /goinfre/cdebruyn/.brew/include/png.h
  /goinfre/cdebruyn/.brew/include/pngconf.h
  /goinfre/cdebruyn/.brew/include/pnglibconf.h
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/BoundingBoxSet.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Image.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Logger.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Model.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Renderer.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/SceneObject.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/include/GameLogic.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/include/KeyInput.hpp
- /goinfre/cdebruyn/Documents/Bomberman/bombFinal/src/main.cpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/BoundingBoxSet.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Image.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Logger.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Model.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Renderer.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/SceneObject.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/include/GameLogic.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/include/KeyInput.hpp
+ /goinfre/cdebruyn/Documents/Bomberman/src/main.cpp

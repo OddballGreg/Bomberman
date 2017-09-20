@@ -6,5 +6,5 @@ CXX_FLAGS =   -std=gnu++14
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/goinfre/cdebruyn/Documents/Bomberman/bombFinal/include -I/goinfre/cdebruyn/.brew/include -I/goinfre/cdebruyn/.brew/include/freetype2 
+CXX_INCLUDES = -I/goinfre/cdebruyn/Documents/Bomberman/include -I/goinfre/cdebruyn/.brew/include -I/goinfre/cdebruyn/.brew/include/freetype2 
 

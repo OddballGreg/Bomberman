@@ -892,23 +892,23 @@ time.h
 
 /goinfre/cdebruyn/.brew/include/pnglibconf.h
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/BoundingBoxSet.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/BoundingBoxSet.hpp
 memory
 -
 Logger.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Logger.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Logger.hpp
 vector
 -
 glm/glm.hpp
 -
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/GetTokens.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/GetTokens.hpp
 string
 -
 vector
 -
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Image.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Image.hpp
 string
 -
 memory
@@ -916,17 +916,17 @@ memory
 vector
 -
 Logger.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Logger.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Logger.hpp
 png.h
 -
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Logger.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Logger.hpp
 ostream
 -
 memory
 -
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Model.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Model.hpp
 string
 -
 vector
@@ -934,19 +934,19 @@ vector
 GL/glew.h
 -
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Renderer.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Renderer.hpp
 GL/glew.h
 -
 GLFW/glfw3.h
 -
 Logger.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Logger.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Logger.hpp
 Image.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Image.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Image.hpp
 Model.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Model.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Model.hpp
 SceneObject.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/SceneObject.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/SceneObject.hpp
 unordered_map
 -
 vector
@@ -958,7 +958,7 @@ freetype2/ft2build.h
 freetype2/freetype/freetype.h
 -
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/SceneObject.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/SceneObject.hpp
 vector
 -
 sstream
@@ -970,41 +970,41 @@ stdexcept
 memory
 -
 Model.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Model.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Model.hpp
 Logger.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Logger.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Logger.hpp
 Image.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Image.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Image.hpp
 BoundingBoxSet.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/BoundingBoxSet.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/BoundingBoxSet.hpp
 glm/glm.hpp
 -
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/src/BoundingBoxSet.cpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/src/BoundingBoxSet.cpp
 ../include/BoundingBoxSet.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/BoundingBoxSet.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/BoundingBoxSet.hpp
 fstream
 -
 stdexcept
 -
 ../include/GetTokens.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/GetTokens.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/GetTokens.hpp
 glm/gtc/matrix_transform.hpp
 -
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/src/GetTokens.cpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/src/GetTokens.cpp
 ../include/GetTokens.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/GetTokens.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/GetTokens.hpp
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/src/Image.cpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/src/Image.cpp
 ../include/Image.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Image.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Image.hpp
 stdexcept
 -
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/src/Logger.cpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/src/Logger.cpp
 ../include/Logger.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Logger.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Logger.hpp
 sstream
 -
 ctime
@@ -1012,7 +1012,7 @@ ctime
 iostream
 -
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/src/Model.cpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/src/Model.cpp
 stdexcept
 -
 fstream
@@ -1022,13 +1022,13 @@ unordered_map
 memory
 -
 ../include/GetTokens.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/GetTokens.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/GetTokens.hpp
 ../include/Model.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Model.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Model.hpp
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/src/Renderer.cpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/src/Renderer.cpp
 ../include/Renderer.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Renderer.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Renderer.hpp
 stdexcept
 -
 fstream
@@ -1040,25 +1040,25 @@ glm/gtc/type_ptr.hpp
 glm/gtc/matrix_transform.hpp
 -
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/src/SceneObject.cpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/src/SceneObject.cpp
 ../include/SceneObject.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/SceneObject.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/SceneObject.hpp
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/include/GameLogic.hpp
+/goinfre/cdebruyn/Documents/Bomberman/include/GameLogic.hpp
 memory
 -
 ../gameEngine/include/Logger.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Logger.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Logger.hpp
 ../gameEngine/include/SceneObject.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/SceneObject.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/SceneObject.hpp
 ../gameEngine/include/Renderer.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/gameEngine/include/Renderer.hpp
+/goinfre/cdebruyn/Documents/Bomberman/gameEngine/include/Renderer.hpp
 KeyInput.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/include/KeyInput.hpp
+/goinfre/cdebruyn/Documents/Bomberman/include/KeyInput.hpp
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/include/KeyInput.hpp
+/goinfre/cdebruyn/Documents/Bomberman/include/KeyInput.hpp
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/src/GameLogic.cpp
+/goinfre/cdebruyn/Documents/Bomberman/src/GameLogic.cpp
 memory
 -
 stdexcept
@@ -1066,9 +1066,9 @@ stdexcept
 iostream
 -
 ../include/GameLogic.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/include/GameLogic.hpp
+/goinfre/cdebruyn/Documents/Bomberman/include/GameLogic.hpp
 
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/src/main.cpp
+/goinfre/cdebruyn/Documents/Bomberman/src/main.cpp
 cstdlib
 -
 iostream
@@ -1076,9 +1076,9 @@ iostream
 stdexcept
 -
 ../include/GameLogic.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/include/GameLogic.hpp
+/goinfre/cdebruyn/Documents/Bomberman/include/GameLogic.hpp
 ../include/KeyInput.hpp
-/goinfre/cdebruyn/Documents/Bomberman/bombFinal/include/KeyInput.hpp
+/goinfre/cdebruyn/Documents/Bomberman/include/KeyInput.hpp
 GLFW/glfw3.h
 -
 

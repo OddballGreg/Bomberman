@@ -6,7 +6,13 @@ set(CMAKE_CXX_STANDARD 14)
 find_package(OpenGL REQUIRED)
 find_package(PkgConfig REQUIRED)
 
-include(ConfigExternal)
+# Run install script
+set(BASH_CMD "bash")
+set(BASH_ARG "../INSTALL.sh")
+set(GIT_ARG "git submodule update --init --recursive")
+execute_process(COMMAND ${BASH_CMD} ${BASH_ARG})
+execute_process(COMMAND	${GIT_ARG}
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Adding dependencies
 pkg_search_module(GLEW REQUIRED glew)
@@ -16,20 +22,6 @@ pkg_search_module(FREETYPE REQUIRED freetype2)
 pkg_search_module(SDL REQUIRED sdl)
 pkg_search_module(SDL2 REQUIRED sdl2)
 pkg_search_module(LIBPNG REQUIRED libpng)
-
-# Add external libraries via gitsubmodules
-set(ExternalProjectCMakeArgs
-	-DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/external
-	-DCMAKE_Fortran_COMPILER=${CMAKE_Fortran_COMPILER}
-	-DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
-	-DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-	-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-	-DCBLAS_ROOT=${CBLAS_ROOT}
-	-DEIGEN3_ROOT=${EIGEN3_ROOT}
-)
-
-# Include nano_gui
-ExternalProject_Add(nano_gui)
 
 # These directories get symlinked into the build directory after compilation
 set(RESOURCE_DIRS
@@ -97,7 +89,6 @@ target_link_libraries(${PROJECT_NAME}
 		png
 		glfw
 		GLEW
-		eigen
 	)
 
 set(LINKER_FLAGS "-framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lfreetype -lpng -lglfw -lGLEW")

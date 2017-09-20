@@ -1,4 +1,4 @@
-# Install script for directory: /goinfre/cdebruyn/Documents/Bomberman/bombFinal
+# Install script for directory: /goinfre/cdebruyn/Documents/Bomberman
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -35,5 +35,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/goinfre/cdebruyn/Documents/Bomberman/bombFinal/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/goinfre/cdebruyn/Documents/Bomberman/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

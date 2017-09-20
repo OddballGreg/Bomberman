@@ -10,6 +10,7 @@ LIB_SDL="$HOME/.brew/Cellar/sdl"
 LIB_SDL2="$HOME/.brew/Cellar/sdl2"
 LIB_GLFW="$HOME/.brew/Cellar/glfw"
 LIB_GLEW="$HOME/.brew/Cellalsr/glew"
+LIB_GLM="$HOME/.brew/Cellar/glm"
 LIB_SMFL="$HOME/.brew/Cellar/sfml"
 LIB_EIGEN="$HOME/.brew/Cellar/eigen"
 
@@ -18,41 +19,46 @@ if [ ! -d "$HOMEBREW" ]; then
 fi
 
 if [ ! -d "$LIB_CMAKE" ]; then
-	brew install cmake
+	$HOME/.brew/bin/brew install cmake
 fi
 
 if [ ! -d "$LIB_PCKCONF" ]; then
-	brew install pkg-config
+	$HOME/.brew/bin/brew install pkg-config
 fi
 
 if [ ! -d "$LIB_PNG" ]; then
-	brew install libpng
+	$HOME/.brew/bin/brew install libpng
 fi
 
 if [ ! -d "$LIB_FREETYPE" ]; then
-	brew install freetype
+	$HOME/.brew/bin/brew install freetype
 fi
 
 if [ ! -d "$LIB_SDL" ]; then
-	brew install sdl
+	$HOME/.brew/bin/brew install sdl
 fi
 
 if [ ! -d "$LIB_SDL2" ]; then
-	brew install sdl2
+	$HOME/.brew/bin/brew install sdl2
 fi
 
 if [ ! -d "$LIB_GLFW" ]; then
-	brew install glfw
+	$HOME/.brew/bin/brew install glfw
 fi
 
 if [ ! -d "$LIB_GLEW" ]; then
-	brew install glew
+	$HOME/.brew/bin/brew install glew
 fi
 
+if [ ! -d "$LIB_GLM" ]; then
+	$HOME/.brew/bin/brew install glm
+fi
+
+
 if [ ! -d "$LIB_SFML" ]; then
-	brew install sfml
+	$HOME/.brew/bin/brew install sfml
 fi
 
 if [ ! -d "$LIB_EIGEN" ]; then
-	brew install eigen
+	$HOME/.brew/bin/brew install eigen
 fi
