@@ -119,7 +119,7 @@ namespace gameEngine
     static Renderer& getInstance(const std::string windowTitle = "", const int width = 0, 
       const int height = 0, const float frustumScale = 1.0f, const float zNear = 1.0f,
       const float zFar = 24.0f, const float zOffsetFromCamera = -1.0f,
-			const std::string shadersPath = "Bomberman/gameEngine/resources/shaders/");
+			const std::string shadersPath = "../gameEngine/resources/shaders/");
 
     /**
      * @brief Destructor
@@ -222,7 +222,7 @@ namespace gameEngine
      */
     void write(const std::string text, const glm::vec3 colour, const glm::vec2 topLeft, 
       const glm::vec2 bottomRight, const int fontSize=48,
-      const std::string fontPath = "Bomberman/resources/fonts/CrusoeText/CrusoeText-Regular.ttf");
+      const std::string fontPath = "../resources/fonts/CrusoeText/CrusoeText-Regular.ttf");
 
     /**
      * @brief Clear a Model from the GPU buffers (the object itself remains intact)

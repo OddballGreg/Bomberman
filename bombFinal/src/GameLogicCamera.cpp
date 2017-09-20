@@ -11,28 +11,28 @@ using namespace gameEngine;
 namespace Bomberman {
   
   GameLogic::GameLogic() :
-    player("player", "Bomberman/resources/models/bomber/untitled",
-	 20, "Bomberman/resources/models/bomberBB/bomberBB.obj"),
-    enemy("enemy", "Bomberman/resources/models/enemy/bomberBB", 25, "Bomberman/resources/models/bomberBB/bomberBB.obj"),
-    tree("tree", "Bomberman/resources/models/Tree/tree.obj",
-	 1, "Bomberman/resources/models/TreeBB/TreeBB.obj"){
+    player("player", "../resources/models/bomber/untitled",
+	 20, "../resources/models/bomberBB/bomberBB.obj"),
+    enemy("enemy", "../resources/models/enemy/bomberBB", 25, "../resources/models/bomberBB/bomberBB.obj"),
+    tree("tree", "../resources/models/Tree/tree.obj",
+	 1, "../resources/models/TreeBB/TreeBB.obj"){
     
     renderer = &Renderer::getInstance("Avoid Enemy", 800, 600);
     renderer->cameraPosition = glm::vec3(0.0f, 10.0f, 0.0f);
 
-    Image groundTexture("Bomberman/resources/images/floor.png");
+    Image groundTexture("../resources/images/floor.png");
     renderer->generateTexture("ground", groundTexture);
 
-    Image skyTexture("Bomberman/resources/images/sky.png");
+    Image skyTexture("../resources/images/sky.png");
     renderer->generateTexture("sky", skyTexture);
 
-    Image playerTexture("Bomberman/resources/images/floor.png");
+    Image playerTexture("../resources/images/floor.png");
     renderer->generateTexture("playerTexture", playerTexture);
 
-    Image treeTexture("Bomberman/resources/models/Tree/tree.png");
+    Image treeTexture("../resources/models/Tree/tree.png");
     renderer->generateTexture("treeTexture", treeTexture);
     
-    Image startScreenTexture("Bomberman/resources/images/bom.png");
+    Image startScreenTexture("../resources/images/bom.png");
     renderer->generateTexture("startScreen", startScreenTexture);
     
     enemy.setFrameDelay(2);

@@ -9,27 +9,27 @@ using namespace gameEngine;
 namespace Bomberman {
   
   GameLogic::GameLogic() :
-    enemy("enemy", "Bomberman/resources/models/bomber/untitled", 20, "Bomberman/resources/models/GoatBB/GoatBB.obj"),
-    player("player", "Bomberman/resources/models/bomber/untitled", 20), wall("wall", "Bomberman/resources/models/bomberman/cube.obj", 1, "Bomberman/resources/models/bomberman/cube.obj") {
+    enemy("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/GoatBB/GoatBB.obj"),
+    player("player", "../resources/models/bomber/untitled", 20), wall("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj") {
     
     renderer = &Renderer::getInstance("BombermanTestV1", 0, 0, 1.2f);
     
-    Image startScreenTexture("Bomberman/resources/images/bom.png");
+    Image startScreenTexture("../resources/images/bom.png");
     renderer->generateTexture("startScreen", startScreenTexture);
     
-    Image groundTexture("Bomberman/resources/images/floor.png");
+    Image groundTexture("../resources/images/floor.png");
     renderer->generateTexture("ground", groundTexture);
 
-    Image cubeTexture("Bomberman/resources/images/floor.png");
+    Image cubeTexture("../resources/images/floor.png");
     renderer->generateTexture("cube", cubeTexture);
     
-    Image skyTexture("Bomberman/resources/images/sky.png");
+    Image skyTexture("../resources/images/sky.png");
     renderer->generateTexture("sky", skyTexture);
 
-    Image enemyTexture("Bomberman/resources/models/Goat/goat.png");
+    Image enemyTexture("../resources/models/Goat/goat.png");
     renderer->generateTexture("enemyTexture", enemyTexture);
 
-    // Image treeTexture("Bomberman/resources/models/Tree/tree.png");
+    // Image treeTexture("../resources/models/Tree/tree.png");
     // renderer->generateTexture("treeTexture", treeTexture);
     
     player.setFrameDelay(2);

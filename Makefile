@@ -1,161 +1,56 @@
-NAME = bomberman
+# OBJS specifies which files to compile as part of the project
+OBJS = 	Bomberman/src/main.cpp  \
+		Bomberman/src/GameLogic.cpp \
+		Bomberman/gameEngine/src/BoundingBoxSet.cpp \
+		Bomberman/gameEngine/src/GetTokens.cpp \
+		Bomberman/gameEngine/src/Image.cpp \
+		Bomberman/gameEngine/src/Logger.cpp \
+		Bomberman/gameEngine/src/Model.cpp \
+		Bomberman/gameEngine/src/Renderer.cpp \
+		Bomberman/gameEngine/src/SceneObject.cpp
+		
 
-SRCS_NAME =		bomberman.cpp \
-				Wall.cpp \
-				Vector.cpp \
-				Powerup.cpp \
-				Player.cpp \
-				Opponent.cpp \
-				Obstacle.cpp \
-				Logger.cpp \
-				Log.cpp \
-				Entity.cpp \
-				Character.cpp \
-				Gamestate.cpp \
-				Explosion.cpp \
-				Bomb.cpp \
-
-HEADER_NAMES =	bomberman.hpp \
-				Wall.hpp \
-				Vector.hpp \
-				Powerup.hpp \
-				Player.hpp \
-				Opponent.hpp \
-				Obstacle.hpp \
-				Logger.hpp \
-				Log.hpp \
-				Entity.hpp \
-				Character.hpp \
-				Gamestate.hpp \
-				Explosion.hpp \
-				Bomb.hpp \
-
-ifeq ($(shell uname -s), Darwin) # Changes rules for MAC and Linux
-SYS = OSX
-else
-SYS = LINUX
-endif
-
-CFLAGS =	-std=c++14 -O3
-
-ifeq ($(SYS), OSX) 
-CFLAGS2 = 	-O3 
-else
-CFLAGS2 =	-O3
-endif
-
+# CC specifies which compiler we're using
 CC = g++
 
-INCLUDES_PATH = includes/
+# INCLUDE_PATHS specifies the additional include paths we'll need
 
-SRCS_PATH = srcs/
 
-SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
+# LIBRARY_PATHS specifies the additional library paths we'll need
 
-OBJS_PATH = objs/
 
-OBJS_NAME = $(SRCS_NAME:.cpp=.o)
 
-OBJS = $(addprefix $(OBJS_PATH), $(OBJS_NAME))
+# INCLUDE_PATHS specifies the additional include paths we'll need
+# INCLUDE_PATHS = -I ~/.brew/Cellar/sfml/2.4.2_1/include
+# INCLUDE_PATHS += -I ~/.brew/Cellar/freetype/2.8.1/include
+# INCLUDE_PATHS += -I ~/.brew/Cellar/freetype/2.8.1/include/freetype2
+# INCLUDE_PATHS += -I ~/.brew/Cellar/libpng/1.6.32/include
+# INCLUDE_PATHS += -I ~/.brew/Cellar/glfw/3.2.1/include 
+# INCLUDE_PATHS += -I ~/.brew/Cellar/sdl2/2.0.5/include
+# INCLUDE_PATHS += -I ~/.brew/Cellar/glew/2.1.0/include
+# INCLUDE_PATHS += -I ~/.brew/Cellar/glm/0.9.8.5/include
+INCLUDE_PATHS += -I ~/.brew/include
+INCLUDE_PATHS += -I ~/.brew/include/freetype2
 
-ifeq ($(SYS), OSX)
-INCLUDES = -I includes/
-else
-INCLUDES = -I includes/
-endif
+# LIBRARY_PATHS specifies the additional library paths we'll need
+# LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib 
+# LIBRARY_PATHS += -L ~/.brew/Cellar/glew/2.1.0/lib
+# LIBRARY_PATHS += -L ~/.brew/Cellar/sdl2/2.0.5/lib
+# LIBRARY_PATHS += -L ~/.brew/Cellar/sfml/2.4.2_1/lib
+# LIBRARY_PATHS += -L ~/.brew/Cellar/freetype/2.8.1/lib
+# LIBRARY_PATHS += -L ~/.brew/Cellar/libpng/1.6.32/lib
+LIBRARY_PATHS += -L ~/.brew/lib
+# COMPILER_FLAGS specifies the additional compilation options we're using
+# -w suppresses all warnings
+COMPILER_FLAGS = -w -std=c++11 -stdlib=libc++
 
-HEADER = $(addprefix $(INCLUDES_PATH), $(HEADER_NAMES))
+# LINKER_FLAGS specifies the libraries we're linking against
+# Cocoa, IOKit, and CoreVideo are needed for static GLFW3.
+LINKER_FLAGS = -framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lfreetype -lpng -lglfw -lGLEW
 
-all: ruppie qme odir $(NAME)
+# OBJ_NAME specifies the name of our exectuable
+OBJ_NAME = game
 
-define colourecho
-	@tput setaf 14
-	@echo $1
-	@tput sgr0
-endef
-
-define colourecho2
-	@tput setaf 2
-	@echo $1
-	@tput sgr0
-endef
-
-$(NAME): $(OBJS)
-	@$(call colourecho, " - Making $(NAME)")
-	@clear
-	@$(CC) $(CFLAGS2) -o $(NAME) $^ $(INCLUDES) -I$(INCLUDES_PATH)
-	@clear
-	@$(call colourecho, "Make Done!")
-
-$(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp
-	@$(call colourecho, " - Compiling $<")
-	@$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $< -I$(INCLUDES_PATH)
-	@$(call colourecho, "Compiling Done!")
-
-ruppie:
-	@ruby RuPPie/ClassGenerator.rb -f
-
-odir:
-	@mkdir -p $(OBJS_PATH)
-
-clean:
-	@$(call colourecho, " - Clearing object files")
-	@rm -f $(OBJS)
-	@$(call colourecho, "clean done!")
-
-fclean: clean
-	@$(call colourecho, "Clearing executable files")
-	@rm -f $(NAME)
-	@$(call colourecho, "fclean done")
-
-re: fclean all
-	@$(call colourecho, "re Done!")
-
-run: $(NAME)
-	./$(NAME)
-
-qre:
-	@$(call colourecho, " - Clearing object files")
-	@rm -f $(OBJS)
-	@rm -f $(NAME)
-	@$(call colourecho, "clean done!")
-	@make odir
-	@make $(NAME)
-
-format: norme me
-
-norme: norm
-
-norm:
-	@clear
-	@$(call colourecho2, "Norminette:")
-	@norminette $(SRCS)
-	@norminette $(HEADER)
-
-fnorm: fnorme
-
-fnorme:
-	@clear
-	@$(call colourecho2, "Norminette:")
-	@find ./srcs -name "*.cpp" -maxdepth 1 -type f -exec norminette  {} \;
-	@find ./includes -name "*.h" -maxdepth 1 -type f -exec norminette  {} \;
-
-qme:
-	@if [ ! -f author ]; then \
-		rm -Rf author; \
-		echo bsaunder > author; \
-		echo cdebruyn >> author; \
-		echo ghavenga >> author; \
-		echo ggroener >> author; \
-		echo khansman >> author; \
-	fi
-	
-me: qme
-	cat -e author
-
-submodule:
-	git submodule init libft
-	git submodule update
-	git submodule sync -- libft
-
-.PHONY: clean fclean re odir
+#This is the target that compiles our executable
+all : $(OBJS)
+	$(CC) $(OBJS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
