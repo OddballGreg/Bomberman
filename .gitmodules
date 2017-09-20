@@ -1,3 +1,3 @@
-[submodule "bombFinal/external/nano_gui"]
-	path = bombFinal/external/nano_gui
+[submodule "external/nano_gui"]
+	path = external/nano_gui
 	url = https://github.com/wjakob/nanogui.git
