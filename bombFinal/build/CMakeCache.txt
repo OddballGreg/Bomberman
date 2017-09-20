@@ -14,12 +14,6 @@
 # EXTERNAL cache entries
 ########################
 
-//Value Computed by CMake
-Bomberman_BINARY_DIR:STATIC=/goinfre/cdebruyn/Documents/Bomberman/bombFinal/build
-
-//Value Computed by CMake
-Bomberman_SOURCE_DIR:STATIC=/goinfre/cdebruyn/Documents/Bomberman/bombFinal
-
 //Path to a program.
 CMAKE_AR:FILEPATH=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar
 

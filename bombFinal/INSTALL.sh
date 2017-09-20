@@ -41,3 +41,4 @@ fi
 if [ ! -d "$LIB_SFML" ]; then
 	brew install sfml
 fi
+
