@@ -1,4 +1,5 @@
 #include "../include/Menu.hpp"
+#include <GLFW/glfw3.h>
 
 Menu::Menu(GLFWwindow *window) {
 
@@ -6,11 +7,17 @@ Menu::Menu(GLFWwindow *window) {
 
     // /* scoped variables */ {
         // bool use_gl_4_1 = false;// Set to true to create an OpenGL 4.1 context.
-        // nanogui::Screen *screen = nullptr;
 
-        // screen = new nanogui::Screen( Eigen::Vector2i(800, 600), "Bomberman", false, false, 8, 8, 24, 8, 4, 4, 1);
+        // Create nanogui gui
+        // bool enabled = true;
+        // FormHelper *gui = new FormHelper(screen);
+        // ref<Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(10, 10), "Form helper example");
 
-		// screen->initialize(window, 1);
+        // glfwSetKeyCallback(window,
+        //     (GLFWwindow *, int key, int scancode, int action, int mods) {
+                
+        //     }
+        // );
 
         // bool enabled = true;
         // nanogui::FormHelper *gui = new nanogui::FormHelper(screen);
