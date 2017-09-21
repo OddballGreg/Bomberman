@@ -11,8 +11,8 @@ namespace Bomberman {
   
   GameLogic::GameLogic() :
     enemy("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj"),
-    player("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj") /*,
-    wall("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj")*/ {
+    player("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj"),
+    bomb("bomb", "../resources/models/bomberman/bomb.obj", 1, "../resources/models/bomberman/cube.obj") {
     
     renderer = &Renderer::getInstance("BombermanTestV1", 0, 0, 1.2f);
     
@@ -25,8 +25,8 @@ namespace Bomberman {
     Image skyTexture("../resources/images/sky.png");
     renderer->generateTexture("sky", skyTexture);
 
-    // Image wallTexture("../resources/images/floor.png");
-    // renderer->generateTexture("wall", wallTexture);
+    Image bombTexture("../resources/images/floor.png");
+    renderer->generateTexture("bomb", bombTexture);
 
     Image enemyTexture("../resources/images/floor.png");
     renderer->generateTexture("enemyTexture", enemyTexture);
@@ -51,6 +51,9 @@ namespace Bomberman {
     
     ENEMY_ROTATION_SPEED = 0.1f;
     ENEMY_SPEED = 0.05f;
+
+    bombDropped = false;
+    bombDelay = 200;
 
     // Initialise NanoGUI
     //Menu menu(renderer->getWindow());
@@ -79,6 +82,8 @@ namespace Bomberman {
     enemy.offset = glm::vec3(-1.2f, GROUND_Y, -4.0f);
     player.offset = glm::vec3(3.6f, GROUND_Y, 0.0f);
     player.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+
+    bomb.offset = glm::vec3(0.0f,0.0f,0.0f);
     
     renderer->cameraPosition.x = player.offset.x;
     renderer->cameraPosition.y = 8;
@@ -86,6 +91,7 @@ namespace Bomberman {
     
     player.startAnimating();
     enemy.startAnimating();
+    bomb.startAnimating();
     
     startSeconds = glfwGetTime();
     
@@ -318,6 +324,12 @@ namespace Bomberman {
       renderer->cameraPosition.z -= 0.5f;
     }
 
+    if (keyInput.space) {
+      bombDropped = true;
+      bomb.offset = player.offset;
+      bomb.startAnimating();
+    }
+
     // renderer->cameraPosition.x -= sin(player.rotation.y) * 3.0f;
     // renderer->cameraPosition.z += cos(player.rotation.y) * 3.0f;
 
@@ -399,6 +411,14 @@ namespace Bomberman {
       renderer->render(enemy, "enemyTexture");
       renderer->render(player, "enemyTexture");
       
+      if (bombDropped && bombDelay != 0) {
+        renderer->render(bomb, "bombTexture");
+        bombDelay--;
+      }
+      else if (bombDelay == 0) {
+        bombDropped = false;
+        bombDelay = 200;
+      }
     }
     renderer->swapBuffers();
   }

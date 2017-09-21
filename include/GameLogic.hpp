@@ -18,7 +18,7 @@ namespace Bomberman {
     SceneObject enemy;
     SceneObject player;
     // SceneObject wall;
-    //SceneObject bomber;
+    SceneObject bomb;
 
 
     enum GameState {
@@ -57,6 +57,9 @@ namespace Bomberman {
     
     float ENEMY_ROTATION_SPEED;
     float ENEMY_SPEED;
+
+    bool  bombDropped;
+    int   bombDelay;
 		
   public:
 
