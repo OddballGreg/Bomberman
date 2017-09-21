@@ -13,6 +13,7 @@
 using namespace std;
 using namespace Bomberman;
 using namespace gameEngine;
+using namespace nanogui;
 
 const GLuint frameRate = 60;
 bool firstMouse = true;

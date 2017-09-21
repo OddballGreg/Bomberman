@@ -8,6 +8,7 @@
 #include "../include/MapLoader.hpp"
 #include "../SoundEngine/SoundEngine.hpp"
 
+#include <nanogui/nanogui.h>
 #include "KeyInput.hpp"
 
 using namespace gameEngine;
@@ -62,12 +63,27 @@ namespace Bomberman {
     float ENEMY_ROTATION_SPEED;
     float ENEMY_SPEED;
 
+    enum test_enum {
+      Item1 = 0,
+      Item2,
+      Item3
+    };
+  
+    bool bvar = true;
+    double dvar = 3.1415926;
+    int ivar = 12345678;
+    float fvar = (float)dvar;
+    std::string strval = "A string";
+    test_enum enumval = Item2;
+          
     bool  bombDropped;
     int   bombDelay;
 		
   public:
 
-    Renderer *renderer;
+    Screen *screen = nullptr;
+    Renderer *renderer = nullptr;
+
     GameLogic();
     ~GameLogic();
     void process(const KeyInput &keyInput);

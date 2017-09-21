@@ -393,19 +393,54 @@ namespace Bomberman {
     
     if (gameState == START_SCREEN) {
       
-      renderer->renderRectangle("startScreen", glm::vec3(-1.0f, 1.0f, 1.0f),
-			      glm::vec3(1.0f, -1.0f, 1.0f));
-      
-      if (seconds != 0) {
-        renderer->write("Enemy avoided for " + intToStr(seconds) + " seconds",
-			glm::vec3(1.0f, 0.5f, 0.0f), glm::vec2(-0.95f, -0.6f), glm::vec2(0.0f, -0.8f));
-      }
-      
-    } else {
-      
+      Color colval(0.5f, 0.5f, 0.7f, 1.f);
+      // Initialise NanoGUI
+      // Menu menu(renderer->getWindow());
+      screen = new Screen();   
+      screen->initialize(renderer->getWindow(), true);
+  
+      bool enabled = true;
+      FormHelper *gui = new FormHelper(screen);
+      ref<Window> window = gui->addWindow(Eigen::Vector2i(10, 10), "Form helper example");
+      gui->addGroup("Basic types");
+      gui->addVariable("bool", bvar);
+      gui->addVariable("string", strval);
+
+      gui->addGroup("Validating fields");
+      gui->addVariable("int", ivar)->setSpinnable(true);
+      gui->addVariable("float", fvar);
+      gui->addVariable("double", dvar)->setSpinnable(true);
+
+      gui->addGroup("Complex types");
+      gui->addVariable("Enumeration", enumval, enabled)
+         ->setItems({"Item 1", "Item 2", "Item 3"});
+      gui->addVariable("Color", colval);
+
+      gui->addGroup("Other widgets");
+      gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
+
+      screen->setVisible(true);
+      // screen->moveWindowToFront(window);
+      screen->performLayout();
+      window->center();
+
       renderer->renderRectangle("sky", glm::vec3(-1.0f, 1.0f, 1.0f),
 			      glm::vec3(1.0f, -1.0f, 1.0f));
+   
+
+      renderer->renderRectangle("startScreen", glm::vec3(-1.0f, 1.0f, 1.0f),
+			       glm::vec3(1.0f, -1.0f, 1.0f));
       
+     
+    } else {
+   
+      renderer->renderRectangle("sky", glm::vec3(-1.0f, 1.0f, 1.0f),
+      glm::vec3(1.0f, -1.0f, 1.0f));
+
+      if (seconds != 0) {
+        renderer->write("Enemy avoided for " + intToStr(seconds) + " seconds",
+        glm::vec3(1.0f, 0.5f, 0.0f), glm::vec2(-0.95f, -0.6f), glm::vec2(0.0f, -0.8f));
+      }
       // Draw the background
       
       renderer->renderRectangle("ground", glm::vec3(MIN_X, GROUND_Y, MIN_Z),
