@@ -6,3 +6,8 @@ cd build
 cmake ../ -G "Unix Makefiles"
 make
 ./bomberman
+
+
+Stuff still needs to be added to the gitignore for the cmake stuff. But for everyone to use the same build I am just leaving it for now.
+
+The build directory and the external/nanogui directory should be ignored

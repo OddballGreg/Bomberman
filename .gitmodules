@@ -1,0 +1,16 @@
+
+[submodule "external/nanogui/ext/nanovg"]
+    path = external/nanogui/ext/nanovg
+    url = https://github.com/wjakob/nanovg
+[submodule "external/nanogui/ext/glfw"]
+    path = external/nanogui/ext/glfw
+    url = https://github.com/wjakob/glfw
+[submodule "external/nanogui/ext/glew"]
+    path = external/nanogui/ext/glew
+    url = https://github.com/nigels-com/glew
+[submodule "external/nanogui/ext/eigen"]
+    path = external/nanogui/ext/eigen
+    url = https://github.com/libigl/eigen.git
+[submodule "external/nanogui/ext/pybind"]
+    path = external/nanogui/ext/pybind11
+    url = https://github.com/pybind/pybind11

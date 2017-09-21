@@ -66,6 +66,6 @@ if [ ! -d "$LIB_EIGEN" ]; then
 fi
 
 if [ ! -d "$LIB_NANOGUI" ]; then
-	git clone --recursive https://github.com/wjakob/nanogui.git
+	git clone --recursive https://github.com/wjakob/nanogui.git ../external/nanogui
 	git submodule update --init --recursive
 fi
