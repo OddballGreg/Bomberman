@@ -35,12 +35,13 @@
 cmake-build-debug
 
 #NANOGUI library
-.nanogui
+external/nanogui
+
+#Build directory
+build
 
 # Other
 bomberman_log.txt
-
-
 ._*
 .DS_Store
 .vscode
