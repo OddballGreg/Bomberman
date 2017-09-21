@@ -9,10 +9,13 @@ using namespace gameEngine;
 
 namespace Bomberman {
   
-  GameLogic::GameLogic() :
-    enemy("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj"),
-    player("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj"),
-    wall("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj") {
+  // GameLogic::GameLogic() :
+  //   enemy("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj"),
+  //   player("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj"),
+  //   wall("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj") {
+  GameLogic::GameLogic()
+  {
+    _maploader.load_map("maps/map.txt");
     
     renderer = &Renderer::getInstance("BombermanTestV1", 0, 0, 1.2f);
     
@@ -34,7 +37,7 @@ namespace Bomberman {
     // Image treeTexture("../resources/models/Tree/tree.png");
     // renderer->generateTexture("treeTexture", treeTexture);
     
-    player.setFrameDelay(2);
+    _maploader._player[0].setFrameDelay(2);
     gameState = START_SCREEN;
     seconds = 0;
     lightModifier = -0.01f;
@@ -56,7 +59,7 @@ namespace Bomberman {
     // Menu menu;
 
     // player chase camera
-    renderer->cameraPosition = player.offset;
+    renderer->cameraPosition = _maploader._player[0].offset;
     renderer->cameraPosition.x = 0;
     renderer->cameraPosition.y = 14;
     renderer->cameraPosition.z = 0;
@@ -78,64 +81,70 @@ namespace Bomberman {
   }
   
   void GameLogic::initGame() {
-    enemy.offset = glm::vec3(-1.2f, GROUND_Y, -4.0f);
-    player.offset = glm::vec3(3.6f, GROUND_Y, 0.0f);
-    player.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+    // enemy.offset = glm::vec3(-1.2f, GROUND_Y, -4.0f);
+    // player.offset = glm::vec3(3.6f, GROUND_Y, 0.0f);
+    // player.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
     
-    player.startAnimating();
-    enemy.startAnimating();
+    _maploader._player[0].startAnimating();
+    int i = _maploader._enemies.size();
+    while (i > -1)
+      _maploader._enemies[i--].startAnimating();
     
     startSeconds = glfwGetTime();
     
   }
   
   void GameLogic::moveEnemy() {
-    enemyState = TURNING;
-    
-    float xDistance = player.offset.x - enemy.offset.x;
-    float zDistance = player.offset.z - enemy.offset.z;
-    float distance = sqrt(xDistance * xDistance + zDistance * zDistance);
-    
-    float enemyRelX = xDistance / distance;
-    float enemyRelZ = zDistance / distance;
-    
-    float enemyDirectionX = -sin(enemy.rotation.y);
-    float enemyDirectionZ = cos(enemy.rotation.y);
-    
-    float dotPosDir = enemyRelX * enemyDirectionX + enemyRelZ * enemyDirectionZ; // dot product
-    
-    if (dotPosDir > 0.98f) {
+    int i = _maploader._enemies.size();
+    while (--i > -1)
+    {
       enemyState = TURNING;
-    } else
-      enemyState = WALKING_STRAIGHT;
-    
-    if (enemyState == TURNING) {
-      enemy.rotation.y -= ENEMY_ROTATION_SPEED;
       
-    }
+      float xDistance = _maploader._player[0].offset.x - _maploader._enemies[i].offset.x;
+      float zDistance = _maploader._player[0].offset.z - _maploader._enemies[i].offset.z;
+      float distance = sqrt(xDistance * xDistance + zDistance * zDistance);
+      
+      float enemyRelX = xDistance / distance;
+      float enemyRelZ = zDistance / distance;
+      
+      float enemyDirectionX = -sin(_maploader._enemies[i].rotation.y);
+      float enemyDirectionZ = cos(_maploader._enemies[i].rotation.y);
+      
+      float dotPosDir = enemyRelX * enemyDirectionX + enemyRelZ * enemyDirectionZ; // dot product
+      
+      if (dotPosDir > 0.98f) {
+        enemyState = TURNING;
+      } else
+        enemyState = WALKING_STRAIGHT;
+      
+      if (enemyState == TURNING) {
+        _maploader._enemies[i].rotation.y -= ENEMY_ROTATION_SPEED;
+        
+      }
+      
+      if (_maploader._enemies[i].offset.z > MAX_Z) {
+        _maploader._enemies[i].offset.z = MAX_Z;
+        enemyState = TURNING;
+      }
+      if (_maploader._enemies[i].offset.z < MIN_Z) {
+        _maploader._enemies[i].offset.z = MIN_Z;
+        enemyState = TURNING;
+      }
+      if(_maploader._enemies[i].offset.x > MAX_X) {
+        _maploader._enemies[i].offset.x = MAX_X;
+        enemyState = TURNING;
+      }
+      if (_maploader._enemies[i].offset.x < MIN_X) {
+        _maploader._enemies[i].offset.x = MIN_X;
+        enemyState = TURNING;
+      }
+      
+      _maploader._enemies[i].offset.x += sin(_maploader._enemies[i].rotation.y) * ENEMY_SPEED;
+      _maploader._enemies[i].offset.z -= cos(_maploader._enemies[i].rotation.y) * ENEMY_SPEED;
+      _maploader._enemies[i].offset.y -= sin(_maploader._enemies[i].rotation.x) * ENEMY_SPEED;
     
-    if (enemy.offset.z > MAX_Z) {
-      enemy.offset.z = MAX_Z;
-      enemyState = TURNING;
+      _maploader._enemies[i].animate();
     }
-    if (enemy.offset.z < MIN_Z) {
-      enemy.offset.z = MIN_Z;
-      enemyState = TURNING;
-    }
-    if(enemy.offset.x > MAX_X) {
-      enemy.offset.x = MAX_X;
-      enemyState = TURNING;
-    }
-    if (enemy.offset.x < MIN_X) {
-      enemy.offset.x = MIN_X;
-      enemyState = TURNING;
-    }
-    
-    enemy.offset.x += sin(enemy.rotation.y) * ENEMY_SPEED;
-    enemy.offset.z -= cos(enemy.rotation.y) * ENEMY_SPEED;
-    enemy.offset.y -= sin(enemy.rotation.x) * ENEMY_SPEED;
-    
-    enemy.animate();
     
   }
   
@@ -209,55 +218,55 @@ namespace Bomberman {
   // }
 
   void GameLogic::movePlayer(const KeyInput &keyInput) {
-    player.stopAnimating();
+    _maploader._player[0].stopAnimating();
     
     if (keyInput.left) {
-      player.rotation.y -= PLAYER_ROTATION_SPEED;
+      _maploader._player[0].rotation.y -= PLAYER_ROTATION_SPEED;
       
       // while (player.collidesWith(tree.offset)) {
       //   player.rotation.y += PLAYER_ROTATION_SPEED;
       // }
       
-      if (player.rotation.y < -FULL_ROTATION)
-        player.rotation.y = 0.0f;
-      player.startAnimating();
+      if (_maploader._player[0].rotation.y < -FULL_ROTATION)
+        _maploader._player[0].rotation.y = 0.0f;
+      _maploader._player[0].startAnimating();
       
     } 
     else if (keyInput.right) {
-      player.rotation.y += PLAYER_ROTATION_SPEED;
+      _maploader._player[0].rotation.y += PLAYER_ROTATION_SPEED;
       // while (player.collidesWith(tree.offset)) {
       //   player.rotation.y -= PLAYER_ROTATION_SPEED;
       // }
       
       
-      if (player.rotation.y > FULL_ROTATION)
-        player.rotation.y = 0.0f;
-      player.startAnimating();
+      if (_maploader._player[0].rotation.y > FULL_ROTATION)
+        _maploader._player[0].rotation.y = 0.0f;
+      _maploader._player[0].startAnimating();
     }
     
     if (keyInput.up) {
       
-      player.offset.x += sin(player.rotation.y) * PLAYER_SPEED;
-      player.offset.z -= cos(player.rotation.y) * PLAYER_SPEED;
-      std::cout << "x: " << player.offset.x << " z: " << player.offset.z << std::endl;
+      _maploader._player[0].offset.x += sin(_maploader._player[0].rotation.y) * PLAYER_SPEED;
+      _maploader._player[0].offset.z -= cos(_maploader._player[0].rotation.y) * PLAYER_SPEED;
+      std::cout << "x: " << _maploader._player[0].offset.x << " z: " << _maploader._player[0].offset.z << std::endl;
       
       // while (player.collidesWith(wall)) {
       //   player.offset.x -= sin(player.rotation.y) * PLAYER_SPEED;
       //   player.offset.z += cos(player.rotation.y) * PLAYER_SPEED;
       // }
       
-      player.startAnimating();
+      _maploader._player[0].startAnimating();
       
     } else if (keyInput.down) {
-      player.offset.x -= sin(player.rotation.y) * PLAYER_SPEED;
-      player.offset.z += cos(player.rotation.y) * PLAYER_SPEED;
+      _maploader._player[0].offset.x -= sin(_maploader._player[0].rotation.y) * PLAYER_SPEED;
+      _maploader._player[0].offset.z += cos(_maploader._player[0].rotation.y) * PLAYER_SPEED;
       
       // while (player.collidesWith(tree)) {
       //   player.offset.x += sin(player.rotation.y) * PLAYER_SPEED;
       //   player.offset.z -= cos(player.rotation.y) * PLAYER_SPEED;
       // }
       
-      player.startAnimating();
+      _maploader._player[0].startAnimating();
     }
     
     // if (player.offset.z < MIN_Z + 1.0f)
@@ -270,28 +279,28 @@ namespace Bomberman {
     // if (player.offset.x > -(player.offset.z))
     //   player.offset.x = -(player.offset.z);
 
-    if (player.offset.z > MAX_Z)
-      player.offset.z = MAX_Z;
-    if (player.offset.z < MIN_Z)
-      player.offset.z = MIN_Z;
-    if (player.offset.x > MAX_X)
-      player.offset.x = MAX_X;
-    if (player.offset.x < MIN_X)
-      player.offset.x = MIN_X;
+    if (_maploader._player[0].offset.z > MAX_Z)
+      _maploader._player[0].offset.z = MAX_Z;
+    if (_maploader._player[0].offset.z < MIN_Z)
+      _maploader._player[0].offset.z = MIN_Z;
+    if (_maploader._player[0].offset.x > MAX_X)
+      _maploader._player[0].offset.x = MAX_X;
+    if (_maploader._player[0].offset.x < MIN_X)
+      _maploader._player[0].offset.x = MIN_X;
 
 
     if (keyInput.camRotXUp) {
-      renderer->cameraRotation.x += cos(player.rotation.y) * 0.05f;
+      renderer->cameraRotation.x += cos(_maploader._player[0].rotation.y) * 0.05f;
     } else if (keyInput.camRotXDown) {
-      renderer->cameraRotation.x -= cos(player.rotation.y) * 0.05f;
+      renderer->cameraRotation.x -= cos(_maploader._player[0].rotation.y) * 0.05f;
     } else if (keyInput.camRotYUp) {
-      renderer->cameraRotation.y += cos(player.rotation.y) * 0.05f;
+      renderer->cameraRotation.y += cos(_maploader._player[0].rotation.y) * 0.05f;
     } else if (keyInput.camRotYDown) {
-      renderer->cameraRotation.y -= cos(player.rotation.y) * 0.05f;
+      renderer->cameraRotation.y -= cos(_maploader._player[0].rotation.y) * 0.05f;
     } else if (keyInput.camRotZUp) {
-      renderer->cameraRotation.z += cos(player.rotation.y) * 0.05f;
+      renderer->cameraRotation.z += cos(_maploader._player[0].rotation.y) * 0.05f;
     } else if (keyInput.camRotZDown) {
-      renderer->cameraRotation.z -= cos(player.rotation.y) * 0.05f;
+      renderer->cameraRotation.z -= cos(_maploader._player[0].rotation.y) * 0.05f;
     } else if (keyInput.camPosXUp) {
       renderer->cameraPosition.x += 0.5f;
     } else if (keyInput.camPosXDown) {
@@ -306,7 +315,7 @@ namespace Bomberman {
       renderer->cameraPosition.z -= 0.5f;
     }
 
-    player.animate();
+    _maploader._player[0].animate();
     
     // Uncomment to see the player's view of the world
     // renderer->cameraPosition = player.offset;
@@ -363,14 +372,22 @@ namespace Bomberman {
       renderer->renderRectangle("ground", glm::vec3(MIN_X, GROUND_Y, MIN_Z),
 			      glm::vec3(MAX_X, GROUND_Y, MAX_Z), true);
       
+      int i = _maploader._walls.size();
+      while (--i > -1)
+        renderer->render(_maploader._walls[i], "wallTexture");
 
-      for (float i = 8; i < 14; i++) {
-        wall.offset = glm::vec3(-i * 2, GROUND_Y + 1, -10.0f);
-        renderer->render(wall, "wallTexture");
-      }
-      renderer->render(enemy, "enemyTexture");
-      renderer->render(player, "enemyTexture");
-      
+      i = _maploader._obstacles.size();
+      while (--i > -1)
+        renderer->render(_maploader._obstacles[i], "wallTexture");
+
+      i = _maploader._player.size();
+      while (--i > -1)
+        renderer->render(_maploader._player[i], "enemyTexture");
+
+      i = _maploader._enemies.size();
+      while (--i > -1)
+        renderer->render(_maploader._enemies[i], "enemyTexture");
+
     }
     renderer->swapBuffers();
   }

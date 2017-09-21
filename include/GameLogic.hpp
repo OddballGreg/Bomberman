@@ -5,6 +5,7 @@
 #include "../gameEngine/include/SceneObject.hpp"
 #include "../gameEngine/include/Renderer.hpp"
 #include "../gameEngine/include/Menu.hpp"
+#include "../include/MapLoader.hpp"
 
 #include "KeyInput.hpp"
 
@@ -15,10 +16,11 @@ namespace Bomberman {
 
   private:
 
-    SceneObject enemy;
-    SceneObject player;
-    SceneObject wall;
+    // SceneObject enemy;
+    // SceneObject player;
+    // SceneObject wall;
     //SceneObject bomber;
+    MapLoader _maploader;
 
 
     enum GameState {
@@ -27,13 +29,13 @@ namespace Bomberman {
     };
 
     GameState gameState;
-	
-	enum EnemyState {
+    
+    enum EnemyState {
     TURNING,
     WALKING_STRAIGHT
   };
 
-	EnemyState enemyState;
+    EnemyState enemyState;
 
     double startSeconds;
     int seconds;

@@ -172,6 +172,8 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     //cameraFront = glm::normalize(front);
 }
 
+#include "MapLoader.hpp"
+
 int main(int argc, char **argv) {
 
   try {
