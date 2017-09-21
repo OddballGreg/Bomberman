@@ -57,18 +57,32 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
     if (key == GLFW_KEY_8 && action == GLFW_PRESS)
         input.camRotZDown = true;
 
-    if (key == GLFW_KEY_Z && action == GLFW_PRESS)
+    if (key == GLFW_KEY_D && action == GLFW_PRESS)
         input.camPosXUp = true;
-    if (key == GLFW_KEY_X && action == GLFW_PRESS)
+    if (key == GLFW_KEY_A && action == GLFW_PRESS)
         input.camPosXDown = true;
-    if (key == GLFW_KEY_C && action == GLFW_PRESS)
+    if (key == GLFW_KEY_E && action == GLFW_PRESS)
         input.camPosYUp = true;
-    if (key == GLFW_KEY_V && action == GLFW_PRESS)
+    if (key == GLFW_KEY_Q && action == GLFW_PRESS)
         input.camPosYDown = true;
-    if (key == GLFW_KEY_B && action == GLFW_PRESS)
+    if (key == GLFW_KEY_S && action == GLFW_PRESS)
         input.camPosZUp = true;
-    if (key == GLFW_KEY_N && action == GLFW_PRESS)
+    if (key == GLFW_KEY_W && action == GLFW_PRESS)
         input.camPosZDown = true;
+
+    if (key == GLFW_KEY_D && action == GLFW_RELEASE)
+        input.camPosXUp = false;
+    if (key == GLFW_KEY_A && action == GLFW_RELEASE)
+        input.camPosXDown = false;
+    if (key == GLFW_KEY_E && action == GLFW_RELEASE)
+        input.camPosYUp = false;
+    if (key == GLFW_KEY_Q && action == GLFW_RELEASE)
+        input.camPosYDown = false;
+    if (key == GLFW_KEY_S && action == GLFW_RELEASE)
+        input.camPosZUp = false;
+    if (key == GLFW_KEY_W && action == GLFW_RELEASE)
+        input.camPosZDown = false;
+    
 
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         input.esc = true;

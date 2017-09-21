@@ -56,15 +56,13 @@ namespace Bomberman {
     //Menu menu(renderer->getWindow());
 
     // player chase camera
-    renderer->cameraPosition = player.offset;
-    renderer->cameraPosition.x = 0;
-    renderer->cameraPosition.y = 14;
-    renderer->cameraPosition.z = 0;
+    //renderer->cameraPosition = player.offset;
+    
 
     // Initialize camera angles
-    renderer->cameraRotation.x = 0.8567f;
-    renderer->cameraRotation.y = 0.0f;
-    renderer->cameraRotation.z = 0.0f;
+    // renderer->cameraRotation.x = 0.90f;
+    // renderer->cameraRotation.y = 0.0f;
+    // renderer->cameraRotation.z = 0.0f;
 
   }
 
@@ -81,6 +79,10 @@ namespace Bomberman {
     enemy.offset = glm::vec3(-1.2f, GROUND_Y, -4.0f);
     player.offset = glm::vec3(3.6f, GROUND_Y, 0.0f);
     player.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+    
+    renderer->cameraPosition.x = player.offset.x;
+    renderer->cameraPosition.y = 8;
+    renderer->cameraPosition.z = (player.offset.z) + 4;
     
     player.startAnimating();
     enemy.startAnimating();
@@ -213,6 +215,9 @@ namespace Bomberman {
     
     if (keyInput.left) {
       player.rotation.y -= PLAYER_ROTATION_SPEED;
+      // renderer->cameraRotation.y -= PLAYER_ROTATION_SPEED;
+      // renderer->cameraPosition.x += sin(player.rotation.y) * 0.5f;
+      // renderer->cameraPosition.z -= cos(player.rotation.y) * 0.5f;
       
       // while (player.collidesWith(tree.offset)) {
       //   player.rotation.y += PLAYER_ROTATION_SPEED;
@@ -225,6 +230,7 @@ namespace Bomberman {
     } 
     else if (keyInput.right) {
       player.rotation.y += PLAYER_ROTATION_SPEED;
+      // renderer->cameraRotation.y += PLAYER_ROTATION_SPEED;
       // while (player.collidesWith(tree.offset)) {
       //   player.rotation.y -= PLAYER_ROTATION_SPEED;
       // }
@@ -239,6 +245,8 @@ namespace Bomberman {
       
       player.offset.x += sin(player.rotation.y) * PLAYER_SPEED;
       player.offset.z -= cos(player.rotation.y) * PLAYER_SPEED;
+      // renderer->cameraPosition.x = (player.offset.x) + 4;
+      // renderer->cameraPosition.z = (player.offset.z) + 4;
       std::cout << "x: " << player.offset.x << " z: " << player.offset.z << std::endl;
       
       // while (player.collidesWith(wall)) {
@@ -251,11 +259,15 @@ namespace Bomberman {
     } else if (keyInput.down) {
       player.offset.x -= sin(player.rotation.y) * PLAYER_SPEED;
       player.offset.z += cos(player.rotation.y) * PLAYER_SPEED;
+      // renderer->cameraPosition.z = (player.offset.z) + 4;
       
       // while (player.collidesWith(tree)) {
       //   player.offset.x += sin(player.rotation.y) * PLAYER_SPEED;
       //   player.offset.z -= cos(player.rotation.y) * PLAYER_SPEED;
       // }
+
+      // player chase camera
+    
       
       player.startAnimating();
     }
@@ -305,6 +317,16 @@ namespace Bomberman {
     } else if (keyInput.camPosZDown) {
       renderer->cameraPosition.z -= 0.5f;
     }
+
+    // renderer->cameraPosition.x -= sin(player.rotation.y) * 3.0f;
+    // renderer->cameraPosition.z += cos(player.rotation.y) * 3.0f;
+
+    renderer->cameraPosition = player.offset;
+    renderer->cameraPosition.x -= sin(player.rotation.y) * 5.0f;
+    renderer->cameraPosition.z += cos(player.rotation.y) * 5.0f;
+    renderer->cameraPosition.y = 8.0f;
+    renderer->cameraRotation = player.rotation;
+    renderer->cameraRotation.x = 0.83f;
 
     player.animate();
     
