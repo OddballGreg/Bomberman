@@ -11,8 +11,8 @@ namespace Bomberman {
   
   GameLogic::GameLogic() :
     enemy("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj"),
-    player("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj"),
-    wall("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj") {
+    player("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj") /*,
+    wall("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj")*/ {
     
     renderer = &Renderer::getInstance("BombermanTestV1", 0, 0, 1.2f);
     
@@ -25,8 +25,8 @@ namespace Bomberman {
     Image skyTexture("../resources/images/sky.png");
     renderer->generateTexture("sky", skyTexture);
 
-    Image wallTexture("../resources/images/floor.png");
-    renderer->generateTexture("wall", wallTexture);
+    // Image wallTexture("../resources/images/floor.png");
+    // renderer->generateTexture("wall", wallTexture);
 
     Image enemyTexture("../resources/images/floor.png");
     renderer->generateTexture("enemyTexture", enemyTexture);
@@ -39,10 +39,10 @@ namespace Bomberman {
     seconds = 0;
     lightModifier = -0.01f;
     enemyState = WALKING_STRAIGHT;
-    MAX_Z = 24.0f;
-    MIN_Z = -24.0f;
-    MAX_X = 24.0f;
-    MIN_X = -24.0f;
+    MAX_Z = 10.0f;
+    MIN_Z = -8.0f;
+    MAX_X = 12.0f;
+    MIN_X = -12.0f;
     
     GROUND_Y = -1.0f;
     FULL_ROTATION = 6.28f; // More or less 360 degrees in radians
@@ -321,12 +321,18 @@ namespace Bomberman {
     // renderer->cameraPosition.x -= sin(player.rotation.y) * 3.0f;
     // renderer->cameraPosition.z += cos(player.rotation.y) * 3.0f;
 
-    renderer->cameraPosition = player.offset;
-    renderer->cameraPosition.x -= sin(player.rotation.y) * 5.0f;
-    renderer->cameraPosition.z += cos(player.rotation.y) * 5.0f;
-    renderer->cameraPosition.y = 8.0f;
-    renderer->cameraRotation = player.rotation;
-    renderer->cameraRotation.x = 0.83f;
+    // renderer->cameraPosition = player.offset;
+    // renderer->cameraPosition.x -= sin(player.rotation.y) * 5.0f;
+    // renderer->cameraPosition.z += cos(player.rotation.y) * 5.0f;
+    // renderer->cameraPosition.y = 16.0f;
+    // renderer->cameraRotation = player.rotation;
+    // renderer->cameraRotation.x = 1.1f;
+
+    //renderer->cameraPosition = player.offset;
+    renderer->cameraPosition.x = 0.0f;
+    renderer->cameraPosition.z = 11.32f;
+    renderer->cameraPosition.y = 16.0f;
+    renderer->cameraRotation.x = 1.1f;
 
     player.animate();
     
@@ -386,10 +392,10 @@ namespace Bomberman {
 			      glm::vec3(MAX_X, GROUND_Y, MAX_Z), true);
       
 
-      for (float i = 8; i < 14; i++) {
-        wall.offset = glm::vec3(-i * 2, GROUND_Y + 1, -10.0f);
-        renderer->render(wall, "wallTexture");
-      }
+      // for (float i = 8; i < 14; i++) {
+      //   wall.offset = glm::vec3(-i * 2, GROUND_Y + 1, -10.0f);
+      //   renderer->render(wall, "wallTexture");
+      // }
       renderer->render(enemy, "enemyTexture");
       renderer->render(player, "enemyTexture");
       
