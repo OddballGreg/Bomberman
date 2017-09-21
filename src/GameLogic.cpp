@@ -53,7 +53,7 @@ namespace Bomberman {
     ENEMY_SPEED = 0.05f;
 
     // Initialise NanoGUI
-    Menu menu;
+    // Menu menu;
 
     // player chase camera
     renderer->cameraPosition = player.offset;
