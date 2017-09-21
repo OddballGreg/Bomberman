@@ -34,7 +34,7 @@ namespace Bomberman {
     // Image treeTexture("../resources/models/Tree/tree.png");
     // renderer->generateTexture("treeTexture", treeTexture);
     
-    player.setFrameDelay(2);
+    player.setFrameDelay(1);
     gameState = START_SCREEN;
     seconds = 0;
     lightModifier = -0.01f;
@@ -53,7 +53,7 @@ namespace Bomberman {
     ENEMY_SPEED = 0.05f;
 
     bombDropped = false;
-    bombDelay = 200;
+    bombDelay = 100;
 
     // Initialise NanoGUI
     //Menu menu(renderer->getWindow());
@@ -324,7 +324,7 @@ namespace Bomberman {
       renderer->cameraPosition.z -= 0.5f;
     }
 
-    if (keyInput.space) {
+    if (keyInput.space && !bombDropped) {
       bombDropped = true;
       bomb.offset = player.offset;
       bomb.startAnimating();
@@ -417,7 +417,7 @@ namespace Bomberman {
       }
       else if (bombDelay == 0) {
         bombDropped = false;
-        bombDelay = 200;
+        bombDelay = 100;
       }
     }
     renderer->swapBuffers();
