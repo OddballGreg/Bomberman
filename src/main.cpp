@@ -6,8 +6,6 @@
 #include "../include/GameLogic.hpp"
 #include "../include/KeyInput.hpp"
 
-#include <al.h>
-#include <alc.h>
 #include "../SoundEngine/SoundEngine.hpp"
 
 #include <GLFW/glfw3.h>
@@ -213,7 +211,7 @@ int main(int argc, char **argv) {
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
       Sound musicloop;
       musicloop.initialize("../SoundEngine/music/loop.wav");
-      musicloop.play(0, true);
+      musicloop.play(true);
 
     while (!glfwWindowShouldClose(window) && !input.esc) {
 

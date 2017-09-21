@@ -18,7 +18,7 @@ public:
 
     void initialize(const char* File);
     char* loadWAV(const char* fn,int& chan,int& samplerate,int& bps,int& size);
-    void play(int sleep, bool loop);
+    void play(bool loop);
 
 private:
     unsigned int    _buffer;

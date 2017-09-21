@@ -6,6 +6,7 @@
 #include "../gameEngine/include/Renderer.hpp"
 #include "../gameEngine/include/Menu.hpp"
 #include "../include/MapLoader.hpp"
+#include "../SoundEngine/SoundEngine.hpp"
 
 #include "KeyInput.hpp"
 
@@ -22,6 +23,7 @@ namespace Bomberman {
     //SceneObject bomber;
     MapLoader _maploader;
     SceneObject bomb;
+      Sound explosion;
 
     enum GameState {
       START_SCREEN,

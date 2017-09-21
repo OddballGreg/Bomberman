@@ -8,10 +8,10 @@ int main(int argc,char** argv)
 {
     Sound musicloop;
     musicloop.initialize("music/loop.wav");
-    musicloop.play(0, true);
+    musicloop.play(true);
     Sound musicbounce;
     musicbounce.initialize("music/bounce.wav");
-    musicbounce.play(0, false);
+    musicbounce.play(false);
     while (1)
     {
     }

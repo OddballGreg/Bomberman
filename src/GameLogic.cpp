@@ -434,6 +434,8 @@ namespace Bomberman {
       else if (bombDelay == 0) {
         bombDropped = false;
         bombDelay = 100;
+        explosion.initialize("../SoundEngine/music/explosion.wav");
+        explosion.play(false);
       }
     }
     renderer->swapBuffers();

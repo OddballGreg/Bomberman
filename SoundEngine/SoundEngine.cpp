@@ -127,7 +127,7 @@ char* Sound::loadWAV(const char* fn,int& chan,int& samplerate,int& bps,int& size
 
 }
 
-void Sound::play(int sleep, bool loop) {
+void Sound::play(bool loop) {
     _rc = pthread_create(&_thread[2], NULL, worker, NULL);
     alSourcei(_source, AL_BUFFER, _buffer);
     float f[] = {1,0,0,0,1,0};
