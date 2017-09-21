@@ -48,7 +48,7 @@ void MapLoader::load_map(std::string mapname)
   	y++; // Increment line index
 
     int x = -1;
-    std::cout << line << std::endl;
+    // std::cout << line << std::endl;
     while (line[++x])
     	spawn_object(line[x], x, y);
   }
@@ -66,7 +66,7 @@ void MapLoader::spawn_object(char type_char, float x_coord, float y_coord)
 {
 	switch (type_char)
 	{
-  		std::cout << type_char << std::endl;
+  		// std::cout << type_char << std::endl;
 		case '.' : break;
 		case 'w' :
 		{

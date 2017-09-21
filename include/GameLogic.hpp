@@ -21,7 +21,7 @@ namespace Bomberman {
     // SceneObject wall;
     //SceneObject bomber;
     MapLoader _maploader;
-
+    SceneObject bomb;
 
     enum GameState {
       START_SCREEN,
@@ -59,6 +59,9 @@ namespace Bomberman {
     
     float ENEMY_ROTATION_SPEED;
     float ENEMY_SPEED;
+
+    bool  bombDropped;
+    int   bombDelay;
 		
   public:
 

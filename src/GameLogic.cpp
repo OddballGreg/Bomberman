@@ -9,11 +9,7 @@ using namespace gameEngine;
 
 namespace Bomberman {
   
-  // GameLogic::GameLogic() :
-  //   enemy("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj"),
-  //   player("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj"),
-  //   wall("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj") {
-  GameLogic::GameLogic()
+  GameLogic::GameLogic() : bomb("bomb", "../resources/models/bomberman/bomb.obj", 1, "../resources/models/bomberman/cube.obj")
   {
     _maploader.load_map("maps/map.txt");
     
@@ -28,8 +24,8 @@ namespace Bomberman {
     Image skyTexture("../resources/images/sky.png");
     renderer->generateTexture("sky", skyTexture);
 
-    Image wallTexture("../resources/images/floor.png");
-    renderer->generateTexture("wall", wallTexture);
+    Image bombTexture("../resources/images/floor.png");
+    renderer->generateTexture("bomb", bombTexture);
 
     Image enemyTexture("../resources/images/floor.png");
     renderer->generateTexture("enemyTexture", enemyTexture);
@@ -37,15 +33,15 @@ namespace Bomberman {
     // Image treeTexture("../resources/models/Tree/tree.png");
     // renderer->generateTexture("treeTexture", treeTexture);
     
-    _maploader._player[0].setFrameDelay(2);
+    _maploader._player[0].setFrameDelay(1);
     gameState = START_SCREEN;
     seconds = 0;
     lightModifier = -0.01f;
     enemyState = WALKING_STRAIGHT;
-    MAX_Z = 24.0f;
-    MIN_Z = -24.0f;
-    MAX_X = 24.0f;
-    MIN_X = -24.0f;
+    MAX_Z = 10.0f;
+    MIN_Z = -8.0f;
+    MAX_X = 12.0f;
+    MIN_X = -12.0f;
     
     GROUND_Y = -1.0f;
     FULL_ROTATION = 6.28f; // More or less 360 degrees in radians
@@ -55,19 +51,24 @@ namespace Bomberman {
     ENEMY_ROTATION_SPEED = 0.1f;
     ENEMY_SPEED = 0.05f;
 
+    bombDropped = false;
+    bombDelay = 100;
+
     // Initialise NanoGUI
-    // Menu menu;
+    //Menu menu(renderer->getWindow());
 
     // player chase camera
-    renderer->cameraPosition = _maploader._player[0].offset;
-    renderer->cameraPosition.x = 0;
-    renderer->cameraPosition.y = 14;
-    renderer->cameraPosition.z = 0;
+    // renderer->cameraPosition = _maploader._player[0].offset;
+    // renderer->cameraPosition.x = 0;
+    // renderer->cameraPosition.y = 14;
+    // renderer->cameraPosition.z = 0;
+    //renderer->cameraPosition = player.offset;
+    
 
     // Initialize camera angles
-    renderer->cameraRotation.x = 0.8567f;
-    renderer->cameraRotation.y = 0.0f;
-    renderer->cameraRotation.z = 0.0f;
+    // renderer->cameraRotation.x = 0.90f;
+    // renderer->cameraRotation.y = 0.0f;
+    // renderer->cameraRotation.z = 0.0f;
 
   }
 
@@ -81,14 +82,18 @@ namespace Bomberman {
   }
   
   void GameLogic::initGame() {
-    // enemy.offset = glm::vec3(-1.2f, GROUND_Y, -4.0f);
-    // player.offset = glm::vec3(3.6f, GROUND_Y, 0.0f);
-    // player.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-    
     _maploader._player[0].startAnimating();
     int i = _maploader._enemies.size();
     while (i > -1)
+    {
       _maploader._enemies[i--].startAnimating();
+    }
+    
+    renderer->cameraPosition.x = _maploader._player[0].offset.x;
+    renderer->cameraPosition.y = 8;
+    renderer->cameraPosition.z = (_maploader._player[0].offset.z) + 4;
+    
+    bomb.startAnimating();
     
     startSeconds = glfwGetTime();
     
@@ -222,6 +227,9 @@ namespace Bomberman {
     
     if (keyInput.left) {
       _maploader._player[0].rotation.y -= PLAYER_ROTATION_SPEED;
+      // renderer->cameraRotation.y -= PLAYER_ROTATION_SPEED;
+      // renderer->cameraPosition.x += sin(player.rotation.y) * 0.5f;
+      // renderer->cameraPosition.z -= cos(player.rotation.y) * 0.5f;
       
       // while (player.collidesWith(tree.offset)) {
       //   player.rotation.y += PLAYER_ROTATION_SPEED;
@@ -234,6 +242,7 @@ namespace Bomberman {
     } 
     else if (keyInput.right) {
       _maploader._player[0].rotation.y += PLAYER_ROTATION_SPEED;
+      // renderer->cameraRotation.y += PLAYER_ROTATION_SPEED;
       // while (player.collidesWith(tree.offset)) {
       //   player.rotation.y -= PLAYER_ROTATION_SPEED;
       // }
@@ -248,7 +257,11 @@ namespace Bomberman {
       
       _maploader._player[0].offset.x += sin(_maploader._player[0].rotation.y) * PLAYER_SPEED;
       _maploader._player[0].offset.z -= cos(_maploader._player[0].rotation.y) * PLAYER_SPEED;
-      std::cout << "x: " << _maploader._player[0].offset.x << " z: " << _maploader._player[0].offset.z << std::endl;
+      // std::cout << "x: " << _maploader._player[0].offset.x << " z: " << _maploader._player[0].offset.z << std::endl;
+      _maploader._player[0].offset.x += sin(_maploader._player[0].rotation.y) * PLAYER_SPEED;
+      _maploader._player[0].offset.z -= cos(_maploader._player[0].rotation.y) * PLAYER_SPEED;
+      // renderer->cameraPosition.x = (player.offset.x) + 4;
+      // renderer->cameraPosition.z = (player.offset.z) + 4;
       
       // while (player.collidesWith(wall)) {
       //   player.offset.x -= sin(player.rotation.y) * PLAYER_SPEED;
@@ -260,11 +273,15 @@ namespace Bomberman {
     } else if (keyInput.down) {
       _maploader._player[0].offset.x -= sin(_maploader._player[0].rotation.y) * PLAYER_SPEED;
       _maploader._player[0].offset.z += cos(_maploader._player[0].rotation.y) * PLAYER_SPEED;
+      // renderer->cameraPosition.z = (player.offset.z) + 4;
       
       // while (player.collidesWith(tree)) {
       //   player.offset.x += sin(player.rotation.y) * PLAYER_SPEED;
       //   player.offset.z -= cos(player.rotation.y) * PLAYER_SPEED;
       // }
+
+      // player chase camera
+    
       
       _maploader._player[0].startAnimating();
     }
@@ -316,6 +333,28 @@ namespace Bomberman {
     }
 
     _maploader._player[0].animate();
+    if (keyInput.space && !bombDropped) {
+      bombDropped = true;
+      bomb.offset = _maploader._player[0].offset;
+      bomb.startAnimating();
+    }
+
+    // renderer->cameraPosition.x -= sin(player.rotation.y) * 3.0f;
+    // renderer->cameraPosition.z += cos(player.rotation.y) * 3.0f;
+
+    // renderer->cameraPosition = player.offset;
+    // renderer->cameraPosition.x -= sin(player.rotation.y) * 5.0f;
+    // renderer->cameraPosition.z += cos(player.rotation.y) * 5.0f;
+    // renderer->cameraPosition.y = 16.0f;
+    // renderer->cameraRotation = player.rotation;
+    // renderer->cameraRotation.x = 1.1f;
+
+    //renderer->cameraPosition = player.offset;
+    renderer->cameraPosition.x = 0.0f;
+    renderer->cameraPosition.z = 11.32f;
+    renderer->cameraPosition.y = 16.0f;
+    renderer->cameraRotation.x = 1.1f;
+
     
     // Uncomment to see the player's view of the world
     // renderer->cameraPosition = player.offset;
@@ -388,6 +427,14 @@ namespace Bomberman {
       while (--i > -1)
         renderer->render(_maploader._enemies[i], "enemyTexture");
 
+      if (bombDropped && bombDelay != 0) {
+        renderer->render(bomb, "bombTexture");
+        bombDelay--;
+      }
+      else if (bombDelay == 0) {
+        bombDropped = false;
+        bombDelay = 100;
+      }
     }
     renderer->swapBuffers();
   }

@@ -44,6 +44,8 @@ set(RESOURCE_DIRS
 set(SOURCE_FILES
         src/main.cpp
         src/GameLogic.cpp
+        src/MapLoader.cpp
+        include/MapLoader.hpp
         gameEngine/src/BoundingBoxSet.cpp
         gameEngine/src/GetTokens.cpp
         gameEngine/src/Image.cpp
