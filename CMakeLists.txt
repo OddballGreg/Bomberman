@@ -35,13 +35,13 @@ add_definitions(${NANOGUI_EXTRA_DEFS})
 # These directories get symlinked into the build directory after compilation
 set(RESOURCE_DIRS
         resources
-        maps
         gameEngine/src/perspectiveMatrixLightedShader.vert
         gameEngine/perspectiveMatrixLightedShader.vert
         gameEngine/resources/shaders/OpenGL33/
         gameEngine/resources/shaders/OpenGL21/
         gameEngine/resources/fonts/
 		SoundEngine/music/
+		maps
         )
 
 set(SOURCE_FILES

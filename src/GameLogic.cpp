@@ -11,7 +11,7 @@ namespace Bomberman {
   
   GameLogic::GameLogic() : bomb("bomb", "../resources/models/bomberman/bomb.obj", 1, "../resources/models/bomberman/cube.obj")
   {
-    _maploader.load_map("maps/map.txt");
+    _maploader.load_map("../maps/map.txt");
     
     renderer = &Renderer::getInstance("BombermanTestV1", 0, 0, 1.2f);
     
