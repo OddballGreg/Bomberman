@@ -6,6 +6,10 @@
 #include "../include/GameLogic.hpp"
 #include "../include/KeyInput.hpp"
 
+#include <al.h>
+#include <alc.h>
+#include "../SoundEngine/SoundEngine.hpp"
+
 #include <GLFW/glfw3.h>
 
 using namespace std;
@@ -187,6 +191,8 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     //cameraFront = glm::normalize(front);
 }
 
+#include "MapLoader.hpp"
+
 int main(int argc, char **argv) {
 
   try {
@@ -206,6 +212,9 @@ int main(int argc, char **argv) {
 
     // tell GLFW to capture our mouse
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+      Sound musicloop;
+      musicloop.initialize("../SoundEngine/music/loop.wav");
+      musicloop.play(0, true);
 
     while (!glfwWindowShouldClose(window) && !input.esc) {
 

@@ -5,6 +5,7 @@
 #include "../gameEngine/include/SceneObject.hpp"
 #include "../gameEngine/include/Renderer.hpp"
 #include "../gameEngine/include/Menu.hpp"
+#include "../include/MapLoader.hpp"
 
 #include <nanogui/nanogui.h>
 #include "KeyInput.hpp"
@@ -16,11 +17,12 @@ namespace Bomberman {
 
   private:
 
-    SceneObject enemy;
-    SceneObject player;
+    // SceneObject enemy;
+    // SceneObject player;
     // SceneObject wall;
     //SceneObject bomber;
-
+    MapLoader _maploader;
+    SceneObject bomb;
 
     enum GameState {
       START_SCREEN,
@@ -28,13 +30,13 @@ namespace Bomberman {
     };
 
     GameState gameState;
-	
-	enum EnemyState {
+    
+    enum EnemyState {
     TURNING,
     WALKING_STRAIGHT
   };
 
-	EnemyState enemyState;
+    EnemyState enemyState;
 
     double startSeconds;
     int seconds;
@@ -72,6 +74,9 @@ namespace Bomberman {
     std::string strval = "A string";
     test_enum enumval = Item2;
           
+    bool  bombDropped;
+    int   bombDelay;
+		
   public:
 
     Screen *screen = nullptr;
