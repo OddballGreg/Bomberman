@@ -1,7 +1,7 @@
 /*
-    src/example1.cpp -- C++ version of an example application that shows
-    how to use the various widget classes. For a Python implementation, see
-    '../python/example1.py'.
+    src/example2.cpp -- C++ version of an example application that shows
+    how to use the form helper class. For a Python implementation, see
+    '../python/example2.py'.
     NanoGUI was developed by Wenzel Jakob <wenzel.jakob@epfl.ch>.
     The widget drawing code is based on the NanoVG demo application
     by Mikko Mononen.
@@ -10,13 +10,25 @@
 */
 
 #include <nanogui/nanogui.h>
-
 #include <iostream>
-#include <string>
 
 class Menu {
 
 public:
-	Menu();
+    enum test_enum {
+        Item1 = 0,
+        Item2,
+        Item3
+    };
+    
+    bool bvar = true;
+    int ivar = 12345678;
+    double dvar = 3.1415926;
+    float fvar = (float)dvar;
+    std::string strval = "A string";
+    test_enum enumval = Item2;
+    //Color colval(0.5f, 0.5f, 0.7f, 1.f);
+    
+    Menu(GLFWwindow *window);
 	~Menu();
 };

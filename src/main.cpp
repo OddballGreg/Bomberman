@@ -183,7 +183,6 @@ int main(int argc, char **argv) {
     double prevSeconds = seconds;
     double secondsInterval = 1.0 / frameRate;
     
-
     GLFWwindow* window = gameLogic.renderer->getWindow();
 
     glfwSetKeyCallback(window, keyCallback);
