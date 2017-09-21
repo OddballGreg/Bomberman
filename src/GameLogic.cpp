@@ -98,7 +98,11 @@ namespace Bomberman {
     startSeconds = glfwGetTime();
     
   }
-  
+
+  void GameLogic::setScreen(Screen *screen) {
+    this->_screen = screen;
+  };
+
   void GameLogic::moveEnemy() {
     int i = _maploader._enemies.size();
     while (--i > -1)
@@ -152,75 +156,6 @@ namespace Bomberman {
     }
     
   }
-  
-  // void GameLogic::movePlayer(const KeyInput &keyInput) {
-    
-  //   if (keyInput.left) {
-  //     player.rotation.y -= PLAYER_ROTATION_SPEED;
-      
-  //     if (player.rotation.y < -FULL_ROTATION)
-  //       player.rotation.y = 0.0f;
-      
-      
-  //   } else if (keyInput.right) {
-  //       player.rotation.y += PLAYER_ROTATION_SPEED;
-      
-  //     if (player.rotation.y > FULL_ROTATION)
-  //       player.rotation.y = 0.0f;
-  //   }
-    
-  //   if (keyInput.down) {
-      
-  //     player.rotation.x -= PLAYER_TILT_SPEED;
-      
-  //     if (player.rotation.x < -0.75f)
-  //       player.rotation.x = -0.75f;
-      
-      
-  //   } else if (keyInput.up) {
-      
-  //     player.rotation.x += PLAYER_TILT_SPEED;
-      
-  //     if (player.rotation.x > 0.75f)
-  //       player.rotation.x = 0.75f;
-  //   }
-    
-  //   if (keyInput.space) {
-  //     player.offset.x += sin(player.rotation.y) * PLAYER_SPEED;
-  //     player.offset.z -= cos(player.rotation.y) * PLAYER_SPEED;
-  //     player.offset.y -= sin(player.rotation.x) * PLAYER_SPEED;
-  //   }
-    
-  //   if (player.offset.y < GROUND_Y + 0.5f)
-  //     player.offset.y = GROUND_Y + 0.5f;
-    
-  //   if (player.offset.z > MAX_Z)
-  //     player.offset.z = MAX_Z;
-  //   if (player.offset.z < MIN_Z)
-  //     player.offset.z = MIN_Z;
-  //   if (player.offset.x > MAX_X)
-  //     player.offset.x = MAX_X;
-  //   if (player.offset.x < MIN_X)
-  //     player.offset.x = MIN_X;
-    
-    
-  //   // player chase camera
-  //   renderer->cameraPosition = player.offset;
-  //   renderer->cameraPosition.x -= sin(player.rotation.y) * 3.0f;
-  //   renderer->cameraPosition.z += cos(player.rotation.y) * 3.0f;
-  //   renderer->cameraPosition.y += sin(player.rotation.x) * 3.0f;
-  //   renderer->cameraRotation = player.rotation;
-  //   if (renderer->cameraPosition.y < GROUND_Y + 1.0f)
-  //     renderer->cameraPosition.y = GROUND_Y + 1.0f;
-    
-  //   player.animate();
-    
-  //   if (enemy.collidesWith(player.offset)) {
-  //     gameState = START_SCREEN;
-  //     //add a sound here
-  //     seconds = (glfwGetTime() - startSeconds);
-  //   }
-  // }
 
   void GameLogic::movePlayer(const KeyInput &keyInput) {
     _maploader._player[0].stopAnimating();
@@ -389,40 +324,12 @@ namespace Bomberman {
   }
   
   void GameLogic::render() {
+
     renderer->clearScreen();
     
     if (gameState == START_SCREEN) {
       
-      Color colval(0.5f, 0.5f, 0.7f, 1.f);
-      // Initialise NanoGUI
-      // Menu menu(renderer->getWindow());
-      screen = new Screen();   
-      screen->initialize(renderer->getWindow(), true);
-  
-      bool enabled = true;
-      FormHelper *gui = new FormHelper(screen);
-      ref<Window> window = gui->addWindow(Eigen::Vector2i(10, 10), "Form helper example");
-      gui->addGroup("Basic types");
-      gui->addVariable("bool", bvar);
-      gui->addVariable("string", strval);
-
-      gui->addGroup("Validating fields");
-      gui->addVariable("int", ivar)->setSpinnable(true);
-      gui->addVariable("float", fvar);
-      gui->addVariable("double", dvar)->setSpinnable(true);
-
-      gui->addGroup("Complex types");
-      gui->addVariable("Enumeration", enumval, enabled)
-         ->setItems({"Item 1", "Item 2", "Item 3"});
-      gui->addVariable("Color", colval);
-
-      gui->addGroup("Other widgets");
-      gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
-
-      screen->setVisible(true);
-      // screen->moveWindowToFront(window);
-      screen->performLayout();
-      window->center();
+    
 
       renderer->renderRectangle("sky", glm::vec3(-1.0f, 1.0f, 1.0f),
 			      glm::vec3(1.0f, -1.0f, 1.0f));
