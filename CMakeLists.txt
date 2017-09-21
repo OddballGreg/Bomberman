@@ -15,7 +15,7 @@ set(GIT_FLAG "--init --recursive")
 execute_process(COMMAND ${BASH_CMD} ${BASH_ARG})
 execute_process(COMMAND	${GIT_CMD} ${GIT_ARG} ${GIT_FLAG})
 
-set(NANOGUI_DIR "external/nano_gui")
+set(NANOGUI_DIR "external/nanogui")
 
 # Adding dependencies
 pkg_search_module(GLEW REQUIRED glew)
@@ -25,6 +25,11 @@ pkg_search_module(FREETYPE REQUIRED freetype2)
 pkg_search_module(SDL REQUIRED sdl)
 pkg_search_module(SDL2 REQUIRED sdl2)
 pkg_search_module(LIBPNG REQUIRED libpng)
+
+add_subdirectory(${NANOGUI_DIR})
+include_directories(${NANOGUI_DIR}/include)
+include_directories(${NANOGUI_EXTRA_INCS})
+add_definitions(${NANOGUI_EXTRA_DEFS})
 
 # These directories get symlinked into the build directory after compilation
 set(RESOURCE_DIRS
@@ -63,9 +68,12 @@ include_directories(
 		~/.brew/include
 		~/.brew/include/freetype2
 		~/.brew/include/eigen3
-		${NANOGUI_DIR}/include
-		${NANOGUI_DIR}/ext/nanovg/src
-		${NANOGUI_DIR}/ext/pybind11/include
+        #${NANOGUI_DIR}/include
+		#${NANOGUI_DIR}/ext/nanovg/src
+		#${NANOGUI_DIR}/ext/pybind11/include
+        #${NANOGUI_DIR}/ext/glfw/include
+        #${NANOGUI_DIR}/ext/eigen
+        #${NANOGUI_DIR}/ext/glad/include
 )
 
 # Directories to find the libraries
@@ -75,9 +83,11 @@ link_directories(
         ${GLEW_LIBRARY_DIRS}
         ${GLM_LIBRARY_DIRS}
         ${GLFW_LIBRARY_DIRS}
-		${NANOGUI_DIR}
-		${NANOGUI_DIR}/ext/eigen
-		${NANOGUI_DIR}/ext/nanovg/src
+		#${NANOGUI_DIR}/src
+        #${NANOGUI_DIR}/python
+		#${NANOGUI_DIR}/ext/nanovg/src
+        #${NANOGUI_DIR}/ext/glfw/src
+        #${NANOGUI_DIR}/ext/glad/src
 )
 
 add_executable(bomberman ${SOURCE_FILES})
@@ -90,11 +100,13 @@ target_link_libraries(${PROJECT_NAME}
         ${GLM_LIBRARIES}
         ${GLFW_LIBRARIES}
         ${FT_LIBRARIES}
-        freetype
+		freetype
 		png
 		glfw
 		GLEW
-	)
+        nanogui
+        ${NANOGUI_EXTRA_LIBS}
+)
 
 set(LINKER_FLAGS "-framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lfreetype -lpng -lglfw -lGLEW")
 

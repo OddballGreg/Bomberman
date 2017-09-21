@@ -10,12 +10,13 @@
 */
 
 #include <nanogui/nanogui.h>
+
 #include <iostream>
 #include <string>
 
-class NanoGUI {
+class Menu {
 
 public:
-	NanoGUI();
-	~NanoGUI();
-}
+	Menu();
+	~Menu();
+};

@@ -9,10 +9,12 @@ LIB_FREETYPE="$HOME/.brew/Cellar/freetype"
 LIB_SDL="$HOME/.brew/Cellar/sdl"
 LIB_SDL2="$HOME/.brew/Cellar/sdl2"
 LIB_GLFW="$HOME/.brew/Cellar/glfw"
-LIB_GLEW="$HOME/.brew/Cellalsr/glew"
+LIB_GLEW="$HOME/.brew/Cellar/glew"
 LIB_GLM="$HOME/.brew/Cellar/glm"
 LIB_SMFL="$HOME/.brew/Cellar/sfml"
 LIB_EIGEN="$HOME/.brew/Cellar/eigen"
+
+LIB_NANOGUI="external/nanogui"
 
 if [ ! -d "$HOMEBREW" ]; then
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/Tolsadus/42homebrewfix/master/install.sh)"
@@ -61,4 +63,9 @@ fi
 
 if [ ! -d "$LIB_EIGEN" ]; then
 	$HOME/.brew/bin/brew install eigen
+fi
+
+if [ ! -d "$LIB_NANOGUI" ]; then
+	git clone --recursive https://github.com/wjakob/nanogui.git
+	git submodule update --init --recursive
 fi

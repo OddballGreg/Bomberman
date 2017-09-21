@@ -1,3 +1,0 @@
-/goinfre/cdebruyn/Documents/Bomberman/build/CMakeFiles/rebuild_cache.dir
-/goinfre/cdebruyn/Documents/Bomberman/build/CMakeFiles/edit_cache.dir
-/goinfre/cdebruyn/Documents/Bomberman/build/CMakeFiles/bomberman.dir
