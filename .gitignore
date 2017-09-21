@@ -36,6 +36,7 @@ cmake-build-debug
 
 #NANOGUI library
 external/nanogui
+.nanogui
 
 #Build directory
 build

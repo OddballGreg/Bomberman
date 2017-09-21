@@ -4,6 +4,7 @@ project(bomberman)
 set(CMAKE_CXX_STANDARD 14)
 
 find_package(OpenGL REQUIRED)
+find_package(OpenAL REQUIRED)
 find_package(PkgConfig REQUIRED)
 
 # Run install script
@@ -39,6 +40,7 @@ set(RESOURCE_DIRS
         gameEngine/resources/shaders/OpenGL33/
         gameEngine/resources/shaders/OpenGL21/
         gameEngine/resources/fonts/
+		SoundEngine/music/
         )
 
 set(SOURCE_FILES
@@ -46,6 +48,8 @@ set(SOURCE_FILES
         src/GameLogic.cpp
         src/MapLoader.cpp
         include/MapLoader.hpp
+		SoundEngine/SoundEngine.cpp
+		SoundEngine/SoundEngine.hpp
         gameEngine/src/BoundingBoxSet.cpp
         gameEngine/src/GetTokens.cpp
         gameEngine/src/Image.cpp
@@ -70,6 +74,8 @@ include_directories(
 		~/.brew/include
 		~/.brew/include/freetype2
 		~/.brew/include/eigen3
+		${OPENAL_INCLUDE_DIR}
+		~/.brew/opt/alut/include
         #${NANOGUI_DIR}/include
 		#${NANOGUI_DIR}/ext/nanovg/src
 		#${NANOGUI_DIR}/ext/pybind11/include
@@ -81,6 +87,7 @@ include_directories(
 # Directories to find the libraries
 link_directories(
 		~/.brew/lib
+		~/.brew/opt/alut/lib
         ${PROJECT_SOURCE_DIR}
         ${GLEW_LIBRARY_DIRS}
         ${GLM_LIBRARY_DIRS}
@@ -102,6 +109,7 @@ target_link_libraries(${PROJECT_NAME}
         ${GLM_LIBRARIES}
         ${GLFW_LIBRARIES}
         ${FT_LIBRARIES}
+		alut
 		freetype
 		png
 		glfw
