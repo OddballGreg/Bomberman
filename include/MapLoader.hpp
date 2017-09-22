@@ -2,7 +2,9 @@
 
 #include "../gameEngine/include/Logger.hpp"
 #include "../gameEngine/include/SceneObject.hpp"
-// #include "../gameEngine/include/Renderer.hpp"
+#include "../gameEngine/include/Enemy.hpp"
+#include "../include/Settings.hpp"
+//#include "../gameEngine/include/Renderer.hpp"
 //#include "../gameEngine/include/Sound.hpp"
 
 #include <fstream>
@@ -13,7 +15,7 @@ class MapLoader
 {
 
     public:
-    MapLoader();
+    MapLoader(Settings *settings);
     ~MapLoader() = default;
 
     void load_map(std::string mapname);
@@ -22,10 +24,12 @@ class MapLoader
     float GROUND_Y = -1.0f;
     float SCALE = 2.0f;
 
-    std::vector<gameEngine::SceneObject> _enemies;
+    std::vector<Enemy> _enemies;
     std::vector<gameEngine::SceneObject> _walls;
     std::vector<gameEngine::SceneObject> _obstacles;
     std::vector<gameEngine::SceneObject> _player;
+
+    Settings *_settings;
     
     private:
 

@@ -67,7 +67,8 @@ set(SOURCE_FILES
         gameEngine/include/Renderer.hpp
         gameEngine/include/SceneObject.hpp
 		gameEngine/include/Menu.hpp
-		)
+		gameEngine/src/Enemy.cpp
+		gameEngine/include/Enemy.hpp src/Settings.cpp include/Settings.hpp)
 
 # Directories to find the header files
 include_directories(

@@ -189,13 +189,14 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     //cameraFront = glm::normalize(front);
 }
 
-#include "MapLoader.hpp"
+
 
 int main(int argc, char **argv) {
 
   try {
     initLogger();
-    GameLogic gameLogic;
+    Settings *settings = new Settings;
+    GameLogic gameLogic(settings);
 
     // seconds, for setting the framerate
     double seconds = glfwGetTime();
@@ -217,9 +218,13 @@ int main(int argc, char **argv) {
 
     // tell GLFW to capture our mouse
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
       Sound musicloop;
-      musicloop.initialize("../SoundEngine/music/loop.wav");
-      musicloop.play(true);
+    if (settings->PLAY_SOUND)
+    {
+        musicloop.initialize("../SoundEngine/music/loop.wav");
+        musicloop.play(true);
+    }
 
     while (!glfwWindowShouldClose(window) && !input.esc) {
 

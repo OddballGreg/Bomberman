@@ -1,6 +1,6 @@
 #include "../include/MapLoader.hpp"
 
-MapLoader::MapLoader()
+MapLoader::MapLoader(Settings *settings) : _settings(settings)
 {
   // enemy("enemy", "Bomberman/resources/models/bomber/untitled", 20, "Bomberman/resources/models/GoatBB/GoatBB.obj"),
   // player("player", "Bomberman/resources/models/bomber/untitled", 20), wall("wall", "Bomberman/resources/models/bomberman/cube.obj", 1, "Bomberman/resources/models/bomberman/cube.obj") {
@@ -92,7 +92,7 @@ void MapLoader::spawn_object(char type_char, float x_coord, float y_coord)
 		}
 		case 'e' :
 		{
-			gameEngine::SceneObject temp("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj");
+			Enemy temp("enemy", "../resources/models/bomber/untitled", _settings, 20, "../resources/models/bomberBB/bomberBB.obj");
 			temp.offset = glm::vec3(-11 + x_coord, GROUND_Y, -7 + x_coord);
 			_enemies.push_back(temp);
 			break;
