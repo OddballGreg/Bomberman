@@ -204,6 +204,13 @@ int main(int argc, char **argv) {
     
     GLFWwindow* window = gameLogic.renderer->getWindow();
 
+    // Create a nanogui screen and pass the glfw pointer to initialize
+    Screen *screen = nullptr;
+    screen = new Screen();
+    screen->initialize(window, true);
+
+    gameLogic.setScreen(screen);
+
     glfwSetKeyCallback(window, keyCallback);
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
