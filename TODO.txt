@@ -57,4 +57,17 @@ Graphics, Animations and levels, solo game.
 		10.b: Level design
 		10.c: Sound design
 		10.d: Variations in enemies
-		10.e: 
+		10.e: Variations in environments
+
+BONUS:
+
+	Accurate classes diagram
+	Full code documentation
+	Stand alone game installer for OSX
+	Intro, cut scenes and outro to give your game some sort of plot
+	More than 3 levels
+	Random layout of the levels
+
+	Most bonus points reserved for that above.
+	
+	 
