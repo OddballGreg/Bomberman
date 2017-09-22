@@ -71,21 +71,21 @@ void MapLoader::spawn_object(char type_char, float x_coord, float y_coord)
 		case 'w' :
 		{
 			gameEngine::SceneObject temp("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj");
-			temp.offset = glm::vec3(x_coord * SCALE, GROUND_Y, y_coord * SCALE);
+			temp.offset = glm::vec3(-11 + x_coord, GROUND_Y, -7 + y_coord);
 			_walls.push_back(temp);
 			break;
 		}
 		case 'o' :
 		{
 			gameEngine::SceneObject temp("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj");
-			temp.offset = glm::vec3(x_coord * SCALE, GROUND_Y, y_coord * SCALE);
+			temp.offset = glm::vec3(-11 + x_coord, GROUND_Y, -7 + x_coord);
 			_obstacles.push_back(temp);
 			break;
 		}
 		case 'p' :
 		{
 			gameEngine::SceneObject temp("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj");
-			temp.offset = glm::vec3(x_coord * SCALE, GROUND_Y, y_coord * SCALE);
+			temp.offset = glm::vec3(-11 + x_coord, GROUND_Y, -7 + x_coord);
 			temp.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 			_player.push_back(temp);
 			break;
@@ -93,7 +93,7 @@ void MapLoader::spawn_object(char type_char, float x_coord, float y_coord)
 		case 'e' :
 		{
 			gameEngine::SceneObject temp("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj");
-			temp.offset = glm::vec3(x_coord * SCALE, GROUND_Y, y_coord * SCALE);
+			temp.offset = glm::vec3(-11 + x_coord, GROUND_Y, -7 + x_coord);
 			_enemies.push_back(temp);
 			break;
 		}
