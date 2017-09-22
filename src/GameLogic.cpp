@@ -20,13 +20,16 @@ namespace Bomberman {
     renderer->generateTexture("startScreen", startScreenTexture);
     
     Image groundTexture("../resources/images/floor.png");
-    renderer->generateTexture("ground", groundTexture);
+    renderer->generateTexture("groundTexture", groundTexture);
     
+    Image objectTexture("../resources/images/crate.png");		
+    renderer->generateTexture("objectTexture", objectTexture);
+
     Image skyTexture("../resources/images/sky.png");
-    renderer->generateTexture("sky", skyTexture);
+    renderer->generateTexture("skyTexture", skyTexture);
 
     Image bombTexture("../resources/images/floor.png");
-    renderer->generateTexture("bomb", bombTexture);
+    renderer->generateTexture("bombTexture", bombTexture);
 
     Image enemyTexture("../resources/images/floor.png");
     renderer->generateTexture("enemyTexture", enemyTexture);
@@ -72,6 +75,7 @@ namespace Bomberman {
   }
   
   void GameLogic::initGame() {
+    bomb.offset = glm::vec3(0, 0, 0);
     _maploader._player[0].startAnimating();
 //    int i = _maploader._enemies.size();
 //    while (i > -1)
@@ -274,12 +278,12 @@ namespace Bomberman {
     
     if (gameState == START_SCREEN)
     {
-      renderer->renderRectangle("sky", glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f));
+      renderer->renderRectangle("skyTexture", glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f));
       renderer->renderRectangle("startScreen", glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f));
     }
     else
     {
-      renderer->renderRectangle("sky", glm::vec3(-1.0f, 1.0f, 1.0f),
+      renderer->renderRectangle("skyTexture", glm::vec3(-1.0f, 1.0f, 1.0f),
       glm::vec3(1.0f, -1.0f, 1.0f));
 
       if (seconds != 0)
@@ -289,23 +293,23 @@ namespace Bomberman {
       }
       // Draw the background
       
-      renderer->renderRectangle("ground", glm::vec3(_settings->MIN_X, _settings->GROUND_Y, _settings->MIN_Z),
+      renderer->renderRectangle("groundTexture", glm::vec3(_settings->MIN_X, _settings->GROUND_Y, _settings->MIN_Z),
 			      glm::vec3(_settings->MAX_X, _settings->GROUND_Y, _settings->MAX_Z), true);
       
       for(int i = _maploader._walls.size() -1; i > -1; i--)
-        renderer->render(_maploader._walls[i], "wallTexture");
+        renderer->render(_maploader._walls[i], "groundTexture");
 
       for(int i = _maploader._obstacles.size() -1; i > -1; i--)
-        renderer->render(_maploader._obstacles[i], "wallTexture");
+        renderer->render(_maploader._obstacles[i], "objectTexture");
 
       for(int i = _maploader._player.size() -1; i > -1; i--)
-        renderer->render(_maploader._player[i], "enemyTexture");
+        renderer->render(_maploader._player[i], "objectTexture");
 
       for(int i = _maploader._enemies.size() -1; i > -1; i--)
         renderer->render(_maploader._enemies[i], "enemyTexture");
 
       if (bombDropped && bombDelay != 0) {
-        renderer->render(bomb, "bombTexture");
+        renderer->render(bomb, glm::vec4(0.3f, 0.3f, 0.3f, 1.0f));
         bombDelay--;
       }
       else if (bombDelay == 0)
