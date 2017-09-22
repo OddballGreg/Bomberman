@@ -22,7 +22,6 @@ class MapLoader
     void spawn_object(char type_char, float x_coord, float y_coord);
 
     float GROUND_Y = -1.0f;
-    float SCALE = 2.0f;
 
     std::vector<Enemy> _enemies;
     std::vector<gameEngine::SceneObject> _walls;

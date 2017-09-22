@@ -133,13 +133,41 @@ namespace Bomberman {
 
     if (keyInput.up)
     {
-      _maploader._player[0].offset.x += sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-      _maploader._player[0].offset.z -= cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-      // std::cout << "x: " << _maploader._player[0].offset.x << " z: " << _maploader._player[0].offset.z << std::endl;
-      _maploader._player[0].offset.x += sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-      _maploader._player[0].offset.z -= cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-      // renderer->cameraPosition.x = (player.offset.x) + 4;
-      // renderer->cameraPosition.z = (player.offset.z) + 4;
+        glm::vec3 temp = _maploader._player[0].offset;
+        temp.x += sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+        temp.z -= cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+
+        bool collision = false;
+        for(int i = _maploader._walls.size() -1; i > -1; i--)
+            if (temp.z < _maploader._walls[i].offset.z + _settings->COLLISION_ZONE
+                && temp.z > _maploader._walls[i].offset.z - _settings->COLLISION_ZONE
+                && temp.x < _maploader._walls[i].offset.x + _settings->COLLISION_ZONE
+                && temp.x > _maploader._walls[i].offset.x - _settings->COLLISION_ZONE)
+                collision = true;
+
+        for(int i = _maploader._obstacles.size() -1; i > -1; i--)
+            if (temp.z < _maploader._obstacles[i].offset.z + _settings->COLLISION_ZONE
+                && temp.z > _maploader._obstacles[i].offset.z - _settings->COLLISION_ZONE
+                && temp.x < _maploader._obstacles[i].offset.x + _settings->COLLISION_ZONE
+                && temp.x > _maploader._obstacles[i].offset.x - _settings->COLLISION_ZONE)
+                collision = true;
+
+        for(int i = _maploader._enemies.size() -1; i > -1; i--)
+            if (temp.z < _maploader._enemies[i].offset.z + _settings->COLLISION_ZONE
+                && temp.z > _maploader._enemies[i].offset.z - _settings->COLLISION_ZONE
+                && temp.x < _maploader._enemies[i].offset.x + _settings->COLLISION_ZONE
+                && temp.x > _maploader._enemies[i].offset.x - _settings->COLLISION_ZONE)
+                collision = true;
+
+        if (collision == false)
+        {
+            _maploader._player[0].offset.x += sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+            _maploader._player[0].offset.z -= cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+            // std::cout << "x: " << _maploader._player[0].offset.x << " z: " << _maploader._player[0].offset.z << std::endl;
+            // renderer->cameraPosition.x = (player.offset.x) + 4;
+            // renderer->cameraPosition.z = (player.offset.z) + 4;
+        }
+
 
       // while (player.collidesWith(wall)) {
       //   player.offset.x -= sin(player.rotation.y) * PLAYER_SPEED;
@@ -150,8 +178,34 @@ namespace Bomberman {
     }
     else if (keyInput.down)
     {
-      _maploader._player[0].offset.x -= sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-      _maploader._player[0].offset.z += cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+        glm::vec3 temp = _maploader._player[0].offset;
+        bool collision = false;
+        for(int i = _maploader._walls.size() -1; i > -1; i--)
+            if (temp.z < _maploader._walls[i].offset.z + _settings->COLLISION_ZONE
+                && temp.z > _maploader._walls[i].offset.z - _settings->COLLISION_ZONE
+                && temp.x < _maploader._walls[i].offset.x + _settings->COLLISION_ZONE
+                && temp.x > _maploader._walls[i].offset.x - _settings->COLLISION_ZONE)
+                collision = true;
+
+        for(int i = _maploader._obstacles.size() -1; i > -1; i--)
+            if (temp.z < _maploader._obstacles[i].offset.z + _settings->COLLISION_ZONE
+                && temp.z > _maploader._obstacles[i].offset.z - _settings->COLLISION_ZONE
+                && temp.x < _maploader._obstacles[i].offset.x + _settings->COLLISION_ZONE
+                && temp.x > _maploader._obstacles[i].offset.x - _settings->COLLISION_ZONE)
+                collision = true;
+
+        for(int i = _maploader._enemies.size() -1; i > -1; i--)
+            if (temp.z < _maploader._enemies[i].offset.z + _settings->COLLISION_ZONE
+                && temp.z > _maploader._enemies[i].offset.z - _settings->COLLISION_ZONE
+                && temp.x < _maploader._enemies[i].offset.x + _settings->COLLISION_ZONE
+                && temp.x > _maploader._enemies[i].offset.x - _settings->COLLISION_ZONE)
+                collision = true;
+
+        if (collision == false)
+        {
+            _maploader._player[0].offset.x -= sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+            _maploader._player[0].offset.z += cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+        }
       // renderer->cameraPosition.z = (player.offset.z) + 4;
 
       // while (player.collidesWith(tree)) {
@@ -245,7 +299,35 @@ namespace Bomberman {
     movePlayer(keyInput);
 
     for(int i = _maploader._enemies.size() - 1; i > -1; i--)
-      _maploader._enemies[i].move(_maploader._player[0].offset.x, _maploader._player[0].offset.z);
+    {
+        int me = i;
+        glm::vec3 temp = _maploader._enemies[i].offset;
+
+        bool collision = false;
+        for(int i = _maploader._walls.size() -1; i > -1; i--)
+            if (temp.z < _maploader._walls[i].offset.z + _settings->COLLISION_ZONE
+                && temp.z > _maploader._walls[i].offset.z - _settings->COLLISION_ZONE
+                && temp.x < _maploader._walls[i].offset.x + _settings->COLLISION_ZONE
+                && temp.x > _maploader._walls[i].offset.x - _settings->COLLISION_ZONE)
+                collision = true;
+
+        for(int i = _maploader._obstacles.size() -1; i > -1; i--)
+            if (temp.z < _maploader._obstacles[i].offset.z + _settings->COLLISION_ZONE
+                && temp.z > _maploader._obstacles[i].offset.z - _settings->COLLISION_ZONE
+                && temp.x < _maploader._obstacles[i].offset.x + _settings->COLLISION_ZONE
+                && temp.x > _maploader._obstacles[i].offset.x - _settings->COLLISION_ZONE)
+                collision = true;
+
+        for(int i = _maploader._enemies.size() -1; i > -1; i--)
+            if (temp.z < _maploader._enemies[i].offset.z + _settings->COLLISION_ZONE
+                && temp.z > _maploader._enemies[i].offset.z - _settings->COLLISION_ZONE
+                && temp.x < _maploader._enemies[i].offset.x + _settings->COLLISION_ZONE
+                && temp.x > _maploader._enemies[i].offset.x - _settings->COLLISION_ZONE
+                && i != me)
+                collision = true;
+        if (collision == false)
+            _maploader._enemies[i].move(_maploader._player[0].offset.x, _maploader._player[0].offset.z);
+    }
   }
   
   void GameLogic::processStartScreen(const KeyInput &keyInput)

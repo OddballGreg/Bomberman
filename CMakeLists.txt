@@ -42,6 +42,7 @@ set(RESOURCE_DIRS
         gameEngine/resources/fonts/
 		SoundEngine/music/
 		maps
+		maps/map.txt
         )
 
 set(SOURCE_FILES

@@ -24,6 +24,7 @@ public:
     float PLAYER_SPEED;
     float FULL_ROTATION;
     bool  VERBOSE;
+    float COLLISION_ZONE;
 
 private:
 
