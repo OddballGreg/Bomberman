@@ -7,85 +7,85 @@ std::shared_ptr<gameEngine::Logger> logger;
 
 namespace gameEngine {
 
-  std::string intToStr(const int number)
-  {
-    char buffer[100];
+	std::string intToStr(const int number)
+	{
+		char buffer[100];
 #if defined(_WIN32) && !defined(__MINGW32__)
-    sprintf_s(buffer, "%d", number);
+		sprintf_s(buffer, "%d", number);
 #else
-    sprintf(buffer, "%d", number);
+		sprintf(buffer, "%d", number);
 #endif
-    return std::string(buffer);
-  }
+		return std::string(buffer);
+	}
 
-  Logger::Logger(std::ostream &stream) {
-    logStream = &stream;
-  }
+	Logger::Logger(std::ostream &stream) {
+		logStream = &stream;
+	}
 
-  Logger::~Logger() {
-    this->append(loggerinfo, "Logger getting destroyed");
-    logStream = NULL;
+	Logger::~Logger() {
+		this->append(loggerinfo, "Logger getting destroyed");
+		logStream = NULL;
 
-  }
+	}
 
-  void Logger::append(const LogLevel level, const std::string message) const {
-    if (!logger) return;
-    std::ostringstream dateTimeOstringstream;
+	void Logger::append(const LogLevel level, const std::string message) const {
+		if (!logger) return;
+		std::ostringstream dateTimeOstringstream;
 
-    time_t now;
+		time_t now;
 
-    time(&now);
+		time(&now);
 
-    tm *t;
+		tm *t;
 
 #if defined(_WIN32) && !defined(__MINGW32__)
-    t = new tm();
-    localtime_s(t, &now);
+		t = new tm();
+		localtime_s(t, &now);
 
 #else
-    t = localtime(&now);
+		t = localtime(&now);
 #endif
-    char buf[20];
+		char buf[20];
 
-    strftime(buf, 20,"%Y-%m-%d %H:%M:%S", t);
+		strftime(buf, 20,"%Y-%m-%d %H:%M:%S", t);
 
-    // localtime (used on Linux) does not allocate memory, but
-    // returns a pointer to a pre-existing location. Hence,
-    // we should not delete it.
+		// localtime (used on Linux) does not allocate memory, but
+		// returns a pointer to a pre-existing location. Hence,
+		// we should not delete it.
 #if defined(_WIN32) && !defined(__MINGW32__)
-    delete t;
+		delete t;
 #endif
 
-    dateTimeOstringstream << buf;
+		dateTimeOstringstream << buf;
 
-    std::string indicator;
-    switch (level) {
-    case loggerinfo:
-      indicator = "INFO";
-      break;
-    case loggerdebug:
-      indicator = "DEBUG";
-      break;
-    case loggererror:
-      indicator = "ERROR";
-      break;
-    default:
-      indicator = "";
-      break;
-    }
+		std::string indicator;
+		switch (level) {
+		case loggerinfo:
+			indicator = "INFO";
+			break;
+		case loggerdebug:
+			indicator = "DEBUG";
+			break;
+		case loggererror:
+			indicator = "ERROR";
+			break;
+		default:
+			indicator = "";
+			break;
+		}
 
-    *logStream << dateTimeOstringstream.str().c_str() << " - " << indicator << ": " << message.c_str() << std::endl;
-  }
+		*logStream << dateTimeOstringstream.str().c_str() << " - " << indicator << ": " << message.c_str() << std::endl;
+	}
 
-  void initLogger() {
-    if (!logger) logger = std::shared_ptr<Logger>(new Logger(std::cout));
-  }
+	void initLogger() {
+		if (!logger) logger = std::shared_ptr<Logger>(new Logger(std::cout));
+	}
 
-  void initLogger(std::ostream &stream) {
-    if (!logger) logger = std::shared_ptr<Logger>(new Logger(stream));
-  }
+	void initLogger(std::ostream &stream) {
+		if (!logger) logger = std::shared_ptr<Logger>(new Logger(stream));
+	}
 
-  void deleteLogger() {
-    logger = NULL;
-  }
+	void deleteLogger() {
+		logger = NULL;
+	}
 }

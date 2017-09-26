@@ -12,22 +12,22 @@ class Sound {
 public:
 
 
-    Sound();
-    Sound(const char *File);
-    ~Sound();
+	Sound();
+	Sound(const char *File);
+	~Sound();
 
-    void initialize(const char* File);
-    char* loadWAV(const char* fn,int& chan,int& samplerate,int& bps,int& size);
-    void play(bool loop);
+	void initialize(const char* File);
+	char* loadWAV(const char* fn,int& chan,int& samplerate,int& bps,int& size);
+	void play(bool loop);
 
 private:
-    unsigned int    _buffer;
-    unsigned int    _source;
-    bool        _loop = true;
-    pthread_t   _thread[5];
+	unsigned int	_buffer;
+	unsigned int	_source;
+	bool		_loop = true;
+	pthread_t   _thread[5];
 
-    int         _rc;
-    void        *_status;
+	int		 _rc;
+	void		*_status;
 };
 
 
