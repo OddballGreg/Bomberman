@@ -18,11 +18,11 @@ using namespace nanogui;
 
 const GLuint frameRate = 60;
 bool firstMouse = true;
-float yaw   = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
-float pitch =  0.0f;
-float lastX =  800.0f / 2.0;
-float lastY =  600.0 / 2.0;
-float fov   =  45.0f;
+float yaw	=	-90.0f; // yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
+float pitch =	0.0f;
+float lastX =	800.0f / 2.0;
+float lastY =	600.0 / 2.0;
+float fov	=	45.0f;
 
 KeyInput input;
 
@@ -87,7 +87,6 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	if (key == GLFW_KEY_W && action == GLFW_RELEASE)
 		input.camPosZDown = false;
 
-
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		input.esc = true;
 	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
@@ -143,7 +142,6 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		input.esc = false;
 	if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)
 		input.space = false;
-
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
@@ -194,58 +192,57 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 
 int main(int argc, char **argv) {
 
-  try {
-    initLogger();
-    Settings *settings = new Settings;
-    GameLogic gameLogic(settings);
+	try {
+		initLogger();
+		Settings *settings = new Settings;
+		GameLogic gameLogic(settings);
 
-//      MenuScreen menuSetttings;
-//      menuSetttings.initializeMenu(800, 800, "testing");
+		// MenuScreen menuSetttings;
+		// menuSetttings.initializeMenu(800, 800, "testing");
 
-    // seconds, for setting the framerate
-    double seconds = glfwGetTime();
-    double prevSeconds = seconds;
-    double secondsInterval = 1.0 / frameRate;
-    
-    GLFWwindow* window = gameLogic.renderer->getWindow();
+		// seconds, for setting the framerate
+		double seconds = glfwGetTime();
+		double prevSeconds = seconds;
+		double secondsInterval = 1.0 / frameRate;
 
-    // Create a nanogui screen and pass the glfw pointer to initialize
-    Screen *screen = nullptr;
-    screen = new Screen();
-    screen->initialize(window, true);
+		GLFWwindow* window = gameLogic.renderer->getWindow();
 
-    gameLogic.setScreen(screen);
+		// Create a nanogui screen and pass the glfw pointer to initialize
+		Screen *screen = nullptr;
+		screen = new Screen();
+		screen->initialize(window, true);
 
-    glfwSetKeyCallback(window, keyCallback);
-    glfwSetCursorPosCallback(window, mouse_callback);
-    glfwSetScrollCallback(window, scroll_callback);
+		gameLogic.setScreen(screen);
 
-    // tell GLFW to capture our mouse
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetKeyCallback(window, keyCallback);
+		glfwSetCursorPosCallback(window, mouse_callback);
+		glfwSetScrollCallback(window, scroll_callback);
 
-      Sound musicloop;
-    if (settings->PLAY_SOUND)
-    {
-        musicloop.initialize("../SoundEngine/music/loop.wav");
-        musicloop.play(true);
-    }
+		// tell GLFW to capture our mouse
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		Sound musicloop;
+		if (settings->PLAY_SOUND)
+		{
+			musicloop.initialize("../SoundEngine/music/loop.wav");
+			musicloop.play(true);
+		}
 
-    while (!glfwWindowShouldClose(window) && !input.esc) {
+		while (!glfwWindowShouldClose(window) && !input.esc) {
 
-      glfwPollEvents();
+			glfwPollEvents();
 
-      seconds = glfwGetTime();
-      if (seconds - prevSeconds > secondsInterval) {
-	    gameLogic.process(input);
-	    prevSeconds = seconds;
-	    gameLogic.render();
-      }
-    }
-  }
-  catch (std::runtime_error &e) {
+			seconds = glfwGetTime();
+			if (seconds - prevSeconds > secondsInterval) {
+				gameLogic.process(input);
+				prevSeconds = seconds;
+				gameLogic.render();
+			}
+		}
+	}
+	catch (std::runtime_error &e) {
 	LOGERROR(e.what());
 	return EXIT_FAILURE;
-  }
+	}
 
-  return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }

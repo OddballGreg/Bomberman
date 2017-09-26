@@ -47,10 +47,10 @@ void MapLoader::load_map(std::string mapname)
 	{
 		y++; // Increment line index
 
-	int x = -1;
-	// std::cout << line << std::endl;
-	while (line[++x])
-		spawn_object(line[x], x, y);
+		int x = -1;
+		// std::cout << line << std::endl;
+		while (line[++x])
+			spawn_object(line[x], x, y);
 	}
 
 	if (_player.size() != 1 || _enemies.empty())
@@ -66,8 +66,9 @@ void MapLoader::spawn_object(char type_char, float x_coord, float y_coord)
 {
 	switch (type_char)
 	{
-			// std::cout << type_char << std::endl;
-		case '.' : break;
+		// std::cout << type_char << std::endl;
+		case '.' :
+			break;
 		case 'w' :
 		{
 			gameEngine::SceneObject temp("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj");
@@ -99,8 +100,8 @@ void MapLoader::spawn_object(char type_char, float x_coord, float y_coord)
 		}
 		default :
 		{
-				std::cout << "ERROR: unrecognized map token: " << type_char << std::endl;
-				exit(1);
-			}
+			std::cout << "ERROR: unrecognized map token: " << type_char << std::endl;
+			exit(1);
 		}
+	}
 }
