@@ -4,6 +4,7 @@
 #include <stdexcept>
 
 #include "../include/GameLogic.hpp"
+#include "../include/menu.hpp"
 #include "../include/KeyInput.hpp"
 
 #include "../SoundEngine/SoundEngine.hpp"
@@ -197,6 +198,9 @@ int main(int argc, char **argv) {
     initLogger();
     Settings *settings = new Settings;
     GameLogic gameLogic(settings);
+
+//      MenuScreen menuSetttings;
+//      menuSetttings.initializeMenu(800, 800, "testing");
 
     // seconds, for setting the framerate
     double seconds = glfwGetTime();
