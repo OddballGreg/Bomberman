@@ -2,28 +2,28 @@
 
 MapLoader::MapLoader(Settings *settings) : _settings(settings)
 {
-  // enemy("enemy", "Bomberman/resources/models/bomber/untitled", 20, "Bomberman/resources/models/GoatBB/GoatBB.obj"),
-  // player("player", "Bomberman/resources/models/bomber/untitled", 20), wall("wall", "Bomberman/resources/models/bomberman/cube.obj", 1, "Bomberman/resources/models/bomberman/cube.obj") {
-  
-  // renderer = &Renderer::getInstance("BombermanTestV1", 0, 0, 1.2f);
-  
-  // Image startScreenTexture("Bomberman/resources/images/bom.png");
-  // renderer->generateTexture("startScreen", startScreenTexture);
-  
-  // Image groundTexture("Bomberman/resources/images/floor.png");
-  // renderer->generateTexture("ground", groundTexture);
+	// enemy("enemy", "Bomberman/resources/models/bomber/untitled", 20, "Bomberman/resources/models/GoatBB/GoatBB.obj"),
+	// player("player", "Bomberman/resources/models/bomber/untitled", 20), wall("wall", "Bomberman/resources/models/bomberman/cube.obj", 1, "Bomberman/resources/models/bomberman/cube.obj") {
 
-  // Image cubeTexture("Bomberman/resources/images/floor.png");
-  // renderer->generateTexture("cube", cubeTexture);
-  
-  // Image skyTexture("Bomberman/resources/images/sky.png");
-  // renderer->generateTexture("sky", skyTexture);
+	// renderer = &Renderer::getInstance("BombermanTestV1", 0, 0, 1.2f);
 
-  // Image enemyTexture("Bomberman/resources/models/Goat/goat.png");
-  // renderer->generateTexture("enemyTexture", enemyTexture);
+	// Image startScreenTexture("Bomberman/resources/images/bom.png");
+	// renderer->generateTexture("startScreen", startScreenTexture);
 
-  // Image treeTexture("Bomberman/resources/models/Tree/tree.png");
-  // renderer->generateTexture("treeTexture", treeTexture);
+	// Image groundTexture("Bomberman/resources/images/floor.png");
+	// renderer->generateTexture("ground", groundTexture);
+
+	// Image cubeTexture("Bomberman/resources/images/floor.png");
+	// renderer->generateTexture("cube", cubeTexture);
+
+	// Image skyTexture("Bomberman/resources/images/sky.png");
+	// renderer->generateTexture("sky", skyTexture);
+
+	// Image enemyTexture("Bomberman/resources/models/Goat/goat.png");
+	// renderer->generateTexture("enemyTexture", enemyTexture);
+
+	// Image treeTexture("Bomberman/resources/models/Tree/tree.png");
+	// renderer->generateTexture("treeTexture", treeTexture);
 }
 
 // MapLoader::~MapLoader()
@@ -33,40 +33,40 @@ MapLoader::MapLoader(Settings *settings) : _settings(settings)
 
 void MapLoader::load_map(std::string mapname)
 {
-  std::ifstream mapfile(mapname);
-  std::string   line;
-  int y = -1;
+	std::ifstream	mapfile(mapname);
+	std::string		line;
+	int y = -1;
 
-  if (!mapfile.is_open())
-  {
-  	std::cout << "ERROR: Could not open: " << mapname << " -- Mapfile is missing or broken." << std::endl;
-  	exit(1);
-  }
+	if (!mapfile.is_open())
+	{
+		std::cout << "ERROR: Could not open: " << mapname << " -- Mapfile is missing or broken." << std::endl;
+		exit(1);
+	}
 
-  while(std::getline(mapfile, line))
-  {
-  	y++; // Increment line index
+	while(std::getline(mapfile, line))
+	{
+		y++; // Increment line index
 
-    int x = -1;
-    // std::cout << line << std::endl;
-    while (line[++x])
-    	spawn_object(line[x], x, y);
-  }
+	int x = -1;
+	// std::cout << line << std::endl;
+	while (line[++x])
+		spawn_object(line[x], x, y);
+	}
 
-  if (_player.size() != 1 || _enemies.empty())
-  {
-  	std::cout << "ERROR: Too Many Players/Not Enough Enemies" << std::endl;
-  	exit(1);
-  }
+	if (_player.size() != 1 || _enemies.empty())
+	{
+		std::cout << "ERROR: Too Many Players/Not Enough Enemies" << std::endl;
+		exit(1);
+	}
 
-  std::cout << "Players: " << _player.size() << " Walls: " << _walls.size() << " Obstacles: " << _obstacles.size() << " Enemies: " << _enemies.size() << std::endl; 
+	std::cout << "Players: " << _player.size() << " Walls: " << _walls.size() << " Obstacles: " << _obstacles.size() << " Enemies: " << _enemies.size() << std::endl;
 }
 
 void MapLoader::spawn_object(char type_char, float x_coord, float y_coord)
 {
 	switch (type_char)
 	{
-  		// std::cout << type_char << std::endl;
+			// std::cout << type_char << std::endl;
 		case '.' : break;
 		case 'w' :
 		{
@@ -99,8 +99,8 @@ void MapLoader::spawn_object(char type_char, float x_coord, float y_coord)
 		}
 		default :
 		{
-	  		std::cout << "ERROR: unrecognized map token: " << type_char << std::endl;
-	  		exit(1);
-	  	}
-  	}
+				std::cout << "ERROR: unrecognized map token: " << type_char << std::endl;
+				exit(1);
+			}
+		}
 }

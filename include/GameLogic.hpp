@@ -16,47 +16,47 @@
 using namespace gameEngine;
 
 namespace Bomberman {
-  class GameLogic {
+	class GameLogic {
 
-  private:
+	private:
 
-    MapLoader _maploader;
-    SceneObject bomb;
-    Sound explosion;
-    Settings *_settings;
+		MapLoader _maploader;
+		SceneObject bomb;
+		Sound explosion;
+		Settings *_settings;
 
-    enum GameState {
-      START_SCREEN,
-      PLAYING
-    };
+		enum GameState {
+			START_SCREEN,
+			PLAYING
+		};
 
-    GameState gameState;
-    
-    double startSeconds;
-    int seconds;
+		GameState gameState;
 
-    void initGame();
-    void processGame(const KeyInput &keyInput);
-    void processStartScreen(const KeyInput &keyInput);
-    void movePlayer(const KeyInput &keyInput);
+		double startSeconds;
+		int seconds;
 
-    bool  bombDropped;
-    int   bombDelay;
+		void initGame();
+		void processGame(const KeyInput &keyInput);
+		void processStartScreen(const KeyInput &keyInput);
+		void movePlayer(const KeyInput &keyInput);
 
-  public:
+		bool	bombDropped;
+		int	 bombDelay;
 
-    Screen *_screen = nullptr;
-    Renderer *renderer = nullptr;
+	public:
 
-    GameLogic(Settings *settings);
-    ~GameLogic();
+		Screen *_screen = nullptr;
+		Renderer *renderer = nullptr;
 
-    void setScreen(Screen *screen);
-    void process(const KeyInput &keyInput);
-    void render();
+		GameLogic(Settings *settings);
+		~GameLogic();
 
-    float lightModifier; 
-  };
+		void setScreen(Screen *screen);
+		void process(const KeyInput &keyInput);
+		void render();
 
-} 
+		float lightModifier;
+	};
+
+}
 

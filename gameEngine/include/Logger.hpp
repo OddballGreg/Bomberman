@@ -20,55 +20,55 @@
 
 namespace gameEngine {
 
-  std::string intToStr(const int number);
+	std::string intToStr(const int number);
 
-  /**
-   * @brief Possible logging levels.
-   */
+	/**
+	 * @brief Possible logging levels.
+	 */
 
-  enum LogLevel {
-    loggerinfo, loggerdebug, loggererror
-  };
+	enum LogLevel {
+		loggerinfo, loggerdebug, loggererror
+	};
 
-  /**
-   * @class Logger
-   * @brief The standard logging class for small3d.
-   */
+	/**
+	 * @class Logger
+	 * @brief The standard logging class for small3d.
+	 */
 
-  class Logger {
-  private:
-    std::ostream *logStream;
-  public:
+	class Logger {
+	private:
+		std::ostream *logStream;
+	public:
 
-    /**
-     * @brief Constructor with stream for output.
-     *
-     * @param [in,out]	stream	The stream to which events will be logged.
-     */
+		/**
+		 * @brief Constructor with stream for output.
+		 *
+		 * @param [in,out]	stream	The stream to which events will be logged.
+		 */
 
-    Logger(std::ostream &stream);
+		Logger(std::ostream &stream);
 
-    /**
-     * @brief Destructor.
-     */
+		/**
+		 * @brief Destructor.
+		 */
 
-    ~Logger();
+		~Logger();
 
-    /**
-     * @brief Appends a message to the logger.
-     *
-     * @param	level  	The logging level (debug, info, etc).
-     * @param	message	The message.
-     */
+		/**
+		 * @brief Appends a message to the logger.
+		 *
+		 * @param	level		The logging level (debug, info, etc).
+		 * @param	message	The message.
+		 */
 
-    void append(const LogLevel level, const std::string message) const;
-  };
+		void append(const LogLevel level, const std::string message) const;
+	};
 
-  void initLogger();
+	void initLogger();
 
-  void initLogger(std::ostream &stream);
+	void initLogger(std::ostream &stream);
 
-  void deleteLogger();
+	void deleteLogger();
 }
 
 extern std::shared_ptr<gameEngine::Logger> logger;
