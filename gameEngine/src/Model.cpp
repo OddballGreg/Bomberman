@@ -37,7 +37,6 @@ namespace gameEngine {
 			for (int indexIdx = 0; indexIdx != 3; ++indexIdx) {
 				this->indexData.push_back(face->at((unsigned long) indexIdx) - 1); // -1 because Wavefront indexes
 				// are not 0 based
-
 			}
 		}
 	}
@@ -50,7 +49,7 @@ namespace gameEngine {
 
 		if (this->vertexData.size() == 0) {
 			throw std::runtime_error(
-					"There are no vertices or vertex data has not yet been created.");
+				"There are no vertices or vertex data has not yet been created.");
 		}
 
 		// 3 components per vertex (a single index for vertices, normals and texture coordinates
@@ -69,10 +68,10 @@ namespace gameEngine {
 				for (int normalsDataComponent = 0; normalsDataComponent != 3;
 						++normalsDataComponent) {
 					this->normalsData[3 * (faceVertexIndex->at(vertexIndex) - 1)
-														+ normalsDataComponent] =
-							normals.at(
-									(unsigned long) (facesNormalIndices.at((unsigned long) faceVertexArrayIndex)[vertexIndex]
-																	- 1))[normalsDataComponent];
+							+ normalsDataComponent] =
+						normals.at(
+							(unsigned long) (facesNormalIndices.at((unsigned long) faceVertexArrayIndex)[vertexIndex]
+						- 1))[normalsDataComponent];
 				}
 			}
 			++faceVertexArrayIndex;
@@ -86,7 +85,7 @@ namespace gameEngine {
 
 			if (this->vertexData.size() == 0) {
 				throw std::runtime_error(
-						"There are no vertices or vertex data has not yet been created.");
+					"There are no vertices or vertex data has not yet been created.");
 			}
 
 			// 2 components per vertex (a single index for vertices, normals and texture coordinates
@@ -106,10 +105,10 @@ namespace gameEngine {
 					for (int textureCoordsComponent = 0;
 							textureCoordsComponent != 2; ++textureCoordsComponent) {
 						this->textureCoordsData[2 * (faceVertexIndex->at(vertexIndex) - 1)
-																		+ textureCoordsComponent] =
-								textureCoords.at(
-										static_cast<unsigned long>(textureCoordsIndices.at(faceVertexArrayIndex)[vertexIndex]
-																		- 1))[textureCoordsComponent];
+								+ textureCoordsComponent] =
+							textureCoords.at(
+								static_cast<unsigned long>(textureCoordsIndices.at(faceVertexArrayIndex)[vertexIndex]
+							- 1))[textureCoordsComponent];
 					}
 				}
 				++faceVertexArrayIndex;

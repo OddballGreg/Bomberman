@@ -25,11 +25,12 @@ namespace gameEngine {
 	Logger::~Logger() {
 		this->append(loggerinfo, "Logger getting destroyed");
 		logStream = NULL;
-
 	}
 
 	void Logger::append(const LogLevel level, const std::string message) const {
-		if (!logger) return;
+		if (!logger)
+			return;
+
 		std::ostringstream dateTimeOstringstream;
 
 		time_t now;

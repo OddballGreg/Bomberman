@@ -16,14 +16,15 @@ namespace gameEngine {
 		facesVertexIndexes.clear();
 		numBoxes = 0;
 
-		if (fileLocation != "") this->loadFromFile(fileLocation);
+		if (fileLocation != "")
+			this->loadFromFile(fileLocation);
 
 	}
 
 	void BoundingBoxSet::loadFromFile(std::string fileLocation) {
 		if (vertices.size() != 0) {
 			throw std::runtime_error(
-											"Illegal attempt to reload bounding boxes. Please use another object.");
+				"Illegal attempt to reload bounding boxes. Please use another object.");
 		}
 		std::ifstream file(fileLocation.c_str());
 		std::string line;
@@ -44,9 +45,7 @@ namespace gameEngine {
 						for (size_t tokenIdx = 0, tokenCount= tokens.size(); tokenIdx < tokenCount; ++tokenIdx) {
 							std::string t = tokens[tokenIdx];
 							if (idx > 0)	// The first token is the vertex indicator
-							{
 								v.push_back(static_cast<float>(atof(t.c_str())));
-							}
 							++idx;
 						}
 						vertices.push_back(v);
@@ -58,9 +57,7 @@ namespace gameEngine {
 						for (size_t tokenIdx = 0, tokenCount = tokens.size(); tokenIdx < tokenCount; ++tokenIdx) {
 							std::string t = tokens[tokenIdx];
 							if (idx > 0)	// The first token is face indicator
-							{
 								v.push_back((unsigned int) atoi(t.c_str()));
-							}
 							++idx;
 						}
 						facesVertexIndexes.push_back(v);
@@ -85,7 +82,7 @@ namespace gameEngine {
 		}
 		else
 			throw std::runtime_error(
-											"Could not open file " + fileLocation);
+				"Could not open file " + fileLocation);
 
 	}
 
@@ -151,8 +148,8 @@ namespace gameEngine {
 	}
 
 	bool BoundingBoxSet::collidesWith(const BoundingBoxSet otherBoxSet, const glm::vec3 thisOffset,
-		const glm::vec3 thisRotation, const glm::vec3 otherOffset, const glm::vec3 otherRotation) const {
-		bool collides = false;
+			const glm::vec3 thisRotation, const glm::vec3 otherOffset, const glm::vec3 otherRotation) const {
+			bool collides = false;
 
 		glm::mat4 rotationMatrix =
 			glm::rotate(
@@ -174,7 +171,7 @@ namespace gameEngine {
 			rotatedOtherCoords.z += otherOffset.z;
 
 			if (collidesWith(glm::vec3(rotatedOtherCoords.x, rotatedOtherCoords.y, rotatedOtherCoords.z),
-				thisOffset, thisRotation)) {
+					thisOffset, thisRotation)) {
 
 				collides = true;
 				break;

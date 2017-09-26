@@ -22,9 +22,8 @@ namespace gameEngine {
 #else
 		FILE *fp = fopen(fileLocation.c_str(), "rb");
 #endif
-		if (!fp) {
+		if (!fp)
 			throw std::runtime_error("Could not open file " + fileLocation);
-		}
 
 		png_infop pngInformation = nullptr;
 		png_structp pngStructure = nullptr;
@@ -131,9 +130,8 @@ namespace gameEngine {
 
 		fclose(fp);
 
-		for (unsigned long y = 0; y < height; y++) {
+		for (unsigned long y = 0; y < height; y++)
 			delete[] rowPointers[y];
-		}
 		delete[] rowPointers;
 
 		png_destroy_read_struct(&pngStructure, &pngInformation, nullptr);

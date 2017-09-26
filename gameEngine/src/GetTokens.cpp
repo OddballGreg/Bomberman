@@ -9,21 +9,18 @@ namespace gameEngine {
 		size_t length = input.length();
 
 		for (size_t idx = 0; idx < length; ++idx) {
-			if (input[idx] == sep) {
+			if (input[idx] == sep)
 				++count;
-			}
 		}
 		++count;
 
-		for (int idx = 0; idx < count; ++idx) {
-		// last one
+		for (int idx = 0; idx < count; ++idx) { // last one
 			if (idx == count - 1) {
-			tokens.push_back(input.substr(curPos));
+				tokens.push_back(input.substr(curPos));
 			}
 			else {
-
 				size_t foundPos = input.find(sep, curPos);
-		tokens.push_back(input.substr(curPos, foundPos - curPos));
+				tokens.push_back(input.substr(curPos, foundPos - curPos));
 				curPos = foundPos + 1;
 			}
 		}

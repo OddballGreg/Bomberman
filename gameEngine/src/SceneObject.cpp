@@ -71,27 +71,25 @@ namespace gameEngine {
 	}
 
 	bool SceneObject::collidesWith(const glm::vec3 point) const {
-		if (boundingBoxSet.vertices.size() == 0) {
+		if (boundingBoxSet.vertices.size() == 0)
 			throw std::runtime_error("No bounding boxes have been provided for " + name + ", so collision detection is not enabled.");
-		}
+
 		return boundingBoxSet.collidesWith(point, this->offset, this->rotation);
 	}
 
 	bool SceneObject::collidesWith(SceneObject otherObject) const {
-		if (boundingBoxSet.vertices.size() == 0) {
+		if (boundingBoxSet.vertices.size() == 0)
 			throw std::runtime_error("No bounding boxes have been provided for " + name + ", so collision detection is not enabled.");
-		}
 
-		if (otherObject.boundingBoxSet.vertices.size() == 0) {
+		if (otherObject.boundingBoxSet.vertices.size() == 0)
 			throw std::runtime_error("No bounding boxes have been provided for " + otherObject.name +
 				", so collision detection is not enabled.");
-		}
 
 		// Checking whether the boxes of this object are within the boxes of the other object or vice versa
 		return boundingBoxSet.collidesWith(otherObject.boundingBoxSet, this->offset, this->rotation,
 			otherObject.offset, otherObject.rotation) ||
 			otherObject.boundingBoxSet.collidesWith(boundingBoxSet, otherObject.offset, otherObject.rotation,
-				this->offset, this->rotation);
+			this->offset, this->rotation);
 	}
 
 	bool SceneObject::isAnimated() const {

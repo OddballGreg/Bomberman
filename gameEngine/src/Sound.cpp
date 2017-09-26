@@ -44,10 +44,8 @@ namespace gameEngine {
 				soundData->currentFrame = 0;
 
 			}
-			else {
-
+			else
 				return paAbort;
-			}
 		}
 
 		SAMPLE_DATATYPE *out = static_cast<SAMPLE_DATATYPE *>(outputBuffer);
@@ -81,7 +79,7 @@ namespace gameEngine {
 
 			if (initError != paNoError) {
 				throw std::runtime_error("PortAudio failed to initialise: " +
-				 std::string(Pa_GetErrorText(initError)));
+					std::string(Pa_GetErrorText(initError)));
 			}
 
 			defaultOutput = Pa_GetDefaultOutputDevice();
@@ -118,19 +116,18 @@ namespace gameEngine {
 			OggVorbis_File vorbisFile;
 
 #if defined(_WIN32) && !defined(__MINGW32__)
+
 			FILE *fp;
 			fopen_s(&fp, (soundFilePath).c_str(), "rb");
 #else
 			FILE *fp = fopen((soundFilePath).c_str(), "rb");
 #endif
 
-			if (!fp) {
+			if (!fp)
 				throw std::runtime_error("Could not open file " + soundFilePath);
-			}
 
-			if (ov_open_callbacks(fp, &vorbisFile, NULL, 0, OV_CALLBACKS_NOCLOSE) < 0) {
+			if (ov_open_callbacks(fp, &vorbisFile, NULL, 0, OV_CALLBACKS_NOCLOSE) < 0)
 				throw std::runtime_error("Could not load sound from file " + soundFilePath);
-			}
 
 			vorbis_info *vi = ov_info(&vorbisFile, -1);
 
@@ -148,15 +145,10 @@ namespace gameEngine {
 			do {
 				ret = ov_read(&vorbisFile, pcmout, sizeof(pcmout), 0, WORD_SIZE, 1, &current_section);
 				if (ret < 0) {
-
 					LOGERROR("Error in sound stream.");
-
 				} else if (ret > 0) {
-
 					this->soundData.data.insert(soundData.data.end(), &pcmout[0], &pcmout[ret]);
-
 					pos += ret;
-
 				}
 			} while (ret != 0);
 
@@ -167,10 +159,10 @@ namespace gameEngine {
 			char soundInfo[100];
 #if defined(_WIN32) && !defined(__MINGW32__)
 			sprintf_s(soundInfo, "Loaded sound - channels %d - rate %d - samples %ld - size in bytes %ld",
-								this->soundData.channels, this->soundData.rate, this->soundData.samples, this->soundData.size);
+				this->soundData.channels, this->soundData.rate, this->soundData.samples, this->soundData.size);
 #else
 			sprintf(soundInfo, "Loaded sound - channels %d - rate %d - samples %ld - size in bytes %ld",
-							this->soundData.channels, this->soundData.rate, this->soundData.samples, this->soundData.size);
+				this->soundData.channels, this->soundData.rate, this->soundData.samples, this->soundData.size);
 #endif
 			LOGDEBUG(std::string(soundInfo));
 		}
@@ -203,22 +195,19 @@ namespace gameEngine {
 		error = Pa_OpenStream(&stream, NULL, &outputParams, this->soundData.rate,
 				1024, paNoFlag,
 				Sound::audioCallback, &this->soundData);
-		if (error != paNoError) {
+		if (error != paNoError)
 			throw std::runtime_error("Failed to open PortAudio stream: " + std::string(Pa_GetErrorText(error)));
-		}
 	}
 
 
 	void Sound::play(const bool repeat) {
 		if (!noOutputDevice && this->soundData.size > 0) {
-
 			PaError error;
 
 			if (Pa_IsStreamStopped(stream) == 0) {
-	error = Pa_AbortStream(stream);
-	if (error != paNoError) {
-		throw std::runtime_error("Failed to abort stream on play: " + std::string(Pa_GetErrorText(error)));
-	}
+				error = Pa_AbortStream(stream);
+				if (error != paNoError)
+					throw std::runtime_error("Failed to abort stream on play: " + std::string(Pa_GetErrorText(error)));
 			}
 
 			this->soundData.currentFrame = 0;
@@ -226,10 +215,8 @@ namespace gameEngine {
 			this->soundData.repeat = repeat;
 
 			error = Pa_StartStream(stream);
-			if (error != paNoError) {
-	throw std::runtime_error("Failed to start stream: " + std::string(Pa_GetErrorText(error)));
-			}
-
+			if (error != paNoError)
+				throw std::runtime_error("Failed to start stream: " + std::string(Pa_GetErrorText(error)));
 		}
 
 	}

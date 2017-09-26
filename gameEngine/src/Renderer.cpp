@@ -11,23 +11,25 @@ namespace gameEngine {
 
 	static void error_callback(int error, const char* description)
 	{
-	LOGERROR(std::string(description));
+		LOGERROR(std::string(description));
 	}
 
 	static std::string openglErrorToString(GLenum error);
 
 	std::string Renderer::loadShaderFromFile(const std::string fileLocation) const {
-	initLogger();
-	std::cout << "in loadShader. file path is: " << fileLocation << std::endl;
-	// std::string shaderSource = "";
-	// std::ifstream file(fileLocation.c_str());
-	// std::string line;
-	// if (file.is_open()) {
-	// 	while (std::getline(file, line)) {
-	// 		shaderSource += line + "\n";
-	// 	}
-	// }
-	std::ifstream shaderFile(fileLocation);
+		initLogger();
+		std::cout << "in loadShader. file path is: " << fileLocation << std::endl;
+
+		// std::string shaderSource = "";
+		// std::ifstream file(fileLocation.c_str());
+		// std::string line;
+		// if (file.is_open()) {
+		// 	while (std::getline(file, line)) {
+		// 		shaderSource += line + "\n";
+		// 	}
+		// }
+
+		std::ifstream shaderFile(fileLocation);
 
 		if (shaderFile.fail()) {
 			std::cout << "failed to open " << fileLocation << std::endl;
@@ -38,17 +40,18 @@ namespace gameEngine {
 		while (std::getline(shaderFile, line)) {
 			fileContents += line + '\n';
 		}
+
 		shaderFile.close();
-	std::cout << "file contained: " << fileContents << std::endl;
-	return fileContents;
+		std::cout << "file contained: " << fileContents << std::endl;
+
+		return fileContents;
 	}
 
 	GLuint Renderer::compileShader(const std::string shaderSourceFile, const GLenum shaderType) const {
 	GLuint shader = glCreateShader(shaderType);
 	std::string shaderSource = this->loadShaderFromFile(shaderSourceFile);
-	if (shaderSource.length() == 0) {
+	if (shaderSource.length() == 0)
 		throw std::runtime_error("Shader source file '" + shaderSourceFile + "' is empty or not found.");
-	}
 	const char *shaderSourceChars = shaderSource.c_str();
 	glShaderSource(shader, 1, &shaderSourceChars, NULL);
 	glCompileShader(shader);
@@ -58,8 +61,8 @@ namespace gameEngine {
 
 	if (status == GL_FALSE) {
 		throw std::runtime_error(
-		"Failed to compile shader:\n" + shaderSource + "\n"
-		+ this->getShaderInfoLog(shader));
+			"Failed to compile shader:\n" + shaderSource + "\n"
+			+ this->getShaderInfoLog(shader));
 	}
 	else {
 		LOGDEBUG("Shader " + shaderSourceFile + " compiled successfully.");
@@ -69,777 +72,754 @@ namespace gameEngine {
 
 	std::string Renderer::getProgramInfoLog(const GLuint linkedProgram) const {
 
-	GLint infoLogLength;
-	glGetProgramiv(linkedProgram, GL_INFO_LOG_LENGTH, &infoLogLength);
+		GLint infoLogLength;
+		glGetProgramiv(linkedProgram, GL_INFO_LOG_LENGTH, &infoLogLength);
 
-	GLchar *infoLog = new GLchar[infoLogLength + 1];
-	GLsizei lengthReturned = 0;
-	glGetProgramInfoLog(linkedProgram, infoLogLength, &lengthReturned, infoLog);
+		GLchar *infoLog = new GLchar[infoLogLength + 1];
+		GLsizei lengthReturned = 0;
+		glGetProgramInfoLog(linkedProgram, infoLogLength, &lengthReturned, infoLog);
 
-	std::string infoLogStr(infoLog);
+		std::string infoLogStr(infoLog);
 
-	if (lengthReturned == 0) {
-		infoLogStr = "(No info)";
-	}
-	delete[] infoLog;
-	return infoLogStr;
+		if (lengthReturned == 0)
+			infoLogStr = "(No info)";
+		delete[] infoLog;
+
+		return infoLogStr;
 	}
 
 	std::string Renderer::getShaderInfoLog(const GLuint shader) const {
 
-	GLint infoLogLength;
-	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);
+		GLint infoLogLength;
+		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);
 
-	GLchar *infoLog = new GLchar[infoLogLength + 1];
-	GLsizei lengthReturned = 0;
-	glGetShaderInfoLog(shader, infoLogLength, &lengthReturned, infoLog);
+		GLchar *infoLog = new GLchar[infoLogLength + 1];
+		GLsizei lengthReturned = 0;
+		glGetShaderInfoLog(shader, infoLogLength, &lengthReturned, infoLog);
 
-	std::string infoLogStr(infoLog);
-	if (lengthReturned == 0) {
-		infoLogStr = "(No info)";
+		std::string infoLogStr(infoLog);
+		if (lengthReturned == 0)
+			infoLogStr = "(No info)";
+
+		delete[] infoLog;
+
+		return infoLogStr;
 	}
 
-	delete[] infoLog;
-
-	return infoLogStr;
-	}
-
-	void Renderer::initOpenGL() {
+	void	Renderer::initOpenGL() {
 #ifdef __APPLE__
-	glewExperimental = GL_TRUE;
+		glewExperimental = GL_TRUE;
 #endif
-	GLenum initResult = glewInit();
+		GLenum initResult = glewInit();
 
-	if (initResult != GLEW_OK) {
-		throw std::runtime_error("Error initialising GLEW");
-	}
-	else {
-		std::string glewVersion = reinterpret_cast<char *>(const_cast<GLubyte*>(glewGetString(GLEW_VERSION)));
-		LOGINFO("Using GLEW version " + glewVersion);
+		if (initResult != GLEW_OK) {
+			throw std::runtime_error("Error initialising GLEW");
+		}
+		else {
+			std::string glewVersion = reinterpret_cast<char *>(const_cast<GLubyte*>(glewGetString(GLEW_VERSION)));
+			LOGINFO("Using GLEW version " + glewVersion);
+		}
+
+		checkForOpenGLErrors("initialising GLEW", false);
+
+		LOGDEBUG("OpenGL version supported by machine: " +
+			std::string(reinterpret_cast<char *>(const_cast<GLubyte*>(glGetString(GL_VERSION)))));
+
+		if (glewIsSupported("GL_VERSION_3_3")) {
+			LOGINFO("Using OpenGL 3.3");
+			isOpenGL33Supported = true;
+		}
+		else if (glewIsSupported("GL_VERSION_2_1")) {
+			LOGINFO("Using OpenGL 2.1");
+		}
+		else {
+			noShaders = true;
+			throw std::runtime_error(
+				"None of the supported OpenGL versions (3.3 nor 2.1) are available.");
+		}
 	}
 
-	checkForOpenGLErrors("initialising GLEW", false);
+	void	Renderer::checkForOpenGLErrors(const std::string when, const bool abort) const {
+		GLenum errorCode = glGetError();
+		if (errorCode != GL_NO_ERROR) {
+			LOGERROR("OpenGL error while " + when);
 
-	LOGDEBUG("OpenGL version supported by machine: " +
-		std::string(reinterpret_cast<char *>(const_cast<GLubyte*>(glGetString(GL_VERSION)))));
+			do {
+				LOGERROR(openglErrorToString(errorCode));
+				errorCode = glGetError();
+			} while (errorCode != GL_NO_ERROR);
 
-	if (glewIsSupported("GL_VERSION_3_3")) {
-		LOGINFO("Using OpenGL 3.3");
-		isOpenGL33Supported = true;
-	}
-	else if (glewIsSupported("GL_VERSION_2_1")) {
-		LOGINFO("Using OpenGL 2.1");
-	}
-	else {
-		noShaders = true;
-		throw std::runtime_error(
-		"None of the supported OpenGL versions (3.3 nor 2.1) are available.");
-	}
-	}
-
-	void Renderer::checkForOpenGLErrors(const std::string when, const bool abort) const {
-	GLenum errorCode = glGetError();
-	if (errorCode != GL_NO_ERROR) {
-		LOGERROR("OpenGL error while " + when);
-
-		do {
-		LOGERROR(openglErrorToString(errorCode));
-		errorCode = glGetError();
-		} while (errorCode != GL_NO_ERROR);
-
-		if (abort)
-		throw std::runtime_error("OpenGL error while " + when);
-	}
+			if (abort)
+				throw std::runtime_error("OpenGL error while " + when);
+		}
 	}
 
 	void Renderer::positionNextObject(const glm::vec3 offset, const glm::vec3 rotation) const {
-	// Rotation
+		// Rotation
 
-	GLint xRotationMatrixUniform = glGetUniformLocation(perspectiveProgram,
-		"xRotationMatrix");
-	glUniformMatrix4fv(xRotationMatrixUniform, 1, GL_TRUE, glm::value_ptr(glm::rotate(glm::mat4x4(1.0f), rotation.x, glm::vec3(-1.0f, 0.0f, 0.0f))));
+		GLint xRotationMatrixUniform = glGetUniformLocation(perspectiveProgram,
+			"xRotationMatrix");
+		glUniformMatrix4fv(xRotationMatrixUniform, 1, GL_TRUE, glm::value_ptr(glm::rotate(glm::mat4x4(1.0f), rotation.x, glm::vec3(-1.0f, 0.0f, 0.0f))));
 
-	GLint yRotationMatrixUniform = glGetUniformLocation(perspectiveProgram,
-		"yRotationMatrix");
-	glUniformMatrix4fv(yRotationMatrixUniform, 1, GL_TRUE, glm::value_ptr(glm::rotate(glm::mat4x4(1.0f), rotation.y, glm::vec3(0.0f, -1.0f, 0.0f))));
+		GLint yRotationMatrixUniform = glGetUniformLocation(perspectiveProgram,
+			"yRotationMatrix");
+		glUniformMatrix4fv(yRotationMatrixUniform, 1, GL_TRUE, glm::value_ptr(glm::rotate(glm::mat4x4(1.0f), rotation.y, glm::vec3(0.0f, -1.0f, 0.0f))));
 
-	GLint zRotationMatrixUniform = glGetUniformLocation(perspectiveProgram,
-		"zRotationMatrix");
-	glUniformMatrix4fv(zRotationMatrixUniform, 1, GL_TRUE, glm::value_ptr(glm::rotate(glm::mat4x4(1.0f), rotation.z, glm::vec3(0.0f, 0.0f, -1.0f))));
+		GLint zRotationMatrixUniform = glGetUniformLocation(perspectiveProgram,
+			"zRotationMatrix");
+		glUniformMatrix4fv(zRotationMatrixUniform, 1, GL_TRUE, glm::value_ptr(glm::rotate(glm::mat4x4(1.0f), rotation.z, glm::vec3(0.0f, 0.0f, -1.0f))));
 
-	GLint offsetUniform = glGetUniformLocation(perspectiveProgram, "offset");
-	glUniform3fv(offsetUniform, 1, glm::value_ptr(offset));
+		GLint offsetUniform = glGetUniformLocation(perspectiveProgram, "offset");
+		glUniform3fv(offsetUniform, 1, glm::value_ptr(offset));
 	}
 
 
 	void Renderer::positionCamera() const {
-	// Camera rotation
+		// Camera rotation
 
-	GLint xCameraRotationMatrixUniform = glGetUniformLocation(perspectiveProgram,
-		"xCameraRotationMatrix");
-	GLint yCameraRotationMatrixUniform = glGetUniformLocation(perspectiveProgram,
-		"yCameraRotationMatrix");
-	GLint zCameraRotationMatrixUniform = glGetUniformLocation(perspectiveProgram,
-		"zCameraRotationMatrix");
+		GLint xCameraRotationMatrixUniform = glGetUniformLocation(perspectiveProgram,
+			"xCameraRotationMatrix");
+		GLint yCameraRotationMatrixUniform = glGetUniformLocation(perspectiveProgram,
+			"yCameraRotationMatrix");
+		GLint zCameraRotationMatrixUniform = glGetUniformLocation(perspectiveProgram,
+			"zCameraRotationMatrix");
 
 
-	glUniformMatrix4fv(xCameraRotationMatrixUniform, 1, GL_TRUE,
-		glm::value_ptr(glm::rotate(glm::mat4x4(1.0f), -cameraRotation.x, glm::vec3(-1.0f, 0.0f, 0.0f))));
-	glUniformMatrix4fv(yCameraRotationMatrixUniform, 1, GL_TRUE,
-		glm::value_ptr(glm::rotate(glm::mat4x4(1.0f), -cameraRotation.y, glm::vec3(0.0f, -1.0f, 0.0f))));
-	glUniformMatrix4fv(zCameraRotationMatrixUniform, 1, GL_TRUE,
-		glm::value_ptr(glm::rotate(glm::mat4x4(1.0f), -cameraRotation.z, glm::vec3(0.0f, 0.0f, -1.0f))));
+		glUniformMatrix4fv(xCameraRotationMatrixUniform, 1, GL_TRUE,
+			glm::value_ptr(glm::rotate(glm::mat4x4(1.0f), -cameraRotation.x, glm::vec3(-1.0f, 0.0f, 0.0f))));
+		glUniformMatrix4fv(yCameraRotationMatrixUniform, 1, GL_TRUE,
+			glm::value_ptr(glm::rotate(glm::mat4x4(1.0f), -cameraRotation.y, glm::vec3(0.0f, -1.0f, 0.0f))));
+		glUniformMatrix4fv(zCameraRotationMatrixUniform, 1, GL_TRUE,
+			glm::value_ptr(glm::rotate(glm::mat4x4(1.0f), -cameraRotation.z, glm::vec3(0.0f, 0.0f, -1.0f))));
 
-	// Camera position
-	GLint cameraPositionUniform = glGetUniformLocation(perspectiveProgram, "cameraPosition");
-	glUniform3fv(cameraPositionUniform, 1, glm::value_ptr(cameraPosition));
+		// Camera position
+		GLint cameraPositionUniform = glGetUniformLocation(perspectiveProgram, "cameraPosition");
+		glUniform3fv(cameraPositionUniform, 1, glm::value_ptr(cameraPosition));
 	}
 
 	GLuint Renderer::getTextureHandle(const std::string name) const {
-	GLuint handle = 0;
-	auto nameTexturePair = textures.find(name);
-	if (nameTexturePair != textures.end()) {
-		handle = nameTexturePair->second;
-	}
-	return handle;
+		GLuint handle = 0;
+		auto nameTexturePair = textures.find(name);
+		if (nameTexturePair != textures.end())
+			handle = nameTexturePair->second;
+
+		return handle;
 	}
 
 	GLuint Renderer::generateTexture(const std::string name, const float* data, const unsigned long width,
-	const unsigned long height) {
+			const unsigned long height) {
 
-	GLuint textureHandle;
-	glGenTextures(1, &textureHandle);
-	glBindTexture(GL_TEXTURE_2D, textureHandle);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+		GLuint textureHandle;
+		glGenTextures(1, &textureHandle);
+		glBindTexture(GL_TEXTURE_2D, textureHandle);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
 
-	GLint internalFormat = isOpenGL33Supported ? GL_RGBA32F : GL_RGBA;
+		GLint internalFormat = isOpenGL33Supported ? GL_RGBA32F : GL_RGBA;
 
-	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, GL_RGBA,
-		GL_FLOAT, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, GL_RGBA,
+			GL_FLOAT, data);
 
-	textures.insert(make_pair(name, textureHandle));
+		textures.insert(make_pair(name, textureHandle));
 
-	return textureHandle;
+		return textureHandle;
 	}
 
 	void Renderer::init(const int width, const int height, const std::string windowTitle,
-	const float frustumScale, const float zNear,
-	const float zFar, const float zOffsetFromCamera,
-	const std::string shadersPath) {
+			const float frustumScale, const float zNear,
+			const float zFar, const float zOffsetFromCamera,
+			const std::string shadersPath) {
 
-	int screenWidth = width;
-	int screenHeight = height;
+		int screenWidth = width;
+		int screenHeight = height;
 
-	this->initWindow(screenWidth, screenHeight, windowTitle);
+		this->initWindow(screenWidth, screenHeight, windowTitle);
 
-	this->frustumScale = frustumScale;
-	this->zNear = zNear;
-	this->zFar = zFar;
-	this->zOffsetFromCamera = zOffsetFromCamera;
+		this->frustumScale = frustumScale;
+		this->zNear = zNear;
+		this->zFar = zFar;
+		this->zOffsetFromCamera = zOffsetFromCamera;
 
-	this->initOpenGL();
+		this->initOpenGL();
 
-	std::string vertexShaderPath;
-	std::string fragmentShaderPath;
-	std::string simpleVertexShaderPath;
-	std::string simpleFragmentShaderPath;
+		std::string vertexShaderPath;
+		std::string fragmentShaderPath;
+		std::string simpleVertexShaderPath;
+		std::string simpleFragmentShaderPath;
 
-	if (isOpenGL33Supported) {
-		vertexShaderPath = shadersPath + "OpenGL33/perspectiveMatrixLightedShader.vert";
-		fragmentShaderPath = shadersPath + "OpenGL33/textureShader.frag";
-		simpleVertexShaderPath = shadersPath + "OpenGL33/simpleShader.vert";
-		simpleFragmentShaderPath = shadersPath + "OpenGL33/simpleShader.frag";
-		std::cout << " the populate filepath is: " << vertexShaderPath << std::endl;
-	}
-	else {
-		vertexShaderPath = shadersPath + "OpenGL21/perspectiveMatrixLightedShader.vert";
-		fragmentShaderPath = shadersPath + "OpenGL21/textureShader.frag";
-		simpleVertexShaderPath = shadersPath + "OpenGL21/simpleShader.vert";
-		simpleFragmentShaderPath = shadersPath + "OpenGL21/simpleShader.frag";
-	}
+		if (isOpenGL33Supported) {
+			vertexShaderPath = shadersPath + "OpenGL33/perspectiveMatrixLightedShader.vert";
+			fragmentShaderPath = shadersPath + "OpenGL33/textureShader.frag";
+			simpleVertexShaderPath = shadersPath + "OpenGL33/simpleShader.vert";
+			simpleFragmentShaderPath = shadersPath + "OpenGL33/simpleShader.frag";
+			std::cout << " the populate filepath is: " << vertexShaderPath << std::endl;
+		}
+		else {
+			vertexShaderPath = shadersPath + "OpenGL21/perspectiveMatrixLightedShader.vert";
+			fragmentShaderPath = shadersPath + "OpenGL21/textureShader.frag";
+			simpleVertexShaderPath = shadersPath + "OpenGL21/simpleShader.vert";
+			simpleFragmentShaderPath = shadersPath + "OpenGL21/simpleShader.frag";
+		}
 
-	glViewport(0, 0, static_cast<GLsizei>(screenWidth), static_cast<GLsizei>(screenHeight));
+		glViewport(0, 0, static_cast<GLsizei>(screenWidth), static_cast<GLsizei>(screenHeight));
 
-	glEnable(GL_DEPTH_TEST);
-	glDepthMask(GL_TRUE);
-	glDepthFunc(GL_LEQUAL);
-	glDepthRange(zNear + zOffsetFromCamera, zFar);
+		glEnable(GL_DEPTH_TEST);
+		glDepthMask(GL_TRUE);
+		glDepthFunc(GL_LEQUAL);
+		glDepthRange(zNear + zOffsetFromCamera, zFar);
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	GLuint vertexShader = compileShader(vertexShaderPath, GL_VERTEX_SHADER);
-	GLuint fragmentShader = compileShader(fragmentShaderPath, GL_FRAGMENT_SHADER);
+		GLuint vertexShader = compileShader(vertexShaderPath, GL_VERTEX_SHADER);
+		GLuint fragmentShader = compileShader(fragmentShaderPath, GL_FRAGMENT_SHADER);
 
-	perspectiveProgram = glCreateProgram();
-	glAttachShader(perspectiveProgram, vertexShader);
-	glAttachShader(perspectiveProgram, fragmentShader);
+		perspectiveProgram = glCreateProgram();
+		glAttachShader(perspectiveProgram, vertexShader);
+		glAttachShader(perspectiveProgram, fragmentShader);
 
-	glLinkProgram(perspectiveProgram);
+		glLinkProgram(perspectiveProgram);
 
-	GLint status;
-	glGetProgramiv(perspectiveProgram, GL_LINK_STATUS, &status);
-	if (status == GL_FALSE) {
-		throw std::runtime_error("Failed to link program:\n" + this->getProgramInfoLog(perspectiveProgram));
-	}
-	else {
-		LOGDEBUG("Linked main rendering program successfully");
+		GLint status;
+		glGetProgramiv(perspectiveProgram, GL_LINK_STATUS, &status);
+		if (status == GL_FALSE) {
+			throw std::runtime_error("Failed to link program:\n" + this->getProgramInfoLog(perspectiveProgram));
+		}
+		else {
+			LOGDEBUG("Linked main rendering program successfully");
 
-		glUseProgram(perspectiveProgram);
+			glUseProgram(perspectiveProgram);
 
-		// Perspective
+			// Perspective
 
-		GLint perspectiveMatrixUniform = glGetUniformLocation(perspectiveProgram,
-		"perspectiveMatrix");
+			GLint perspectiveMatrixUniform = glGetUniformLocation(perspectiveProgram,
+				"perspectiveMatrix");
 
-		float perspectiveMatrix[16];
-		memset(perspectiveMatrix, 0, sizeof(float) * 16);
-		perspectiveMatrix[0] = frustumScale;
-		perspectiveMatrix[5] = frustumScale * screenWidth / screenHeight;
-		perspectiveMatrix[10] = (zNear + zFar) / (zNear - zFar);
-		perspectiveMatrix[14] = 2.0f * zNear * zFar / (zNear - zFar);
-		perspectiveMatrix[11] = zOffsetFromCamera;
+			float perspectiveMatrix[16];
+			memset(perspectiveMatrix, 0, sizeof(float) * 16);
+			perspectiveMatrix[0] = frustumScale;
+			perspectiveMatrix[5] = frustumScale * screenWidth / screenHeight;
+			perspectiveMatrix[10] = (zNear + zFar) / (zNear - zFar);
+			perspectiveMatrix[14] = 2.0f * zNear * zFar / (zNear - zFar);
+			perspectiveMatrix[11] = zOffsetFromCamera;
 
-		glUniformMatrix4fv(perspectiveMatrixUniform, 1, GL_FALSE,
-		perspectiveMatrix);
+			glUniformMatrix4fv(perspectiveMatrixUniform, 1, GL_FALSE,
+			perspectiveMatrix);
 
+			glUseProgram(0);
+		}
+		glDetachShader(perspectiveProgram, vertexShader);
+		glDetachShader(perspectiveProgram, fragmentShader);
+		glDeleteShader(vertexShader);
+		glDeleteShader(fragmentShader);
+
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		glFrontFace(GL_CCW);
+
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		glClearDepth(1.0f);
+
+		// Program (with shaders) for orthographic rendering for text
+
+		GLuint simpleVertexShader = compileShader(simpleVertexShaderPath,
+			GL_VERTEX_SHADER);
+		GLuint simpleFragmentShader = compileShader(simpleFragmentShaderPath,
+			GL_FRAGMENT_SHADER);
+
+		orthographicProgram = glCreateProgram();
+		glAttachShader(orthographicProgram, simpleVertexShader);
+		glAttachShader(orthographicProgram, simpleFragmentShader);
+
+		glLinkProgram(orthographicProgram);
+
+		glGetProgramiv(orthographicProgram, GL_LINK_STATUS, &status);
+		if (status == GL_FALSE) {
+			throw std::runtime_error("Failed to link program:\n" + this->getProgramInfoLog(orthographicProgram));
+		}
+		else {
+			LOGDEBUG("Linked orthographic rendering program successfully");
+		}
+		glDetachShader(orthographicProgram, simpleVertexShader);
+		glDetachShader(orthographicProgram, simpleFragmentShader);
+		glDeleteShader(simpleVertexShader);
+		glDeleteShader(simpleFragmentShader);
 		glUseProgram(0);
-	}
-	glDetachShader(perspectiveProgram, vertexShader);
-	glDetachShader(perspectiveProgram, fragmentShader);
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);
-
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	glClearDepth(1.0f);
-
-	// Program (with shaders) for orthographic rendering for text
-
-	GLuint simpleVertexShader = compileShader(simpleVertexShaderPath,
-		GL_VERTEX_SHADER);
-	GLuint simpleFragmentShader = compileShader(simpleFragmentShaderPath,
-		GL_FRAGMENT_SHADER);
-
-	orthographicProgram = glCreateProgram();
-	glAttachShader(orthographicProgram, simpleVertexShader);
-	glAttachShader(orthographicProgram, simpleFragmentShader);
-
-	glLinkProgram(orthographicProgram);
-
-	glGetProgramiv(orthographicProgram, GL_LINK_STATUS, &status);
-	if (status == GL_FALSE) {
-		throw std::runtime_error("Failed to link program:\n" + this->getProgramInfoLog(orthographicProgram));
-	}
-	else {
-		LOGDEBUG("Linked orthographic rendering program successfully");
-	}
-	glDetachShader(orthographicProgram, simpleVertexShader);
-	glDetachShader(orthographicProgram, simpleFragmentShader);
-	glDeleteShader(simpleVertexShader);
-	glDeleteShader(simpleFragmentShader);
-	glUseProgram(0);
 	}
 
 	void Renderer::initWindow(int &width, int &height, const std::string windowTitle) {
 
-	glfwSetErrorCallback(error_callback);
+		glfwSetErrorCallback(error_callback);
 
-	if (!glfwInit()) {
-		throw std::runtime_error("Unable to initialise GLFW");
-	}
+		if (!glfwInit())
+			throw std::runtime_error("Unable to initialise GLFW");
 
 #ifdef __APPLE__
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #endif
 
-	bool fullScreen = false;
+		bool fullScreen = false;
 
-	GLFWmonitor *monitor = nullptr; // If NOT null, a full-screen window will be created.
+		GLFWmonitor *monitor = nullptr; // If NOT null, a full-screen window will be created.
 
-	if ((width == 0 && height != 0) || (width != 0 && height == 0)) {
-		throw std::runtime_error("Screen width and height both have to be equal or not equal to zero at the same time.");
-	}
-	else if (width == 0) {
+		if ((width == 0 && height != 0) || (width != 0 && height == 0)) {
+			throw std::runtime_error("Screen width and height both have to be equal or not equal to zero at the same time.");
+		}
+		else if (width == 0) {
 
-		fullScreen = true;
+			fullScreen = true;
 
-		monitor = glfwGetPrimaryMonitor();
+			monitor = glfwGetPrimaryMonitor();
 
-		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-		width = mode->width;
-		height = mode->height;
+			const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+			width = mode->width;
+			height = mode->height;
 
-		LOGINFO("Detected screen width " + intToStr(width) + " and height " + intToStr(height));
-	}
+			LOGINFO("Detected screen width " + intToStr(width) + " and height " + intToStr(height));
+		}
 
-	window = glfwCreateWindow(width, height, windowTitle.c_str(), monitor, nullptr);
-	if (!window) {
-		throw std::runtime_error("Unable to create GLFW window");
-	}
+		window = glfwCreateWindow(width, height, windowTitle.c_str(), monitor, nullptr);
+		if (!window)
+			throw std::runtime_error("Unable to create GLFW window");
 
-	glfwMakeContextCurrent(window);
+		glfwMakeContextCurrent(window);
 
 	}
 
 	Renderer::Renderer(const std::string windowTitle, const int width, const int height,
-					 const float frustumScale , const float zNear,
-					 const float zFar, const float zOffsetFromCamera,
-					 const std::string shadersPath) {
+			const float frustumScale , const float zNear,
+			const float zFar, const float zOffsetFromCamera,
+			const std::string shadersPath) {
 
-	isOpenGL33Supported = false;
-	window = 0;
-	perspectiveProgram = 0;
-	orthographicProgram = 0;
-	noShaders = false;
-	lightDirection = glm::vec3(0.0f, 0.9f, 0.2f);
-	cameraPosition = glm::vec3(0, 0, 0);
-	cameraRotation = glm::vec3(0, 0, 0);
-	lightIntensity = 1.0f;
+		isOpenGL33Supported = false;
+		window = 0;
+		perspectiveProgram = 0;
+		orthographicProgram = 0;
+		noShaders = false;
+		lightDirection = glm::vec3(0.0f, 0.9f, 0.2f);
+		cameraPosition = glm::vec3(0, 0, 0);
+		cameraRotation = glm::vec3(0, 0, 0);
+		lightIntensity = 1.0f;
 
-	init(width, height, windowTitle, frustumScale, zNear, zFar, zOffsetFromCamera, shadersPath);
+		init(width, height, windowTitle, frustumScale, zNear, zFar, zOffsetFromCamera, shadersPath);
 
-	FT_Error ftError = FT_Init_FreeType( &library );
+		FT_Error ftError = FT_Init_FreeType( &library );
 
-	if(ftError != 0) {
-		throw std::runtime_error("Unable to initialise font system");
-	}
+		if(ftError != 0)
+			throw std::runtime_error("Unable to initialise font system");
 
 #ifdef __APPLE__
-	if (isOpenGL33Supported) {
-		// Generate VAO
-		glGenVertexArrays(1, &vao);
-		glBindVertexArray(vao);
-	}
+		if (isOpenGL33Supported) {
+			// Generate VAO
+			glGenVertexArrays(1, &vao);
+			glBindVertexArray(vao);
+		}
 #endif
 
 	}
 
 	Renderer& Renderer::getInstance(const std::string windowTitle, const int width, const int height,
-					const float frustumScale, const float zNear, const float zFar, const float zOffsetFromCamera,
-					const std::string shadersPath) {
-	static Renderer instance(windowTitle, width, height, frustumScale, zNear, zFar, zOffsetFromCamera, shadersPath);
-	return instance;
+			const float frustumScale, const float zNear, const float zFar, const float zOffsetFromCamera,
+			const std::string shadersPath) {
+		static Renderer instance(windowTitle, width, height, frustumScale, zNear, zFar, zOffsetFromCamera, shadersPath);
+		return instance;
 	}
 
 	Renderer::~Renderer() {
-	LOGDEBUG("Renderer destructor running");
-	for (auto it = textures.begin();
-		 it != textures.end(); ++it) {
-		LOGDEBUG("Deleting texture " + it->first);
-		glDeleteTextures(1, &it->second);
-	}
-
-	for(auto idFacePair : fontFaces) {
-		FT_Done_Face(idFacePair.second);
-	}
-
-	FT_Done_FreeType(library);
-
-	if (!noShaders) {
-		glUseProgram(0);
-#ifdef __APPLE__
-		if (isOpenGL33Supported) {
-		glDeleteVertexArrays(1, &vao);
-		glBindVertexArray(0);
+		LOGDEBUG("Renderer destructor running");
+		for (auto it = textures.begin();
+			it != textures.end(); ++it) {
+			LOGDEBUG("Deleting texture " + it->first);
+			glDeleteTextures(1, &it->second);
 		}
+
+		for(auto idFacePair : fontFaces)
+			FT_Done_Face(idFacePair.second);
+
+		FT_Done_FreeType(library);
+
+		if (!noShaders) {
+			glUseProgram(0);
+#ifdef __APPLE__
+			if (isOpenGL33Supported) {
+				glDeleteVertexArrays(1, &vao);
+				glBindVertexArray(0);
+			}
 #endif
-	}
+		}
 
-	if (orthographicProgram != 0) {
-		glDeleteProgram(orthographicProgram);
-	}
+		if (orthographicProgram != 0)
+			glDeleteProgram(orthographicProgram);
 
-	if (perspectiveProgram != 0) {
-		glDeleteProgram(perspectiveProgram);
-	}
+		if (perspectiveProgram != 0)
+			glDeleteProgram(perspectiveProgram);
 
-	glfwTerminate();
+		glfwTerminate();
 	}
 
 	GLFWwindow* Renderer::getWindow() const{
-	return window;
+		return window;
 	}
 
 	void Renderer::generateTexture(const std::string name, const Image image) {
-	this->generateTexture(name, image.getData(), image.getWidth(), image.getHeight());
+		this->generateTexture(name, image.getData(), image.getWidth(), image.getHeight());
 	}
 
 	void Renderer::deleteTexture(const std::string name) {
-	auto nameTexturePair = textures.find(name);
+		auto nameTexturePair = textures.find(name);
 
-	if (nameTexturePair != textures.end()) {
-		glDeleteTextures(1, &(nameTexturePair->second));
-		textures.erase(name);
-	}
+		if (nameTexturePair != textures.end()) {
+			glDeleteTextures(1, &(nameTexturePair->second));
+			textures.erase(name);
+		}
 	}
 
 	bool Renderer::supportsOpenGL33() const {
-	return isOpenGL33Supported;
+		return isOpenGL33Supported;
 	}
 
 	void Renderer::renderRectangle(const std::string textureName, const glm::vec3 topLeft, const glm::vec3 bottomRight,
-				 const bool perspective, const glm::vec4 colour) const {
+			const bool perspective, const glm::vec4 colour) const {
 
-	float vertices[16] = {
-		bottomRight.x, bottomRight.y, bottomRight.z, 1.0f,
-		bottomRight.x, topLeft.y, topLeft.z, 1.0f,
-		topLeft.x, topLeft.y, topLeft.z, 1.0f,
-		topLeft.x, bottomRight.y, bottomRight.z, 1.0f
-	};
-
-	glUseProgram(perspective ? perspectiveProgram : orthographicProgram);
-
-	GLuint boxBuffer = 0;
-	glGenBuffers(1, &boxBuffer);
-
-	glBindBuffer(GL_ARRAY_BUFFER, boxBuffer);
-	glBufferData(GL_ARRAY_BUFFER,
-				 sizeof(float) * 16,
-				 &vertices[0],
-				 GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	unsigned int vertexIndexes[6] = {
-		0, 1, 2,
-		2, 3, 0
-	};
-
-	GLuint indexBufferObject = 0;
-
-	glGenBuffers(1, &indexBufferObject);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * 6, vertexIndexes, GL_STATIC_DRAW);
-
-	GLuint coordBuffer = 0;
-
-	if (colour == glm::vec4(0.0f, 0.0f, 0.0f, 0.0f)) {
-
-		GLuint textureHandle = getTextureHandle(textureName);
-
-		if (textureHandle == 0) {
-		throw std::runtime_error("Texture " + textureName + "has not been generated");
-		}
-
-		glBindTexture(GL_TEXTURE_2D, textureHandle);
-
-		float textureCoords[8] = {
-		1.0f, 1.0f,
-		1.0f, 0.0f,
-		0.0f, 0.0f,
-		0.0f, 1.0f
+		float vertices[16] = {
+			bottomRight.x, bottomRight.y, bottomRight.z, 1.0f,
+			bottomRight.x, topLeft.y, topLeft.z, 1.0f,
+			topLeft.x, topLeft.y, topLeft.z, 1.0f,
+			topLeft.x, bottomRight.y, bottomRight.z, 1.0f
 		};
 
-		glGenBuffers(1, &coordBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, coordBuffer);
-		glBufferData(GL_ARRAY_BUFFER,
-			 sizeof(float) * 8,
-			 textureCoords,
-			 GL_STATIC_DRAW);
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+		glUseProgram(perspective ? perspectiveProgram : orthographicProgram);
 
-	}
+		GLuint boxBuffer = 0;
+		glGenBuffers(1, &boxBuffer);
 
-	GLint colourUniform = glGetUniformLocation(perspective ? perspectiveProgram : orthographicProgram, "colour");
-	glUniform4fv(colourUniform, 1, glm::value_ptr(colour));
+		glBindBuffer(GL_ARRAY_BUFFER, boxBuffer);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 16, &vertices[0], GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	if (perspective) {
+		unsigned int vertexIndexes[6] = {
+			0, 1, 2,
+			2, 3, 0
+		};
 
-		// Lighting
-		GLint lightDirectionUniform = glGetUniformLocation(perspectiveProgram,
-														 "lightDirection");
-		glUniform3fv(lightDirectionUniform, 1,
-					 glm::value_ptr(lightDirection));
+		GLuint indexBufferObject = 0;
 
-		GLint lightIntensityUniform = glGetUniformLocation(perspectiveProgram, "lightIntensity");
-		glUniform1f(lightIntensityUniform, lightIntensity);
+		glGenBuffers(1, &indexBufferObject);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * 6, vertexIndexes, GL_STATIC_DRAW);
 
-		positionNextObject(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-		positionCamera();
-	}
+		GLuint coordBuffer = 0;
 
-	glDrawElements(GL_TRIANGLES,
-					 6, GL_UNSIGNED_INT, 0);
+		if (colour == glm::vec4(0.0f, 0.0f, 0.0f, 0.0f)) {
 
-	glDeleteBuffers(1, &indexBufferObject);
-	glDeleteBuffers(1, &boxBuffer);
-	if (colour == glm::vec4(0.0f, 0.0f, 0.0f, 0.0f)) {
-		glDeleteBuffers(1, &coordBuffer);
-		glDisableVertexAttribArray(1);
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
+			GLuint textureHandle = getTextureHandle(textureName);
 
-	glDisableVertexAttribArray(0);
+			if (textureHandle == 0)
+				throw std::runtime_error("Texture " + textureName + "has not been generated");
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+			glBindTexture(GL_TEXTURE_2D, textureHandle);
 
-	checkForOpenGLErrors("rendering rectangle", true);
+			float textureCoords[8] = {
+				1.0f, 1.0f,
+				1.0f, 0.0f,
+				0.0f, 0.0f,
+				0.0f, 1.0f
+			};
+
+			glGenBuffers(1, &coordBuffer);
+			glBindBuffer(GL_ARRAY_BUFFER, coordBuffer);
+			glBufferData(GL_ARRAY_BUFFER,
+				sizeof(float) * 8,
+				textureCoords,
+				GL_STATIC_DRAW);
+			glEnableVertexAttribArray(1);
+			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+		}
+
+		GLint colourUniform = glGetUniformLocation(perspective ? perspectiveProgram : orthographicProgram, "colour");
+		glUniform4fv(colourUniform, 1, glm::value_ptr(colour));
+
+		if (perspective) {
+			// Lighting
+			GLint lightDirectionUniform = glGetUniformLocation(perspectiveProgram, "lightDirection");
+			glUniform3fv(lightDirectionUniform, 1, glm::value_ptr(lightDirection));
+
+			GLint lightIntensityUniform = glGetUniformLocation(perspectiveProgram, "lightIntensity");
+			glUniform1f(lightIntensityUniform, lightIntensity);
+
+			positionNextObject(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+			positionCamera();
+		}
+
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+		glDeleteBuffers(1, &indexBufferObject);
+		glDeleteBuffers(1, &boxBuffer);
+		if (colour == glm::vec4(0.0f, 0.0f, 0.0f, 0.0f)) {
+			glDeleteBuffers(1, &coordBuffer);
+			glDisableVertexAttribArray(1);
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+
+		glDisableVertexAttribArray(0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+		checkForOpenGLErrors("rendering rectangle", true);
 	}
 
 	void Renderer::renderRectangle(const glm::vec4 colour, const glm::vec3 topLeft, const glm::vec3 bottomRight,
-				 const bool perspective) const {
-	this->renderRectangle("", topLeft, bottomRight, perspective, colour);
+			 const bool perspective) const {
+		this->renderRectangle("", topLeft, bottomRight, perspective, colour);
 	}
 
 	void Renderer::render(Model &model, const glm::vec3 offset, const glm::vec3 rotation,
 			const glm::vec4 colour, const std::string textureName) const {
 
-	glUseProgram(perspectiveProgram);
+		glUseProgram(perspectiveProgram);
 
-	bool alreadyInGPU = model.positionBufferObjectId != 0;
-
-	if (!alreadyInGPU) {
-		glGenBuffers(1, &model.indexBufferObjectId);
-		glGenBuffers(1, &model.positionBufferObjectId);
-		glGenBuffers(1, &model.normalsBufferObjectId);
-		glGenBuffers(1, &model.uvBufferObjectId);
-	}
-
-	// Vertex
-	glBindBuffer(GL_ARRAY_BUFFER, model.positionBufferObjectId);
-	if (!alreadyInGPU) {
-		glBufferData(GL_ARRAY_BUFFER,
-			 model.vertexDataByteSize,
-			 model.vertexData.data(),
-			 GL_STATIC_DRAW);
-	}
-
-	// Vertex indices
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, model.indexBufferObjectId);
-	if (!alreadyInGPU) {
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-			 model.indexDataByteSize,
-			 model.indexData.data(),
-			 GL_STATIC_DRAW);
-	}
-
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
-
-	// Normals
-	glBindBuffer(GL_ARRAY_BUFFER, model.normalsBufferObjectId);
-	if (!alreadyInGPU) {
-		glBufferData(GL_ARRAY_BUFFER,
-			 model.normalsDataByteSize,
-			 model.normalsData.data(),
-			 GL_STATIC_DRAW);
-	}
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void *) 0);
-
-
-	// Find the colour uniform
-	GLint colourUniform = glGetUniformLocation(perspectiveProgram, "colour");
-
-	if (textureName != "") {
-
-		// "Disable" colour since there is a texture
-		glUniform4fv(colourUniform, 1, glm::value_ptr(glm::vec4(0.0f, 0.0f, 0.0f, 0.0f)));
-
-		GLuint textureId = this->getTextureHandle(textureName);
-
-		glBindTexture(GL_TEXTURE_2D, textureId);
-
-		// UV Coordinates
-
-		glBindBuffer(GL_ARRAY_BUFFER, model.uvBufferObjectId);
+		bool alreadyInGPU = model.positionBufferObjectId != 0;
 
 		if (!alreadyInGPU) {
-		glBufferData(GL_ARRAY_BUFFER,
-					 model.textureCoordsDataByteSize,
-					 model.textureCoordsData.data(),
-					 GL_STATIC_DRAW);
+			glGenBuffers(1, &model.indexBufferObjectId);
+			glGenBuffers(1, &model.positionBufferObjectId);
+			glGenBuffers(1, &model.normalsBufferObjectId);
+			glGenBuffers(1, &model.uvBufferObjectId);
 		}
 
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
+		// Vertex
+		glBindBuffer(GL_ARRAY_BUFFER, model.positionBufferObjectId);
+		if (!alreadyInGPU) {
+			glBufferData(GL_ARRAY_BUFFER,
+				model.vertexDataByteSize,
+				model.vertexData.data(),
+				GL_STATIC_DRAW);
+		}
 
-	}
-	else {
-		// If there is no texture, use the given colour
-		glUniform4fv(colourUniform, 1, glm::value_ptr(colour));
-	}
+		// Vertex indices
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, model.indexBufferObjectId);
+		if (!alreadyInGPU) {
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+				model.indexDataByteSize,
+				model.indexData.data(),
+				GL_STATIC_DRAW);
+		}
 
-	// Lighting
-	GLint lightDirectionUniform = glGetUniformLocation(perspectiveProgram,
-														 "lightDirection");
-	glUniform3fv(lightDirectionUniform, 1,
-				 glm::value_ptr(lightDirection));
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
 
-	GLint lightIntensityUniform = glGetUniformLocation(perspectiveProgram, "lightIntensity");
-	glUniform1f(lightIntensityUniform, lightIntensity);
+		// Normals
+		glBindBuffer(GL_ARRAY_BUFFER, model.normalsBufferObjectId);
+		if (!alreadyInGPU) {
+			glBufferData(GL_ARRAY_BUFFER,
+				model.normalsDataByteSize,
+				model.normalsData.data(),
+				GL_STATIC_DRAW);
+		}
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void *) 0);
 
-	positionNextObject(offset, rotation);
 
-	positionCamera();
+		// Find the colour uniform
+		GLint colourUniform = glGetUniformLocation(perspectiveProgram, "colour");
 
-	// Throw an exception if there was an error in OpenGL, during
-	// any of the above.
-	checkForOpenGLErrors("rendering model", true);
+		if (textureName != "") {
 
-	// Draw
-	glDrawElements(GL_TRIANGLES,
-					 static_cast<GLsizei>(model.indexData.size()),
-					 GL_UNSIGNED_INT, 0);
+			// "Disable" colour since there is a texture
+			glUniform4fv(colourUniform, 1, glm::value_ptr(glm::vec4(0.0f, 0.0f, 0.0f, 0.0f)));
 
-	// Clear stuff
-	if (textureName != "") {
-		glDisableVertexAttribArray(2);
-	}
+			GLuint textureId = this->getTextureHandle(textureName);
 
-	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(0);
+			glBindTexture(GL_TEXTURE_2D, textureId);
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+			// UV Coordinates
 
-	glUseProgram(0);
+			glBindBuffer(GL_ARRAY_BUFFER, model.uvBufferObjectId);
+
+			if (!alreadyInGPU) {
+			glBufferData(GL_ARRAY_BUFFER,
+						model.textureCoordsDataByteSize,
+						model.textureCoordsData.data(),
+						GL_STATIC_DRAW);
+			}
+
+			glEnableVertexAttribArray(2);
+			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+		}
+		else {
+			// If there is no texture, use the given colour
+			glUniform4fv(colourUniform, 1, glm::value_ptr(colour));
+		}
+
+		// Lighting
+		GLint lightDirectionUniform = glGetUniformLocation(perspectiveProgram,
+															"lightDirection");
+		glUniform3fv(lightDirectionUniform, 1,
+					glm::value_ptr(lightDirection));
+
+		GLint lightIntensityUniform = glGetUniformLocation(perspectiveProgram, "lightIntensity");
+		glUniform1f(lightIntensityUniform, lightIntensity);
+
+		positionNextObject(offset, rotation);
+
+		positionCamera();
+
+		// Throw an exception if there was an error in OpenGL, during
+		// any of the above.
+		checkForOpenGLErrors("rendering model", true);
+
+		// Draw
+		glDrawElements(GL_TRIANGLES,
+						static_cast<GLsizei>(model.indexData.size()),
+						GL_UNSIGNED_INT, 0);
+
+		// Clear stuff
+		if (textureName != "")
+			glDisableVertexAttribArray(2);
+
+		glDisableVertexAttribArray(1);
+		glDisableVertexAttribArray(0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+		glUseProgram(0);
 
 	}
 
 	void Renderer::render(Model &model, const glm::vec3 offset, const glm::vec3 rotation,
 			const std::string textureName) const {
-	this->render(model, offset, rotation, glm::vec4(0.0f, 0.0f, 0.0f, 0.0f), textureName);
+		this->render(model, offset, rotation, glm::vec4(0.0f, 0.0f, 0.0f, 0.0f), textureName);
 	}
 
 	void Renderer::render(SceneObject &sceneObject, const glm::vec4 colour) const {
-	this->render(sceneObject.getModel(), sceneObject.offset, sceneObject.rotation, colour, "");
+		this->render(sceneObject.getModel(), sceneObject.offset, sceneObject.rotation, colour, "");
 	}
 
 	void Renderer::render(SceneObject &sceneObject, const std::string textureName) const {
-	this->render(sceneObject.getModel(), sceneObject.offset, sceneObject.rotation, glm::vec4(0.0f, 0.0f, 0.0f, 0.0f), textureName);
+		this->render(sceneObject.getModel(), sceneObject.offset, sceneObject.rotation, glm::vec4(0.0f, 0.0f, 0.0f, 0.0f), textureName);
 	}
 
 	void Renderer::write(const std::string text, const glm::vec3 colour, const glm::vec2 topLeft,
-				 const glm::vec2 bottomRight, const int fontSize, std::string fontPath) {
+			const glm::vec2 bottomRight, const int fontSize, std::string fontPath) {
 
-	std::string faceId = intToStr(fontSize) + fontPath;
+		std::string faceId = intToStr(fontSize) + fontPath;
 
-	auto idFacePair = fontFaces.find(faceId);
-	FT_Face face;
-	FT_Error error;
+		auto idFacePair = fontFaces.find(faceId);
+		FT_Face face;
+		FT_Error error;
 
-	if (idFacePair == fontFaces.end()) {
-		std::string faceFullPath = fontPath;
-		LOGDEBUG("Loading font from " + faceFullPath);
-		error = FT_New_Face(library, faceFullPath.c_str(), 0, &face);
-		if (error != 0) {
-		throw std::runtime_error("Failed to load font from " + faceFullPath);
-		}
-		else{
-		LOGDEBUG("Font loaded successfully");
-		fontFaces.insert(make_pair(faceId, face));
-		}
-	} else {
-		face = idFacePair->second;
-	}
-
-	// Multiplying by 64 to convert to 26.6 fractional points. Using 100dpi.
-	error = FT_Set_Char_Size(face, 64 * fontSize, 0, 100, 0);
-
-	if (error != 0) {
-		throw std::runtime_error("Failed to set font size.");
-	}
-
-	unsigned long width = 0, height =0;
-
-	// Figure out bitmap dimensions
-	for(const char &c: text) {
-		error = FT_Load_Char(face, (FT_ULong) c, FT_LOAD_RENDER);
-		if (error != 0) {
-		throw std::runtime_error("Failed to load character glyph.");
-		}
-		FT_GlyphSlot slot = face->glyph;
-		width += slot->advance.x / 64;
-		if (height < static_cast<unsigned long>(slot->bitmap.rows))
-		height = slot->bitmap.rows;
-	}
-
-	textMemory.resize(4 * width * height * sizeof(float));
-	memset(&textMemory[0], 0, 4 * width * height * sizeof(float));
-
-	unsigned long totalAdvance = 0;
-
-	for(const char &c: text) {
-		error = FT_Load_Char(face, (FT_ULong) c, FT_LOAD_RENDER);
-		if (error != 0) {
-		throw std::runtime_error("Failed to load character glyph.");
-		}
-
-		FT_GlyphSlot slot = face->glyph;
-
-		if (slot->bitmap.width * slot->bitmap.rows > 0) {
-		for (int row = 0; row < static_cast<int>(slot->bitmap.rows); ++row){
-			for (int col = 0; col < static_cast<int>(slot->bitmap.width); ++col) {
-			glm::vec4 colourAlpha = glm::vec4(colour, 0.0f);
-			colourAlpha.a = floorf(100.0f *
-									 (static_cast<float>(slot->bitmap.buffer[row * slot->bitmap.width + col]) / 255.0f) + 0.5f) / 100.0f;
-			memcpy(
-					 &textMemory[4 * width * (height - static_cast<unsigned long>(slot->bitmap_top)
-											+ static_cast<unsigned long>(row)) // row position
-								 + totalAdvance + 4 * (static_cast<unsigned long>(col)
-													 + static_cast<unsigned long>(slot->bitmap_left)) // column position
-								 ],
-					 glm::value_ptr(colourAlpha),
-					 4 * sizeof(float));
+		if (idFacePair == fontFaces.end()) {
+			std::string faceFullPath = fontPath;
+			LOGDEBUG("Loading font from " + faceFullPath);
+			error = FT_New_Face(library, faceFullPath.c_str(), 0, &face);
+			if (error != 0) {
+				throw std::runtime_error("Failed to load font from " + faceFullPath);
+			}
+			else {
+				LOGDEBUG("Font loaded successfully");
+				fontFaces.insert(make_pair(faceId, face));
 			}
 		}
+		else {
+			face = idFacePair->second;
 		}
-		totalAdvance += 4 * static_cast<unsigned long>(slot->advance.x / 64);
 
-	}
+		// Multiplying by 64 to convert to 26.6 fractional points. Using 100dpi.
+		error = FT_Set_Char_Size(face, 64 * fontSize, 0, 100, 0);
 
-	std::string textureName = intToStr(fontSize) + "text_" + text;
-	generateTexture(textureName, &textMemory[0], width, height);
-	renderRectangle(textureName, glm::vec3(topLeft.x, topLeft.y, -0.5f),
-			glm::vec3(bottomRight.x, bottomRight.y, -0.5f));
+		if (error != 0)
+			throw std::runtime_error("Failed to set font size.");
 
-	deleteTexture(textureName);
+		unsigned long width = 0, height =0;
+
+		// Figure out bitmap dimensions
+		for(const char &c: text) {
+			error = FT_Load_Char(face, (FT_ULong) c, FT_LOAD_RENDER);
+			if (error != 0)
+				throw std::runtime_error("Failed to load character glyph.");
+			FT_GlyphSlot slot = face->glyph;
+			width += slot->advance.x / 64;
+			if (height < static_cast<unsigned long>(slot->bitmap.rows))
+				height = slot->bitmap.rows;
+		}
+
+		textMemory.resize(4 * width * height * sizeof(float));
+		memset(&textMemory[0], 0, 4 * width * height * sizeof(float));
+		unsigned long totalAdvance = 0;
+
+		for(const char &c: text) {
+			error = FT_Load_Char(face, (FT_ULong) c, FT_LOAD_RENDER);
+			if (error != 0)
+				throw std::runtime_error("Failed to load character glyph.");
+
+			FT_GlyphSlot slot = face->glyph;
+
+			if (slot->bitmap.width * slot->bitmap.rows > 0) {
+				for (int row = 0; row < static_cast<int>(slot->bitmap.rows); ++row){
+					for (int col = 0; col < static_cast<int>(slot->bitmap.width); ++col) {
+					glm::vec4 colourAlpha = glm::vec4(colour, 0.0f);
+					colourAlpha.a = floorf(100.0f *
+						(static_cast<float>(slot->bitmap.buffer[row * slot->bitmap.width + col]) / 255.0f) + 0.5f) / 100.0f;
+					memcpy(
+							&textMemory[4 * width * (height - static_cast<unsigned long>(slot->bitmap_top)
+								+ static_cast<unsigned long>(row)) // row position
+								+ totalAdvance + 4 * (static_cast<unsigned long>(col)
+								+ static_cast<unsigned long>(slot->bitmap_left)) // column position
+							],
+							glm::value_ptr(colourAlpha),
+							4 * sizeof(float));
+					}
+				}
+			}
+			totalAdvance += 4 * static_cast<unsigned long>(slot->advance.x / 64);
+		}
+
+		std::string textureName = intToStr(fontSize) + "text_" + text;
+		generateTexture(textureName, &textMemory[0], width, height);
+		renderRectangle(textureName, glm::vec3(topLeft.x, topLeft.y, -0.5f),
+				glm::vec3(bottomRight.x, bottomRight.y, -0.5f));
+		deleteTexture(textureName);
 	}
 
 	void Renderer::clearBuffers(Model &model) const {
-	if (model.positionBufferObjectId != 0) {
-		glDeleteBuffers(1, &model.positionBufferObjectId);
-		model.positionBufferObjectId = 0;
-	}
-
-	if (model.indexBufferObjectId != 0) {
-		glDeleteBuffers(1, &model.indexBufferObjectId);
-		model.indexBufferObjectId = 0;
-	}
-	if (model.normalsBufferObjectId != 0) {
-		glDeleteBuffers(1, &model.normalsBufferObjectId);
-		model.normalsBufferObjectId = 0;
-	}
-
-	if (model.uvBufferObjectId != 0) {
-		glDeleteBuffers(1, &model.uvBufferObjectId);
-		model.uvBufferObjectId = 0;
-	}
+		if (model.positionBufferObjectId != 0) {
+			glDeleteBuffers(1, &model.positionBufferObjectId);
+			model.positionBufferObjectId = 0;
+		}
+		if (model.indexBufferObjectId != 0) {
+			glDeleteBuffers(1, &model.indexBufferObjectId);
+			model.indexBufferObjectId = 0;
+		}
+		if (model.normalsBufferObjectId != 0) {
+			glDeleteBuffers(1, &model.normalsBufferObjectId);
+			model.normalsBufferObjectId = 0;
+		}
+		if (model.uvBufferObjectId != 0) {
+			glDeleteBuffers(1, &model.uvBufferObjectId);
+			model.uvBufferObjectId = 0;
+		}
 	}
 
 	void Renderer::clearScreen() const {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	void Renderer::clearScreen(const glm::vec4 colour) const {
-	glClearColor(colour.r, colour.g, colour.b, colour.a);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(colour.r, colour.g, colour.b, colour.a);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	void Renderer::swapBuffers() const {
-	glfwSwapBuffers(window);
+		glfwSwapBuffers(window);
 	}
 
 	/**
@@ -848,38 +828,38 @@ namespace gameEngine {
 	 */
 	std::string openglErrorToString(GLenum error) {
 
-	std::string errorString;
+		std::string errorString;
 
-	switch (error) {
-	case GL_NO_ERROR:
-		errorString = "GL_NO_ERROR: No error has been recorded. The value of this symbolic constant is guaranteed to be 0.";
-		break;
-	case GL_INVALID_ENUM:
-		errorString = "GL_INVALID_ENUM: An unacceptable value is specified for an enumerated argument. The offending command is ignored and has no other side effect than to set the error flag.";
-		break;
-	case GL_INVALID_VALUE:
-		errorString = "GL_INVALID_VALUE: A numeric argument is out of range. The offending command is ignored and has no other side effect than to set the error flag.";
-		break;
-	case GL_INVALID_OPERATION:
-		errorString = "GL_INVALID_OPERATION: The specified operation is not allowed in the current state. The offending command is ignored and has no other side effect than to set the error flag.";
-		break;
-	case GL_INVALID_FRAMEBUFFER_OPERATION:
-		errorString = "GL_INVALID_FRAMEBUFFER_OPERATION: The framebuffer object is not complete. The offending command is ignored and has no other side effect than to set the error flag.";
-		break;
-	case GL_OUT_OF_MEMORY:
-		errorString = "GL_OUT_OF_MEMORY: There is not enough memory left to execute the command. The state of the GL is undefined, except for the state of the error flags, after this error is recorded.";
-		break;
-	case GL_STACK_UNDERFLOW:
-		errorString = "GL_STACK_UNDERFLOW: An attempt has been made to perform an operation that would cause an internal stack to underflow.";
-		break;
-	case GL_STACK_OVERFLOW:
-		errorString = "GL_STACK_OVERFLOW: An attempt has been made to perform an operation that would cause an internal stack to overflow.";
-		break;
-	default:
-		errorString = "Unknown error";
-		break;
-	}
-	return errorString;
+		switch (error) {
+			case GL_NO_ERROR:
+				errorString = "GL_NO_ERROR: No error has been recorded. The value of this symbolic constant is guaranteed to be 0.";
+				break;
+			case GL_INVALID_ENUM:
+				errorString = "GL_INVALID_ENUM: An unacceptable value is specified for an enumerated argument. The offending command is ignored and has no other side effect than to set the error flag.";
+				break;
+			case GL_INVALID_VALUE:
+				errorString = "GL_INVALID_VALUE: A numeric argument is out of range. The offending command is ignored and has no other side effect than to set the error flag.";
+				break;
+			case GL_INVALID_OPERATION:
+				errorString = "GL_INVALID_OPERATION: The specified operation is not allowed in the current state. The offending command is ignored and has no other side effect than to set the error flag.";
+				break;
+			case GL_INVALID_FRAMEBUFFER_OPERATION:
+				errorString = "GL_INVALID_FRAMEBUFFER_OPERATION: The framebuffer object is not complete. The offending command is ignored and has no other side effect than to set the error flag.";
+				break;
+			case GL_OUT_OF_MEMORY:
+				errorString = "GL_OUT_OF_MEMORY: There is not enough memory left to execute the command. The state of the GL is undefined, except for the state of the error flags, after this error is recorded.";
+				break;
+			case GL_STACK_UNDERFLOW:
+				errorString = "GL_STACK_UNDERFLOW: An attempt has been made to perform an operation that would cause an internal stack to underflow.";
+				break;
+			case GL_STACK_OVERFLOW:
+				errorString = "GL_STACK_OVERFLOW: An attempt has been made to perform an operation that would cause an internal stack to overflow.";
+				break;
+			default:
+				errorString = "Unknown error";
+				break;
+		}
+		return errorString;
 	}
 
 }
