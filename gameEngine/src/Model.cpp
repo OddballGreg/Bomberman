@@ -137,18 +137,17 @@ namespace gameEngine {
 						v.push_back(vertices[facesVertexIndices[idx][vertexIndex] - 1][1]);
 						v.push_back(vertices[facesVertexIndices[idx][vertexIndex] - 1][2]);
 						vertices.push_back(v);
-
 						facesVertexIndices[idx][vertexIndex] = static_cast<int>(vertices.size());
 
 						vertexUVPairs->insert(
-								std::make_pair(facesVertexIndices[idx][vertexIndex], textureCoordsIndices[idx][vertexIndex]));
+							std::make_pair(facesVertexIndices[idx][vertexIndex], textureCoordsIndices[idx][vertexIndex]));
 					}
 					// So we don't add a pair if the exact same pair already exists. We do if it does not (see below) or if
 					// the vertex index number exists in a pair with a different texture coordinates index number (see above)
 				}
 				else {
 					vertexUVPairs->insert(
-							std::make_pair(facesVertexIndices[idx][vertexIndex], textureCoordsIndices[idx][vertexIndex]));
+						std::make_pair(facesVertexIndices[idx][vertexIndex], textureCoordsIndices[idx][vertexIndex]));
 				}
 			}
 		}

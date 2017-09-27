@@ -64,14 +64,14 @@ namespace Bomberman {
 	}
 
 	GameLogic::~GameLogic() {
-			delete (_settings);
+		delete (_settings);
 
-			std::cout << "Camera Rotation x: " << renderer->cameraRotation.x << std::endl;
-			std::cout << "Camera Rotation y: " << renderer->cameraRotation.y << std::endl;
-			std::cout << "Camera Rotation z: " << renderer->cameraRotation.z << std::endl;
-			std::cout << "Camera Position x: " << renderer->cameraPosition.x << std::endl;
-			std::cout << "Camera Position y: " << renderer->cameraPosition.y << std::endl;
-			std::cout << "Camera Position z: " << renderer->cameraPosition.z << std::endl;
+		std::cout << "Camera Rotation x: " << renderer->cameraRotation.x << std::endl;
+		std::cout << "Camera Rotation y: " << renderer->cameraRotation.y << std::endl;
+		std::cout << "Camera Rotation z: " << renderer->cameraRotation.z << std::endl;
+		std::cout << "Camera Position x: " << renderer->cameraPosition.x << std::endl;
+		std::cout << "Camera Position y: " << renderer->cameraPosition.y << std::endl;
+		std::cout << "Camera Position z: " << renderer->cameraPosition.z << std::endl;
 	}
 
 	void GameLogic::initGame() {

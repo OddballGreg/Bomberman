@@ -31,15 +31,14 @@ namespace gameEngine {
 
 		std::ifstream shaderFile(fileLocation);
 
-		if (shaderFile.fail()) {
+		if (shaderFile.fail())
 			std::cout << "failed to open " << fileLocation << std::endl;
-		}
+
 		std::string fileContents = "";
 		std::string line;
 
-		while (std::getline(shaderFile, line)) {
+		while (std::getline(shaderFile, line))
 			fileContents += line + '\n';
-		}
 
 		shaderFile.close();
 		std::cout << "file contained: " << fileContents << std::endl;
@@ -48,26 +47,29 @@ namespace gameEngine {
 	}
 
 	GLuint Renderer::compileShader(const std::string shaderSourceFile, const GLenum shaderType) const {
-	GLuint shader = glCreateShader(shaderType);
-	std::string shaderSource = this->loadShaderFromFile(shaderSourceFile);
-	if (shaderSource.length() == 0)
-		throw std::runtime_error("Shader source file '" + shaderSourceFile + "' is empty or not found.");
-	const char *shaderSourceChars = shaderSource.c_str();
-	glShaderSource(shader, 1, &shaderSourceChars, NULL);
-	glCompileShader(shader);
+		GLuint shader = glCreateShader(shaderType);
+		std::string shaderSource = this->loadShaderFromFile(shaderSourceFile);
 
-	GLint status;
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
+		if (shaderSource.length() == 0)
+			throw std::runtime_error("Shader source file '" + shaderSourceFile + "' is empty or not found.");
 
-	if (status == GL_FALSE) {
-		throw std::runtime_error(
-			"Failed to compile shader:\n" + shaderSource + "\n"
-			+ this->getShaderInfoLog(shader));
-	}
-	else {
-		LOGDEBUG("Shader " + shaderSourceFile + " compiled successfully.");
-	}
-	return shader;
+		const char *shaderSourceChars = shaderSource.c_str();
+		glShaderSource(shader, 1, &shaderSourceChars, NULL);
+		glCompileShader(shader);
+
+		GLint status;
+		glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
+
+		if (status == GL_FALSE) {
+			throw std::runtime_error(
+				"Failed to compile shader:\n" + shaderSource + "\n"
+				+ this->getShaderInfoLog(shader));
+		}
+		else {
+			LOGDEBUG("Shader " + shaderSourceFile + " compiled successfully.");
+		}
+
+		return shader;
 	}
 
 	std::string Renderer::getProgramInfoLog(const GLuint linkedProgram) const {

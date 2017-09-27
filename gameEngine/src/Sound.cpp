@@ -18,11 +18,12 @@ namespace gameEngine {
 	PaDeviceIndex Sound::defaultOutput;
 	unsigned int Sound::numInstances = 0;
 
-	int Sound::audioCallback(const void *inputBuffer, void *outputBuffer,
-													 unsigned long framesPerBuffer,
-													 const PaStreamCallbackTimeInfo *timeInfo,
-													 PaStreamCallbackFlags statusFlags,
-													 void *userData) {
+	int Sound::audioCallback(const void *inputBuffer,
+							void *outputBuffer,
+							unsigned long framesPerBuffer,
+							const PaStreamCallbackTimeInfo *timeInfo,
+							PaStreamCallbackFlags statusFlags,
+							void *userData) {
 
 		int result = paContinue;
 		SoundData *soundData = static_cast<SoundData *>(userData);
@@ -37,9 +38,9 @@ namespace gameEngine {
 		} else if (glfwGetTime() - soundData->startTime > soundData->duration) {
 			if (soundData->repeat) {
 #ifdef __linux__
-	soundData->startTime = glfwGetTime() - 0.2;
+				soundData->startTime = glfwGetTime() - 0.2;
 #else
-	soundData->startTime = glfwGetTime() - 0.1;
+				soundData->startTime = glfwGetTime() - 0.1;
 #endif
 				soundData->currentFrame = 0;
 
@@ -166,15 +167,11 @@ namespace gameEngine {
 #endif
 			LOGDEBUG(std::string(soundInfo));
 		}
-
 		this->openStream();
-
 	}
 
 	void Sound::openStream() {
-
 		PaStreamParameters outputParams;
-
 		memset(&outputParams, 0, sizeof(PaStreamParameters));
 		outputParams.device = defaultOutput;
 		outputParams.channelCount = this->soundData.channels;
@@ -192,9 +189,8 @@ namespace gameEngine {
 
 		PaError error;
 
-		error = Pa_OpenStream(&stream, NULL, &outputParams, this->soundData.rate,
-				1024, paNoFlag,
-				Sound::audioCallback, &this->soundData);
+		error = Pa_OpenStream(&stream, NULL, &outputParams, this->soundData.rate, 1024, paNoFlag,
+			Sound::audioCallback, &this->soundData);
 		if (error != paNoError)
 			throw std::runtime_error("Failed to open PortAudio stream: " + std::string(Pa_GetErrorText(error)));
 	}
@@ -251,8 +247,8 @@ namespace gameEngine {
 		this->soundData = other.soundData;
 		this->stream = nullptr;
 		this->openStream();
-		return *this;
 
+		return *this;
 	}
 
 	Sound& Sound::operator=(const Sound&& other) {
@@ -263,6 +259,7 @@ namespace gameEngine {
 		this->soundData = other.soundData;
 		this->stream = nullptr;
 		this->openStream();
+
 		return *this;
 	}
 
