@@ -10,9 +10,9 @@ namespace Bomberman
 
 	typedef struct KeyInput
 	{
-		bool up, down, left, right, enter, camUp, camDown, camLeft, camRight, space, esc,
-		camRotXUp, camRotXDown, camRotYUp, camRotYDown, camRotZUp, camRotZDown,
-		camPosXUp, camPosXDown, camPosYUp, camPosYDown, camPosZUp, camPosZDown;
+		bool	up, down, left, right, enter, camUp, camDown, camLeft, camRight, space, esc,
+				camRotXUp, camRotXDown, camRotYUp, camRotYDown, camRotZUp, camRotZDown,
+				camPosXUp, camPosXDown, camPosYUp, camPosYDown, camPosZUp, camPosZDown;
 
 		KeyInput()
 		{

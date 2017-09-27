@@ -6,6 +6,7 @@
 #define BOMBERMAN_SETTINGS_HPP
 
 class Settings {
+
 public:
 	// Methods
 	Settings();
