@@ -3,9 +3,10 @@
 
 //put the sound on the stack and not on the heap.
 
-void *worker(void *argc){
+void *worker(void *argc) {
 	std::cout << "playing from thread" << std::endl;
-	return  argc;
+
+	return argc;
 }
 
 static void reportError (std::string err)
@@ -16,6 +17,7 @@ static void reportError (std::string err)
 bool isBigEndian()
 {
 	int a=1;
+
 	return !((char*)&a)[0];
 }
 int convertToInt(char* buffer,int len)
@@ -38,23 +40,20 @@ Sound::~Sound() {
 	alDeleteBuffers(1, &_buffer);
 	_rc = pthread_detach(_thread[2]);
 	if (!_thread[2])
-	{
 		std::cout << stderr << "Thread been deleted" << std::endl;
-	}
 }
 
 void Sound::initialize(const char* File) {
 	ALCdevice*  _device;
 	ALCcontext* _context;
+
 	alGetError();
 	_device = alcOpenDevice(NULL);
-	if(_device == NULL){
+	if(_device == NULL)
 		reportError("Failed to open OPENAL device");
-	}
 	_context = alcCreateContext(_device, NULL);
-	if(_context == NULL){
+	if(_context == NULL)
 		reportError("Failed to create context");
-	}
 	alcMakeContextCurrent(_context);
 
 	int			 _channel;
@@ -64,26 +63,20 @@ void Sound::initialize(const char* File) {
 	unsigned int	_format;
 	char		   *_data;
 
-	try{
+	try {
 		_data = loadWAV(File, _channel, _sampleRate, _bps, _size);
-	}catch (std::exception & e){
+	}
+	catch (std::exception & e) {
 		std::cout << "Failed to load file" << e.what() <<std::endl;
 	}
 
 	alGenBuffers(1, &_buffer);
-	if (_channel == 1){
-		if(_bps == 8){
-			_format = AL_FORMAT_MONO8;
-		} else{
-			_format = AL_FORMAT_MONO16;
-		}
-	} else{
-		if(_bps == 8){
-			_format = AL_FORMAT_STEREO8;
-		} else{
-			_format = AL_FORMAT_STEREO16;
-		}
-	}
+
+	if (_channel == 1)
+		_format = (_bps == 8) ? AL_FORMAT_MONO8 : AL_FORMAT_MONO16;
+	else
+		_format = (_bps == 8) ? AL_FORMAT_STEREO8 : AL_FORMAT_STEREO16;
+
 	alBufferData(_buffer, _format, _data, _size, _sampleRate);
 
 	alGenSources(1, &_source);
@@ -97,13 +90,14 @@ void Sound::initialize(const char* File) {
 	delete(_data);
 }
 
-char* Sound::loadWAV(const char* fn,int& chan,int& samplerate,int& bps,int& size){
+char* Sound::loadWAV(const char* fn,int& chan,int& samplerate,int& bps,int& size) {
 	char buffer[4];
 	std::ifstream in(fn, std::ios::binary);
 	in.read(buffer, 4);
-	if (std::strncmp(buffer, "RIFF", 4) != 0){
+
+	if (std::strncmp(buffer, "RIFF", 4) != 0)
 		std::cout << "Not a valid WAV file" << std::endl;
-	}
+
 	in.read(buffer, 4);
 	in.read(buffer, 4); // WAVE
 	in.read(buffer, 4); // fmt
@@ -124,7 +118,6 @@ char* Sound::loadWAV(const char* fn,int& chan,int& samplerate,int& bps,int& size
 	in.read(data, size);
 
 	return data;
-
 }
 
 void Sound::play(bool loop) {
@@ -133,7 +126,9 @@ void Sound::play(bool loop) {
 	float f[] = {1,0,0,0,1,0};
 	alSource3f(_source,AL_POSITION,0,0,0);
 	alListenerfv(AL_ORIENTATION, f);
+
 	if(loop == true)
 		alSourcei(_source, AL_LOOPING, AL_TRUE);
+
 	alSourcePlay(_source);
 }

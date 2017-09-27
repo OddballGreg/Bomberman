@@ -9,9 +9,8 @@
 #include <alc.h>
 
 class Sound {
+
 public:
-
-
 	Sound();
 	Sound(const char *File);
 	~Sound();
