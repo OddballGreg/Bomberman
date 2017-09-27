@@ -5,7 +5,7 @@
 #include "../include/Enemy.hpp"
 
 Enemy::Enemy(const std::string name, const std::string modelPath, Settings *settings, const int numFrames,
-			 const std::string boundingBoxSetPath) :
+		const std::string boundingBoxSetPath) :
 		SceneObject(name, modelPath, numFrames, boundingBoxSetPath), _settings(settings)
 {
 	enemyState = WALKING_STRAIGHT;
@@ -29,7 +29,7 @@ void Enemy::move(float player_x, float player_z)
 
 	float dotPosDir = enemyRelX * enemyDirectionX + enemyRelZ * enemyDirectionZ; // dot product
 
-	if (dotPosDir > 0.98f)
+	if (dotPosDir > 0.4f) // was 0.98, changed to decrease the likelness of getting stuck in a corner. 
 		enemyState = TURNING;
 	else
 		enemyState = WALKING_STRAIGHT;
