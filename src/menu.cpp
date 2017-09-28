@@ -9,16 +9,7 @@ nanogui::Screen		*screen = nullptr;
 
 MenuScreen::MenuScreen(GLFWwindow * pWin) : _win(pWin), _menuState(MenuState::MAIN_MENU)
 {
-    _screen = new nanogui::Screen();
-    _screen->initialize(pWin, false);
 
-    nanogui::FormHelper *gui = new nanogui::FormHelper(_screen);
-
-    _mainMenu = gui->addWindow(nanogui::Vector2i({0, 0}), "Main Menu");
-    _mainMenu->setVisible(true);
-
-    _screen->setVisible(true);
-    _mainMenu->center();
 }
 
 MenuScreen::~MenuScreen()
@@ -43,86 +34,80 @@ void	MenuScreen::menuHandler()
         #endif
     #endif
 
+    // glfwSetCursorPosCallback(_win, [](GLFWwindow *, double x, double y)
+    // 	{
+    // 			screen->cursorPosCallbackEvent(x, y);
+    // 	}
+    // );
 
-//    screen = new nanogui::Screen; // uncomment everything
-//    screen->initialize(_win, 1); //  comment the code below MenuScreen::mainMenu()
-//
-//     glfwSetCursorPosCallback(_win, [](GLFWwindow *, double x, double y)
-//     	{
-//     			screen->cursorPosCallbackEvent(x, y);
-//     	}
-//     );
-//
-//     glfwSetMouseButtonCallback(_win, [](GLFWwindow *, int button, int action, int modifiers)
-//     	{
-//     		screen->mouseButtonCallbackEvent(button, action, modifiers);
-//     	}
-//     );
-//
-//     glfwSetKeyCallback(_win, [](GLFWwindow *, int key, int scancode, int action, int mods)
-//     	{
-//     		screen->keyCallbackEvent(key, scancode, action, mods);
-//     	}
-//     );
-//
-//     glfwSetCharCallback(_win, [](GLFWwindow *, unsigned int codepoint)
-//     	{
-//     		screen->charCallbackEvent(codepoint);
-//     	}
-//     );
+    // glfwSetMouseButtonCallback(_win, [](GLFWwindow *, int button, int action, int modifiers)
+    // 	{
+    // 		screen->mouseButtonCallbackEvent(button, action, modifiers);
+    // 	}
+    // );
+
+    // glfwSetKeyCallback(_win, [](GLFWwindow *, int key, int scancode, int action, int mods)
+    // 	{
+    // 		screen->keyCallbackEvent(key, scancode, action, mods);
+    // 	}
+    // );
+
+    // glfwSetCharCallback(_win, [](GLFWwindow *, unsigned int codepoint)
+    // 	{
+    // 		screen->charCallbackEvent(codepoint);
+    // 	}
+    // );
 
     //Break when going to game
-    switch (_menuState)
+    while (1)
     {
-        case MenuState::MAIN_MENU :
-            mainMenu();
-            break;
-        case MenuState::SETTINGS :
-            settingsMenu();
-            break;
+        switch (_menuState)
+        {
+            case MenuState::MAIN_MENU :
+                mainMenu();
+                break;
+            case MenuState::SETTINGS :
+                settingsMenu();
+                break;
+        }
     }
-    _screen->drawWidgets();
-    _screen->drawContents();
 
     //delete screen;
 }
 
 void	MenuScreen::mainMenu()
 {
-
     /* NEEDED FOR EVERY NEW MENU */
-    //screen = new nanogui::Screen; // move above
-    //screen->initialize(_win, 1); // move above then uncomment above code
+    screen = new nanogui::Screen; // move above
+    screen->initialize(_win, 1); // move above then uncomment above code
 
-    //nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
-    //nanogui::ref<nanogui::Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(10, 10), "Main MenuScreen");
+    nanogui::FormHelper	*gui = new nanogui::FormHelper(screen);
+    nanogui::ref<nanogui::Window> nanoguiWindow = gui->addWindow(Eigen::Vector2i(10, 10), "Main MenuScreen");
 
-    //nanoguiWindow->setLayout(new nanogui::GroupLayout);
+    nanoguiWindow->setLayout(new nanogui::GroupLayout);
     /* ************************* */
 
-    //nanogui::Button	*new_game_button = new nanogui::Button(nanoguiWindow, "New Game");
-    //new_game_button->setCallback([&]
-                                /* {
+    nanogui::Button	*new_game_button = new nanogui::Button(nanoguiWindow, "New Game");
+    new_game_button->setCallback([&]
+                                 {
                                      //ADD code for new game
                                      std::cout << "New Game SHOULD start now!!!\n";
-                                 });*/
+                                 });
 
     /* NEEDED FOR EVERY NEW MENU */
-    //screen->setVisible(1);
-    //screen->performLayout();
-    //nanoguiWindow->center();
+    screen->setVisible(1);
+    screen->performLayout();
+    nanoguiWindow->center();
     /* ************************* */
 
-    /*while (!glfwWindowShouldClose(_win) && _menuState == MenuState::MAIN_MENU)
+    while (!glfwWindowShouldClose(_win) && _menuState == MenuState::MAIN_MENU)
     {
         glfwPollEvents();
         renderMenu();
     }
     nanoguiWindow->dispose();
     delete new_game_button;
-    delete gui;*/
-    _mainMenu->setVisible(true);
-
+    delete gui;
 }
 
 void	MenuScreen::settingsMenu()
