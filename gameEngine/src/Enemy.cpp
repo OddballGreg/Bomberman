@@ -4,6 +4,9 @@
 
 #include "../include/Enemy.hpp"
 
+/*
+** Constructors
+*/
 Enemy::Enemy(const std::string name, const std::string modelPath, Settings *settings, const int numFrames,
 		const std::string boundingBoxSetPath) :
 		SceneObject(name, modelPath, numFrames, boundingBoxSetPath), _settings(settings)
@@ -11,7 +14,22 @@ Enemy::Enemy(const std::string name, const std::string modelPath, Settings *sett
 	enemyState = WALKING_STRAIGHT;
 
 	startAnimating();
-};
+}
+
+Enemy::Enemy(const Enemy &obj)
+{
+	this->enemyState	= obj.enemyState;
+	this->_settings		= obj._settings;
+
+	// SceneObject(obj.SceneObject);
+}
+
+Enemy Enemy::operator = (const Enemy &obj)
+{
+	*this = Enemy(obj);
+
+	return (*this);
+}
 
 void Enemy::move(float player_x, float player_z)
 {

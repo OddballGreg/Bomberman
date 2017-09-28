@@ -2,6 +2,9 @@
 
 namespace gameEngine {
 
+	/*
+	** Constructors
+	*/
 	SceneObject::SceneObject(const std::string name, const std::string modelPath, const int numFrames,
 		const std::string boundingBoxSetPath) :
 		offset(0,0,0), rotation(0,0,0), boundingBoxSet(boundingBoxSetPath) {
@@ -33,6 +36,37 @@ namespace gameEngine {
 		}
 	}
 
+	SceneObject::SceneObject(void) {
+		this->animating		= false;
+		this->frameDelay	= 0;
+		this->currentFrame	= 0;
+		this->framesWaited	= 0;
+		this->numFrames		= 0;
+		this->name			= "";
+	}
+
+	SceneObject::SceneObject(const SceneObject &obj) {
+		this->model			= obj.model;
+		this->animating		= obj.animating;
+		this->frameDelay	= obj.frameDelay;
+		this->currentFrame	= obj.currentFrame;
+		this->framesWaited	= obj.framesWaited;
+		this->numFrames		= obj.numFrames;
+		this->name			= obj.name;
+	}
+
+	/*
+	** Overloaders
+	*/
+	SceneObject SceneObject::operator = (const SceneObject &obj) {
+		*this = SceneObject(obj);
+
+		return (*this);
+	}
+
+	/*
+	** Methods
+	*/
 	Model& SceneObject::getModel() {
 		return model[currentFrame];
 	}
