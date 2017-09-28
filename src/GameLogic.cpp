@@ -390,9 +390,7 @@ namespace Bomberman
 				bombDropped = false;
 				bombDelay = 100;
 
-
                 // Blow stuff up here
-                bool collision = true;
                 if (bomb.offset.z < _maploader._player[0].offset.z + _settings->BOMB_RADIUS
                     && bomb.offset.z > _maploader._player[0].offset.z - _settings->BOMB_RADIUS) {
                     _maploader._player.pop_back();
@@ -405,7 +403,7 @@ namespace Bomberman
                     // YOU LOSE
                 }
 
-                for(int i = _maploader._obstacles.size() -1; i > -1; i--) {
+                for(long i = _maploader._obstacles.size() -1; i > -1; i--) {
                     if (bomb.offset.z < _maploader._obstacles[i].offset.z + _settings->BOMB_RADIUS
                         && bomb.offset.z > _maploader._obstacles[i].offset.z - _settings->BOMB_RADIUS) {
                         _maploader._obstacles.erase(_maploader._obstacles.begin() + i);
@@ -417,7 +415,7 @@ namespace Bomberman
                     }
                 }
 
-                for(int i = _maploader._enemies.size() -1; i > -1; i--) {
+                for(long i = _maploader._enemies.size() -1; i > -1; i--) {
                     if (bomb.offset.z < _maploader._enemies[i].offset.z + _settings->BOMB_RADIUS
                         && bomb.offset.z > _maploader._enemies[i].offset.z - _settings->BOMB_RADIUS) {
                         _maploader._enemies.erase(_maploader._enemies.begin() + i);
