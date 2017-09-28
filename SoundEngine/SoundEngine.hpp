@@ -13,7 +13,10 @@ class Sound {
 public:
 	Sound();
 	Sound(const char *File);
+	Sound(const Sound &obj);
 	~Sound();
+
+	Sound& operator = (const Sound &obj);
 
 	void	initialize(const char* File);
 	char*	loadWAV(const char* fn,int& chan,int& samplerate,int& bps,int& size);

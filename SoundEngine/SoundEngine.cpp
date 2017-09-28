@@ -37,6 +37,25 @@ int convertToInt(char* buffer,int len)
 Sound::Sound() {
 }
 
+Sound::Sound(const Sound &obj) {
+	this->_buffer	= obj._buffer;
+	this->_source	= obj._source;
+	this->_loop		= obj._loop;
+	this->_volume	= obj._volume;
+
+	this->_rc		= obj._rc;
+	this->_status	= obj._status;
+
+	for (int k = 0; k < 5; k++)
+		this->_thread[k] = obj._thread[k];
+}
+
+Sound& Sound::operator = (const Sound &obj) {
+	*this = Sound(obj);
+
+	return (*this);
+}
+
 Sound::~Sound() {
 	alDeleteSources(1, &_source);
 	alDeleteBuffers(1, &_buffer);
