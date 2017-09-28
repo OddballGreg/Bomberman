@@ -49,10 +49,19 @@ namespace gameEngine
 		SceneObject(const std::string name, const std::string modelPath, const int numFrames = 1,
 			const std::string boundingBoxSetPath = "");
 
+		SceneObject(void);
+
+		SceneObject(const SceneObject &obj);
+
 		/**
 		 * @brief Destructor
 		 */
 		~SceneObject() = default;
+
+		/**
+		 * Overloaders
+		 */
+		SceneObject operator = (const SceneObject &obj);
 
 		/**
 		 * @brief Get the object's model

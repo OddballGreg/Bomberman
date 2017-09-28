@@ -6,10 +6,9 @@
 
 namespace gameEngine {
 
-/**
-* Constructor
-*/
-
+	/**
+	* Constructors and Destructor
+	*/
 	BoundingBoxSet::BoundingBoxSet(const std::string fileLocation) {
 		initLogger();
 		vertices.clear();
@@ -21,6 +20,24 @@ namespace gameEngine {
 
 	}
 
+	BoundingBoxSet::BoundingBoxSet(const BoundingBoxSet &obj) {
+		this->numBoxes				= obj.numBoxes;
+		this->vertices				= obj.vertices;
+		this->facesVertexIndexes	= obj.facesVertexIndexes; 
+	}
+
+	/*
+	** Operator Overloads
+	*/
+	BoundingBoxSet BoundingBoxSet::operator = (const BoundingBoxSet &obj) {
+		*this = BoundingBoxSet(obj);
+
+		return (*this);
+	}
+
+	/*
+	** Methods
+	*/
 	void BoundingBoxSet::loadFromFile(std::string fileLocation) {
 		if (vertices.size() != 0) {
 			throw std::runtime_error(
