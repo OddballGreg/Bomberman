@@ -17,7 +17,8 @@ Settings::Settings()
 	ENEMY_ROTATION_SPEED = 0.1f;
 	ENEMY_SPEED = 0.05f;
 
-	PLAY_SOUND = true;
+	PLAY_SOUND = false;
+	COLLISION_ZONE = 1.2f;
 
 	PLAYER_ROTATION_SPEED = 0.06f;
 	PLAYER_SPEED = 0.08f;

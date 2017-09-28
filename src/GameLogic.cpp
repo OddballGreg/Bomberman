@@ -6,8 +6,8 @@
 
 using namespace gameEngine;
 
-namespace Bomberman {
-
+namespace Bomberman
+{
 	GameLogic::GameLogic(Settings *settings) :
 			bomb("bomb", "../resources/models/bomberman/bomb.obj", 1, "../resources/models/bomberman/cube.obj"),
 			_settings(settings), _maploader(settings) {
@@ -98,150 +98,237 @@ namespace Bomberman {
 	}
 
 
-	void GameLogic::movePlayer(const KeyInput &keyInput) {
-		_maploader._player[0].stopAnimating();
+    void GameLogic::movePlayer(const KeyInput &keyInput) {
+        _maploader._player[0].stopAnimating();
 
-		if (keyInput.left) {
-			_maploader._player[0].rotation.y -= _settings->PLAYER_ROTATION_SPEED;
-			// renderer->cameraRotation.y -= PLAYER_ROTATION_SPEED;
-			// renderer->cameraPosition.x += sin(player.rotation.y) * 0.5f;
-			// renderer->cameraPosition.z -= cos(player.rotation.y) * 0.5f;
+        if (keyInput.left)
+        {
+            _maploader._player[0].rotation.y -= _settings->PLAYER_ROTATION_SPEED;
+            // renderer->cameraRotation.y -= PLAYER_ROTATION_SPEED;
+            // renderer->cameraPosition.x += sin(player.rotation.y) * 0.5f;
+            // renderer->cameraPosition.z -= cos(player.rotation.y) * 0.5f;
 
-			// while (player.collidesWith(tree.offset)) {
-			// 	player.rotation.y += PLAYER_ROTATION_SPEED;
-			// }
+            // while (player.collidesWith(tree.offset)) {
+            //   player.rotation.y += PLAYER_ROTATION_SPEED;
+            // }
 
-			if (_maploader._player[0].rotation.y < -_settings->FULL_ROTATION)
-				_maploader._player[0].rotation.y = 0.0f;
-			_maploader._player[0].startAnimating();
+            if (_maploader._player[0].rotation.y < -_settings->FULL_ROTATION)
+                _maploader._player[0].rotation.y = 0.0f;
+            _maploader._player[0].startAnimating();
 
-		}
-		else if (keyInput.right) {
-			_maploader._player[0].rotation.y += _settings->PLAYER_ROTATION_SPEED;
-			// renderer->cameraRotation.y += PLAYER_ROTATION_SPEED;
-			// while (player.collidesWith(tree.offset)) {
-			// 	player.rotation.y -= PLAYER_ROTATION_SPEED;
-			// }
-
-
-			if (_maploader._player[0].rotation.y > _settings->FULL_ROTATION)
-				_maploader._player[0].rotation.y = 0.0f;
-			_maploader._player[0].startAnimating();
-		}
-
-		if (keyInput.up) {
-			_maploader._player[0].offset.x += sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-			_maploader._player[0].offset.z -= cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-			// std::cout << "x: " << _maploader._player[0].offset.x << " z: " << _maploader._player[0].offset.z << std::endl;
-			_maploader._player[0].offset.x += sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-			_maploader._player[0].offset.z -= cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-			// renderer->cameraPosition.x = (player.offset.x) + 4;
-			// renderer->cameraPosition.z = (player.offset.z) + 4;
-
-			// while (player.collidesWith(wall)) {
-			// 	player.offset.x -= sin(player.rotation.y) * PLAYER_SPEED;
-			// 	player.offset.z += cos(player.rotation.y) * PLAYER_SPEED;
-			// }
-
-			_maploader._player[0].startAnimating();
-		}
-		else if (keyInput.down) {
-			_maploader._player[0].offset.x -= sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-			_maploader._player[0].offset.z += cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-			// renderer->cameraPosition.z = (player.offset.z) + 4;
-
-			// while (player.collidesWith(tree)) {
-			// 	player.offset.x += sin(player.rotation.y) * PLAYER_SPEED;
-			// 	player.offset.z -= cos(player.rotation.y) * PLAYER_SPEED;
-			// }
-
-			// player chase camera
-
-			_maploader._player[0].startAnimating();
-		}
-
-		// if (player.offset.z < MIN_Z + 1.0f)
-		// 	player.offset.z = MIN_Z + 1.0f;
-		// if (player.offset.z > MAX_Z - 1.0f)
-		// 	player.offset.z = MAX_Z - 1.0f;
-
-		// if (player.offset.x < player.offset.z)
-		// 	player.offset.x = player.offset.z;
-		// if (player.offset.x > -(player.offset.z))
-		// 	player.offset.x = -(player.offset.z);
-
-		if (_maploader._player[0].offset.z > _settings->MAX_Z)
-			_maploader._player[0].offset.z = _settings->MAX_Z;
-		if (_maploader._player[0].offset.z < _settings->MIN_Z)
-			_maploader._player[0].offset.z = _settings->MIN_Z;
-		if (_maploader._player[0].offset.x > _settings->MAX_X)
-			_maploader._player[0].offset.x = _settings->MAX_X;
-		if (_maploader._player[0].offset.x < _settings->MIN_X)
-			_maploader._player[0].offset.x = _settings->MIN_X;
+        }
+        else if (keyInput.right)
+        {
+            _maploader._player[0].rotation.y += _settings->PLAYER_ROTATION_SPEED;
+            // renderer->cameraRotation.y += PLAYER_ROTATION_SPEED;
+            // while (player.collidesWith(tree.offset)) {
+            //   player.rotation.y -= PLAYER_ROTATION_SPEED;
+            // }
 
 
-		if (keyInput.camRotXUp)
-			renderer->cameraRotation.x += cos(_maploader._player[0].rotation.y) * 0.05f;
-		else if (keyInput.camRotXDown)
-			renderer->cameraRotation.x -= cos(_maploader._player[0].rotation.y) * 0.05f;
-		else if (keyInput.camRotYUp)
-			renderer->cameraRotation.y += cos(_maploader._player[0].rotation.y) * 0.05f;
-		else if (keyInput.camRotYDown)
-			renderer->cameraRotation.y -= cos(_maploader._player[0].rotation.y) * 0.05f;
-		else if (keyInput.camRotZUp)
-			renderer->cameraRotation.z += cos(_maploader._player[0].rotation.y) * 0.05f;
-		else if (keyInput.camRotZDown)
-			renderer->cameraRotation.z -= cos(_maploader._player[0].rotation.y) * 0.05f;
-		else if (keyInput.camPosXUp)
-			renderer->cameraPosition.x += 0.5f;
-		else if (keyInput.camPosXDown)
-			renderer->cameraPosition.x -= 0.5f;
-		else if (keyInput.camPosYUp)
-			renderer->cameraPosition.y += 0.5f;
-		else if (keyInput.camPosYDown)
-			renderer->cameraPosition.y -= 0.5f;
-		else if (keyInput.camPosZUp)
-			renderer->cameraPosition.z += 0.5f;
-		else if (keyInput.camPosZDown)
-			renderer->cameraPosition.z -= 0.5f;
+            if (_maploader._player[0].rotation.y > _settings->FULL_ROTATION)
+                _maploader._player[0].rotation.y = 0.0f;
+            _maploader._player[0].startAnimating();
+        }
 
-		_maploader._player[0].animate();
-		if (keyInput.space && !bombDropped) {
-			bombDropped = true;
-			bomb.offset = _maploader._player[0].offset;
-			bomb.startAnimating();
-		}
+        if (keyInput.up)
+        {
+            glm::vec3 temp = _maploader._player[0].offset;
+            temp.x += sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+            temp.z -= cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
 
-		// renderer->cameraPosition.x -= sin(player.rotation.y) * 3.0f;
-		// renderer->cameraPosition.z += cos(player.rotation.y) * 3.0f;
+            bool collision = false;
+            for(int i = _maploader._walls.size() -1; i > -1; i--)
+                if (temp.z < _maploader._walls[i].offset.z + _settings->COLLISION_ZONE
+                    && temp.z > _maploader._walls[i].offset.z - _settings->COLLISION_ZONE
+                    && temp.x < _maploader._walls[i].offset.x + _settings->COLLISION_ZONE
+                    && temp.x > _maploader._walls[i].offset.x - _settings->COLLISION_ZONE)
+                    collision = true;
 
-		// renderer->cameraPosition = player.offset;
-		// renderer->cameraPosition.x -= sin(player.rotation.y) * 5.0f;
-		// renderer->cameraPosition.z += cos(player.rotation.y) * 5.0f;
-		// renderer->cameraPosition.y = 16.0f;
-		// renderer->cameraRotation = player.rotation;
-		// renderer->cameraRotation.x = 1.1f;
+            for(int i = _maploader._obstacles.size() -1; i > -1; i--)
+                if (temp.z < _maploader._obstacles[i].offset.z + _settings->COLLISION_ZONE
+                    && temp.z > _maploader._obstacles[i].offset.z - _settings->COLLISION_ZONE
+                    && temp.x < _maploader._obstacles[i].offset.x + _settings->COLLISION_ZONE
+                    && temp.x > _maploader._obstacles[i].offset.x - _settings->COLLISION_ZONE)
+                    collision = true;
 
-		//renderer->cameraPosition = player.offset;
-		renderer->cameraPosition.x = 0.0f;
-		renderer->cameraPosition.z = 11.32f;
-		renderer->cameraPosition.y = 16.0f;
-		renderer->cameraRotation.x = 1.1f;
+            for(int i = _maploader._enemies.size() -1; i > -1; i--)
+                if (temp.z < _maploader._enemies[i].offset.z + _settings->COLLISION_ZONE
+                    && temp.z > _maploader._enemies[i].offset.z - _settings->COLLISION_ZONE
+                    && temp.x < _maploader._enemies[i].offset.x + _settings->COLLISION_ZONE
+                    && temp.x > _maploader._enemies[i].offset.x - _settings->COLLISION_ZONE)
+                    collision = true;
 
-		// Uncomment to see the player's view of the world
-		// renderer->cameraPosition = player.offset;
-		// renderer->cameraPosition.y += 1.0f;
-		// renderer->cameraRotation = player.rotation;
+            if (collision == false)
+            {
+                _maploader._player[0].offset.x += sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+                _maploader._player[0].offset.z -= cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+                // std::cout << "x: " << _maploader._player[0].offset.x << " z: " << _maploader._player[0].offset.z << std::endl;
+                // renderer->cameraPosition.x = (player.offset.x) + 4;
+                // renderer->cameraPosition.z = (player.offset.z) + 4;
+            }
 
-	}
 
-	void GameLogic::processGame(const KeyInput &keyInput) {
+            // while (player.collidesWith(wall)) {
+            //   player.offset.x -= sin(player.rotation.y) * PLAYER_SPEED;
+            //   player.offset.z += cos(player.rotation.y) * PLAYER_SPEED;
+            // }
 
-		movePlayer(keyInput);
+            _maploader._player[0].startAnimating();
+        }
+        else if (keyInput.down)
+        {
+            glm::vec3 temp = _maploader._player[0].offset;
+            bool collision = false;
+            for(int i = _maploader._walls.size() -1; i > -1; i--)
+                if (temp.z < _maploader._walls[i].offset.z + _settings->COLLISION_ZONE
+                    && temp.z > _maploader._walls[i].offset.z - _settings->COLLISION_ZONE
+                    && temp.x < _maploader._walls[i].offset.x + _settings->COLLISION_ZONE
+                    && temp.x > _maploader._walls[i].offset.x - _settings->COLLISION_ZONE)
+                    collision = true;
 
-		for(int i = _maploader._enemies.size() - 1; i > -1; i--)
-			_maploader._enemies[i].move(_maploader._player[0].offset.x, _maploader._player[0].offset.z);
-	}
+            for(int i = _maploader._obstacles.size() -1; i > -1; i--)
+                if (temp.z < _maploader._obstacles[i].offset.z + _settings->COLLISION_ZONE
+                    && temp.z > _maploader._obstacles[i].offset.z - _settings->COLLISION_ZONE
+                    && temp.x < _maploader._obstacles[i].offset.x + _settings->COLLISION_ZONE
+                    && temp.x > _maploader._obstacles[i].offset.x - _settings->COLLISION_ZONE)
+                    collision = true;
+
+            for(int i = _maploader._enemies.size() -1; i > -1; i--)
+                if (temp.z < _maploader._enemies[i].offset.z + _settings->COLLISION_ZONE
+                    && temp.z > _maploader._enemies[i].offset.z - _settings->COLLISION_ZONE
+                    && temp.x < _maploader._enemies[i].offset.x + _settings->COLLISION_ZONE
+                    && temp.x > _maploader._enemies[i].offset.x - _settings->COLLISION_ZONE)
+                    collision = true;
+
+            if (collision == false)
+            {
+                _maploader._player[0].offset.x -= sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+                _maploader._player[0].offset.z += cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+            }
+            // renderer->cameraPosition.z = (player.offset.z) + 4;
+
+            // while (player.collidesWith(tree)) {
+            //   player.offset.x += sin(player.rotation.y) * PLAYER_SPEED;
+            //   player.offset.z -= cos(player.rotation.y) * PLAYER_SPEED;
+            // }
+
+            // player chase camera
+
+            _maploader._player[0].startAnimating();
+        }
+
+        // if (player.offset.z < MIN_Z + 1.0f)
+        //   player.offset.z = MIN_Z + 1.0f;
+        // if (player.offset.z > MAX_Z - 1.0f)
+        //   player.offset.z = MAX_Z - 1.0f;
+
+        // if (player.offset.x < player.offset.z)
+        //   player.offset.x = player.offset.z;
+        // if (player.offset.x > -(player.offset.z))
+        //   player.offset.x = -(player.offset.z);
+
+        if (_maploader._player[0].offset.z > _settings->MAX_Z)
+            _maploader._player[0].offset.z = _settings->MAX_Z;
+        if (_maploader._player[0].offset.z < _settings->MIN_Z)
+            _maploader._player[0].offset.z = _settings->MIN_Z;
+        if (_maploader._player[0].offset.x > _settings->MAX_X)
+            _maploader._player[0].offset.x = _settings->MAX_X;
+        if (_maploader._player[0].offset.x < _settings->MIN_X)
+            _maploader._player[0].offset.x = _settings->MIN_X;
+
+
+        if (keyInput.camRotXUp)
+            renderer->cameraRotation.x += cos(_maploader._player[0].rotation.y) * 0.05f;
+        else if (keyInput.camRotXDown)
+            renderer->cameraRotation.x -= cos(_maploader._player[0].rotation.y) * 0.05f;
+        else if (keyInput.camRotYUp)
+            renderer->cameraRotation.y += cos(_maploader._player[0].rotation.y) * 0.05f;
+        else if (keyInput.camRotYDown)
+            renderer->cameraRotation.y -= cos(_maploader._player[0].rotation.y) * 0.05f;
+        else if (keyInput.camRotZUp)
+            renderer->cameraRotation.z += cos(_maploader._player[0].rotation.y) * 0.05f;
+        else if (keyInput.camRotZDown)
+            renderer->cameraRotation.z -= cos(_maploader._player[0].rotation.y) * 0.05f;
+        else if (keyInput.camPosXUp)
+            renderer->cameraPosition.x += 0.5f;
+        else if (keyInput.camPosXDown)
+            renderer->cameraPosition.x -= 0.5f;
+        else if (keyInput.camPosYUp)
+            renderer->cameraPosition.y += 0.5f;
+        else if (keyInput.camPosYDown)
+            renderer->cameraPosition.y -= 0.5f;
+        else if (keyInput.camPosZUp)
+            renderer->cameraPosition.z += 0.5f;
+        else if (keyInput.camPosZDown)
+            renderer->cameraPosition.z -= 0.5f;
+
+        _maploader._player[0].animate();
+        if (keyInput.space && !bombDropped)
+        {
+            bombDropped = true;
+            bomb.offset = _maploader._player[0].offset;
+            bomb.startAnimating();
+        }
+
+        // renderer->cameraPosition.x -= sin(player.rotation.y) * 3.0f;
+        // renderer->cameraPosition.z += cos(player.rotation.y) * 3.0f;
+
+        // renderer->cameraPosition = player.offset;
+        // renderer->cameraPosition.x -= sin(player.rotation.y) * 5.0f;
+        // renderer->cameraPosition.z += cos(player.rotation.y) * 5.0f;
+        // renderer->cameraPosition.y = 16.0f;
+        // renderer->cameraRotation = player.rotation;
+        // renderer->cameraRotation.x = 1.1f;
+
+        //renderer->cameraPosition = player.offset;
+        renderer->cameraPosition.x = 0.0f;
+        renderer->cameraPosition.z = 11.32f;
+        renderer->cameraPosition.y = 16.0f;
+        renderer->cameraRotation.x = 1.1f;
+
+        // Uncomment to see the player's view of the world
+        // renderer->cameraPosition = player.offset;
+        // renderer->cameraPosition.y += 1.0f;
+        // renderer->cameraRotation = player.rotation;
+
+    }
+
+    void GameLogic::processGame(const KeyInput &keyInput)
+    {
+        movePlayer(keyInput);
+
+        for(int i = _maploader._enemies.size() - 1; i > -1; i--)
+        {
+            int me = i;
+            glm::vec3 temp = _maploader._enemies[i].offset;
+
+            bool collision = false;
+            for(int i = _maploader._walls.size() -1; i > -1; i--)
+                if (temp.z < _maploader._walls[i].offset.z + _settings->COLLISION_ZONE
+                    && temp.z > _maploader._walls[i].offset.z - _settings->COLLISION_ZONE
+                    && temp.x < _maploader._walls[i].offset.x + _settings->COLLISION_ZONE
+                    && temp.x > _maploader._walls[i].offset.x - _settings->COLLISION_ZONE)
+                    collision = true;
+
+            for(int i = _maploader._obstacles.size() -1; i > -1; i--)
+                if (temp.z < _maploader._obstacles[i].offset.z + _settings->COLLISION_ZONE
+                    && temp.z > _maploader._obstacles[i].offset.z - _settings->COLLISION_ZONE
+                    && temp.x < _maploader._obstacles[i].offset.x + _settings->COLLISION_ZONE
+                    && temp.x > _maploader._obstacles[i].offset.x - _settings->COLLISION_ZONE)
+                    collision = true;
+
+            for(int i = _maploader._enemies.size() -1; i > -1; i--)
+                if (temp.z < _maploader._enemies[i].offset.z + _settings->COLLISION_ZONE
+                    && temp.z > _maploader._enemies[i].offset.z - _settings->COLLISION_ZONE
+                    && temp.x < _maploader._enemies[i].offset.x + _settings->COLLISION_ZONE
+                    && temp.x > _maploader._enemies[i].offset.x - _settings->COLLISION_ZONE
+                    && i != me)
+                    collision = true;
+            if (collision == false)
+                _maploader._enemies[i].move(_maploader._player[0].offset.x, _maploader._player[0].offset.z);
+        }
+    }
 
 	void GameLogic::processStartScreen(const KeyInput &keyInput)
 	{

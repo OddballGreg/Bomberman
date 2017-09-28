@@ -15,9 +15,6 @@ class MapLoader
 {
 
 	public:
-	float	GROUND_Y	= -1.0f;
-	float	SCALE		= 2.0f;
-
 	MapLoader(Settings *settings);
 	~MapLoader() = default;
 

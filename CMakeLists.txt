@@ -41,7 +41,7 @@ set(RESOURCE_DIRS
         gameEngine/resources/shaders/OpenGL21/
         gameEngine/resources/fonts/
 		SoundEngine/music/
-		maps
+		maps/
         )
 
 set(SOURCE_FILES

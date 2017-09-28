@@ -8,7 +8,6 @@
 #include "../include/SceneObject.hpp"
 #include "../include/Settings.hpp"
 
-
 class Enemy : public gameEngine::SceneObject
 {
 public:
