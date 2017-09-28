@@ -24,6 +24,7 @@ namespace Bomberman {
 		SceneObject bomb;
 		Sound explosion;
 		Settings *_settings;
+		int level;
 
 		enum GameState {
 			START_SCREEN,
@@ -40,7 +41,7 @@ namespace Bomberman {
 		void processStartScreen(const KeyInput &keyInput);
 		void movePlayer(const KeyInput &keyInput);
 
-		bool	bombDropped;
+		bool bombDropped;
 		int	 bombDelay;
 
 	public:

@@ -12,9 +12,9 @@ namespace Bomberman
 			bomb("bomb", "../resources/models/bomberman/bomb.obj", 1, "../resources/models/bomberman/cube.obj"),
 			_settings(settings), _maploader(settings) {
 
-		_maploader.load_map("../maps/map.txt");
+		_maploader.load_map(1);
 
-		renderer = &Renderer::getInstance("BombermanTestV1", 0, 0, 1.2f);
+		renderer = &Renderer::getInstance(settings, "BombermanTestV1", 0, 0, 1.2f);
 
 		Image startScreenTexture("../resources/images/bom.png");
 		renderer->generateTexture("startScreen", startScreenTexture);
@@ -65,23 +65,12 @@ namespace Bomberman
 
 	GameLogic::~GameLogic() {
 		delete (_settings);
-
-		std::cout << "Camera Rotation x: " << renderer->cameraRotation.x << std::endl;
-		std::cout << "Camera Rotation y: " << renderer->cameraRotation.y << std::endl;
-		std::cout << "Camera Rotation z: " << renderer->cameraRotation.z << std::endl;
-		std::cout << "Camera Position x: " << renderer->cameraPosition.x << std::endl;
-		std::cout << "Camera Position y: " << renderer->cameraPosition.y << std::endl;
-		std::cout << "Camera Position z: " << renderer->cameraPosition.z << std::endl;
 	}
 
-	void GameLogic::initGame() {
+	void GameLogic::initGame()
+    {
 		bomb.offset = glm::vec3(0, 0, 0);
 		_maploader._player[0].startAnimating();
-		// int i = _maploader._enemies.size();
-		// while (i > -1)
-		// {
-		// 	_maploader._enemies[i--].startAnimating();
-		// }
 
 		renderer->cameraPosition.x = _maploader._player[0].offset.x;
 		renderer->cameraPosition.y = 8;
@@ -97,8 +86,8 @@ namespace Bomberman
 		this->_screen = screen;
 	}
 
-
-    void GameLogic::movePlayer(const KeyInput &keyInput) {
+    void GameLogic::movePlayer(const KeyInput &keyInput)
+    {
         _maploader._player[0].stopAnimating();
 
         if (keyInput.left)
@@ -298,6 +287,8 @@ namespace Bomberman
     {
         movePlayer(keyInput);
 
+        // This code determines if an enemy is colliding with something and prevents them from moving
+        // Move it to the enemy class at a later stage, modify behaviour to turn
         for(int i = _maploader._enemies.size() - 1; i > -1; i--)
         {
             int me = i;
@@ -398,6 +389,46 @@ namespace Bomberman
 			{
 				bombDropped = false;
 				bombDelay = 100;
+
+
+                // Blow stuff up here
+                bool collision = true;
+                if (bomb.offset.z < _maploader._player[0].offset.z + _settings->BOMB_RADIUS
+                    && bomb.offset.z > _maploader._player[0].offset.z - _settings->BOMB_RADIUS) {
+                    _maploader._player.pop_back();
+                    exit(0);
+                    // YOU LOSE
+                } else if (bomb.offset.x < _maploader._player[0].offset.x + _settings->BOMB_RADIUS
+                    && bomb.offset.x > _maploader._player[0].offset.x - _settings->BOMB_RADIUS) {
+                    _maploader._player.pop_back();
+                    exit(0);
+                    // YOU LOSE
+                }
+
+                for(int i = _maploader._obstacles.size() -1; i > -1; i--) {
+                    if (bomb.offset.z < _maploader._obstacles[i].offset.z + _settings->BOMB_RADIUS
+                        && bomb.offset.z > _maploader._obstacles[i].offset.z - _settings->BOMB_RADIUS) {
+                        _maploader._obstacles.erase(_maploader._obstacles.begin() + i);
+                        i = _maploader._obstacles.size() -1;
+                    } else if (bomb.offset.x < _maploader._obstacles[i].offset.x + _settings->BOMB_RADIUS
+                         && bomb.offset.x > _maploader._obstacles[i].offset.x - _settings->BOMB_RADIUS) {
+                        _maploader._obstacles.erase(_maploader._obstacles.begin() + i);
+                        i = _maploader._obstacles.size() -1;
+                    }
+                }
+
+                for(int i = _maploader._enemies.size() -1; i > -1; i--) {
+                    if (bomb.offset.z < _maploader._enemies[i].offset.z + _settings->BOMB_RADIUS
+                        && bomb.offset.z > _maploader._enemies[i].offset.z - _settings->BOMB_RADIUS) {
+                        _maploader._enemies.erase(_maploader._enemies.begin() + i);
+                        i = _maploader._enemies.size() -1;
+                    } else if (bomb.offset.x < _maploader._enemies[i].offset.x + _settings->BOMB_RADIUS
+                        && bomb.offset.x > _maploader._enemies[i].offset.x - _settings->BOMB_RADIUS) {
+                        _maploader._enemies.erase(_maploader._enemies.begin() + i);
+                        i = _maploader._enemies.size() -1;
+                    }
+                }
+
 				if (_settings->PLAY_SOUND)
 				{
 					explosion.initialize("../SoundEngine/music/explosion.wav");

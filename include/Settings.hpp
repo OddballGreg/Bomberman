@@ -26,6 +26,10 @@ public:
     float FULL_ROTATION;
     bool  VERBOSE;
     float COLLISION_ZONE;
+    int   BOMB_RADIUS;
+
+    int   SCREEN_WIDTH;
+    int   SCREEN_HEIGHT;
 
 private:
 

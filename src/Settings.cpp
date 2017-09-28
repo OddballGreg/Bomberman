@@ -24,4 +24,6 @@ Settings::Settings()
 	PLAYER_SPEED = 0.08f;
 
 	FULL_ROTATION = 6.28f; // More or less 360 degrees in radians
+
+    BOMB_RADIUS = 2;
 }

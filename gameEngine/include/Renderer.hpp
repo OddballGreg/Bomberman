@@ -7,6 +7,7 @@
 #include "Image.hpp"
 #include "Model.hpp"
 #include "SceneObject.hpp"
+#include "../include/Settings.hpp"
 
 #include <unordered_map>
 #include <vector>
@@ -28,6 +29,7 @@ namespace gameEngine
 
 	private:
 
+		Settings *_settings;
 		GLFWwindow* window;
 
 		GLuint perspectiveProgram;
@@ -69,7 +71,7 @@ namespace gameEngine
 
 		Renderer(const std::string windowTitle, const int width, const int height, const float frustumScale,
 			const float zNear, const float zFar, const float zOffsetFromCamera,
-			const std::string shadersPath);
+			const std::string shadersPath, Settings *settings);
 
 		Renderer() {};
 
@@ -116,7 +118,7 @@ namespace gameEngine
 		 *				 sicne declaring another Renderer variable and assigning to it would invoke the default constructor, which has
 		 *				 been deleted.
 		 */
-		static Renderer& getInstance(const std::string windowTitle = "", const int width = 0,
+		static Renderer& getInstance(Settings *settings, const std::string windowTitle = "", const int width = 0,
 			const int height = 0, const float frustumScale = 1.0f, const float zNear = 1.0f,
 			const float zFar = 24.0f, const float zOffsetFromCamera = -1.0f,
 			const std::string shadersPath = "../gameEngine/resources/shaders/");

@@ -18,7 +18,7 @@ class MapLoader
 	MapLoader(Settings *settings);
 	~MapLoader() = default;
 
-	void load_map(std::string mapname);
+	void load_map(int level);
 	void spawn_object(char type_char, float x_coord, float y_coord);
 
 	std::vector<Enemy> _enemies;
