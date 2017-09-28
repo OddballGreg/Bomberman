@@ -1,0 +1,73 @@
+Compile -Wall -Wextra -Werror
+Latest OpenGL
+
+All classes in Canonical Form
+Except abstract classes
+
+Only templates and virtual destructor 's cna be implemented in header files
+
+using namespace is forbidden
+
+CMakeLists.txt					--done
+
+Graphics, Animations and levels, solo game.
+
+1:	The player can access a main menu to:
+		1.a: Start a new game
+		1.b: Load a save
+		1.c: Adjust game settings
+		1.d: Exit the game
+
+2:	The game, feeeling, pace and difficulty 
+	must be as close as possible to the original game
+
+3:	The player must win at least 3 different levels.
+
+4:	If the player loses the game must state it clearly
+		4.a: State that you have lost
+		4.b: Restart the current level
+		4.c: Issuing a game over
+		4.d: Same for passing the game
+
+5:	The main menu and the 3 levels must have their own music.
+		5.a: Every relevant event must trigger a sound
+		5.b: A bomb exploding
+		5.c: Picking up a power up
+		5.d: Killing an enemy
+		5.e: Dying.
+
+6:	Visual assets should be 3D, but gameplay must stay 3D
+		6.a: Camera may shift and rotate around the player
+		6.b: Focus on player and spin while he dies.
+
+7:	May use any 3D model of Bomberman you wish. Texturing can be own.
+
+8:	Menu should let you customize:
+		8.a: the screen resolution
+		8.b: Windowed or full screen mode
+		8.c: Key Bindings
+		8.d: Music and sound volumes
+
+9:	The game must offer a way to save the player's progression and restore it on demand
+		9.a: Regular save or campaign mechanic
+		9.b: Persistance must remain.
+
+10:	Manage the camera so that the "outside of the game is never visible"
+		10.a: Graphic design
+		10.b: Level design
+		10.c: Sound design
+		10.d: Variations in enemies
+		10.e: Variations in environments
+
+BONUS:
+
+	Accurate classes diagram
+	Full code documentation
+	Stand alone game installer for OSX
+	Intro, cut scenes and outro to give your game some sort of plot
+	More than 3 levels
+	Random layout of the levels
+
+	Most bonus points reserved for that above.
+	
+	 

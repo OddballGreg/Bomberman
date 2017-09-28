@@ -50,6 +50,8 @@ set(SOURCE_FILES
         src/GameLogic.cpp
         src/MapLoader.cpp
         include/MapLoader.hpp
+		include/menu.hpp
+		src/menu.cpp
 		SoundEngine/SoundEngine.cpp
 		SoundEngine/SoundEngine.hpp
         gameEngine/src/BoundingBoxSet.cpp
@@ -69,7 +71,9 @@ set(SOURCE_FILES
         gameEngine/include/SceneObject.hpp
 		gameEngine/include/Menu.hpp
 		gameEngine/src/Enemy.cpp
-		gameEngine/include/Enemy.hpp src/Settings.cpp include/Settings.hpp)
+		gameEngine/include/Enemy.hpp
+		src/Settings.cpp
+		include/Settings.hpp)
 
 # Directories to find the header files
 include_directories(
@@ -79,6 +83,11 @@ include_directories(
 		~/.brew/include/eigen3
 		${OPENAL_INCLUDE_DIR}
 		~/.brew/opt/alut/include
+		${PROJECT_SOURCE_DIR}/external/nanogui/include
+		${PROJECT_SOURCE_DIR}/external/nanogui/ext
+		${PROJECT_SOURCE_DIR}/external/nanogui/ext/nanovg/src
+		${PROJECT_SOURCE_DIR}/external/nanogui/ext/eigen
+		${PROJECT_SOURCE_DIR}/external/nanogui/ext/glfw/include
         #${NANOGUI_DIR}/include
 		#${NANOGUI_DIR}/ext/nanovg/src
 		#${NANOGUI_DIR}/ext/pybind11/include

@@ -11,21 +11,21 @@
 class Enemy : public gameEngine::SceneObject
 {
 public:
-    Enemy(const std::string name, const std::string, Settings *settings, const int numFrames = 1,
-                 const std::string boundingBoxSetPath = "");
-    ~Enemy() = default;
-    void move(float player_x, float player_z);
+	Enemy(const std::string name, const std::string, Settings *settings, const int numFrames = 1,
+				 const std::string boundingBoxSetPath = "");
+	~Enemy() = default;
+	void move(float player_x, float player_z);
 
-    enum EnemyState {
-        TURNING,
-        WALKING_STRAIGHT
-    };
+	enum EnemyState {
+		TURNING,
+		WALKING_STRAIGHT
+	};
 
-    EnemyState enemyState;
+	EnemyState enemyState;
 
 private:
 
-    Settings *_settings;
+	Settings *_settings;
 };
 
 

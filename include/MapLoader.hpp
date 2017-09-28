@@ -11,26 +11,24 @@
 #include <vector>
 #include <iostream>
 
-class MapLoader 
+class MapLoader
 {
 
-    public:
-    MapLoader(Settings *settings);
-    ~MapLoader() = default;
+	public:
+	MapLoader(Settings *settings);
+	~MapLoader() = default;
 
-    void load_map(std::string mapname);
-    void spawn_object(char type_char, float x_coord, float y_coord);
+	void load_map(std::string mapname);
+	void spawn_object(char type_char, float x_coord, float y_coord);
 
-    float GROUND_Y = -1.0f;
+	std::vector<Enemy> _enemies;
+	std::vector<gameEngine::SceneObject> _walls;
+	std::vector<gameEngine::SceneObject> _obstacles;
+	std::vector<gameEngine::SceneObject> _player;
 
-    std::vector<Enemy> _enemies;
-    std::vector<gameEngine::SceneObject> _walls;
-    std::vector<gameEngine::SceneObject> _obstacles;
-    std::vector<gameEngine::SceneObject> _player;
+	Settings *_settings;
 
-    Settings *_settings;
-    
-    private:
+	private:
 
 };
 
