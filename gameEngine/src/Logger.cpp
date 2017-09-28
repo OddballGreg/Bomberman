@@ -22,9 +22,19 @@ namespace gameEngine {
 		logStream = &stream;
 	}
 
+	Logger::Logger(const Logger &obj) {
+		this->logStream = obj.logStream;
+	}
+
 	Logger::~Logger() {
 		this->append(loggerinfo, "Logger getting destroyed");
 		logStream = NULL;
+	}
+
+	Logger Logger::operator = (const Logger &obj) {
+		*this = Logger(obj);
+
+		return (*this);
 	}
 
 	void Logger::append(const LogLevel level, const std::string message) const {

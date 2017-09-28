@@ -48,6 +48,13 @@ namespace gameEngine {
 
 		Logger(std::ostream &stream);
 
+		Logger(const Logger &obj);
+
+		/**
+		 * @brief Overloaders
+		 */
+		Logger operator = (const Logger &obj);
+
 		/**
 		 * @brief Destructor.
 		 */
