@@ -70,20 +70,12 @@ set(SOURCE_FILES
         gameEngine/include/Model.hpp
         gameEngine/include/Renderer.hpp
         gameEngine/include/SceneObject.hpp
-<<<<<<< HEAD
         gameEngine/include/Menu.hpp
         gameEngine/src/Enemy.cpp
         gameEngine/include/Enemy.hpp
         src/Settings.cpp
         include/Settings.hpp)
-=======
-		gameEngine/include/Menu.hpp
-		gameEngine/src/Enemy.cpp
-		gameEngine/include/Enemy.hpp
-		src/Settings.cpp
-		include/Settings.hpp
-		)
->>>>>>> 8913aafd5245d4e43e39db880bf88d47f4c984a6
+        )
 
 # Directories to find the header files
 include_directories(
