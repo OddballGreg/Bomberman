@@ -34,17 +34,10 @@ namespace gameEngine {
 
 		BoundingBoxSet(const std::string fileLocation = "");
 
-		BoundingBoxSet(const BoundingBoxSet &obj);
-
 		/**
 		 * @brief Destructor
 		 */
 		~BoundingBoxSet() = default;
-
-		/**
-		 * @brief Opeator overloads
-		 */
-		BoundingBoxSet operator = (const BoundingBoxSet &obj);
 
 		/**
 		 * @brief Vertex coordinates read from Wavefront .obj file

@@ -31,8 +31,9 @@ MapLoader::MapLoader(Settings *settings) : _settings(settings)
 
 // }
 
-void MapLoader::load_map(std::string mapname)
+void MapLoader::load_map(int level)
 {
+	std::string		mapname("../maps/1.txt");
 	std::ifstream	mapfile(mapname);
 	std::string		line;
 	int y = -1;

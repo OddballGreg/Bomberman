@@ -1,5 +1,6 @@
 
 #include "../include/Renderer.hpp"
+#include "../../include/menu.hpp"
 
 #include <stdexcept>
 #include <fstream>
@@ -379,6 +380,9 @@ namespace gameEngine {
 			const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 			width = mode->width;
 			height = mode->height;
+			// Share Screen Size With Game Settings
+			_settings->SCREEN_WIDTH = mode->width;
+			_settings->SCREEN_HEIGHT = mode->height;
 
 			LOGINFO("Detected screen width " + intToStr(width) + " and height " + intToStr(height));
 		}
@@ -389,13 +393,18 @@ namespace gameEngine {
 
 		glfwMakeContextCurrent(window);
 
+
+		//        MenuScreen mainscreenMenu(window); //store as a pointer and add to main loop
+		//        mainscreenMenu.mainMenu();
+
 	}
 
 	Renderer::Renderer(const std::string windowTitle, const int width, const int height,
 			const float frustumScale , const float zNear,
 			const float zFar, const float zOffsetFromCamera,
-			const std::string shadersPath) {
+			const std::string shadersPath, Settings *settings) {
 
+		_settings = settings;
 		isOpenGL33Supported = false;
 		window = 0;
 		perspectiveProgram = 0;
@@ -423,10 +432,10 @@ namespace gameEngine {
 
 	}
 
-	Renderer& Renderer::getInstance(const std::string windowTitle, const int width, const int height,
+	Renderer& Renderer::getInstance(Settings *settings, const std::string windowTitle, const int width, const int height,
 			const float frustumScale, const float zNear, const float zFar, const float zOffsetFromCamera,
 			const std::string shadersPath) {
-		static Renderer instance(windowTitle, width, height, frustumScale, zNear, zFar, zOffsetFromCamera, shadersPath);
+		static Renderer instance(windowTitle, width, height, frustumScale, zNear, zFar, zOffsetFromCamera, shadersPath, settings);
 		return instance;
 	}
 

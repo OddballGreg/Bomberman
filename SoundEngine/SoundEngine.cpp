@@ -16,44 +16,23 @@ static void reportError (std::string err)
 }
 bool isBigEndian()
 {
-	int a = 1;
+	int a=1;
 
 	return !((char*)&a)[0];
 }
 int convertToInt(char* buffer,int len)
 {
-	int a = 0;
-
+	int a=0;
 	if(!isBigEndian())
 		for(int i=0;i<len;i++)
 			((char*)&a)[i]=buffer[i];
 	else
 		for(int i=0;i<len;i++)
 			((char*)&a)[3-i]=buffer[i];
-
 	return a;
 }
 
 Sound::Sound() {
-}
-
-Sound::Sound(const Sound &obj) {
-	this->_buffer	= obj._buffer;
-	this->_source	= obj._source;
-	this->_loop		= obj._loop;
-	this->_volume	= obj._volume;
-
-	this->_rc		= obj._rc;
-	this->_status	= obj._status;
-
-	for (int k = 0; k < 5; k++)
-		this->_thread[k] = obj._thread[k];
-}
-
-Sound& Sound::operator = (const Sound &obj) {
-	*this = Sound(obj);
-
-	return (*this);
 }
 
 Sound::~Sound() {
@@ -144,37 +123,12 @@ char* Sound::loadWAV(const char* fn,int& chan,int& samplerate,int& bps,int& size
 void Sound::play(bool loop) {
 	_rc = pthread_create(&_thread[2], NULL, worker, NULL);
 	alSourcei(_source, AL_BUFFER, _buffer);
-	float f[] = {1, 0 , 0, 0, 1, 0};
-	alSource3f(_source, AL_POSITION, 0, 0, 0);
+	float f[] = {1,0,0,0,1,0};
+	alSource3f(_source,AL_POSITION,0,0,0);
 	alListenerfv(AL_ORIENTATION, f);
-
-	alSourcef(_source, AL_GAIN, _volume);
 
 	if(loop == true)
 		alSourcei(_source, AL_LOOPING, AL_TRUE);
 
 	alSourcePlay(_source);
-}
-
-void	Sound::incVolume(void) {
-	if (_volume < 1)
-		_volume += 0.1;
-	if (_volume > 1)
-		_volume = 1;
-}
-
-void	Sound::decVolume(void) {
-	if (_volume > 0)
-		_volume -= 0.1;
-	if (_volume < 0)
-		_volume = 0;
-}
-
-void	Sound::setVolume(float percentage) {
-	if (percentage < 0)
-		percentage = 0;
-	if (percentage > 1)
-		percentage = 1;
-
-	_volume = percentage;
 }
