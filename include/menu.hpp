@@ -1,16 +1,38 @@
 //
-// Created by Gabriel GROENER on 2017/09/25.
+// Created by Gabriel GROENER on 2017/09/28.
 //
+
 #pragma once
 
-class MenuScreen {
+#include <GL/glew.h>
+#include <nanogui/nanogui.h>
+#include <nanogui/screen.h>
+#include <nanogui/widget.h>
+#include <utility>
 
-public:
-
-	MenuScreen();
-	MenuScreen(int width, int height, const char& windowName);
-	~MenuScreen();
-
-	void initializeMenu(int width, int height, const char* windowName);
-
+enum class	MenuState
+{
+	MAIN_MENU,
+	SETTINGS
 };
+
+class MenuScreen
+{
+	private:
+		GLFWwindow  *_win;
+		MenuState   _menuState;
+
+	public:
+
+		MenuScreen(GLFWwindow * pWin);
+		MenuScreen(MenuScreen const &);
+		~MenuScreen();
+		MenuScreen const & operator=(MenuScreen const &);
+
+		void    mainMenu();
+		void	settingsMenu();
+
+		void	menuHandler();
+		void	renderMenu();
+};
+

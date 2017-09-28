@@ -41,8 +41,7 @@ set(RESOURCE_DIRS
         gameEngine/resources/shaders/OpenGL21/
         gameEngine/resources/fonts/
 		SoundEngine/music/
-		maps
-		maps/map.txt
+		maps/
         )
 
 set(SOURCE_FILES
@@ -73,7 +72,8 @@ set(SOURCE_FILES
 		gameEngine/src/Enemy.cpp
 		gameEngine/include/Enemy.hpp
 		src/Settings.cpp
-		include/Settings.hpp)
+		include/Settings.hpp
+		)
 
 # Directories to find the header files
 include_directories(
