@@ -1,5 +1,6 @@
 
 #include "../include/Renderer.hpp"
+#include "../../include/menu.hpp"
 
 #include <stdexcept>
 #include <fstream>
@@ -389,6 +390,8 @@ namespace gameEngine {
 
 		glfwMakeContextCurrent(window);
 
+//        MenuScreen mainscreenMenu(window); //store as a pointer and add to main loop
+//        mainscreenMenu.mainMenu();
 	}
 
 	Renderer::Renderer(const std::string windowTitle, const int width, const int height,

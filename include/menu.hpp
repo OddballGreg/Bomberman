@@ -6,9 +6,10 @@
 
 #include <GL/glew.h>
 #include <nanogui/nanogui.h>
-#include <nanogui/screen.h>
-#include <nanogui/widget.h>
 #include <utility>
+
+// remember to set visble to false for menus that you do not want to see.
+
 
 enum class	MenuState
 {
@@ -21,12 +22,16 @@ class MenuScreen
 	private:
 		GLFWwindow  *_win;
 		MenuState   _menuState;
+        nanogui::Screen* _screen;
+
+        nanogui::Window *_mainMenu;
 
 	public:
 
 		MenuScreen(GLFWwindow * pWin);
 		MenuScreen(MenuScreen const &);
 		~MenuScreen();
+
 		MenuScreen const & operator=(MenuScreen const &);
 
 		void    mainMenu();
