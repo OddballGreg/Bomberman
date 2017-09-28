@@ -3,6 +3,9 @@
 
 namespace gameEngine {
 
+	/*
+	** Constructors
+	*/
 	Image::Image(const std::string fileLocation) : imageData() {
 		initLogger();
 		width = 0;
@@ -139,6 +142,25 @@ namespace gameEngine {
 		pngInformation = nullptr;
 	}
 
+	Image::Image(const Image &obj) {
+		this->width			= obj.width;
+		this->height		= obj.height;
+		this->imageData		= obj.imageData;
+		this->imageDataSize	= obj.imageDataSize;
+	}
+
+	/*
+	* Overloaders
+	*/
+	Image Image::operator = (const Image &obj) {
+		*this = Image(obj);
+
+		return (*this);
+	}
+
+	/*
+	** Methods
+	*/
 	unsigned long Image::getWidth() const {
 		return width;
 	}

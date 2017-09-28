@@ -21,6 +21,7 @@ namespace gameEngine {
 		unsigned long width, height;
 		std::vector<float> imageData;
 		unsigned long imageDataSize;
+
 		void loadFromFile(const std::string fileLocation);
 
 	public:
@@ -32,10 +33,17 @@ namespace gameEngine {
 		 */
 		Image(const std::string fileLocation = "");
 
+		Image(const Image &obj);
+
 		/**
 		 * @brief Destructor
 		 */
 		~Image() = default;
+
+		/**
+		 * Overloaders
+		 */
+		Image operator = (const Image &obj);
 
 		/**
 		 * @brief Get the image width
