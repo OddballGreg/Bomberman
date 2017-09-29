@@ -18,7 +18,7 @@ class MapLoader
 	public:
 	MapLoader(Settings *settings);
 	MapLoader(MapLoader &obj) = default;
-	~MapLoader() = default;
+	~MapLoader();
 
 	MapLoader &operator = (MapLoader &obj) = default;
 
@@ -34,10 +34,10 @@ class MapLoader
 
 	private:
 
-	Enemy 					*enemy_template;
-	gameEngine::SceneObject *wall_template;
-	gameEngine::SceneObject *obstacle_template;
-	gameEngine::SceneObject *player_template;
+	Enemy 					*_enemy_template;
+	gameEngine::SceneObject *_wall_template;
+	gameEngine::SceneObject *_obstacle_template;
+	gameEngine::SceneObject *_player_template;
 
 };
 

@@ -24,12 +24,19 @@ MapLoader::MapLoader(Settings *settings) : _settings(settings)
 
 	// Image treeTexture("Bomberman/resources/models/Tree/tree.png");
 	// renderer->generateTexture("treeTexture", treeTexture);
+	_enemy_template 	= new Enemy("enemy", "../resources/models/bomber/untitled", _settings, 20, "../resources/models/bomberBB/bomberBB.obj");
+	_wall_template 		= new gameEngine::SceneObject("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj");;
+	_obstacle_template 	= new gameEngine::SceneObject("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj");;
+	_player_template 	= new gameEngine::SceneObject("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj");
 }
 
-// MapLoader::~MapLoader()
-// {
-
-// }
+ MapLoader::~MapLoader()
+ {
+	 delete _enemy_template;
+	 delete _wall_template;
+	 delete _obstacle_template;
+	 delete _player_template;
+ }
 
 void MapLoader::load_map(int level)
 {
@@ -78,21 +85,21 @@ void MapLoader::spawn_object(char type_char, float x_coord, float y_coord)
 			break;
 		case 'w' :
 		{
-			gameEngine::SceneObject temp("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj");
+			gameEngine::SceneObject temp(*_wall_template);
 			temp.offset = glm::vec3(-11 + x_coord, _settings->GROUND_Y, -7 + y_coord);
 			_walls.push_back(temp);
 			break;
 		}
 		case 'o' :
 		{
-			gameEngine::SceneObject temp("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj");
+			gameEngine::SceneObject temp(*_obstacle_template);
 			temp.offset = glm::vec3(-11 + x_coord, _settings->GROUND_Y, -7 + y_coord);
 			_obstacles.push_back(temp);
 			break;
 		}
 		case 'p' :
 		{
-			gameEngine::SceneObject temp("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj");
+			gameEngine::SceneObject temp(*_player_template);
 			temp.offset = glm::vec3(-11 + x_coord, _settings->GROUND_Y, -7 + y_coord);
 			temp.rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 			_player.push_back(temp);
@@ -100,7 +107,7 @@ void MapLoader::spawn_object(char type_char, float x_coord, float y_coord)
 		}
 		case 'e' :
 		{
-			Enemy temp("enemy", "../resources/models/bomber/untitled", _settings, 20, "../resources/models/bomberBB/bomberBB.obj");
+			Enemy temp(*_enemy_template);
 			temp.offset = glm::vec3(-11 + x_coord, _settings->GROUND_Y, -7 + y_coord);
 			_enemies.push_back(temp);
 			break;

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <math.h>
+#include <fstream>
 #include "../gameEngine/include/Logger.hpp"
 #include "../gameEngine/include/SceneObject.hpp"
 #include "../gameEngine/include/Renderer.hpp"

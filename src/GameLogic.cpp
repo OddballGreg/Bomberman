@@ -14,7 +14,27 @@ namespace Bomberman
 			_settings(settings), _maploader(settings) {
 
         profile_name = "test_profile_name";
-        level = 0;
+        std::ifstream	profile("profiles/" + profile_name + ".profile");
+
+        if (!profile.is_open())
+        {
+            std::cout << "Creating New Profile: " << profile_name << std::endl;
+            std::ofstream new_profile("profiles/" + profile_name + ".profile");
+            new_profile << "0" << std::endl;
+            new_profile.close();
+            level = 0;
+        }
+        else
+        {
+            std::string buffer;
+            std::getline(profile, buffer);
+            std::string::size_type pos = buffer.find_last_not_of("\n \t");
+            if(pos != std::string::npos)
+                buffer = buffer.substr(0, pos+1);
+            level = atoi(buffer.c_str()) % _settings->LEVEL_COUNT;
+            profile.close();
+        }
+
 		_maploader.load_map(level);
 
 		renderer = &Renderer::getInstance(settings, "BombermanTestV1", 0, 0, 1.2f);
@@ -422,7 +442,13 @@ namespace Bomberman
 				}
 
                 if (_maploader._enemies.size() == 0)
-                    _maploader.load_map(++level % _settings->LEVEL_COUNT);
+                {
+                    level++;
+                    std::ofstream profile("profiles/" + profile_name + ".profile");
+                    profile << std::to_string(level) << std::endl;
+                    profile.close();
+                    _maploader.load_map(level % _settings->LEVEL_COUNT);
+                }
 			}
 		}
 		renderer->swapBuffers();

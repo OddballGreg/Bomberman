@@ -32,6 +32,8 @@ include_directories(${NANOGUI_DIR}/include)
 include_directories(${NANOGUI_EXTRA_INCS})
 add_definitions(${NANOGUI_EXTRA_DEFS})
 
+file(COPY profiles DESTINATION .)
+
 # These directories get symlinked into the build directory after compilation
 set(RESOURCE_DIRS
         resources
