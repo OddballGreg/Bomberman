@@ -4,7 +4,6 @@
 
 #include "../include/Enemy.hpp"
 
-
 /*
 +** Constructors
 +*/
@@ -17,12 +16,38 @@ Enemy::Enemy(const std::string name, const std::string modelPath, Settings *sett
 	startAnimating();
 }
 
-void Enemy::move(float player_x, float player_z)
+void Enemy::move(MapLoader *maploader, int me)
 {
+	glm::vec3 temp = offset;
+
+	bool collision = false;
+	for(int i = maploader->_walls.size() -1; i > -1; i--)
+		if (temp.z < maploader->_walls[i].offset.z + _settings->COLLISION_ZONE
+			&& temp.z > maploader->_walls[i].offset.z - _settings->COLLISION_ZONE
+			&& temp.x < maploader->_walls[i].offset.x + _settings->COLLISION_ZONE
+			&& temp.x > maploader->_walls[i].offset.x - _settings->COLLISION_ZONE)
+			collision = true;
+
+	for(int i = maploader->_obstacles.size() -1; i > -1; i--)
+		if (temp.z < maploader->_obstacles[i].offset.z + _settings->COLLISION_ZONE
+			&& temp.z > maploader->_obstacles[i].offset.z - _settings->COLLISION_ZONE
+			&& temp.x < maploader->_obstacles[i].offset.x + _settings->COLLISION_ZONE
+			&& temp.x > maploader->_obstacles[i].offset.x - _settings->COLLISION_ZONE)
+			collision = true;
+
+	for(int i = maploader->_enemies.size() -1; i > -1; i--)
+		if (temp.z < maploader->_enemies[i].offset.z + _settings->COLLISION_ZONE
+			&& temp.z > maploader->_enemies[i].offset.z - _settings->COLLISION_ZONE
+			&& temp.x < maploader->_enemies[i].offset.x + _settings->COLLISION_ZONE
+			&& temp.x > maploader->_enemies[i].offset.x - _settings->COLLISION_ZONE
+			&& i != me)
+			collision = true;
+
+//                _maploader._enemies[i].move(_maploader._player[0].offset.x, _maploader._player[0].offset.z);
 	enemyState = TURNING;
 
-	float xDistance = player_x - offset.x;
-	float zDistance = player_z - offset.z;
+	float xDistance = maploader->_player[0].offset.x - offset.x;
+	float zDistance = maploader->_player[0].offset.z - offset.z;
 	float distance = sqrt(xDistance * xDistance + zDistance * zDistance);
 
 	float enemyRelX = xDistance / distance;
@@ -33,38 +58,38 @@ void Enemy::move(float player_x, float player_z)
 
 	float dotPosDir = enemyRelX * enemyDirectionX + enemyRelZ * enemyDirectionZ; // dot product
 
-	if (dotPosDir > 0.4f) // was 0.98, changed to decrease the likelness of getting stuck in a corner. 
-		enemyState = TURNING;
-	else
-		enemyState = WALKING_STRAIGHT;
+	if (collision == false) {
+		if (dotPosDir > 0.4f) // was 0.98, changed to decrease the likelness of getting stuck in a corner.
+		{
+			enemyState = TURNING;
+		} else {
+			enemyState = WALKING_STRAIGHT;
+		}
 
-	if (enemyState == TURNING)
-		rotation.y -= _settings->ENEMY_ROTATION_SPEED;
+		if (enemyState == TURNING)
+			rotation.y -= _settings->ENEMY_ROTATION_SPEED;
 
-	if (offset.z > _settings->MAX_Z)
-	{
-		offset.z = _settings->MAX_Z;
-		enemyState = TURNING;
-	}
-	if (offset.z < _settings->MIN_Z)
-	{
-		offset.z = _settings->MIN_Z;
-		enemyState = TURNING;
-	}
-	if(offset.x > _settings->MAX_X)
-	{
-		offset.x = _settings->MAX_X;
-		enemyState = TURNING;
-	}
-	if (offset.x < _settings->MIN_X)
-	{
-		offset.x = _settings->MIN_X;
-		enemyState = TURNING;
-	}
+		if (offset.z > _settings->MAX_Z) {
+			offset.z = _settings->MAX_Z;
+			enemyState = TURNING;
+		}
+		if (offset.z < _settings->MIN_Z) {
+			offset.z = _settings->MIN_Z;
+			enemyState = TURNING;
+		}
+		if (offset.x > _settings->MAX_X) {
+			offset.x = _settings->MAX_X;
+			enemyState = TURNING;
+		}
+		if (offset.x < _settings->MIN_X) {
+			offset.x = _settings->MIN_X;
+			enemyState = TURNING;
+		}
 
-	offset.x += sin(rotation.y) * _settings->ENEMY_SPEED;
-	offset.z -= cos(rotation.y) * _settings->ENEMY_SPEED;
-	offset.y -= sin(rotation.x) * _settings->ENEMY_SPEED;
+		offset.x += sin(rotation.y) * _settings->ENEMY_SPEED;
+		offset.z -= cos(rotation.y) * _settings->ENEMY_SPEED;
+		offset.y -= sin(rotation.x) * _settings->ENEMY_SPEED;
+	}
 
 	animate();
 }

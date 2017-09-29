@@ -11,9 +11,10 @@
 #include <vector>
 #include <iostream>
 
+class Enemy;
+
 class MapLoader
 {
-
 	public:
 	MapLoader(Settings *settings);
 	~MapLoader() = default;
