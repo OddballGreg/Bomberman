@@ -9,12 +9,13 @@ using namespace gameEngine;
 
 namespace Bomberman
 {
-	GameLogic::GameLogic(Settings *settings) :
-			bomb("bomb", "../resources/models/bomberman/bomb.obj", 1, "../resources/models/bomberman/cube.obj"),
-			_settings(settings), _maploader(settings) {
+	GameLogic::GameLogic(Settings *settings) : bomb("bomb", "../resources/models/bomberman/bomb.obj", 1, "../resources/models/bomberman/cube.obj"),
+                                               _settings(settings), _maploader(settings) {
 
         profile_name = "test_profile_name";
         std::ifstream	profile("profiles/" + profile_name + ".profile");
+
+        std::srand(std::time(0)); // use current time as seed for random generator
 
         if (!profile.is_open())
         {
@@ -50,7 +51,10 @@ namespace Bomberman
 		Image objectTexture("../resources/images/crate.png");
 		renderer->generateTexture("objectTexture", objectTexture);
 
-		Image skyTexture("../resources/images/sky.png");
+        Image portalTexture("../resources/images/crate.png");
+        renderer->generateTexture("portalTexture", portalTexture);
+
+        Image skyTexture("../resources/images/sky.png");
 		renderer->generateTexture("skyTexture", skyTexture);
 
 		Image bombTexture("../resources/images/floor.png");
@@ -59,8 +63,8 @@ namespace Bomberman
 		Image enemyTexture("../resources/images/floor.png");
 		renderer->generateTexture("enemyTexture", enemyTexture);
 
-		// Image treeTexture("../resources/models/Tree/tree.png");
-		// renderer->generateTexture("treeTexture", treeTexture);
+		 Image treeTexture("../resources/models/Tree/tree.png");
+		 renderer->generateTexture("treeTexture", treeTexture);
 
 		_maploader._player[0].setFrameDelay(1);
 		gameState = START_SCREEN;
@@ -69,6 +73,7 @@ namespace Bomberman
 
 		bombDropped = false;
 		bombDelay = 100;
+        bomb_radius = _settings->BOMB_RADIUS;
 
 		// Initialise NanoGUI
 //		_menu = new MenuScreen(renderer->getWindow());
@@ -95,14 +100,15 @@ namespace Bomberman
 
 	void GameLogic::initGame()
     {
-		bomb.offset = glm::vec3(0, 0, 0);
+        bomb.offset = glm::vec3(0, 0, 0);
+        _maploader._player[0].startAnimating();
+        bomb.startAnimating();
+
 		_maploader._player[0].startAnimating();
 
 		renderer->cameraPosition.x = _maploader._player[0].offset.x;
 		renderer->cameraPosition.y = 8;
 		renderer->cameraPosition.z = (_maploader._player[0].offset.z) + 4;
-
-		bomb.startAnimating();
 
 		startSeconds = glfwGetTime();
 	}
@@ -354,7 +360,6 @@ namespace Bomberman
             // mainscreenMenu.mainMenu();
 //            _menu->renderMenu(); //uncomment this for menu
 		}
-            
 		else
 		{
 			renderer->renderRectangle("skyTexture", glm::vec3(-1.0f, 1.0f, 1.0f),
@@ -382,36 +387,60 @@ namespace Bomberman
 			for(int i = _maploader._enemies.size() -1; i > -1; i--)
 				renderer->render(_maploader._enemies[i], "enemyTexture");
 
-			if (bombDropped && bombDelay != 0) {
-				renderer->render(bomb, glm::vec4(0.3f, 0.3f, 0.3f, 1.0f));
-				bombDelay--;
-			}
-			else if (bombDelay == 0)
-			{
-				bombDropped = false;
-				bombDelay = 100;
+            for(int i = _maploader._powerups.size() -1; i > -1; i--)
+                renderer->render(_maploader._powerups[i], "treeTexture");
+
+            if (can_leave == true)
+                renderer->render(_maploader._portal[0], "portalTexture");
+            else
+                renderer->render(_maploader._portal[1], "portalTexture");
+
+            //Check if player enters portal, load next level
+            if (can_leave
+                && _maploader._portal[0].offset.z < _maploader._player[0].offset.z + _settings->COLLISION_ZONE
+                && _maploader._portal[0].offset.z > _maploader._player[0].offset.z - _settings->COLLISION_ZONE
+                && _maploader._portal[0].offset.x < _maploader._player[0].offset.x + _settings->COLLISION_ZONE
+                && _maploader._portal[0].offset.x > _maploader._player[0].offset.x - _settings->COLLISION_ZONE) {
+                level++;
+                std::ofstream profile("profiles/" + profile_name + ".profile");
+                profile << std::to_string(level) << std::endl;
+                profile.close();
+
+                //To make a player win in the end.
+//                if (level > _settings->LEVEL_COUNT)
+//                    open menu.
+//                else
+//                {
+                _maploader.load_map(level % _settings->LEVEL_COUNT);
+                can_leave = false;
+                bomb_radius = _settings->BOMB_RADIUS;
+//               }
+            }
+
+            if (bombDropped && bombDelay != 0) {
+                renderer->render(bomb, glm::vec4(0.3f, 0.3f, 0.3f, 1.0f));
+                bombDelay--;
+            }
+            else if (bombDelay == 0)
+            {
+                bombDropped = false;
+                bombDelay = 100;
 
                 // Blow stuff up here
-                if (bomb.offset.z < _maploader._player[0].offset.z + _settings->BOMB_RADIUS
-                    && bomb.offset.z > _maploader._player[0].offset.z - _settings->BOMB_RADIUS
-                    && bomb.offset.x < _maploader._player[0].offset.x + _settings->BOMB_COLLUMN
-                    && bomb.offset.x > _maploader._player[0].offset.x - _settings->BOMB_COLLUMN)
-                    _maploader.load_map(level);
-                else if (bomb.offset.x < _maploader._player[0].offset.x + _settings->BOMB_RADIUS
-                    && bomb.offset.x > _maploader._player[0].offset.x - _settings->BOMB_RADIUS
-                    && bomb.offset.z < _maploader._player[0].offset.z + _settings->BOMB_COLLUMN
-                    && bomb.offset.z > _maploader._player[0].offset.z - _settings->BOMB_COLLUMN)
-                    _maploader.load_map(level);
-
                 for(long i = _maploader._obstacles.size() -1; i > -1; i--) {
-                    if (bomb.offset.z < _maploader._obstacles[i].offset.z + _settings->BOMB_RADIUS
-                        && bomb.offset.z > _maploader._obstacles[i].offset.z - _settings->BOMB_RADIUS
+                    if (bomb.offset.z < _maploader._obstacles[i].offset.z + bomb_radius
+                        && bomb.offset.z > _maploader._obstacles[i].offset.z - bomb_radius
                         && bomb.offset.x < _maploader._obstacles[i].offset.x + _settings->BOMB_COLLUMN
                         && bomb.offset.x > _maploader._obstacles[i].offset.x - _settings->BOMB_COLLUMN) {
+                        if (std::rand() % 101 > _settings->POWERUP_CHANCE ) {
+                            gameEngine::SceneObject temp2(*_maploader._powerup_template);
+                            temp2.offset = _maploader._obstacles[i].offset;
+                            _maploader._powerups.push_back(temp2);
+                        }
                         _maploader._obstacles.erase(_maploader._obstacles.begin() + i);
                         i = _maploader._obstacles.size() -1;
-                    } else if (bomb.offset.x < _maploader._obstacles[i].offset.x + _settings->BOMB_RADIUS
-                         && bomb.offset.x > _maploader._obstacles[i].offset.x - _settings->BOMB_RADIUS
+                    } else if (bomb.offset.x < _maploader._obstacles[i].offset.x + bomb_radius
+                         && bomb.offset.x > _maploader._obstacles[i].offset.x - bomb_radius
                          && bomb.offset.z < _maploader._obstacles[i].offset.z + _settings->BOMB_COLLUMN
                          && bomb.offset.z > _maploader._obstacles[i].offset.z - _settings->BOMB_COLLUMN) {
                         _maploader._obstacles.erase(_maploader._obstacles.begin() + i);
@@ -420,14 +449,14 @@ namespace Bomberman
                 }
 
                 for(long i = _maploader._enemies.size() -1; i > -1; i--) {
-                    if (bomb.offset.z < _maploader._enemies[i].offset.z + _settings->BOMB_RADIUS
-                        && bomb.offset.z > _maploader._enemies[i].offset.z - _settings->BOMB_RADIUS
-                           && bomb.offset.x < _maploader._enemies[i].offset.x + _settings->BOMB_COLLUMN
-                           && bomb.offset.x > _maploader._enemies[i].offset.x - _settings->BOMB_COLLUMN) {
+                    if (bomb.offset.z < _maploader._enemies[i].offset.z + bomb_radius
+                        && bomb.offset.z > _maploader._enemies[i].offset.z - bomb_radius
+                        && bomb.offset.x < _maploader._enemies[i].offset.x + _settings->BOMB_COLLUMN
+                        && bomb.offset.x > _maploader._enemies[i].offset.x - _settings->BOMB_COLLUMN) {
                         _maploader._enemies.erase(_maploader._enemies.begin() + i);
                         i = _maploader._enemies.size() -1;
-                    } else if (bomb.offset.x < _maploader._enemies[i].offset.x + _settings->BOMB_RADIUS
-                        && bomb.offset.x > _maploader._enemies[i].offset.x - _settings->BOMB_RADIUS
+                    } else if (bomb.offset.x < _maploader._enemies[i].offset.x + bomb_radius
+                           && bomb.offset.x > _maploader._enemies[i].offset.x - bomb_radius
                            && bomb.offset.z < _maploader._enemies[i].offset.z + _settings->BOMB_COLLUMN
                            && bomb.offset.z > _maploader._enemies[i].offset.z - _settings->BOMB_COLLUMN) {
                         _maploader._enemies.erase(_maploader._enemies.begin() + i);
@@ -435,20 +464,27 @@ namespace Bomberman
                     }
                 }
 
-				if (_settings->PLAY_SOUND)
+                if (bomb.offset.z < _maploader._player[0].offset.z + bomb_radius
+                    && bomb.offset.z > _maploader._player[0].offset.z - bomb_radius
+                    && bomb.offset.x < _maploader._player[0].offset.x + _settings->BOMB_COLLUMN
+                    && bomb.offset.x > _maploader._player[0].offset.x - _settings->BOMB_COLLUMN) {
+                    _maploader.load_map(level);
+                }
+                else if (bomb.offset.x < _maploader._player[0].offset.x + bomb_radius
+                         && bomb.offset.x > _maploader._player[0].offset.x - bomb_radius
+                         && bomb.offset.z < _maploader._player[0].offset.z + _settings->BOMB_COLLUMN
+                         && bomb.offset.z > _maploader._player[0].offset.z - _settings->BOMB_COLLUMN)
+                    _maploader.load_map(level);
+
+
+                if (_settings->PLAY_SOUND)
 				{
 					explosion.initialize("../SoundEngine/music/explosion.wav");
 					explosion.play(false);
 				}
 
                 if (_maploader._enemies.size() == 0)
-                {
-                    level++;
-                    std::ofstream profile("profiles/" + profile_name + ".profile");
-                    profile << std::to_string(level) << std::endl;
-                    profile.close();
-                    _maploader.load_map(level % _settings->LEVEL_COUNT);
-                }
+                    can_leave = true;
 			}
 		}
 		renderer->swapBuffers();

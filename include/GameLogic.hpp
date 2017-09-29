@@ -33,6 +33,8 @@ namespace Bomberman {
 		int			seconds;
 		bool		bombDropped;
 		int			bombDelay;
+        bool        can_leave = false;
+        float       bomb_radius;
 
 		enum GameState {
 			START_SCREEN,

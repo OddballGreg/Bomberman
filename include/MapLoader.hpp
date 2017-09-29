@@ -29,15 +29,21 @@ class MapLoader
 	std::vector<gameEngine::SceneObject> _walls;
 	std::vector<gameEngine::SceneObject> _obstacles;
 	std::vector<gameEngine::SceneObject> _player;
+	std::vector<gameEngine::SceneObject> _portal;
+	std::vector<gameEngine::SceneObject> _powerups;
 
 	Settings *_settings;
-
-	private:
 
 	Enemy 					*_enemy_template;
 	gameEngine::SceneObject *_wall_template;
 	gameEngine::SceneObject *_obstacle_template;
 	gameEngine::SceneObject *_player_template;
+	gameEngine::SceneObject *_portal_open_template;
+	gameEngine::SceneObject *_portal_closed_template;
+	gameEngine::SceneObject *_powerup_template;
+	gameEngine::SceneObject *_bomb_template;
+
+	private:
 
 };
 

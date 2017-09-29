@@ -31,9 +31,10 @@ public:
     float COLLISION_ZONE;
     int   SCREEN_WIDTH;
     int   SCREEN_HEIGHT;
-    float   BOMB_RADIUS;
+    float BOMB_RADIUS;
     float BOMB_COLLUMN;
     int   LEVEL_COUNT;
+    float POWERUP_CHANCE;
 
 private:
 

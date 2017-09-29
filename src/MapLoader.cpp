@@ -2,32 +2,13 @@
 
 MapLoader::MapLoader(Settings *settings) : _settings(settings)
 {
-	// enemy("enemy", "Bomberman/resources/models/bomber/untitled", 20, "Bomberman/resources/models/GoatBB/GoatBB.obj"),
-	// player("player", "Bomberman/resources/models/bomber/untitled", 20), wall("wall", "Bomberman/resources/models/bomberman/cube.obj", 1, "Bomberman/resources/models/bomberman/cube.obj") {
-
-	// renderer = &Renderer::getInstance("BombermanTestV1", 0, 0, 1.2f);
-
-	// Image startScreenTexture("Bomberman/resources/images/bom.png");
-	// renderer->generateTexture("startScreen", startScreenTexture);
-
-	// Image groundTexture("Bomberman/resources/images/floor.png");
-	// renderer->generateTexture("ground", groundTexture);
-
-	// Image cubeTexture("Bomberman/resources/images/floor.png");
-	// renderer->generateTexture("cube", cubeTexture);
-
-	// Image skyTexture("Bomberman/resources/images/sky.png");
-	// renderer->generateTexture("sky", skyTexture);
-
-	// Image enemyTexture("Bomberman/resources/models/Goat/goat.png");
-	// renderer->generateTexture("enemyTexture", enemyTexture);
-
-	// Image treeTexture("Bomberman/resources/models/Tree/tree.png");
-	// renderer->generateTexture("treeTexture", treeTexture);
-	_enemy_template 	= new Enemy("enemy", "../resources/models/bomber/untitled", _settings, 20, "../resources/models/bomberBB/bomberBB.obj");
-	_wall_template 		= new gameEngine::SceneObject("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj");;
-	_obstacle_template 	= new gameEngine::SceneObject("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj");;
-	_player_template 	= new gameEngine::SceneObject("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj");
+	_enemy_template 	    = new Enemy("enemy", "../resources/models/bomber/untitled", _settings, 20, "../resources/models/bomberBB/bomberBB.obj");
+	_wall_template 		    = new gameEngine::SceneObject("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj");;
+	_obstacle_template 	    = new gameEngine::SceneObject("wall", "../resources/models/bomberman/cube.obj", 1, "../resources/models/bomberman/cube.obj");;
+	_player_template 	    = new gameEngine::SceneObject("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj");
+	_portal_open_template 	= new gameEngine::SceneObject("wall", "../resources/models/Portal/Portal_Open.obj", 1, "../resources/models/Portal/Portal_Open.obj");
+	_portal_closed_template = new gameEngine::SceneObject("wall", "../resources/models/Portal/Portal_Closed.obj", 1, "../resources/models/Portal/Portal_Closed.obj");
+	_powerup_template 		= new gameEngine::SceneObject("wall", "../resources/models/Tree/tree.obj", 1, "../resources/models/Tree/tree.obj");
 }
 
  MapLoader::~MapLoader()
@@ -36,6 +17,9 @@ MapLoader::MapLoader(Settings *settings) : _settings(settings)
 	 delete _wall_template;
 	 delete _obstacle_template;
 	 delete _player_template;
+     delete _portal_closed_template;
+     delete _portal_open_template;
+	 delete _powerup_template;
  }
 
 void MapLoader::load_map(int level)
@@ -45,6 +29,8 @@ void MapLoader::load_map(int level)
 	_player.clear();
 	_walls.clear();
 	_obstacles.clear();
+	_portal.clear();
+	_powerups.clear();
 
 	std::string		mapname("../maps/" + std::to_string(level) + ".txt");
 	std::ifstream	mapfile(mapname);
@@ -67,9 +53,9 @@ void MapLoader::load_map(int level)
 			spawn_object(line[x], x, y);
 	}
 
-	if (_player.size() != 1 || _enemies.empty())
+	if (_player.size() != 1 || _enemies.empty() || _portal.size() != 2)
 	{
-		std::cout << "ERROR: Too Many Players/Not Enough Enemies" << std::endl;
+		std::cout << "ERROR: Too Many Players/Not Enough Enemies/Odd Number Portals" << std::endl;
 		exit(1);
 	}
 
@@ -110,8 +96,21 @@ void MapLoader::spawn_object(char type_char, float x_coord, float y_coord)
 			Enemy temp(*_enemy_template);
 			temp.offset = glm::vec3(-11 + x_coord, _settings->GROUND_Y, -7 + y_coord);
 			_enemies.push_back(temp);
-			break;
-		}
+            break;
+        }
+        case 'x' :
+        {
+            gameEngine::SceneObject temp(*_portal_open_template);
+            temp.offset = glm::vec3(-11 + x_coord, _settings->GROUND_Y, -7 + y_coord);
+            _portal.push_back(temp);
+            gameEngine::SceneObject temp2(*_portal_closed_template);
+            temp2.offset = glm::vec3(-11 + x_coord, _settings->GROUND_Y, -7 + y_coord);
+            _portal.push_back(temp2);
+			gameEngine::SceneObject temp3(*_obstacle_template);
+			temp3.offset = glm::vec3(-11 + x_coord, _settings->GROUND_Y, -7 + y_coord);
+			_obstacles.push_back(temp3);
+            break;
+        }
 		default :
 		{
 			std::cout << "ERROR: unrecognized map token: " << type_char << std::endl;
