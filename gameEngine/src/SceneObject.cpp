@@ -2,6 +2,10 @@
 
 namespace gameEngine {
 
+	/*
+	** Constructors
+	*/
+
 	SceneObject::SceneObject(const std::string name, const std::string modelPath, const int numFrames,
 		const std::string boundingBoxSetPath) :
 		offset(0,0,0), rotation(0,0,0), boundingBoxSet(boundingBoxSetPath) {
@@ -32,6 +36,10 @@ namespace gameEngine {
 			model.push_back(model1);
 		}
 	}
+
+	/*
+	** Methods
+	*/
 
 	Model& SceneObject::getModel() {
 		return model[currentFrame];
