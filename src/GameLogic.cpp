@@ -17,7 +17,7 @@ namespace Bomberman
 
 		renderer = &Renderer::getInstance(settings, "BombermanTestV1", 0, 0, 1.2f);
 
-        // _menu = new MenuScreen(renderer->getWindow()); // uncomment this for menu
+         _menu = new MenuScreen(renderer->getWindow()); // uncomment this for menu
 
 		Image startScreenTexture("../resources/images/bom.png");
 		renderer->generateTexture("startScreen", startScreenTexture);
@@ -49,7 +49,8 @@ namespace Bomberman
 		bombDelay = 100;
 
 		// Initialise NanoGUI
-		//Menu menu(renderer->getWindow());
+//		_menu = new MenuScreen(renderer->getWindow());
+//        _menu->renderMenu();
 
 		// player chase camera
 		// renderer->cameraPosition = _maploader._player[0].offset;
@@ -359,7 +360,7 @@ namespace Bomberman
 
             // MenuScreen mainscreenMenu(window); //store as a pointer and add to main loop
             // mainscreenMenu.mainMenu();
-            // _menu->renderMenu(); //uncomment this for menu
+//            _menu->menuHandler(); //uncomment this for menu
 		}
 		else
 		{

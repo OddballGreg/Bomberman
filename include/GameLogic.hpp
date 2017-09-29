@@ -37,6 +37,7 @@ namespace Bomberman {
 		};
 
 		GameState	gameState;
+		MenuScreen *_menu;
 
 		void initGame();
 		void processGame(const KeyInput &keyInput);
