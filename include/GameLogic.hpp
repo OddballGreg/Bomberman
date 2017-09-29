@@ -20,28 +20,27 @@ namespace Bomberman {
 
 	private:
 
-		MapLoader _maploader;
-		SceneObject bomb;
-		Sound explosion;
-		Settings *_settings;
+		MapLoader	_maploader;
+		SceneObject	bomb;
+		Sound		explosion;
+		Settings	*_settings;
+
+		double		startSeconds;
+		int			seconds;
+		bool		bombDropped;
+		int			bombDelay;
 
 		enum GameState {
 			START_SCREEN,
 			PLAYING
 		};
 
-		GameState gameState;
-
-		double startSeconds;
-		int seconds;
+		GameState	gameState;
 
 		void initGame();
 		void processGame(const KeyInput &keyInput);
 		void processStartScreen(const KeyInput &keyInput);
 		void movePlayer(const KeyInput &keyInput);
-
-		bool	bombDropped;
-		int	 bombDelay;
 
 	public:
 
@@ -49,7 +48,10 @@ namespace Bomberman {
 		Renderer *renderer = nullptr;
 
 		GameLogic(Settings *settings);
+		GameLogic(GameLogic &obj) = default;
 		~GameLogic();
+
+		GameLogic &operator = (GameLogic &obj) = default;
 
 		void setScreen(Screen *screen);
 		void process(const KeyInput &keyInput);
