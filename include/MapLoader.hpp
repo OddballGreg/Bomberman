@@ -34,5 +34,10 @@ class MapLoader
 
 	private:
 
+	Enemy 					*enemy_template;
+	gameEngine::SceneObject *wall_template;
+	gameEngine::SceneObject *obstacle_template;
+	gameEngine::SceneObject *player_template;
+
 };
 
