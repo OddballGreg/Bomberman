@@ -6,6 +6,8 @@
 
 
 nanogui::Screen		*screen = nullptr;
+bool bvar = true;
+std::string strval = "A string";
 
 MenuScreen::MenuScreen(GLFWwindow * pWin) : _win(pWin), _menuState(MenuState::MAIN_MENU)
 {
@@ -15,6 +17,11 @@ MenuScreen::MenuScreen(GLFWwindow * pWin) : _win(pWin), _menuState(MenuState::MA
     nanogui::FormHelper *gui = new nanogui::FormHelper(_screen);
 
     _mainMenu = gui->addWindow(nanogui::Vector2i({0, 0}), "Main Menu");
+    _mainMenu->setLayout(new nanogui::GroupLayout());
+
+    nanogui::Button *btn = new nanogui::Button(_mainMenu, "Hello, World!");
+    btn->setTooltip("Hell");
+
     _mainMenu->setVisible(true);
 
     _screen->setVisible(true);
@@ -87,6 +94,8 @@ void	MenuScreen::menuHandler()
     //delete screen;
 }
 
+// remember to set visble to false for menus that you do not want to see it.
+
 void	MenuScreen::mainMenu()
 {
 
@@ -135,10 +144,10 @@ void	MenuScreen::renderMenu()
     int		width;
     int		height;
 
-    glfwGetFramebufferSize(_win, &width, &height);
-    glViewport( 0, 0, width, height);
-    glClear(GL_COLOR_BUFFER_BIT);
-    screen->drawContents();
-    screen->drawWidgets();
-    glfwSwapBuffers(_win);
+    //glfwGetFramebufferSize(_win, &width, &height);
+    //glViewport( 0, 0, width, height);
+    //glClear(GL_COLOR_BUFFER_BIT);
+    _screen->drawContents();
+    _screen->drawWidgets();
+    //glfwSwapBuffers(_win);
 }
