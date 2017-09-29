@@ -13,7 +13,11 @@ class Enemy : public gameEngine::SceneObject
 public:
 	Enemy(const std::string name, const std::string, Settings *settings, const int numFrames = 1,
 				 const std::string boundingBoxSetPath = "");
+	Enemy(const Enemy &obj) = default;
 	~Enemy() = default;
+
+	Enemy &operator = (const Enemy &obj) = default;
+
 	void move(float player_x, float player_z);
 
 	enum EnemyState {

@@ -10,7 +10,10 @@ class Settings {
 public:
     // Methods
     Settings();
+    Settings(Settings &obj) = default;
     ~Settings() = default;
+
+    Settings &operator=(Settings &obj) = default;
 
     //Variables
     float ENEMY_ROTATION_SPEED;
@@ -29,6 +32,7 @@ public:
     int   SCREEN_WIDTH;
     int   SCREEN_HEIGHT;
     float   BOMB_RADIUS;
+    float BOMB_COLLUMN;
 
 private:
 

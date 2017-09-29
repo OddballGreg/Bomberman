@@ -33,6 +33,7 @@ int convertToInt(char* buffer,int len)
 }
 
 Sound::Sound() {
+	_volume = 1.0f;
 }
 
 Sound::~Sound() {
@@ -41,6 +42,25 @@ Sound::~Sound() {
 	_rc = pthread_detach(_thread[2]);
 	if (!_thread[2])
 		std::cout << stderr << "Thread been deleted" << std::endl;
+}
+
+Sound::Sound(const Sound &obj) {
+	this->_buffer	= obj._buffer;
+	this->_source	= obj._source;
+	this->_loop		= obj._loop;
+	this->_volume	= obj._volume;
+
+	this->_rc		= obj._rc;
+	this->_status	= obj._status;
+
+	for (int k = 0; k < 5; k++)
+		this->_thread[k] = obj._thread[k];
+}
+
+Sound& Sound::operator = (const Sound &obj) {
+	*this = Sound(obj);
+
+	return (*this);
 }
 
 void Sound::initialize(const char* File) {
@@ -131,4 +151,27 @@ void Sound::play(bool loop) {
 		alSourcei(_source, AL_LOOPING, AL_TRUE);
 
 	alSourcePlay(_source);
+}
+
+void	Sound::incVolume(void) {
+	if (_volume < 1)
+		_volume += 0.1;
+	if (_volume > 1)
+		_volume = 1;
+}
+
+void	Sound::decVolume(void) {
+	if (_volume > 0)
+		_volume -= 0.1;
+	if (_volume < 0)
+		_volume = 0;
+}
+
+void	Sound::setVolume(float percentage) {
+	if (percentage < 0)
+		percentage = 0;
+	if (percentage > 1)
+		percentage = 1;
+
+	_volume = percentage;
 }

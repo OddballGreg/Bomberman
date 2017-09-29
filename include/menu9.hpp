@@ -9,7 +9,10 @@ public:
 
 	MenuScreen();
 	MenuScreen(int width, int height, const char& windowName);
+	MenuScreen(MenuScreen &obj) = default;
 	~MenuScreen();
+
+	MenuScreen &operator = (MenuScreen &obj) = default;
 
 	void initializeMenu(int width, int height, const char* windowName);
 
