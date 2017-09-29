@@ -44,6 +44,25 @@ Sound::~Sound() {
 		std::cout << stderr << "Thread been deleted" << std::endl;
 }
 
+Sound::Sound(const Sound &obj) {
+	this->_buffer	= obj._buffer;
+	this->_source	= obj._source;
+	this->_loop		= obj._loop;
+	this->_volume	= obj._volume;
+
+	this->_rc		= obj._rc;
+	this->_status	= obj._status;
+
+	for (int k = 0; k < 5; k++)
+		this->_thread[k] = obj._thread[k];
+}
+
+Sound& Sound::operator = (const Sound &obj) {
+	*this = Sound(obj);
+
+	return (*this);
+}
+
 void Sound::initialize(const char* File) {
 	ALCdevice*  _device;
 	ALCcontext* _context;
