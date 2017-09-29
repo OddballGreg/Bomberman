@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <math.h>
 #include "../gameEngine/include/Logger.hpp"
 #include "../gameEngine/include/SceneObject.hpp"
 #include "../gameEngine/include/Renderer.hpp"

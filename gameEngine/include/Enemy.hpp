@@ -7,6 +7,9 @@
 
 #include "../include/SceneObject.hpp"
 #include "../include/Settings.hpp"
+#include "../include/MapLoader.hpp"
+
+class MapLoader;
 
 class Enemy : public gameEngine::SceneObject
 {
@@ -18,7 +21,7 @@ public:
 
 	Enemy &operator = (const Enemy &obj) = default;
 
-	void move(float player_x, float player_z);
+	void move(MapLoader *maploader, int me);
 
 	enum EnemyState {
 		TURNING,

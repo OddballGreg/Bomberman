@@ -15,10 +15,10 @@ Settings::Settings()
 	MIN_X = -12.0f;
 
 	ENEMY_ROTATION_SPEED = 0.1f;
-	ENEMY_SPEED = 0.05f;
+	ENEMY_SPEED = 0.025f;
 
     PLAY_SOUND = false;
-    COLLISION_ZONE = 1.2f;
+    COLLISION_ZONE = 0.8f;
 
 	PLAYER_ROTATION_SPEED = 0.06f;
 	PLAYER_SPEED = 0.08f;
@@ -26,5 +26,5 @@ Settings::Settings()
 	FULL_ROTATION = 6.28f; // More or less 360 degrees in radians
 
     BOMB_RADIUS = 2;
-    BOMB_COLLUMN = 1;
+    BOMB_COLLUMN = 0.5;
 }

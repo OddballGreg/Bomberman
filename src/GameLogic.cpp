@@ -96,39 +96,83 @@ namespace Bomberman
 
         if (keyInput.left)
         {
-            _maploader._player[0].rotation.y -= _settings->PLAYER_ROTATION_SPEED;
-            // renderer->cameraRotation.y -= PLAYER_ROTATION_SPEED;
-            // renderer->cameraPosition.x += sin(player.rotation.y) * 0.5f;
-            // renderer->cameraPosition.z -= cos(player.rotation.y) * 0.5f;
+            glm::vec3 temp = _maploader._player[0].offset;
+            temp.x -= _settings->PLAYER_SPEED;
 
-            // while (player.collidesWith(tree.offset)) {
-            //   player.rotation.y += PLAYER_ROTATION_SPEED;
-            // }
+            bool collision = false;
+            for(int i = _maploader._walls.size() -1; i > -1; i--)
+                if (temp.z < _maploader._walls[i].offset.z + _settings->COLLISION_ZONE
+                    && temp.z > _maploader._walls[i].offset.z - _settings->COLLISION_ZONE
+                    && temp.x < _maploader._walls[i].offset.x + _settings->COLLISION_ZONE
+                    && temp.x > _maploader._walls[i].offset.x - _settings->COLLISION_ZONE)
+                    collision = true;
 
-            if (_maploader._player[0].rotation.y < -_settings->FULL_ROTATION)
-                _maploader._player[0].rotation.y = 0.0f;
+            for(int i = _maploader._obstacles.size() -1; i > -1; i--)
+                if (temp.z < _maploader._obstacles[i].offset.z + _settings->COLLISION_ZONE
+                    && temp.z > _maploader._obstacles[i].offset.z - _settings->COLLISION_ZONE
+                    && temp.x < _maploader._obstacles[i].offset.x + _settings->COLLISION_ZONE
+                    && temp.x > _maploader._obstacles[i].offset.x - _settings->COLLISION_ZONE)
+                    collision = true;
+
+            for(int i = _maploader._enemies.size() -1; i > -1; i--)
+                if (temp.z < _maploader._enemies[i].offset.z + _settings->COLLISION_ZONE
+                    && temp.z > _maploader._enemies[i].offset.z - _settings->COLLISION_ZONE
+                    && temp.x < _maploader._enemies[i].offset.x + _settings->COLLISION_ZONE
+                    && temp.x > _maploader._enemies[i].offset.x - _settings->COLLISION_ZONE)
+                    collision = true;
+
+            if (collision == false)
+            {
+//                _maploader._player[0].offset.x += sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+//                _maploader._player[0].offset.z -= cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+                _maploader._player[0].rotation.y = 3 * (M_PI / 2) ;
+                _maploader._player[0].offset.x -= _settings->PLAYER_SPEED;
+//                _maploader._player[0].offset.z -= _maploader._player[0].offset.z * _settings->PLAYER_SPEED;
+            }
             _maploader._player[0].startAnimating();
-
         }
         else if (keyInput.right)
         {
-            _maploader._player[0].rotation.y += _settings->PLAYER_ROTATION_SPEED;
-            // renderer->cameraRotation.y += PLAYER_ROTATION_SPEED;
-            // while (player.collidesWith(tree.offset)) {
-            //   player.rotation.y -= PLAYER_ROTATION_SPEED;
-            // }
+            glm::vec3 temp = _maploader._player[0].offset;
+            temp.x += _settings->PLAYER_SPEED;
 
+            bool collision = false;
+            for(int i = _maploader._walls.size() -1; i > -1; i--)
+                if (temp.z < _maploader._walls[i].offset.z + _settings->COLLISION_ZONE
+                    && temp.z > _maploader._walls[i].offset.z - _settings->COLLISION_ZONE
+                    && temp.x < _maploader._walls[i].offset.x + _settings->COLLISION_ZONE
+                    && temp.x > _maploader._walls[i].offset.x - _settings->COLLISION_ZONE)
+                    collision = true;
 
-            if (_maploader._player[0].rotation.y > _settings->FULL_ROTATION)
-                _maploader._player[0].rotation.y = 0.0f;
+            for(int i = _maploader._obstacles.size() -1; i > -1; i--)
+                if (temp.z < _maploader._obstacles[i].offset.z + _settings->COLLISION_ZONE
+                    && temp.z > _maploader._obstacles[i].offset.z - _settings->COLLISION_ZONE
+                    && temp.x < _maploader._obstacles[i].offset.x + _settings->COLLISION_ZONE
+                    && temp.x > _maploader._obstacles[i].offset.x - _settings->COLLISION_ZONE)
+                    collision = true;
+
+            for(int i = _maploader._enemies.size() -1; i > -1; i--)
+                if (temp.z < _maploader._enemies[i].offset.z + _settings->COLLISION_ZONE
+                    && temp.z > _maploader._enemies[i].offset.z - _settings->COLLISION_ZONE
+                    && temp.x < _maploader._enemies[i].offset.x + _settings->COLLISION_ZONE
+                    && temp.x > _maploader._enemies[i].offset.x - _settings->COLLISION_ZONE)
+                    collision = true;
+
+            if (collision == false)
+            {
+//                _maploader._player[0].offset.x += sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+//                _maploader._player[0].offset.z -= cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+                _maploader._player[0].rotation.y = M_PI / 2 ;
+                _maploader._player[0].offset.x += _settings->PLAYER_SPEED;
+//                _maploader._player[0].offset.z -= _maploader._player[0].offset.z * _settings->PLAYER_SPEED;
+            }
             _maploader._player[0].startAnimating();
         }
 
         if (keyInput.up)
         {
             glm::vec3 temp = _maploader._player[0].offset;
-            temp.x += sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-            temp.z -= cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+            temp.z -= _settings->PLAYER_SPEED;
 
             bool collision = false;
             for(int i = _maploader._walls.size() -1; i > -1; i--)
@@ -154,24 +198,19 @@ namespace Bomberman
 
             if (collision == false)
             {
-                _maploader._player[0].offset.x += sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-                _maploader._player[0].offset.z -= cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-                // std::cout << "x: " << _maploader._player[0].offset.x << " z: " << _maploader._player[0].offset.z << std::endl;
-                // renderer->cameraPosition.x = (player.offset.x) + 4;
-                // renderer->cameraPosition.z = (player.offset.z) + 4;
+//                _maploader._player[0].offset.x += sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+//                _maploader._player[0].offset.z -= cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+                _maploader._player[0].rotation.y = 0;
+                _maploader._player[0].offset.z -= _settings->PLAYER_SPEED;
+//                _maploader._player[0].offset.z -= _maploader._player[0].offset.z * _settings->PLAYER_SPEED;
             }
-
-
-            // while (player.collidesWith(wall)) {
-            //   player.offset.x -= sin(player.rotation.y) * PLAYER_SPEED;
-            //   player.offset.z += cos(player.rotation.y) * PLAYER_SPEED;
-            // }
-
             _maploader._player[0].startAnimating();
         }
         else if (keyInput.down)
         {
             glm::vec3 temp = _maploader._player[0].offset;
+            temp.z += _settings->PLAYER_SPEED;
+
             bool collision = false;
             for(int i = _maploader._walls.size() -1; i > -1; i--)
                 if (temp.z < _maploader._walls[i].offset.z + _settings->COLLISION_ZONE
@@ -196,31 +235,13 @@ namespace Bomberman
 
             if (collision == false)
             {
-                _maploader._player[0].offset.x -= sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-                _maploader._player[0].offset.z += cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
+                _maploader._player[0].rotation.y = M_PI;
+                _maploader._player[0].offset.z += _settings->PLAYER_SPEED;
             }
-            // renderer->cameraPosition.z = (player.offset.z) + 4;
-
-            // while (player.collidesWith(tree)) {
-            //   player.offset.x += sin(player.rotation.y) * PLAYER_SPEED;
-            //   player.offset.z -= cos(player.rotation.y) * PLAYER_SPEED;
-            // }
-
-            // player chase camera
-
             _maploader._player[0].startAnimating();
         }
 
-        // if (player.offset.z < MIN_Z + 1.0f)
-        //   player.offset.z = MIN_Z + 1.0f;
-        // if (player.offset.z > MAX_Z - 1.0f)
-        //   player.offset.z = MAX_Z - 1.0f;
-
-        // if (player.offset.x < player.offset.z)
-        //   player.offset.x = player.offset.z;
-        // if (player.offset.x > -(player.offset.z))
-        //   player.offset.x = -(player.offset.z);
-
+        // Keep Player On Map
         if (_maploader._player[0].offset.z > _settings->MAX_Z)
             _maploader._player[0].offset.z = _settings->MAX_Z;
         if (_maploader._player[0].offset.z < _settings->MIN_Z)
@@ -257,6 +278,7 @@ namespace Bomberman
             renderer->cameraPosition.z -= 0.5f;
 
         _maploader._player[0].animate();
+
         if (keyInput.space && !bombDropped)
         {
             bombDropped = true;
@@ -264,26 +286,10 @@ namespace Bomberman
             bomb.startAnimating();
         }
 
-        // renderer->cameraPosition.x -= sin(player.rotation.y) * 3.0f;
-        // renderer->cameraPosition.z += cos(player.rotation.y) * 3.0f;
-
-        // renderer->cameraPosition = player.offset;
-        // renderer->cameraPosition.x -= sin(player.rotation.y) * 5.0f;
-        // renderer->cameraPosition.z += cos(player.rotation.y) * 5.0f;
-        // renderer->cameraPosition.y = 16.0f;
-        // renderer->cameraRotation = player.rotation;
-        // renderer->cameraRotation.x = 1.1f;
-
-        //renderer->cameraPosition = player.offset;
         renderer->cameraPosition.x = 0.0f;
         renderer->cameraPosition.z = 11.32f;
         renderer->cameraPosition.y = 16.0f;
         renderer->cameraRotation.x = 1.1f;
-
-        // Uncomment to see the player's view of the world
-        // renderer->cameraPosition = player.offset;
-        // renderer->cameraPosition.y += 1.0f;
-        // renderer->cameraRotation = player.rotation;
 
     }
 
@@ -294,35 +300,8 @@ namespace Bomberman
         // This code determines if an enemy is colliding with something and prevents them from moving
         // Move it to the enemy class at a later stage, modify behaviour to turn
         for(int i = _maploader._enemies.size() - 1; i > -1; i--)
-        {
-            int me = i;
-            glm::vec3 temp = _maploader._enemies[i].offset;
+            _maploader._enemies[i].move(&_maploader, i);
 
-            bool collision = false;
-            for(int i = _maploader._walls.size() -1; i > -1; i--)
-                if (temp.z < _maploader._walls[i].offset.z + _settings->COLLISION_ZONE
-                    && temp.z > _maploader._walls[i].offset.z - _settings->COLLISION_ZONE
-                    && temp.x < _maploader._walls[i].offset.x + _settings->COLLISION_ZONE
-                    && temp.x > _maploader._walls[i].offset.x - _settings->COLLISION_ZONE)
-                    collision = true;
-
-            for(int i = _maploader._obstacles.size() -1; i > -1; i--)
-                if (temp.z < _maploader._obstacles[i].offset.z + _settings->COLLISION_ZONE
-                    && temp.z > _maploader._obstacles[i].offset.z - _settings->COLLISION_ZONE
-                    && temp.x < _maploader._obstacles[i].offset.x + _settings->COLLISION_ZONE
-                    && temp.x > _maploader._obstacles[i].offset.x - _settings->COLLISION_ZONE)
-                    collision = true;
-
-            for(int i = _maploader._enemies.size() -1; i > -1; i--)
-                if (temp.z < _maploader._enemies[i].offset.z + _settings->COLLISION_ZONE
-                    && temp.z > _maploader._enemies[i].offset.z - _settings->COLLISION_ZONE
-                    && temp.x < _maploader._enemies[i].offset.x + _settings->COLLISION_ZONE
-                    && temp.x > _maploader._enemies[i].offset.x - _settings->COLLISION_ZONE
-                    && i != me)
-                    collision = true;
-            if (collision == false)
-                _maploader._enemies[i].move(_maploader._player[0].offset.x, _maploader._player[0].offset.z);
-        }
     }
 
 	void GameLogic::processStartScreen(const KeyInput &keyInput)
@@ -360,8 +339,9 @@ namespace Bomberman
 
             // MenuScreen mainscreenMenu(window); //store as a pointer and add to main loop
             // mainscreenMenu.mainMenu();
-//            _menu->menuHandler(); //uncomment this for menu
+//            _menu->renderMenu(); //uncomment this for menu
 		}
+            
 		else
 		{
 			renderer->renderRectangle("skyTexture", glm::vec3(-1.0f, 1.0f, 1.0f),
