@@ -27,6 +27,7 @@ namespace Bomberman {
 		Sound		explosion;
 		Settings	*_settings;
 
+		int 		level;
 		double		startSeconds;
 		int			seconds;
 		bool		bombDropped;
@@ -49,6 +50,7 @@ namespace Bomberman {
 
 		Screen *_screen = nullptr;
 		Renderer *renderer = nullptr;
+		std::string profile_name;
 
 		GameLogic(Settings *settings);
 		GameLogic(GameLogic &obj) = default;

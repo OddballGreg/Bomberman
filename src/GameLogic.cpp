@@ -13,7 +13,9 @@ namespace Bomberman
 			bomb("bomb", "../resources/models/bomberman/bomb.obj", 1, "../resources/models/bomberman/cube.obj"),
 			_settings(settings), _maploader(settings) {
 
-		_maploader.load_map(1);
+        profile_name = "test_profile_name";
+        level = 0;
+		_maploader.load_map(level);
 
 		renderer = &Renderer::getInstance(settings, "BombermanTestV1", 0, 0, 1.2f);
 
@@ -123,11 +125,8 @@ namespace Bomberman
 
             if (collision == false)
             {
-//                _maploader._player[0].offset.x += sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-//                _maploader._player[0].offset.z -= cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
                 _maploader._player[0].rotation.y = 3 * (M_PI / 2) ;
                 _maploader._player[0].offset.x -= _settings->PLAYER_SPEED;
-//                _maploader._player[0].offset.z -= _maploader._player[0].offset.z * _settings->PLAYER_SPEED;
             }
             _maploader._player[0].startAnimating();
         }
@@ -160,11 +159,8 @@ namespace Bomberman
 
             if (collision == false)
             {
-//                _maploader._player[0].offset.x += sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-//                _maploader._player[0].offset.z -= cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
                 _maploader._player[0].rotation.y = M_PI / 2 ;
                 _maploader._player[0].offset.x += _settings->PLAYER_SPEED;
-//                _maploader._player[0].offset.z -= _maploader._player[0].offset.z * _settings->PLAYER_SPEED;
             }
             _maploader._player[0].startAnimating();
         }
@@ -198,11 +194,8 @@ namespace Bomberman
 
             if (collision == false)
             {
-//                _maploader._player[0].offset.x += sin(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
-//                _maploader._player[0].offset.z -= cos(_maploader._player[0].rotation.y) * _settings->PLAYER_SPEED;
                 _maploader._player[0].rotation.y = 0;
                 _maploader._player[0].offset.z -= _settings->PLAYER_SPEED;
-//                _maploader._player[0].offset.z -= _maploader._player[0].offset.z * _settings->PLAYER_SPEED;
             }
             _maploader._player[0].startAnimating();
         }
@@ -382,18 +375,13 @@ namespace Bomberman
                 if (bomb.offset.z < _maploader._player[0].offset.z + _settings->BOMB_RADIUS
                     && bomb.offset.z > _maploader._player[0].offset.z - _settings->BOMB_RADIUS
                     && bomb.offset.x < _maploader._player[0].offset.x + _settings->BOMB_COLLUMN
-                    && bomb.offset.x > _maploader._player[0].offset.x - _settings->BOMB_COLLUMN) {
-                    _maploader._player.pop_back();
-                    exit(0);
-                    // YOU LOSE
-                } else if (bomb.offset.x < _maploader._player[0].offset.x + _settings->BOMB_RADIUS
+                    && bomb.offset.x > _maploader._player[0].offset.x - _settings->BOMB_COLLUMN)
+                    _maploader.load_map(level);
+                else if (bomb.offset.x < _maploader._player[0].offset.x + _settings->BOMB_RADIUS
                     && bomb.offset.x > _maploader._player[0].offset.x - _settings->BOMB_RADIUS
                     && bomb.offset.z < _maploader._player[0].offset.z + _settings->BOMB_COLLUMN
-                    && bomb.offset.z > _maploader._player[0].offset.z - _settings->BOMB_COLLUMN) {
-                    _maploader._player.pop_back();
-                    exit(0);
-                    // YOU LOSE
-                }
+                    && bomb.offset.z > _maploader._player[0].offset.z - _settings->BOMB_COLLUMN)
+                    _maploader.load_map(level);
 
                 for(long i = _maploader._obstacles.size() -1; i > -1; i--) {
                     if (bomb.offset.z < _maploader._obstacles[i].offset.z + _settings->BOMB_RADIUS
@@ -432,6 +420,9 @@ namespace Bomberman
 					explosion.initialize("../SoundEngine/music/explosion.wav");
 					explosion.play(false);
 				}
+
+                if (_maploader._enemies.size() == 0)
+                    _maploader.load_map(++level % _settings->LEVEL_COUNT);
 			}
 		}
 		renderer->swapBuffers();

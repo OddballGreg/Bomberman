@@ -33,7 +33,13 @@ MapLoader::MapLoader(Settings *settings) : _settings(settings)
 
 void MapLoader::load_map(int level)
 {
-	std::string		mapname("../maps/1.txt");
+	//Wipe Vectors Before Loading
+	_enemies.clear();
+	_player.clear();
+	_walls.clear();
+	_obstacles.clear();
+
+	std::string		mapname("../maps/" + std::to_string(level) + ".txt");
 	std::ifstream	mapfile(mapname);
 	std::string		line;
 	int y = -1;
