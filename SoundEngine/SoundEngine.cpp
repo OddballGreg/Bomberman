@@ -33,6 +33,7 @@ int convertToInt(char* buffer,int len)
 }
 
 Sound::Sound() {
+	_volume = 1.0f;
 }
 
 Sound::~Sound() {
@@ -131,4 +132,27 @@ void Sound::play(bool loop) {
 		alSourcei(_source, AL_LOOPING, AL_TRUE);
 
 	alSourcePlay(_source);
+}
+
+void	Sound::incVolume(void) {
+	if (_volume < 1)
+		_volume += 0.1;
+	if (_volume > 1)
+		_volume = 1;
+}
+
+void	Sound::decVolume(void) {
+	if (_volume > 0)
+		_volume -= 0.1;
+	if (_volume < 0)
+		_volume = 0;
+}
+
+void	Sound::setVolume(float percentage) {
+	if (percentage < 0)
+		percentage = 0;
+	if (percentage > 1)
+		percentage = 1;
+
+	_volume = percentage;
 }
