@@ -32,6 +32,7 @@ public:
     int   SCREEN_WIDTH;
     int   SCREEN_HEIGHT;
     float   BOMB_RADIUS;
+    float BOMB_COLLUMN;
 
 private:
 

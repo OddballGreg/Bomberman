@@ -392,12 +392,16 @@ namespace Bomberman
 
                 // Blow stuff up here
                 if (bomb.offset.z < _maploader._player[0].offset.z + _settings->BOMB_RADIUS
-                    && bomb.offset.z > _maploader._player[0].offset.z - _settings->BOMB_RADIUS) {
+                    && bomb.offset.z > _maploader._player[0].offset.z - _settings->BOMB_RADIUS
+                    && bomb.offset.x < _maploader._player[0].offset.x + _settings->BOMB_COLLUMN
+                    && bomb.offset.x > _maploader._player[0].offset.x - _settings->BOMB_COLLUMN) {
                     _maploader._player.pop_back();
                     exit(0);
                     // YOU LOSE
                 } else if (bomb.offset.x < _maploader._player[0].offset.x + _settings->BOMB_RADIUS
-                    && bomb.offset.x > _maploader._player[0].offset.x - _settings->BOMB_RADIUS) {
+                    && bomb.offset.x > _maploader._player[0].offset.x - _settings->BOMB_RADIUS
+                    && bomb.offset.z < _maploader._player[0].offset.z + _settings->BOMB_COLLUMN
+                    && bomb.offset.z > _maploader._player[0].offset.z - _settings->BOMB_COLLUMN) {
                     _maploader._player.pop_back();
                     exit(0);
                     // YOU LOSE
@@ -405,11 +409,15 @@ namespace Bomberman
 
                 for(long i = _maploader._obstacles.size() -1; i > -1; i--) {
                     if (bomb.offset.z < _maploader._obstacles[i].offset.z + _settings->BOMB_RADIUS
-                        && bomb.offset.z > _maploader._obstacles[i].offset.z - _settings->BOMB_RADIUS) {
+                        && bomb.offset.z > _maploader._obstacles[i].offset.z - _settings->BOMB_RADIUS
+                        && bomb.offset.x < _maploader._obstacles[i].offset.x + _settings->BOMB_COLLUMN
+                        && bomb.offset.x > _maploader._obstacles[i].offset.x - _settings->BOMB_COLLUMN) {
                         _maploader._obstacles.erase(_maploader._obstacles.begin() + i);
                         i = _maploader._obstacles.size() -1;
                     } else if (bomb.offset.x < _maploader._obstacles[i].offset.x + _settings->BOMB_RADIUS
-                         && bomb.offset.x > _maploader._obstacles[i].offset.x - _settings->BOMB_RADIUS) {
+                         && bomb.offset.x > _maploader._obstacles[i].offset.x - _settings->BOMB_RADIUS
+                         && bomb.offset.z < _maploader._obstacles[i].offset.z + _settings->BOMB_COLLUMN
+                         && bomb.offset.z > _maploader._obstacles[i].offset.z - _settings->BOMB_COLLUMN) {
                         _maploader._obstacles.erase(_maploader._obstacles.begin() + i);
                         i = _maploader._obstacles.size() -1;
                     }
@@ -417,11 +425,15 @@ namespace Bomberman
 
                 for(long i = _maploader._enemies.size() -1; i > -1; i--) {
                     if (bomb.offset.z < _maploader._enemies[i].offset.z + _settings->BOMB_RADIUS
-                        && bomb.offset.z > _maploader._enemies[i].offset.z - _settings->BOMB_RADIUS) {
+                        && bomb.offset.z > _maploader._enemies[i].offset.z - _settings->BOMB_RADIUS
+                           && bomb.offset.x < _maploader._enemies[i].offset.x + _settings->BOMB_COLLUMN
+                           && bomb.offset.x > _maploader._enemies[i].offset.x - _settings->BOMB_COLLUMN) {
                         _maploader._enemies.erase(_maploader._enemies.begin() + i);
                         i = _maploader._enemies.size() -1;
                     } else if (bomb.offset.x < _maploader._enemies[i].offset.x + _settings->BOMB_RADIUS
-                        && bomb.offset.x > _maploader._enemies[i].offset.x - _settings->BOMB_RADIUS) {
+                        && bomb.offset.x > _maploader._enemies[i].offset.x - _settings->BOMB_RADIUS
+                           && bomb.offset.z < _maploader._enemies[i].offset.z + _settings->BOMB_COLLUMN
+                           && bomb.offset.z > _maploader._enemies[i].offset.z - _settings->BOMB_COLLUMN) {
                         _maploader._enemies.erase(_maploader._enemies.begin() + i);
                         i = _maploader._enemies.size() -1;
                     }
