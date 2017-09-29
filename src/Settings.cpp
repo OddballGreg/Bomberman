@@ -15,7 +15,7 @@ Settings::Settings()
 	MIN_X = -12.0f;
 
 	ENEMY_ROTATION_SPEED = 0.1f;
-	ENEMY_SPEED = 0.05f;
+	ENEMY_SPEED = 0.025f;
 
     PLAY_SOUND = false;
     COLLISION_ZONE = 1.2f;

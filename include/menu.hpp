@@ -22,15 +22,18 @@ class MenuScreen
 	private:
 		GLFWwindow  *_win;
 		MenuState   _menuState;
-        nanogui::Screen* _screen;
+		nanogui::Screen* _screen;
 
-        nanogui::Window *_mainMenu;
+		nanogui::Window *_mainMenu;
 
 	public:
 
 		MenuScreen(GLFWwindow * pWin);
 		MenuScreen(MenuScreen const &);
+		MenuScreen(MenuScreen &obj) = default;
 		~MenuScreen();
+
+		MenuScreen &operator = (MenuScreen &obj) = default;
 
 		MenuScreen const & operator=(MenuScreen const &);
 

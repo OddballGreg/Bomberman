@@ -17,7 +17,10 @@ class MapLoader
 {
 	public:
 	MapLoader(Settings *settings);
+	MapLoader(MapLoader &obj) = default;
 	~MapLoader() = default;
+
+	MapLoader &operator = (MapLoader &obj) = default;
 
 	void load_map(int level);
 	void spawn_object(char type_char, float x_coord, float y_coord);
