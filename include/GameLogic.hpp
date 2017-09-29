@@ -9,6 +9,7 @@
 #include "../include/MapLoader.hpp"
 #include "../SoundEngine/SoundEngine.hpp"
 #include "../include/Settings.hpp"
+#include "menu.hpp"
 
 #include <nanogui/nanogui.h>
 #include "KeyInput.hpp"
@@ -42,6 +43,8 @@ namespace Bomberman {
 
 		bool	bombDropped;
 		int	 bombDelay;
+
+		MenuScreen *_menu;
 
 	public:
 

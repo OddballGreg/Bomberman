@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <iostream>
 #include "../include/GameLogic.hpp"
+#include "../include/menu.hpp"
 
 using namespace gameEngine;
 
@@ -15,6 +16,8 @@ namespace Bomberman
 		_maploader.load_map(1);
 
 		renderer = &Renderer::getInstance(settings, "BombermanTestV1", 0, 0, 1.2f);
+
+        // _menu = new MenuScreen(renderer->getWindow()); // uncomment this for menu
 
 		Image startScreenTexture("../resources/images/bom.png");
 		renderer->generateTexture("startScreen", startScreenTexture);
@@ -353,6 +356,10 @@ namespace Bomberman
 		{
 			renderer->renderRectangle("skyTexture", glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f));
 			renderer->renderRectangle("startScreen", glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f));
+
+            // MenuScreen mainscreenMenu(window); //store as a pointer and add to main loop
+            // mainscreenMenu.mainMenu();
+            // _menu->renderMenu(); //uncomment this for menu
 		}
 		else
 		{

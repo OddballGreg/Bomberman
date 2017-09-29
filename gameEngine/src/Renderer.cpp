@@ -393,9 +393,8 @@ namespace gameEngine {
 
 		glfwMakeContextCurrent(window);
 
-
-		//        MenuScreen mainscreenMenu(window); //store as a pointer and add to main loop
-		//        mainscreenMenu.mainMenu();
+//        MenuScreen mainscreenMenu(window); //store as a pointer and add to main loop
+//        mainscreenMenu.mainMenu();
 
 	}
 
