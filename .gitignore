@@ -38,10 +38,6 @@ cmake-build-debug
 external/nanogui
 .nanogui
 
-#NANOGUI library
-external/glui
-
-
 #Build directory
 build
 
