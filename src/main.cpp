@@ -4,7 +4,6 @@
 #include <stdexcept>
 
 #include "../include/GameLogic.hpp"
-#include "../include/menu.hpp"
 #include "../include/KeyInput.hpp"
 
 #include "../SoundEngine/SoundEngine.hpp"
@@ -14,7 +13,6 @@
 using namespace std;
 using namespace Bomberman;
 using namespace gameEngine;
-using namespace nanogui;
 
 const GLuint frameRate = 60;
 bool firstMouse = true;
@@ -206,13 +204,6 @@ int main(int argc, char **argv) {
 		double secondsInterval = 1.0 / frameRate;
 
 		GLFWwindow* window = gameLogic.renderer->getWindow();
-
-		// Create a nanogui screen and pass the glfw pointer to initialize
-		Screen *screen = nullptr;
-		screen = new Screen();
-		screen->initialize(window, true);
-
-		gameLogic.setScreen(screen);
 
 		glfwSetKeyCallback(window, keyCallback);
 		glfwSetCursorPosCallback(window, mouse_callback);

@@ -1,6 +1,5 @@
 
 #include "../include/Renderer.hpp"
-#include "../../include/menu.hpp"
 
 #include <stdexcept>
 #include <fstream>

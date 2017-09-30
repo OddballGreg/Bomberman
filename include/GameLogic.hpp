@@ -7,13 +7,10 @@
 #include "../gameEngine/include/SceneObject.hpp"
 #include "../gameEngine/include/Renderer.hpp"
 #include "../gameEngine/include/Enemy.hpp"
-#include "../gameEngine/include/Menu.hpp"
 #include "../include/MapLoader.hpp"
 #include "../SoundEngine/SoundEngine.hpp"
 #include "../include/Settings.hpp"
 
-#include "menu.hpp"
-#include <nanogui/nanogui.h>
 #include "KeyInput.hpp"
 
 using namespace gameEngine;
@@ -47,7 +44,6 @@ namespace Bomberman {
 		};
 
 		GameState	gameState;
-		MenuScreen *_menu;
 
 		void initGame();
 		void processGame(const KeyInput &keyInput);
@@ -56,7 +52,6 @@ namespace Bomberman {
 
 	public:
 
-		Screen *_screen = nullptr;
 		Renderer *renderer = nullptr;
 		std::string profile_name;
 
@@ -66,7 +61,6 @@ namespace Bomberman {
 
 		GameLogic &operator = (GameLogic &obj) = default;
 
-		void setScreen(Screen *screen);
 		void process(const KeyInput &keyInput);
 		void render();
 

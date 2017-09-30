@@ -27,11 +27,6 @@ pkg_search_module(SDL REQUIRED sdl)
 pkg_search_module(SDL2 REQUIRED sdl2)
 pkg_search_module(LIBPNG REQUIRED libpng)
 
-add_subdirectory(${NANOGUI_DIR})
-include_directories(${NANOGUI_DIR}/include)
-include_directories(${NANOGUI_EXTRA_INCS})
-add_definitions(${NANOGUI_EXTRA_DEFS})
-
 file(COPY profiles DESTINATION .)
 
 # These directories get symlinked into the build directory after compilation
@@ -44,15 +39,13 @@ set(RESOURCE_DIRS
         gameEngine/resources/fonts/
 		SoundEngine/music/
 		maps/
-        )
+)
 
 set(SOURCE_FILES
         src/main.cpp
         src/GameLogic.cpp
         src/MapLoader.cpp
         include/MapLoader.hpp
-		include/menu.hpp
-		src/menu.cpp
 		SoundEngine/SoundEngine.cpp
 		SoundEngine/SoundEngine.hpp
         gameEngine/src/BoundingBoxSet.cpp
@@ -62,7 +55,6 @@ set(SOURCE_FILES
         gameEngine/src/Model.cpp
         gameEngine/src/Renderer.cpp
         gameEngine/src/SceneObject.cpp
-		gameEngine/src/Menu.cpp
         gameEngine/include/BoundingBoxSet.hpp
         gameEngine/include/GetTokens.hpp
         gameEngine/include/Image.hpp
@@ -70,7 +62,6 @@ set(SOURCE_FILES
         gameEngine/include/Model.hpp
         gameEngine/include/Renderer.hpp
         gameEngine/include/SceneObject.hpp
-		gameEngine/include/Menu.hpp
 		gameEngine/src/Enemy.cpp
 		gameEngine/include/Enemy.hpp
 		src/Settings.cpp
@@ -83,33 +74,15 @@ include_directories(
 		~/.brew/include/freetype2
 		~/.brew/include/eigen3
 		${OPENAL_INCLUDE_DIR}
-		~/.brew/opt/alut/include
-		${PROJECT_SOURCE_DIR}/external/nanogui/include
-		${PROJECT_SOURCE_DIR}/external/nanogui/ext
-		${PROJECT_SOURCE_DIR}/external/nanogui/ext/nanovg/src
-		${PROJECT_SOURCE_DIR}/external/nanogui/ext/eigen
-		${PROJECT_SOURCE_DIR}/external/nanogui/ext/glfw/include
-        #${NANOGUI_DIR}/include
-		#${NANOGUI_DIR}/ext/nanovg/src
-		#${NANOGUI_DIR}/ext/pybind11/include
-        #${NANOGUI_DIR}/ext/glfw/include
-        #${NANOGUI_DIR}/ext/eigen
-        #${NANOGUI_DIR}/ext/glad/include
 )
 
 # Directories to find the libraries
 link_directories(
 		~/.brew/lib
-		~/.brew/opt/alut/lib
         ${PROJECT_SOURCE_DIR}
         ${GLEW_LIBRARY_DIRS}
         ${GLM_LIBRARY_DIRS}
         ${GLFW_LIBRARY_DIRS}
-		#${NANOGUI_DIR}/src
-        #${NANOGUI_DIR}/python
-		#${NANOGUI_DIR}/ext/nanovg/src
-        #${NANOGUI_DIR}/ext/glfw/src
-        #${NANOGUI_DIR}/ext/glad/src
 )
 
 add_executable(bomberman ${SOURCE_FILES})
@@ -122,13 +95,10 @@ target_link_libraries(${PROJECT_NAME}
         ${GLM_LIBRARIES}
         ${GLFW_LIBRARIES}
         ${FT_LIBRARIES}
-		alut
 		freetype
 		png
 		glfw
 		GLEW
-        nanogui
-        ${NANOGUI_EXTRA_LIBS}
 )
 
 set(LINKER_FLAGS "-framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lfreetype -lpng -lglfw -lGLEW")

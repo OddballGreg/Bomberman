@@ -17,8 +17,6 @@
 #include <freetype2/ft2build.h>
 #include <freetype2/freetype/freetype.h>
 
-#include <nanogui/nanogui.h>
-
 namespace gameEngine
 {
 
@@ -33,7 +31,6 @@ namespace gameEngine
 
 		Settings *_settings;
 		GLFWwindow* window;
-        nanogui::Screen* _screen;
 
 		GLuint perspectiveProgram;
 		GLuint orthographicProgram;

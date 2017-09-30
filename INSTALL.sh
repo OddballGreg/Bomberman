@@ -13,9 +13,6 @@ LIB_GLEW="$HOME/.brew/Cellar/glew"
 LIB_GLM="$HOME/.brew/Cellar/glm"
 LIB_SMFL="$HOME/.brew/Cellar/sfml"
 LIB_EIGEN="$HOME/.brew/Cellar/eigen"
-LIB_ALUT="$HOME/.brew/Cellar/alut"
-
-LIB_NANOGUI="external/nanogui"
 
 if [ ! -d "$HOMEBREW" ]; then
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/Tolsadus/42homebrewfix/master/install.sh)"
@@ -64,13 +61,4 @@ fi
 
 if [ ! -d "$LIB_EIGEN" ]; then
 	$HOME/.brew/bin/brew install eigen
-fi
-
-if [ ! -d "$LIB_ALUT" ]; then
-	$HOME/.brew/bin/brew install alut
-fi
-
-if [ ! -d "$LIB_NANOGUI" ]; then
-	git clone --recursive https://github.com/wjakob/nanogui.git ../external/nanogui
-	git submodule update --init --recursive
 fi

@@ -3,7 +3,6 @@
 #include <stdexcept>
 #include <iostream>
 #include "../include/GameLogic.hpp"
-#include "../include/menu.hpp"
 
 using namespace gameEngine;
 
@@ -39,8 +38,6 @@ namespace Bomberman
 		_maploader.load_map(level);
 
 		renderer = &Renderer::getInstance(settings, "BombermanTestV1", 0, 0, 1.2f);
-
-        _menu = new MenuScreen(renderer->getWindow()); // uncomment this for menu
 
 		Image startScreenTexture("../resources/images/bom.png");
 		renderer->generateTexture("startScreen", startScreenTexture);
@@ -111,11 +108,6 @@ namespace Bomberman
 		renderer->cameraPosition.z = (_maploader._player[0].offset.z) + 4;
 
 		startSeconds = glfwGetTime();
-	}
-
-	void GameLogic::setScreen(Screen *screen)
-	{
-		this->_screen = screen;
 	}
 
     void GameLogic::movePlayer(const KeyInput &keyInput)
