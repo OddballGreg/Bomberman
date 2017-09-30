@@ -21,7 +21,7 @@ void            GameState::setTitle(char *title) {
 };
 
 void            GameState::startMenu(int width, int height) {
-    this->TITLE = strdup("Welcome to Bomberman");
+    // this->TITLE = strdup("Welcome to Bomberman");
     
     char    text[256];
     sprintf(text, "%.2f sec", glfwGetTime());

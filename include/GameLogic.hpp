@@ -47,9 +47,9 @@ namespace Bomberman {
 		GameState	gameState;
 
 		void initGame();
-		void processGame(Bomberman::KeyInput *keyInput);
-		void processStartScreen(Bomberman::KeyInput *keyInput);
-		void movePlayer(Bomberman::KeyInput *keyInput);
+		void processGame(const KeyInput &keyInput);
+		void processStartScreen(const KeyInput &keyInput);
+		void movePlayer(const KeyInput &keyInput);
 
 	public:
 
@@ -62,7 +62,7 @@ namespace Bomberman {
 
 		GameLogic &operator = (GameLogic &obj) = default;
 
-		void process(Bomberman::KeyInput *keyInput);
+		void process(const KeyInput &keyInput);
 		void render();
 
 		float lightModifier;

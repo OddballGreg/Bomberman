@@ -24,125 +24,125 @@ float lastY =	600.0 / 2.0;
 float fov	=	45.0f;
 
 
-Bomberman::KeyInput *input = nullptr;;
+KeyInput input;
 
 
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)
-		input->down = true;
+		input.down = true;
 	if (key == GLFW_KEY_UP && action == GLFW_PRESS)
-		input->up = true;
+		input.up = true;
 	if (key == GLFW_KEY_LEFT && action == GLFW_PRESS)
-		input->left = true;
+		input.left = true;
 	if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS)
-		input->right = true;
+		input.right = true;
 	if (key == GLFW_KEY_ENTER && action == GLFW_PRESS)
-		input->enter = true;
+		input.enter = true;
 
 	if (key == GLFW_KEY_W && action == GLFW_PRESS)
-		input->camUp = true;
+		input.camUp = true;
 	if (key == GLFW_KEY_S && action == GLFW_PRESS)
-		input->camDown = true;
+		input.camDown = true;
 	if (key == GLFW_KEY_A && action == GLFW_PRESS)
-		input->camLeft = true;
+		input.camLeft = true;
 	if (key == GLFW_KEY_D && action == GLFW_PRESS)
-		input->camRight = true;
+		input.camRight = true;
 
 	if (key == GLFW_KEY_1 && action == GLFW_PRESS)
-		input->camRotXUp = true;
+		input.camRotXUp = true;
 	if (key == GLFW_KEY_2 && action == GLFW_PRESS)
-		input->camRotXDown = true;
+		input.camRotXDown = true;
 	if (key == GLFW_KEY_4 && action == GLFW_PRESS)
-		input->camRotYUp = true;
+		input.camRotYUp = true;
 	if (key == GLFW_KEY_5 && action == GLFW_PRESS)
-		input->camRotYDown = true;
+		input.camRotYDown = true;
 	if (key == GLFW_KEY_7 && action == GLFW_PRESS)
-		input->camRotZUp = true;
+		input.camRotZUp = true;
 	if (key == GLFW_KEY_8 && action == GLFW_PRESS)
-		input->camRotZDown = true;
+		input.camRotZDown = true;
 
 	if (key == GLFW_KEY_D && action == GLFW_PRESS)
-		input->camPosXUp = true;
+		input.camPosXUp = true;
 	if (key == GLFW_KEY_A && action == GLFW_PRESS)
-		input->camPosXDown = true;
+		input.camPosXDown = true;
 	if (key == GLFW_KEY_E && action == GLFW_PRESS)
-		input->camPosYUp = true;
+		input.camPosYUp = true;
 	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
-		input->camPosYDown = true;
+		input.camPosYDown = true;
 	if (key == GLFW_KEY_S && action == GLFW_PRESS)
-		input->camPosZUp = true;
+		input.camPosZUp = true;
 	if (key == GLFW_KEY_W && action == GLFW_PRESS)
-		input->camPosZDown = true;
+		input.camPosZDown = true;
 
 	if (key == GLFW_KEY_D && action == GLFW_RELEASE)
-		input->camPosXUp = false;
+		input.camPosXUp = false;
 	if (key == GLFW_KEY_A && action == GLFW_RELEASE)
-		input->camPosXDown = false;
+		input.camPosXDown = false;
 	if (key == GLFW_KEY_E && action == GLFW_RELEASE)
-		input->camPosYUp = false;
+		input.camPosYUp = false;
 	if (key == GLFW_KEY_Q && action == GLFW_RELEASE)
-		input->camPosYDown = false;
+		input.camPosYDown = false;
 	if (key == GLFW_KEY_S && action == GLFW_RELEASE)
-		input->camPosZUp = false;
+		input.camPosZUp = false;
 	if (key == GLFW_KEY_W && action == GLFW_RELEASE)
-		input->camPosZDown = false;
+		input.camPosZDown = false;
 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		input->esc = true;
+		input.esc = true;
 	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
-		input->space = true;
+		input.space = true;
 
 	if (key == GLFW_KEY_DOWN && action == GLFW_RELEASE)
-		input->down = false;
+		input.down = false;
 	if (key == GLFW_KEY_UP && action == GLFW_RELEASE)
-		input->up = false;
+		input.up = false;
 	if (key == GLFW_KEY_LEFT && action == GLFW_RELEASE)
-		input->left = false;
+		input.left = false;
 	if (key == GLFW_KEY_RIGHT && action == GLFW_RELEASE)
-		input->right = false;
+		input.right = false;
 	if (key == GLFW_KEY_ENTER && action == GLFW_RELEASE)
-		input->enter = false;
+		input.enter = false;
 
 	if (key == GLFW_KEY_W && action == GLFW_RELEASE)
-		input->camUp = false;
+		input.camUp = false;
 	if (key == GLFW_KEY_S && action == GLFW_RELEASE)
-		input->camDown = false;
+		input.camDown = false;
 	if (key == GLFW_KEY_A && action == GLFW_RELEASE)
-		input->camLeft = false;
+		input.camLeft = false;
 	if (key == GLFW_KEY_D && action == GLFW_RELEASE)
-		input->camRight = false;
+		input.camRight = false;
 
 	if (key == GLFW_KEY_1 && action == GLFW_RELEASE)
-		input->camRotXUp = false;
+		input.camRotXUp = false;
 	if (key == GLFW_KEY_2 && action == GLFW_RELEASE)
-		input->camRotXDown = false;
+		input.camRotXDown = false;
 	if (key == GLFW_KEY_4 && action == GLFW_RELEASE)
-		input->camRotYUp = false;
+		input.camRotYUp = false;
 	if (key == GLFW_KEY_5 && action == GLFW_RELEASE)
-		input->camRotYDown = false;
+		input.camRotYDown = false;
 	if (key == GLFW_KEY_7 && action == GLFW_RELEASE)
-		input->camRotZUp = false;
+		input.camRotZUp = false;
 	if (key == GLFW_KEY_8 && action == GLFW_RELEASE)
-		input->camRotZDown = false;
+		input.camRotZDown = false;
 
 	if (key == GLFW_KEY_Z && action == GLFW_RELEASE)
-		input->camPosXUp = false;
+		input.camPosXUp = false;
 	if (key == GLFW_KEY_X && action == GLFW_RELEASE)
-		input->camPosXDown = false;
+		input.camPosXDown = false;
 	if (key == GLFW_KEY_C && action == GLFW_RELEASE)
-		input->camPosYUp = false;
+		input.camPosYUp = false;
 	if (key == GLFW_KEY_V && action == GLFW_RELEASE)
-		input->camPosYDown = false;
+		input.camPosYDown = false;
 	if (key == GLFW_KEY_B && action == GLFW_RELEASE)
-		input->camPosZUp = false;
+		input.camPosZUp = false;
 	if (key == GLFW_KEY_N && action == GLFW_RELEASE)
-		input->camPosZDown = false;
+		input.camPosZDown = false;
 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
-		input->esc = false;
+		input.esc = false;
 	if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE)
-		input->space = false;
+		input.space = false;
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
@@ -223,7 +223,7 @@ int main(int argc, char **argv) {
 
 		initText2D( "../gameEngine/resources/fonts/Holstein.DDS" );
 
-		while (!glfwWindowShouldClose(window) && !input->esc) {
+		while (!glfwWindowShouldClose(window) && !input.esc) {
 
 			glfwPollEvents();
 

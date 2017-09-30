@@ -110,11 +110,11 @@ namespace Bomberman
 		startSeconds = glfwGetTime();
 	}
 
-    void GameLogic::movePlayer(Bomberman::KeyInput *keyInput)
+    void GameLogic::movePlayer(const KeyInput &keyInput)
     {
         _maploader._player[0].stopAnimating();
 
-        if (keyInput->left)
+        if (keyInput.left)
         {
             glm::vec3 temp = _maploader._player[0].offset;
             temp.x -= _settings->PLAYER_SPEED;
@@ -148,7 +148,7 @@ namespace Bomberman
             }
             _maploader._player[0].startAnimating();
         }
-        else if (keyInput->right)
+        else if (keyInput.right)
         {
             glm::vec3 temp = _maploader._player[0].offset;
             temp.x += _settings->PLAYER_SPEED;
@@ -183,7 +183,7 @@ namespace Bomberman
             _maploader._player[0].startAnimating();
         }
 
-        if (keyInput->up)
+        if (keyInput.up)
         {
             glm::vec3 temp = _maploader._player[0].offset;
             temp.z -= _settings->PLAYER_SPEED;
@@ -217,7 +217,7 @@ namespace Bomberman
             }
             _maploader._player[0].startAnimating();
         }
-        else if (keyInput->down)
+        else if (keyInput.down)
         {
             glm::vec3 temp = _maploader._player[0].offset;
             temp.z += _settings->PLAYER_SPEED;
@@ -263,34 +263,34 @@ namespace Bomberman
             _maploader._player[0].offset.x = _settings->MIN_X;
 
 
-        if (keyInput->camRotXUp)
+        if (keyInput.camRotXUp)
             renderer->cameraRotation.x += cos(_maploader._player[0].rotation.y) * 0.05f;
-        else if (keyInput->camRotXDown)
+        else if (keyInput.camRotXDown)
             renderer->cameraRotation.x -= cos(_maploader._player[0].rotation.y) * 0.05f;
-        else if (keyInput->camRotYUp)
+        else if (keyInput.camRotYUp)
             renderer->cameraRotation.y += cos(_maploader._player[0].rotation.y) * 0.05f;
-        else if (keyInput->camRotYDown)
+        else if (keyInput.camRotYDown)
             renderer->cameraRotation.y -= cos(_maploader._player[0].rotation.y) * 0.05f;
-        else if (keyInput->camRotZUp)
+        else if (keyInput.camRotZUp)
             renderer->cameraRotation.z += cos(_maploader._player[0].rotation.y) * 0.05f;
-        else if (keyInput->camRotZDown)
+        else if (keyInput.camRotZDown)
             renderer->cameraRotation.z -= cos(_maploader._player[0].rotation.y) * 0.05f;
-        else if (keyInput->camPosXUp)
+        else if (keyInput.camPosXUp)
             renderer->cameraPosition.x += 0.5f;
-        else if (keyInput->camPosXDown)
+        else if (keyInput.camPosXDown)
             renderer->cameraPosition.x -= 0.5f;
-        else if (keyInput->camPosYUp)
+        else if (keyInput.camPosYUp)
             renderer->cameraPosition.y += 0.5f;
-        else if (keyInput->camPosYDown)
+        else if (keyInput.camPosYDown)
             renderer->cameraPosition.y -= 0.5f;
-        else if (keyInput->camPosZUp)
+        else if (keyInput.camPosZUp)
             renderer->cameraPosition.z += 0.5f;
-        else if (keyInput->camPosZDown)
+        else if (keyInput.camPosZDown)
             renderer->cameraPosition.z -= 0.5f;
 
         _maploader._player[0].animate();
 
-        if (keyInput->space && !bombDropped)
+        if (keyInput.space && !bombDropped)
         {
             bombDropped = true;
             bomb.offset = _maploader._player[0].offset;
@@ -304,7 +304,7 @@ namespace Bomberman
 
     }
 
-    void GameLogic::processGame(Bomberman::KeyInput *keyInput)
+    void GameLogic::processGame(const KeyInput &keyInput)
     {
         movePlayer(keyInput);
 
@@ -315,16 +315,16 @@ namespace Bomberman
 
     }
 
-	void GameLogic::processStartScreen(Bomberman::KeyInput *keyInput)
+	void GameLogic::processStartScreen(const KeyInput &keyInput)
 	{
-		if (keyInput->enter)
+		if (keyInput.enter)
 		{
 			initGame();
 			gameState = PLAYING;
 		}
 	}
 
-	void GameLogic::process(Bomberman::KeyInput *keyInput)
+	void GameLogic::process(const KeyInput &keyInput)
 	{
 		switch (gameState)
 		{
@@ -348,7 +348,7 @@ namespace Bomberman
 			renderer->renderRectangle("skyTexture", glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f));
 			renderer->renderRectangle("startScreen", glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f));
 
-            Menu menu(renderer->getWindow(), 500, 60);
+            // Menu menu(renderer->getWindow(), 500, 60);
             
 		}
 		else
@@ -479,11 +479,13 @@ namespace Bomberman
                 if (_maploader._enemies.size() == 0)
                     can_leave = true;
 
-                Menu menu(renderer->getWindow(), 500, 60);
-                    
+                
             }
 
         }
+
+        Menu menu(renderer->getWindow(), 500, 60);
+                
 		renderer->swapBuffers();
 	}
 }
