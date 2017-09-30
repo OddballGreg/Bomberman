@@ -29,5 +29,7 @@ Settings::Settings()
     BOMB_COLLUMN = 0.65;
 
     LEVEL_COUNT = 5;
-    POWERUP_CHANCE = 50.0;
+	POWERUP_CHANCE = 50.0;
+	
+	EXPLOSION_TIME = 5;
 }

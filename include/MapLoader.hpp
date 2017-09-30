@@ -31,6 +31,7 @@ class MapLoader
 	std::vector<gameEngine::SceneObject> _player;
 	std::vector<gameEngine::SceneObject> _portal;
 	std::vector<gameEngine::SceneObject> _powerups;
+	std::vector<gameEngine::SceneObject> _explosion;
 
 	Settings *_settings;
 
@@ -42,6 +43,7 @@ class MapLoader
 	gameEngine::SceneObject *_portal_closed_template;
 	gameEngine::SceneObject *_powerup_template;
 	gameEngine::SceneObject *_bomb_template;
+	gameEngine::SceneObject *_explosion_template;
 
 	private:
 
