@@ -8,7 +8,7 @@ MapLoader::MapLoader(Settings *settings) : _settings(settings)
 	_player_template 	    = new gameEngine::SceneObject("enemy", "../resources/models/bomber/untitled", 20, "../resources/models/bomberBB/bomberBB.obj");
 	_portal_open_template 	= new gameEngine::SceneObject("wall", "../resources/models/Portal/Portal_Open.obj", 1, "../resources/models/Portal/Portal_Open.obj");
 	_portal_closed_template = new gameEngine::SceneObject("wall", "../resources/models/Portal/Portal_Closed.obj", 1, "../resources/models/Portal/Portal_Closed.obj");
-	_powerup_template 		= new gameEngine::SceneObject("wall", "../resources/models/Tree/tree.obj", 1, "../resources/models/Tree/tree.obj");
+	_powerup_template 		= new gameEngine::SceneObject("wall", "../resources/models/bomberman/power_up.obj", 1, "../resources/models/bomberman/power_up.obj");
 }
 
  MapLoader::~MapLoader()

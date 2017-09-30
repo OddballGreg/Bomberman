@@ -40,7 +40,7 @@ namespace Bomberman
 
 		renderer = &Renderer::getInstance(settings, "BombermanTestV1", 0, 0, 1.2f);
 
-         this->_menu = new MenuScreen(renderer->getWindow()); // uncomment this for menu
+//         this->_menu = new MenuScreen(renderer->getWindow()); // uncomment this for menu
 
 		Image startScreenTexture("../resources/images/bom.png");
 		renderer->generateTexture("startScreen", startScreenTexture);
@@ -48,7 +48,7 @@ namespace Bomberman
 		Image groundTexture("../resources/images/floor.png");
 		renderer->generateTexture("groundTexture", groundTexture);
 
-		Image objectTexture("../resources/images/crate.png");
+		Image objectTexture("../resources/images/green_canvas.png" );
 		renderer->generateTexture("objectTexture", objectTexture);
 
         Image portalTexture("../resources/images/crate.png");
@@ -63,7 +63,7 @@ namespace Bomberman
 		Image enemyTexture("../resources/images/floor.png");
 		renderer->generateTexture("enemyTexture", enemyTexture);
 
-		 Image treeTexture("../resources/models/Tree/tree.png");
+		 Image treeTexture("../resources/images/blue_canvas.png");
 		 renderer->generateTexture("treeTexture", treeTexture);
 
 		_maploader._player[0].setFrameDelay(1);
@@ -488,8 +488,6 @@ namespace Bomberman
                 if (_maploader._enemies.size() == 0)
                     can_leave = true;
 			}
-
-            this->_menu->renderMenu(); //uncomment this for menu
 
         }
 		renderer->swapBuffers();
