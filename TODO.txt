@@ -13,10 +13,10 @@ CMakeLists.txt					--done
 Graphics, Animations and levels, solo game.														PROGRESS
 
 1:	The player can access a main menu to:
-		1.a: Start a new game 																	DONE
-		1.b: Load a save 																		DONE
+		1.a: Start a new game 																	BUSY
+		1.b: Load a save 																		Busy
 		1.c: Adjust game settings																BUSY
-		1.d: Exit the game																		DONE
+		1.d: Exit the game																		BUSY
 
 2:	The game, feeeling, pace and difficulty 													BUSY
 	must be as close as possible to the original game
@@ -59,7 +59,9 @@ Graphics, Animations and levels, solo game.														PROGRESS
 		10.d: Variations in enemies																BUSY
 		10.e: Variations in environments														BUSY
 
-BONUS:
+
+
+BONUS:																							IGNORE!!!!!!!!!!!!!
 
 	Accurate classes diagram																	BUSY
 	Full code documentation																		BUSY

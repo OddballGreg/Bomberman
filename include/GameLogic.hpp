@@ -11,12 +11,15 @@
 #include "../include/MapLoader.hpp"
 #include "../SoundEngine/SoundEngine.hpp"
 #include "../include/Settings.hpp"
-#include "menu.hpp"
 
+#include "menu.hpp"
 #include <nanogui/nanogui.h>
 #include "KeyInput.hpp"
 
 using namespace gameEngine;
+
+
+class	MenuScreen;
 
 namespace Bomberman {
 	class GameLogic {

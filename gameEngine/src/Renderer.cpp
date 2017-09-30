@@ -236,7 +236,11 @@ namespace gameEngine {
 		int screenWidth = width;
 		int screenHeight = height;
 
+//        int screenWidth = 640;
+//        int screenHeight = 640;
+
 		this->initWindow(screenWidth, screenHeight, windowTitle);
+
 
 		this->frustumScale = frustumScale;
 		this->zNear = zNear;
