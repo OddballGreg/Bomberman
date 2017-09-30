@@ -48,7 +48,7 @@ namespace Bomberman
 		Image groundTexture("../resources/images/floor.png");
 		renderer->generateTexture("groundTexture", groundTexture);
 
-		Image objectTexture("../resources/images/crate.png");
+		Image objectTexture("../resources/images/green_canvas.png" );
 		renderer->generateTexture("objectTexture", objectTexture);
 
         Image portalTexture("../resources/images/crate.png");
@@ -63,7 +63,7 @@ namespace Bomberman
 		Image enemyTexture("../resources/images/floor.png");
 		renderer->generateTexture("enemyTexture", enemyTexture);
 
-		 Image treeTexture("../resources/models/Tree/tree.png");
+		 Image treeTexture("../resources/images/blue_canvas.png");
 		 renderer->generateTexture("treeTexture", treeTexture);
 
 		_maploader._player[0].setFrameDelay(1);
