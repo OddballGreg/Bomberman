@@ -29,6 +29,8 @@ namespace Bomberman {
 		MapLoader	_maploader;
 		SceneObject	bomb;
 		Sound		explosion;
+        Sound		enemykilled;
+        Sound		destroyedObject;
 		Settings	*_settings;
 
 		int 		level;

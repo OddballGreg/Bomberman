@@ -449,6 +449,10 @@ namespace Bomberman
                          && bomb.offset.z > _maploader._obstacles[i].offset.z - _settings->BOMB_COLLUMN) {
                         _maploader._obstacles.erase(_maploader._obstacles.begin() + i);
                         i = _maploader._obstacles.size() -1;
+                        if (_settings->PLAY_SOUND) {
+                            destroyedObject.initialize("../SoundEngine/music/box_falls.wav");
+                            destroyedObject.play(false);
+                        }
                     }
                 }
 
@@ -459,12 +463,20 @@ namespace Bomberman
                         && bomb.offset.x > _maploader._enemies[i].offset.x - _settings->BOMB_COLLUMN) {
                         _maploader._enemies.erase(_maploader._enemies.begin() + i);
                         i = _maploader._enemies.size() -1;
+                        if (_settings->PLAY_SOUND) {
+                            enemykilled.initialize("../SoundEngine/music/GameOverArcade.wav");
+                            enemykilled.play(false);
+                        }
                     } else if (bomb.offset.x < _maploader._enemies[i].offset.x + bomb_radius
                            && bomb.offset.x > _maploader._enemies[i].offset.x - bomb_radius
                            && bomb.offset.z < _maploader._enemies[i].offset.z + _settings->BOMB_COLLUMN
                            && bomb.offset.z > _maploader._enemies[i].offset.z - _settings->BOMB_COLLUMN) {
                         _maploader._enemies.erase(_maploader._enemies.begin() + i);
                         i = _maploader._enemies.size() -1;
+                        if (_settings->PLAY_SOUND) {
+                            enemykilled.initialize("../SoundEngine/music/GameOverArcade.wav");
+                            enemykilled.play(false);
+                        }
                     }
                 }
 
@@ -481,11 +493,7 @@ namespace Bomberman
                     _maploader.load_map(level);
 
 
-                if (_settings->PLAY_SOUND)
-				{
-					explosion.initialize("../SoundEngine/music/explosion.wav");
-					explosion.play(false);
-				}
+                 
 
                 if (_maploader._enemies.size() == 0)
                     can_leave = true;
