@@ -20,12 +20,10 @@ void            GameState::setTitle(char *title) {
     this->TITLE = strdup(title);
 };
 
-void            GameState::startMenu(int width, int height) {
-    // this->TITLE = strdup("Welcome to Bomberman");
-    
-    char    text[256];
-    sprintf(text, "%.2f sec", glfwGetTime());
-    printText2D(text, 10, width, height);
+void            GameState::startMenu(int width, int size) {
+    this->TITLE = strdup("Welcome to Bomberman");
+
+    printText2D(this->TITLE, 8, 80, 20);
 };
 
 void            GameState::endMenu(int width, int height) {
