@@ -7,6 +7,7 @@
 #include "../gameEngine/include/SceneObject.hpp"
 #include "../gameEngine/include/Renderer.hpp"
 #include "../gameEngine/include/Enemy.hpp"
+#include "../gameEngine/include/Menu.hpp"
 #include "../include/MapLoader.hpp"
 #include "../SoundEngine/SoundEngine.hpp"
 #include "../include/Settings.hpp"
@@ -46,9 +47,9 @@ namespace Bomberman {
 		GameState	gameState;
 
 		void initGame();
-		void processGame(const KeyInput &keyInput);
-		void processStartScreen(const KeyInput &keyInput);
-		void movePlayer(const KeyInput &keyInput);
+		void processGame(Bomberman::KeyInput *keyInput);
+		void processStartScreen(Bomberman::KeyInput *keyInput);
+		void movePlayer(Bomberman::KeyInput *keyInput);
 
 	public:
 
@@ -61,7 +62,7 @@ namespace Bomberman {
 
 		GameLogic &operator = (GameLogic &obj) = default;
 
-		void process(const KeyInput &keyInput);
+		void process(Bomberman::KeyInput *keyInput);
 		void render();
 
 		float lightModifier;

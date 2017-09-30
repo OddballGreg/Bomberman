@@ -55,6 +55,11 @@ set(SOURCE_FILES
         gameEngine/src/Model.cpp
         gameEngine/src/Renderer.cpp
         gameEngine/src/SceneObject.cpp
+        gameEngine/src/Menu.cpp
+        gameEngine/src/GameState.cpp
+        gameEngine/src/shader.cpp
+        gameEngine/src/text2D.cpp
+        gameEngine/src/texture.cpp
         gameEngine/include/BoundingBoxSet.hpp
         gameEngine/include/GetTokens.hpp
         gameEngine/include/Image.hpp
@@ -64,6 +69,11 @@ set(SOURCE_FILES
         gameEngine/include/SceneObject.hpp
 		gameEngine/src/Enemy.cpp
 		gameEngine/include/Enemy.hpp
+        gameEngine/include/Menu.hpp
+        gameEngine/include/GameState.hpp
+        gameEngine/include/shader.hpp
+        gameEngine/include/text2D.hpp
+        gameEngine/include/texture.hpp
 		src/Settings.cpp
 		include/Settings.hpp)
 
