@@ -40,7 +40,7 @@ namespace Bomberman
 
 		renderer = &Renderer::getInstance(settings, "BombermanTestV1", 0, 0, 1.2f);
 
-//         this->_menu = new MenuScreen(renderer->getWindow()); // uncomment this for menu
+        _menu = new MenuScreen(renderer->getWindow()); // uncomment this for menu
 
 		Image startScreenTexture("../resources/images/bom.png");
 		renderer->generateTexture("startScreen", startScreenTexture);
@@ -349,7 +349,9 @@ namespace Bomberman
 
 	void GameLogic::render()
 	{
+//        _menu->renderMenu(); //uncomment this for menu
 		renderer->clearScreen();
+//        _menu->menuHandler();
 
 		if (gameState == START_SCREEN)
 		{
