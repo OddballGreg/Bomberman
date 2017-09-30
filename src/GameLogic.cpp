@@ -40,7 +40,7 @@ namespace Bomberman
 
 		renderer = &Renderer::getInstance(settings, "BombermanTestV1", 0, 0, 1.2f);
 
-         _menu = new MenuScreen(renderer->getWindow()); // uncomment this for menu
+        _menu = new MenuScreen(renderer->getWindow()); // uncomment this for menu
 
 		Image startScreenTexture("../resources/images/bom.png");
 		renderer->generateTexture("startScreen", startScreenTexture);
@@ -349,16 +349,20 @@ namespace Bomberman
 
 	void GameLogic::render()
 	{
+//        _menu->renderMenu(); //uncomment this for menu
 		renderer->clearScreen();
+//        _menu->menuHandler();
 
 		if (gameState == START_SCREEN)
 		{
 			renderer->renderRectangle("skyTexture", glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f));
 			renderer->renderRectangle("startScreen", glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f));
-
             // MenuScreen mainscreenMenu(window); //store as a pointer and add to main loop
             // mainscreenMenu.mainMenu();
 //            _menu->renderMenu(); //uncomment this for menu
+//            MenuScreen menuSetttings;
+//            menuSetttings.initializeMenu(renderer->getWindow());
+//            _menu->menuHandler();
 		}
 		else
 		{
@@ -486,7 +490,8 @@ namespace Bomberman
                 if (_maploader._enemies.size() == 0)
                     can_leave = true;
 			}
-		}
+
+        }
 		renderer->swapBuffers();
 	}
 }

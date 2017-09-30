@@ -22,8 +22,7 @@ class MenuScreen
 	private:
 		GLFWwindow  *_win;
 		MenuState   _menuState;
-		nanogui::Screen* _screen;
-
+		nanogui::Screen* _menuScreen;
 		nanogui::Window *_mainMenu;
 
 	public:

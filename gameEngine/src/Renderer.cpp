@@ -236,9 +236,13 @@ namespace gameEngine {
 		int screenWidth = width;
 		int screenHeight = height;
 
+//        int screenWidth = 640;
+//        int screenHeight = 640;
+
 		this->initWindow(screenWidth, screenHeight, windowTitle);
 
-		this->frustumScale = frustumScale;
+
+        this->frustumScale = frustumScale;
 		this->zNear = zNear;
 		this->zFar = zFar;
 		this->zOffsetFromCamera = zOffsetFromCamera;
@@ -393,7 +397,10 @@ namespace gameEngine {
 
 		glfwMakeContextCurrent(window);
 
-//        MenuScreen mainscreenMenu(window); //store as a pointer and add to main loop
+//		_screen = new nanogui::Screen();
+//		_screen->initialize(window, true);
+//		MenuScreen mainscreenMenu(window); //store as a pointer and add to main loop
+//		mainscreenMenu.settingsMenu();
 //        mainscreenMenu.mainMenu();
 
 	}

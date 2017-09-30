@@ -11,20 +11,34 @@ std::string strval = "A string";
 
 MenuScreen::MenuScreen(GLFWwindow * pWin) : _win(pWin), _menuState(MenuState::MAIN_MENU)
 {
-    _screen = new nanogui::Screen();
-    _screen->initialize(pWin, false);
+    _menuScreen = new nanogui::Screen();
+    _menuScreen->initialize(pWin, true);
 
-    nanogui::FormHelper *gui = new nanogui::FormHelper(_screen);
+    int width, height;
+    glfwGetFramebufferSize(pWin, &width, &height);
+    glViewport(0, 0, width, height);
+    glfwSwapInterval(0);
+    glfwSwapBuffers(pWin);
+
+    nanogui::FormHelper *gui = new nanogui::FormHelper(_menuScreen);
 
     _mainMenu = gui->addWindow(nanogui::Vector2i({0, 0}), "Main Menu");
     _mainMenu->setLayout(new nanogui::GroupLayout());
+    gui->addGroup("Basic types");
+    gui->addVariable("bool", bvar)->setTooltip("Test tooltip.");
+    gui->addVariable("string", strval);
+
+    gui->addGroup("Other widgets");
+    gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; })->setTooltip("Testing a much longer tooltip, that will wrap around to new lines multiple times.");;
 
     nanogui::Button *btn = new nanogui::Button(_mainMenu, "Hello, World!");
     btn->setTooltip("Hell");
 
     _mainMenu->setVisible(true);
 
-    _screen->setVisible(true);
+//    _menuScreen->setVisible(true);
+
+    _menuScreen->performLayout();
     _mainMenu->center();
 }
 
@@ -53,7 +67,7 @@ void	MenuScreen::menuHandler()
 
 //    screen = new nanogui::Screen; // uncomment everything
 //    screen->initialize(_win, 1); //  comment the code below MenuScreen::mainMenu()
-//
+
 //     glfwSetCursorPosCallback(_win, [](GLFWwindow *, double x, double y)
 //     	{
 //     			screen->cursorPosCallbackEvent(x, y);
@@ -88,8 +102,8 @@ void	MenuScreen::menuHandler()
             settingsMenu();
             break;
     }
-    _screen->drawWidgets();
-    _screen->drawContents();
+    _menuScreen->drawWidgets();
+    _menuScreen->drawContents();
 
     //delete screen;
 }
@@ -147,7 +161,7 @@ void	MenuScreen::renderMenu()
     //glfwGetFramebufferSize(_win, &width, &height);
     //glViewport( 0, 0, width, height);
     //glClear(GL_COLOR_BUFFER_BIT);
-    _screen->drawContents();
-    _screen->drawWidgets();
+    _menuScreen->drawContents();
+    _menuScreen->drawWidgets();
     //glfwSwapBuffers(_win);
 }
