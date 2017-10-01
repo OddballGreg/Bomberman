@@ -38,5 +38,5 @@ Settings::Settings()
 
 	ENERMY_PERSUIT_TIME = 150;
 
-	VOLUME = 1.0f;
+	VOLUME = 0.0f;
 }

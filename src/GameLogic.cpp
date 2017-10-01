@@ -113,6 +113,13 @@ namespace Bomberman
 		startSeconds = glfwGetTime();
 	}
 
+
+	void GameLogic::setVolume(void) {
+		explosion.setVolume(_settings->VOLUME);
+		enemykilled.setVolume(_settings->VOLUME);
+		destroyedObject.setVolume(_settings->VOLUME);
+	}
+
 //	void GameLogic::setScreen(Screen *screen)
 //	{
 //		this->_screen = screen;
