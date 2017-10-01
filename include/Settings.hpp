@@ -37,6 +37,7 @@ public:
 	float	POWERUP_CHANCE;
 	int		EXPLOSION_TIME;
 	int		ENERMY_PERSUIT_TIME;
+	float	VOLUME;
 
 private:
 
