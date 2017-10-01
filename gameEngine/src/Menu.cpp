@@ -6,14 +6,17 @@ Bomberman::KeyInput *in = nullptr;
 
 Menu::Menu( void ) {};
 
-Menu::Menu( GLFWwindow *window, int width, int height ) {
+Menu::Menu( State *state, GLFWwindow *window, int width, int height ) {
 
-    State state = State::START;
-
-    switch(state) {
-        case State::START : {
+    switch(*state) {
+        case State::START_SCREEN : {
             GameState start;
             start.startMenu(width, height);
+            break;
+        }
+        case State::PLAYING : {
+            GameState playing;
+            playing.playMenu(width, height);
             break;
         }
         case State::END : {

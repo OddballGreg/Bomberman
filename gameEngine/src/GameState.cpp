@@ -26,6 +26,12 @@ void            GameState::startMenu(int width, int size) {
     printText2D(this->TITLE, 8, 80, 20);
 };
 
+void            GameState::playMenu(int width, int size) {
+    this->TITLE = strdup("Play Bomberman");
+
+    printText2D(this->TITLE, 8, 80, 20);
+};
+
 void            GameState::endMenu(int width, int height) {
     this->TITLE = strdup("End Menu");
     

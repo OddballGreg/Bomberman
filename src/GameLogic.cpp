@@ -64,7 +64,7 @@ namespace Bomberman
 		 renderer->generateTexture("treeTexture", treeTexture);
 
 		_maploader._player[0].setFrameDelay(1);
-		gameState = START_SCREEN;
+		state = State::START_SCREEN;
 		seconds = 0;
 		lightModifier = -0.01f;
 
@@ -320,18 +320,18 @@ namespace Bomberman
 		if (keyInput.enter)
 		{
 			initGame();
-			gameState = PLAYING;
+			state = State::PLAYING;
 		}
 	}
 
 	void GameLogic::process(const KeyInput &keyInput)
 	{
-		switch (gameState)
+		switch (state)
 		{
-			case START_SCREEN:
+			case State::START_SCREEN:
 				processStartScreen(keyInput);
 				break;
-			case PLAYING:
+			case State::PLAYING:
 				processGame(keyInput);
 				break;
 			default:
@@ -343,15 +343,13 @@ namespace Bomberman
 	{
 		renderer->clearScreen();
 
-		if (gameState == START_SCREEN)
+		if (state == State::START_SCREEN)
 		{
 			renderer->renderRectangle("skyTexture", glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f));
 			renderer->renderRectangle("startScreen", glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f));
 
-            // Menu menu(renderer->getWindow(), 500, 60);
-            
 		}
-		else
+		else if (state == State::PLAYING)
 		{
 			renderer->renderRectangle("skyTexture", glm::vec3(-1.0f, 1.0f, 1.0f),
 			glm::vec3(1.0f, -1.0f, 1.0f));
@@ -483,9 +481,9 @@ namespace Bomberman
             }
 
         }
-
-        Menu menu(renderer->getWindow(), 500, 60);
-                
+        
+        Menu menu(&state, renderer->getWindow(), 500, 60);
+        
 		renderer->swapBuffers();
 	}
 }

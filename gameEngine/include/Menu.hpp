@@ -4,21 +4,24 @@
 #include <GLFW/glfw3.h>
 #include "GameState.hpp"
 
+enum class State {
+    START,
+    END,
+    PAUSE,
+    SETTINGS,
+    SAVE,
+    LOAD,
+    LEVEL,
+    START_SCREEN,
+    PLAYING
+};
+
 class Menu {
 
 public:
-    enum class State {
-        START,
-        END,
-        PAUSE,
-        SETTINGS,
-        SAVE,
-        LOAD,
-        LEVEL
-    };
-    
+   
     Menu( void );
-    Menu( GLFWwindow *window, int width, int height );
+    Menu( State *state, GLFWwindow *window, int width, int height );
 	~Menu( void );
 
 	Menu( Menu const & copy );

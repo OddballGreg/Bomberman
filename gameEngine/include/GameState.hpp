@@ -19,6 +19,7 @@ public:
 
     void    setTitle(char *title);
     void    startMenu(int width, int height);
+    void    playMenu(int width, int size);
     void    endMenu(int width, int height);
     void    pauseMenu(int width, int height);
     void    settingsMenu(int width, int height);

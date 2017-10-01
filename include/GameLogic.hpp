@@ -39,12 +39,7 @@ namespace Bomberman {
         bool        can_leave = false;
         float       bomb_radius;
 
-		enum GameState {
-			START_SCREEN,
-			PLAYING
-		};
-
-		GameState	gameState;
+		State	state = State::START_SCREEN;
 
 		void initGame();
 		void processGame(const KeyInput &keyInput);
