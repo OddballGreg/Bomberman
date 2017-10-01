@@ -142,6 +142,13 @@ namespace Bomberman
 						&& temp.x > _maploader._obstacles[i].offset.x - _settings->COLLISION_ZONE)
 					collision = true;
 
+			for(int i = _maploader._explosion.size() -1; i > -1; i--)
+				if (temp.z < _maploader._explosion[i].offset.z + _settings->COLLISION_ZONE
+						&& temp.z > _maploader._explosion[i].offset.z - _settings->COLLISION_ZONE
+						&& temp.x < _maploader._explosion[i].offset.x + _settings->COLLISION_ZONE
+						&& temp.x > _maploader._explosion[i].offset.x - _settings->COLLISION_ZONE)
+					collision = true;
+
 			// for(int i = _maploader._enemies.size() -1; i > -1; i--)
 			// 	if (temp.z < _maploader._enemies[i].offset.z + _settings->COLLISION_ZONE
 			// 			&& temp.z > _maploader._enemies[i].offset.z - _settings->COLLISION_ZONE
@@ -186,6 +193,14 @@ namespace Bomberman
 					&& temp.x < _maploader._obstacles[i].offset.x + _settings->COLLISION_ZONE
 					&& temp.x > _maploader._obstacles[i].offset.x - _settings->COLLISION_ZONE)
 					collision = true;
+
+			for(int i = _maploader._explosion.size() -1; i > -1; i--)
+				if (temp.z < _maploader._explosion[i].offset.z + _settings->COLLISION_ZONE
+					&& temp.z > _maploader._explosion[i].offset.z - _settings->COLLISION_ZONE
+					&& temp.x < _maploader._explosion[i].offset.x + _settings->COLLISION_ZONE
+					&& temp.x > _maploader._explosion[i].offset.x - _settings->COLLISION_ZONE)
+					collision = true;
+	
 
 			// for(int i = _maploader._enemies.size() -1; i > -1; i--)
 			// 	if (temp.z < _maploader._enemies[i].offset.z + _settings->COLLISION_ZONE
@@ -233,6 +248,13 @@ namespace Bomberman
 					&& temp.x > _maploader._obstacles[i].offset.x - _settings->COLLISION_ZONE)
 					collision = true;
 
+			for(int i = _maploader._explosion.size() -1; i > -1; i--)
+				if (temp.z < _maploader._explosion[i].offset.z + _settings->COLLISION_ZONE
+					&& temp.z > _maploader._explosion[i].offset.z - _settings->COLLISION_ZONE
+					&& temp.x < _maploader._explosion[i].offset.x + _settings->COLLISION_ZONE
+					&& temp.x > _maploader._explosion[i].offset.x - _settings->COLLISION_ZONE)
+					collision = true;
+
 			// for(int i = _maploader._enemies.size() -1; i > -1; i--)
 			// 	if (temp.z < _maploader._enemies[i].offset.z + _settings->COLLISION_ZONE
 			// 		&& temp.z > _maploader._enemies[i].offset.z - _settings->COLLISION_ZONE
@@ -270,6 +292,13 @@ namespace Bomberman
 					&& temp.z > _maploader._walls[i].offset.z - _settings->COLLISION_ZONE
 					&& temp.x < _maploader._walls[i].offset.x + _settings->COLLISION_ZONE
 					&& temp.x > _maploader._walls[i].offset.x - _settings->COLLISION_ZONE)
+					collision = true;
+
+			for(int i = _maploader._obstacles.size() -1; i > -1; i--)
+				if (temp.z < _maploader._obstacles[i].offset.z + _settings->COLLISION_ZONE
+					&& temp.z > _maploader._obstacles[i].offset.z - _settings->COLLISION_ZONE
+					&& temp.x < _maploader._obstacles[i].offset.x + _settings->COLLISION_ZONE
+					&& temp.x > _maploader._obstacles[i].offset.x - _settings->COLLISION_ZONE)
 					collision = true;
 
 			for(int i = _maploader._obstacles.size() -1; i > -1; i--)

@@ -36,6 +36,7 @@ public:
 	int		LEVEL_COUNT;
 	float	POWERUP_CHANCE;
 	int		EXPLOSION_TIME;
+	int		ENERMY_PERSUIT_TIME;
 
 private:
 

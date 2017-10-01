@@ -69,7 +69,7 @@ void Enemy::move(MapLoader *maploader, int me)
 	// }
 
 	if (!t) {
-		t = 200;
+		t = _settings->ENERMY_PERSUIT_TIME;
 		dir = rand() % 4;
 	}
 
