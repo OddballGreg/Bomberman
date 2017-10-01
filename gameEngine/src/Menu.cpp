@@ -114,8 +114,8 @@ Menu::Menu( State *state, GLFWwindow *window, int width, int height ) {
         // Check if any events have been activated (key pressed, mouse moved etc.) and call corresponding response functions
         glfwPollEvents();
     
-        glClearColor(0.2f, 0.25f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        // glClearColor(0.2f, 0.25f, 0.3f, 1.0f);
+        // glClear(GL_COLOR_BUFFER_BIT);
     
         // Draw nanogui
         screen->drawContents();
