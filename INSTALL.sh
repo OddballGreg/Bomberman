@@ -12,7 +12,8 @@ LIB_GLFW="$HOME/.brew/Cellar/glfw"
 LIB_GLEW="$HOME/.brew/Cellar/glew"
 LIB_GLM="$HOME/.brew/Cellar/glm"
 LIB_SMFL="$HOME/.brew/Cellar/sfml"
-LIB_EIGEN="$HOME/.brew/Cellar/eigen"
+LIB_EIGEN="$HOME/.brew/Cellar/eigen
+LIB_BOOST="$HOME/.brew/Cellar/boost"
 
 if [ ! -d "$HOMEBREW" ]; then
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/Tolsadus/42homebrewfix/master/install.sh)"
@@ -61,4 +62,8 @@ fi
 
 if [ ! -d "$LIB_EIGEN" ]; then
 	$HOME/.brew/bin/brew install eigen
+fi
+
+if [ ! -d "$LIB_BOOST" ]; then
+	$HOME/.brew/bin/brew install boost
 fi
