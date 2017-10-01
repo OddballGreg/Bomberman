@@ -31,19 +31,23 @@ int			arg_width = 0;
 int			arg_height = 0;
 int			arg_volume = 100;
 
+int			arg_key_up = GLFW_KEY_UP;
+int			arg_key_down = GLFW_KEY_DOWN;
+int			arg_key_left = GLFW_KEY_LEFT;
+int			arg_key_right = GLFW_KEY_RIGHT;
 
 KeyInput input;
 
 
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)
+	if (key == arg_key_down && action == GLFW_PRESS)
 		input.down = true;
-	if (key == GLFW_KEY_UP && action == GLFW_PRESS)
+	if (key == arg_key_up && action == GLFW_PRESS)
 		input.up = true;
-	if (key == GLFW_KEY_LEFT && action == GLFW_PRESS)
+	if (key == arg_key_left && action == GLFW_PRESS)
 		input.left = true;
-	if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS)
+	if (key == arg_key_right && action == GLFW_PRESS)
 		input.right = true;
 	if (key == GLFW_KEY_ENTER && action == GLFW_PRESS)
 		input.enter = true;
@@ -101,13 +105,13 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
 		input.space = true;
 
-	if (key == GLFW_KEY_DOWN && action == GLFW_RELEASE)
+	if (key == arg_key_down && action == GLFW_RELEASE)
 		input.down = false;
-	if (key == GLFW_KEY_UP && action == GLFW_RELEASE)
+	if (key == arg_key_up && action == GLFW_RELEASE)
 		input.up = false;
-	if (key == GLFW_KEY_LEFT && action == GLFW_RELEASE)
+	if (key == arg_key_left && action == GLFW_RELEASE)
 		input.left = false;
-	if (key == GLFW_KEY_RIGHT && action == GLFW_RELEASE)
+	if (key == arg_key_right && action == GLFW_RELEASE)
 		input.right = false;
 	if (key == GLFW_KEY_ENTER && action == GLFW_RELEASE)
 		input.enter = false;
@@ -206,7 +210,11 @@ void			parseArgs(int ac, char **av) {
 		("verbose,v", boost::program_options::value<int>(&arg_verbosity), "runs logs with a verbosity of 0 to 5")
 		("height,h", boost::program_options::value<int>(&arg_height), "sets the window height")
 		("width,w", boost::program_options::value<int>(&arg_width), "sets the window width")
-		("volume,s", boost::program_options::value<int>(&arg_volume), "Set the volume level");
+		("volume,s", boost::program_options::value<int>(&arg_volume), "Set the volume level")
+		("keyup,u", boost::program_options::value<int>(&arg_key_up), "Change the binding for the up key")
+		("keydown,d", boost::program_options::value<int>(&arg_key_down), "Change the binding for the down key")
+		("keyleft,l", boost::program_options::value<int>(&arg_key_left), "Change the binding for the left key")
+		("keyright,r", boost::program_options::value<int>(&arg_key_right), "Change the binding for the right key");
 		// ("ai,a", "enables the AI")
 		// ("delay,d", boost::program_options::value<unsigned int>(&g_delay), "Sets the timmers delay, default 90000usec")
 		// ("verse_ai,b", "allows the player to play against the AI");
