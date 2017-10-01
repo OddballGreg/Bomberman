@@ -32,6 +32,8 @@ public:
 
 	EnemyState enemyState;
 
+	int	t, dir;
+
 private:
 
 	Settings *_settings;

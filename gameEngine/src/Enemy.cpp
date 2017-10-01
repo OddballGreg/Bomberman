@@ -48,7 +48,7 @@ void Enemy::move(MapLoader *maploader, int me)
 {
 	glm::vec3 pos = offset;
 	double orient = 0;
-	static int	t, dir;
+	// static int	t, dir;
 	int k = 0;
 
 	// if (maploader->_player[0].offset.z > offset.z) {
