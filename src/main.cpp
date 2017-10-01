@@ -224,6 +224,17 @@ void			parseArgs(int ac, char **av) {
 
 			boost::program_options::notify(vm);
 
+			if (arg_volume < 0 || arg_volume > 200)
+				throw boost::program_options::error("volume has to be between 0 and 200%");
+			if (arg_height < 0)
+				throw boost::program_options::error("Height can not be a negative value");
+			if (arg_width < 0)
+				throw boost::program_options::error("Width can not be a negative value");
+			if (vm.count("height") && !vm.count("width"))
+				throw boost::program_options::error("Can't specify height and not width");
+			if (!vm.count("height") && vm.count("width"))
+				throw boost::program_options::error("Can't specify width and not height");
+
 			// if (g_height < 15 || g_height > 200)
 			// 	throw boost::program_options::error("height can not be greater than 200, or less than 15");
 			// if (g_width < 15 || g_width > 200)
@@ -251,11 +262,15 @@ void			parseArgs(int ac, char **av) {
 int main(int argc, char **argv) {
 
 	try {
-		parseArgs(argc, argv);
-
 		initLogger();
 		Settings *settings = new Settings;
 		GameLogic gameLogic(settings);
+
+		parseArgs(argc, argv);
+
+		settings->SCREEN_WIDTH = arg_width;
+		settings->SCREEN_HEIGHT = arg_height;
+		// settings->VOLUME = arg_volume;
 
 		// MenuScreen menuSetttings;
 		// menuSetttings.initializeMenu(800, 800, "testing");
