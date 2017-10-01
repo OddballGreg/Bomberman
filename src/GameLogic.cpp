@@ -36,6 +36,7 @@ namespace Bomberman
 		}
 
 		_maploader.load_map(level);
+		// _settings->LIVES = 3;
 
 		renderer = &Renderer::getInstance(settings, "BombermanTestV1", _settings->SCREEN_WIDTH, _settings->SCREEN_HEIGHT, 1.2f);
 
@@ -348,6 +349,7 @@ namespace Bomberman
 				&& temp.x < _maploader._enemies[i].offset.x + _settings->COLLISION_ZONE
 				&& temp.x > _maploader._enemies[i].offset.x - _settings->COLLISION_ZONE) {
 					_maploader.load_map(level);
+					_settings->LIVES--;
 				}
 
 		// Keep Player On Map
@@ -439,6 +441,11 @@ namespace Bomberman
 
 	void GameLogic::render()
 	{
+		if (_settings->LIVES == 0) {
+			std::cout << "GAMEOVER" << std::endl;
+			exit(0);
+		}
+
 		renderer->clearScreen();
 
 		if (state == State::START_SCREEN)
@@ -598,12 +605,15 @@ namespace Bomberman
 						&& bomb.offset.x < _maploader._player[0].offset.x + _settings->BOMB_COLLUMN
 						&& bomb.offset.x > _maploader._player[0].offset.x - _settings->BOMB_COLLUMN) {
 					_maploader.load_map(level);
+					_settings->LIVES--;
 				}
 				else if (bomb.offset.x < _maploader._player[0].offset.x + _settings->BOMB_RADIUS
 						&& bomb.offset.x > _maploader._player[0].offset.x - _settings->BOMB_RADIUS
 						&& bomb.offset.z < _maploader._player[0].offset.z + _settings->BOMB_COLLUMN
-						&& bomb.offset.z > _maploader._player[0].offset.z - _settings->BOMB_COLLUMN)
-					_maploader.load_map(level);
+						&& bomb.offset.z > _maploader._player[0].offset.z - _settings->BOMB_COLLUMN) {
+							_maploader.load_map(level);
+							_settings->LIVES--;
+						}
 
 				if (_maploader._enemies.size() == 0)
 					can_leave = true;
@@ -616,7 +626,7 @@ namespace Bomberman
 			}
 
 		}
-        Menu menu(&state, renderer->getWindow(), 500, 60);
+		Menu menu(&state, renderer->getWindow(), 500, 60);
 		renderer->swapBuffers();
 	}
 }

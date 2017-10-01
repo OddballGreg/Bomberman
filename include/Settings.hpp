@@ -38,6 +38,8 @@ public:
 	int		EXPLOSION_TIME;
 	int		ENERMY_PERSUIT_TIME;
 	float	VOLUME;
+	int		START_LIVES;
+	int		LIVES;
 
 private:
 

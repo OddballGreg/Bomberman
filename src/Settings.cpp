@@ -39,4 +39,7 @@ Settings::Settings()
 	ENERMY_PERSUIT_TIME = 150;
 
 	VOLUME = 1.0f;
+
+	START_LIVES = 3;
+	LIVES = START_LIVES;
 }

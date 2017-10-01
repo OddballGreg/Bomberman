@@ -38,6 +38,7 @@ void MapLoader::load_map(int level)
 	std::string		mapname("../maps/" + std::to_string(level) + ".txt");
 	std::ifstream	mapfile(mapname);
 	std::string		line;
+
 	int y = -1;
 
 	if (!mapfile.is_open())
