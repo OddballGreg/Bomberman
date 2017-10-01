@@ -13,6 +13,7 @@ class Sound {
 public:
 	Sound();
 	Sound(const char *File);
+	Sound(float volume);
 	Sound(const Sound &obj);
 	~Sound();
 

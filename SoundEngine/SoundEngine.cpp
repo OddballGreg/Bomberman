@@ -36,6 +36,14 @@ Sound::Sound() {
 	_volume = 1.0f;
 }
 
+Sound::Sound(float volume) {
+	if (volume > 2)
+		volume = 2;
+	if (volume < 0)
+		volume = 0;
+	_volume = volume;
+}
+
 Sound::~Sound() {
 	alDeleteSources(1, &_source);
 	alDeleteBuffers(1, &_buffer);
@@ -45,6 +53,12 @@ Sound::~Sound() {
 }
 
 Sound::Sound(const Sound &obj) {
+	alDeleteSources(1, &_source);
+	alDeleteBuffers(1, &_buffer);
+	_rc = pthread_detach(_thread[2]);
+	if (!_thread[2])
+		std::cout << stderr << "Thread been deleted" << std::endl;
+
 	this->_buffer	= obj._buffer;
 	this->_source	= obj._source;
 	this->_loop		= obj._loop;
@@ -146,6 +160,8 @@ void Sound::play(bool loop) {
 	float f[] = {1,0,0,0,1,0};
 	alSource3f(_source,AL_POSITION,0,0,0);
 	alListenerfv(AL_ORIENTATION, f);
+
+	alSourcef(_source, AL_GAIN, _volume);
 
 	if(loop == true)
 		alSourcei(_source, AL_LOOPING, AL_TRUE);

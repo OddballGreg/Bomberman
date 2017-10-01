@@ -214,9 +214,9 @@ int main(int argc, char **argv) {
 
 		// tell GLFW to capture our mouse
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		Sound musicloop;
+		Sound musicloop = Sound(settings->VOLUME);
 
-		musicloop.setVolume(settings->VOLUME);
+		// musicloop.setVolume(settings->VOLUME);
 
 		if (settings->PLAY_SOUND)
 		{
