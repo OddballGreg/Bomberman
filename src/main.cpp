@@ -266,11 +266,12 @@ int main(int argc, char **argv) {
 	try {
 		initLogger();
 		Settings *settings = new Settings;
-		GameLogic gameLogic(settings);
 
 		settings->SCREEN_WIDTH = arg_width;
 		settings->SCREEN_HEIGHT = arg_height;
 		settings->VOLUME = arg_volume;
+
+		GameLogic gameLogic(settings);
 
 		// MenuScreen menuSetttings;
 		// menuSetttings.initializeMenu(800, 800, "testing");
