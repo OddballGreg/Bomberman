@@ -37,4 +37,6 @@ Settings::Settings()
 	SCREEN_HEIGHT = 0;
 
 	ENERMY_PERSUIT_TIME = 150;
+
+	VOLUME = 1.0f;
 }

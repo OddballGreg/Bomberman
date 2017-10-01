@@ -47,6 +47,8 @@ namespace Bomberman {
 		void processStartScreen(const KeyInput &keyInput);
 		void movePlayer(const KeyInput &keyInput);
 
+		void setVolume(void);
+
 	public:
 
 		Renderer *renderer = nullptr;
