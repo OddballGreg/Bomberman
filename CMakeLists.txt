@@ -35,6 +35,11 @@ pkg_search_module(SDL2 REQUIRED sdl2)
 pkg_search_module(LIBPNG REQUIRED libpng)
 # pkg_search_module(Boost REQUIRED boost)
 
+add_subdirectory(${NANOGUI_DIR})
+include_directories(${NANOGUI_DIR}/include)
+include_directories(${NANOGUI_EXTRA_INCS})
+add_definitions(${NANOGUI_EXTRA_DEFS})
+
 file(COPY profiles DESTINATION .)
 
 # These directories get symlinked into the build directory after compilation
@@ -93,6 +98,11 @@ include_directories(
 		~/.brew/include/freetype2
 		~/.brew/include/eigen3
 		${OPENAL_INCLUDE_DIR}
+		${PROJECT_SOURCE_DIR}/external/nanogui/include
+		${PROJECT_SOURCE_DIR}/external/nanogui/ext
+		${PROJECT_SOURCE_DIR}/external/nanogui/ext/nanovg/src
+		${PROJECT_SOURCE_DIR}/external/nanogui/ext/eigen
+		${PROJECT_SOURCE_DIR}/external/nanogui/ext/glfw/include
 )
 
 # Directories to find the libraries
@@ -120,6 +130,8 @@ target_link_libraries(${PROJECT_NAME}
 		png
 		glfw
 		GLEW
+		nanogui
+		${NANOGUI_EXTRA_LIBS}
 )
 
 set(LINKER_FLAGS "-framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lfreetype -lpng -lglfw -lGLEW -lboost_program_options")
