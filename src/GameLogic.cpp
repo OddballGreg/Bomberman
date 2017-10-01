@@ -10,7 +10,7 @@ using namespace gameEngine;
 namespace Bomberman
 {
 	GameLogic::GameLogic(Settings *settings) : bomb("bomb", "../resources/models/bomberman/bomb.obj", 1, "../resources/models/bomberman/cube.obj"),
-											   _settings(settings), _maploader(settings) {
+			_settings(settings), _maploader(settings) {
 
 		profile_name = "test_profile_name";
 		std::ifstream	profile("profiles/" + profile_name + ".profile");
@@ -38,7 +38,7 @@ namespace Bomberman
 
 		_maploader.load_map(level);
 
-		renderer = &Renderer::getInstance(settings, "BombermanTestV1", 0, 0, 1.2f);
+		renderer = &Renderer::getInstance(settings, "BombermanTestV1", _settings->SCREEN_WIDTH, _settings->SCREEN_HEIGHT, 1.2f);
 
 		_menu = new MenuScreen(renderer->getWindow()); // uncomment this for menu
 

@@ -32,4 +32,7 @@ Settings::Settings()
 	POWERUP_CHANCE = 50.0;
 
 	EXPLOSION_TIME = 5;
+
+	SCREEN_WIDTH = 0;
+	SCREEN_HEIGHT = 0;
 }

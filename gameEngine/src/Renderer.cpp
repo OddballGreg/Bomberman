@@ -385,8 +385,8 @@ namespace gameEngine {
 			width = mode->width;
 			height = mode->height;
 			// Share Screen Size With Game Settings
-			_settings->SCREEN_WIDTH = mode->width;
-			_settings->SCREEN_HEIGHT = mode->height;
+			// _settings->SCREEN_WIDTH = mode->width;
+			// _settings->SCREEN_HEIGHT = mode->height;
 
 			LOGINFO("Detected screen width " + intToStr(width) + " and height " + intToStr(height));
 		}
