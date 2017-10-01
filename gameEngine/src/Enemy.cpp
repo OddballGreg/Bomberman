@@ -20,22 +20,47 @@ void Enemy::move(MapLoader *maploader, int me)
 {
 	glm::vec3 temp = offset;
 	double orient = 0;
+	static int	t, dir;
 
-	if (maploader->_player[0].offset.z > offset.z) {
-		temp.z += _settings->ENEMY_SPEED;
-		orient = M_PI;
+	// if (maploader->_player[0].offset.z > offset.z) {
+	// 	temp.z += _settings->ENEMY_SPEED;
+	// 	orient = M_PI;
+	// }
+	// if (maploader->_player[0].offset.z < offset.z) {
+	// 	temp.z -= _settings->ENEMY_SPEED;
+	// 	orient = 0;
+	// }
+	// if (maploader->_player[0].offset.x > offset.x) {
+	// 	temp.x += _settings->ENEMY_SPEED;
+	// 	orient = M_PI / 2;
+	// }
+	// if (maploader->_player[0].offset.x < offset.x) {
+	// 	temp.x -= _settings->ENEMY_SPEED;
+	// 	orient = 3 * (M_PI / 2);
+	// }
+
+	if (!t) {
+		t = 100;
+		dir = rand() % 4;
 	}
-	if (maploader->_player[0].offset.z < offset.z) {
-		temp.z -= _settings->ENEMY_SPEED;
-		orient = 0;
-	}
-	if (maploader->_player[0].offset.x > offset.x) {
+
+	t--;
+
+	if (dir == 0) {
 		temp.x += _settings->ENEMY_SPEED;
 		orient = M_PI / 2;
 	}
-	if (maploader->_player[0].offset.x < offset.x) {
-		temp.x -= _settings->ENEMY_SPEED;
+	else if (dir == 1) {
 		orient = 3 * (M_PI / 2);
+		temp.x -= _settings->ENEMY_SPEED;
+	}
+	else if (dir == 2) {
+		orient = M_PI;
+		temp.z += _settings->ENEMY_SPEED;
+	}
+	else {
+		orient = 0;
+		temp.z -= _settings->ENEMY_SPEED;
 	}
 
 	bool collision = false;
@@ -61,8 +86,9 @@ void Enemy::move(MapLoader *maploader, int me)
 			&& i != me)
 			collision = true;
 
-	if (collision == false)
+	if (collision == false) {
 		offset = temp;
-		rotation.y = orient;
-	animate();
+		animate();
+	}
+	rotation.y = orient;
 }
