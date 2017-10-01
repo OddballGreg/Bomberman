@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(bomberman)
+project(bomberman CXX)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -31,20 +31,20 @@ file(COPY profiles DESTINATION .)
 
 # These directories get symlinked into the build directory after compilation
 set(RESOURCE_DIRS
-        resources
-        gameEngine/src/perspectiveMatrixLightedShader.vert
-        gameEngine/perspectiveMatrixLightedShader.vert
-        gameEngine/resources/shaders/OpenGL33/
-        gameEngine/resources/shaders/OpenGL21/
-        gameEngine/resources/fonts/
-		SoundEngine/music/
-		maps/
+        gameEngine/resources/shaders
+        gameEngine/resources/shaders/OpenGL33
+        gameEngine/resources/shaders/OpenGL21
+        gameEngine/resources/fonts
+		SoundEngine/music
+		maps
 )
 
 set(SOURCE_FILES
         src/main.cpp
         src/GameLogic.cpp
+		src/Settings.cpp
         src/MapLoader.cpp
+		include/Settings.hpp
         include/MapLoader.hpp
 		SoundEngine/SoundEngine.cpp
 		SoundEngine/SoundEngine.hpp
@@ -60,6 +60,7 @@ set(SOURCE_FILES
         gameEngine/src/shader.cpp
         gameEngine/src/text2D.cpp
         gameEngine/src/texture.cpp
+		gameEngine/src/Enemy.cpp
         gameEngine/include/BoundingBoxSet.hpp
         gameEngine/include/GetTokens.hpp
         gameEngine/include/Image.hpp
@@ -67,15 +68,13 @@ set(SOURCE_FILES
         gameEngine/include/Model.hpp
         gameEngine/include/Renderer.hpp
         gameEngine/include/SceneObject.hpp
-		gameEngine/src/Enemy.cpp
 		gameEngine/include/Enemy.hpp
         gameEngine/include/Menu.hpp
         gameEngine/include/GameState.hpp
         gameEngine/include/shader.hpp
         gameEngine/include/text2D.hpp
         gameEngine/include/texture.hpp
-		src/Settings.cpp
-		include/Settings.hpp)
+)
 
 # Directories to find the header files
 include_directories(
@@ -96,6 +95,8 @@ link_directories(
 )
 
 add_executable(bomberman ${SOURCE_FILES})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 # Link executable with libraries
 target_link_libraries(${PROJECT_NAME}
