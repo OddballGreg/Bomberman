@@ -12,3 +12,8 @@ if [ ! -d SoundEngine/music ]; then \
 	git clone git@github.com:Kalilo/bomberman_music.git; \
 	mv bomberman_music SoundEngine/music; \
 fi
+
+if [ ! -d gameEngine/resources ]; then \
+	git clone git@github.com:Kalilo/bomberman_gameengine_resources.git; \
+	mv bomberman_gameengine_resources gameEngine/resources; \
+fi
