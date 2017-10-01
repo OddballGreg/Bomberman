@@ -69,7 +69,7 @@ void Enemy::move(MapLoader *maploader, int me)
 	// }
 
 	if (!t) {
-		t = 100;
+		t = 200;
 		dir = rand() % 4;
 	}
 
