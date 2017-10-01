@@ -1,4 +1,5 @@
 #include "../includes/bomberman.hpp"
+#include "../gameEngine"
 
 int main()
 {

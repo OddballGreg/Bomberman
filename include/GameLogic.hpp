@@ -12,8 +12,6 @@
 #include "../SoundEngine/SoundEngine.hpp"
 #include "../include/Settings.hpp"
 
-#include "menu.hpp"
-#include <nanogui/nanogui.h>
 #include "KeyInput.hpp"
 
 using namespace gameEngine;
@@ -42,13 +40,7 @@ namespace Bomberman {
 		// float		bomb_radius;
 		int			explosion_time = 0;
 
-		enum GameState {
-			START_SCREEN,
-			PLAYING
-		};
-
-		GameState	gameState;
-		MenuScreen *_menu;
+		State	state = State::START_SCREEN;
 
 		void initGame();
 		void processGame(const KeyInput &keyInput);
@@ -57,7 +49,6 @@ namespace Bomberman {
 
 	public:
 
-		Screen *_screen = nullptr;
 		Renderer *renderer = nullptr;
 		std::string profile_name;
 
@@ -67,7 +58,6 @@ namespace Bomberman {
 
 		GameLogic &operator = (GameLogic &obj) = default;
 
-		void setScreen(Screen *screen);
 		void process(const KeyInput &keyInput);
 		void render();
 

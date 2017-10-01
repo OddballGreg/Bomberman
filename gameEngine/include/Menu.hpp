@@ -1,26 +1,32 @@
 #pragma once
 
-#include <nanogui/nanogui.h>
 #include <iostream>
+#include <GLFW/glfw3.h>
+#include "GameState.hpp"
 
-using namespace nanogui;
+enum class State {
+    START,
+    END,
+    PAUSE,
+    SETTINGS,
+    SAVE,
+    LOAD,
+    LEVEL,
+    START_SCREEN,
+    PLAYING
+};
 
 class Menu {
 
 public:
-	enum test_enum {
-		Item1 = 0,
-		Item2,
-		Item3
-	};
+   
+    Menu( void );
+    Menu( State *state, GLFWwindow *window, int width, int height );
+	~Menu( void );
 
-	bool bvar = true;
-	int ivar = 12345678;
-	double dvar = 3.1415926;
-	float fvar = (float)dvar;
-	std::string strval = "A string";
-	test_enum enumval = Item2;
-
-	Menu(Screen *screen);
-	~Menu();
+	Menu( Menu const & copy );
+    Menu& operator=( Menu const & copy );
+    
 };
+
+void        keyCallbackEvent(int key, int scancode, int action, int mods);

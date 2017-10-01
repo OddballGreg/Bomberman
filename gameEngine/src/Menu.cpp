@@ -1,33 +1,71 @@
 #include "../include/Menu.hpp"
+#include "../include/GameState.hpp"
+#include "../../include/KeyInput.hpp"
 
-Menu::Menu(Screen *screen) {
+Bomberman::KeyInput *in = nullptr;
 
-	Color colval(0.5f, 0.5f, 0.7f, 1.f);
+Menu::Menu( void ) {};
 
-	bool enabled = true;
-	FormHelper *gui = new FormHelper(screen);
-	ref<Window> window = gui->addWindow(Eigen::Vector2i(10, 10), "Form helper example");
-	gui->addGroup("Basic types");
-	gui->addVariable("bool", bvar);
-	gui->addVariable("string", strval);
+Menu::Menu( State *state, GLFWwindow *window, int width, int height ) {
 
-	gui->addGroup("Validating fields");
-	gui->addVariable("int", ivar)->setSpinnable(true);
-	gui->addVariable("float", fvar);
-	gui->addVariable("double", dvar)->setSpinnable(true);
-
-	gui->addGroup("Complex types");
-	gui->addVariable("Enumeration", enumval, enabled)
-	   ->setItems({"Item 1", "Item 2", "Item 3"});
-	gui->addVariable("Color", colval);
-
-	gui->addGroup("Other widgets");
-	gui->addButton("A button", []() { std::cout << "Button pressed." << std::endl; });
-
-	screen->setVisible(true);
-	screen->performLayout();
-	window->center();
+    switch(*state) {
+        case State::START_SCREEN : {
+            GameState start;
+            start.startMenu(width, height);
+            break;
+        }
+        case State::PLAYING : {
+            GameState playing;
+            playing.playMenu(width, height);
+            break;
+        }
+        case State::END : {
+            GameState end;
+            end.endMenu(width, height);
+            break;
+        }
+        case State::PAUSE : {
+            GameState pause;
+            pause.pauseMenu(width, height);
+            break;
+        }
+        case State::SETTINGS : {
+            GameState settings;
+            settings.settingsMenu(width, height);
+            break;
+        }
+        case State::SAVE : {
+            GameState save;
+            save.saveMenu(width, height);
+            break;
+        }
+        case State::LOAD : {
+            GameState load;
+            load.loadMenu(width, height);
+            break;
+        }
+        case State::LEVEL : {
+            GameState level;
+            level.levelMenu(width, height);
+            break;
+        }
+        default :
+            break;
+    }
 
 };
 
-Menu::~Menu() {};
+Menu::~Menu( void ) {
+
+};
+
+Menu::Menu(Menu const &copy) {
+	*this = copy;
+};
+
+Menu&		Menu::operator=(Menu const &copy) {
+    if (this != &copy) {
+        *this = copy;
+    }
+	return *this;
+};

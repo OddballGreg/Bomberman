@@ -4,9 +4,9 @@
 #include <stdexcept>
 
 #include "../include/GameLogic.hpp"
-#include "../include/menu.hpp"
 #include "../include/KeyInput.hpp"
-
+#include "../gameEngine/include/text2D.hpp"
+#include "../gameEngine/include/Menu.hpp"
 #include "../SoundEngine/SoundEngine.hpp"
 
 #include <GLFW/glfw3.h>
@@ -14,7 +14,6 @@
 using namespace std;
 using namespace Bomberman;
 using namespace gameEngine;
-using namespace nanogui;
 
 const GLuint frameRate = 60;
 bool firstMouse = true;
@@ -24,7 +23,9 @@ float lastX =	800.0f / 2.0;
 float lastY =	600.0 / 2.0;
 float fov	=	45.0f;
 
+
 KeyInput input;
+
 
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -207,13 +208,6 @@ int main(int argc, char **argv) {
 
 		GLFWwindow* window = gameLogic.renderer->getWindow();
 
-		// Create a nanogui screen and pass the glfw pointer to initialize
-		Screen *screen = nullptr;
-		screen = new Screen();
-		screen->initialize(window, true);
-
-		gameLogic.setScreen(screen);
-
 		glfwSetKeyCallback(window, keyCallback);
 		glfwSetCursorPosCallback(window, mouse_callback);
 		glfwSetScrollCallback(window, scroll_callback);
@@ -226,6 +220,8 @@ int main(int argc, char **argv) {
 			musicloop.initialize("../SoundEngine/music/loop.wav");
 			musicloop.play(true);
 		}
+
+		initText2D( "../gameEngine/resources/fonts/Holstein.DDS" );
 
 		while (!glfwWindowShouldClose(window) && !input.esc) {
 
