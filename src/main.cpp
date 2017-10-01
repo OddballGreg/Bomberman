@@ -3,6 +3,9 @@
 #include <iostream>
 #include <stdexcept>
 
+#include <boost/program_options/option.hpp>
+#include <boost/program_options.hpp>
+
 #include "../include/GameLogic.hpp"
 #include "../include/KeyInput.hpp"
 #include "../gameEngine/include/text2D.hpp"
@@ -22,6 +25,11 @@ float pitch =	0.0f;
 float lastX =	800.0f / 2.0;
 float lastY =	600.0 / 2.0;
 float fov	=	45.0f;
+
+int			arg_verbosity = 0;
+int			arg_width = 0;
+int			arg_height = 0;
+int			arg_volume = 100;
 
 
 KeyInput input;
@@ -189,14 +197,80 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	//cameraFront = glm::normalize(front);
 }
 
+void			parseArgs(int ac, char **av) {
+	try {
+		boost::program_options::options_description	desc("Options");
 
+		desc.add_options()
+		("help", "Print out help messages")
+		("verbose,v", boost::program_options::value<int>(&arg_verbosity), "runs logs with a verbosity of 0 to 5")
+		("height,h", boost::program_options::value<int>(&arg_height), "sets the window height")
+		("width,w", boost::program_options::value<int>(&arg_width), "sets the window width")
+		("volume,s", boost::program_options::value<int>(&arg_volume), "Set the volume level");
+		// ("ai,a", "enables the AI")
+		// ("delay,d", boost::program_options::value<unsigned int>(&g_delay), "Sets the timmers delay, default 90000usec")
+		// ("verse_ai,b", "allows the player to play against the AI");
+
+		boost::program_options::variables_map	vm;
+
+		try {
+			boost::program_options::store(boost::program_options::parse_command_line(ac, av, desc), vm);
+
+			if (vm.count("help")) {
+				std::cout << "Nibbler is a version of the classical snake game, which allows for dynamic graphics libraies to be loaded and used as interfaces." << std::endl;
+				std::cout << std::endl << desc << std::endl;
+				exit(0);
+			}
+
+			boost::program_options::notify(vm);
+
+			if (arg_volume < 0 || arg_volume > 200)
+				throw boost::program_options::error("volume has to be between 0 and 200%");
+			if (arg_height < 0)
+				throw boost::program_options::error("Height can not be a negative value");
+			if (arg_width < 0)
+				throw boost::program_options::error("Width can not be a negative value");
+			if (vm.count("height") && !vm.count("width"))
+				throw boost::program_options::error("Can't specify height and not width");
+			if (!vm.count("height") && vm.count("width"))
+				throw boost::program_options::error("Can't specify width and not height");
+
+			// if (g_height < 15 || g_height > 200)
+			// 	throw boost::program_options::error("height can not be greater than 200, or less than 15");
+			// if (g_width < 15 || g_width > 200)
+			// 	throw boost::program_options::error("width can not be greater than 200, or less than 15");
+
+			// if (arg_volume < 0 || arg_volume)
+
+			// logger.setVerbosity(g_verbosity);
+
+			// if (vm.count("ai"))
+			// 	g_ai_flag = true;
+
+		}
+		catch (boost::program_options::error& e) {
+			std::cerr << "ERROR: " << e.what() << std::endl;
+			exit(0);
+		}
+	}
+	catch(std::exception& e) {
+		std::cerr << "Exception reached when parsing paramiters" << std::endl;
+		exit(0);
+	}
+}
 
 int main(int argc, char **argv) {
+
+	parseArgs(argc, argv);
 
 	try {
 		initLogger();
 		Settings *settings = new Settings;
 		GameLogic gameLogic(settings);
+
+		settings->SCREEN_WIDTH = arg_width;
+		settings->SCREEN_HEIGHT = arg_height;
+		settings->VOLUME = arg_volume;
 
 		// MenuScreen menuSetttings;
 		// menuSetttings.initializeMenu(800, 800, "testing");
