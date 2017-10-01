@@ -25,7 +25,7 @@ Settings::Settings()
 
 	FULL_ROTATION = 6.28f; // More or less 360 degrees in radians
 
-	BOMB_RADIUS = 1;
+	BOMB_RADIUS = 1.65;
 	BOMB_COLLUMN = 0.8;
 
 	LEVEL_COUNT = 5;
