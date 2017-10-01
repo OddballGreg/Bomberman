@@ -76,7 +76,7 @@ namespace Bomberman
 
 		bombDropped = false;
 		bombDelay = 100;
-		bomb_radius = _settings->BOMB_RADIUS;
+		// bomb_radius = _settings->BOMB_RADIUS;
 
 		// Initialise NanoGUI
 //		_menu = new MenuScreen(renderer->getWindow());
@@ -133,24 +133,33 @@ namespace Bomberman
 			bool collision = false;
 			for(int i = _maploader._walls.size() -1; i > -1; i--)
 				if (temp.z < _maploader._walls[i].offset.z + _settings->COLLISION_ZONE
-					&& temp.z > _maploader._walls[i].offset.z - _settings->COLLISION_ZONE
-					&& temp.x < _maploader._walls[i].offset.x + _settings->COLLISION_ZONE
-					&& temp.x > _maploader._walls[i].offset.x - _settings->COLLISION_ZONE)
+						&& temp.z > _maploader._walls[i].offset.z - _settings->COLLISION_ZONE
+						&& temp.x < _maploader._walls[i].offset.x + _settings->COLLISION_ZONE
+						&& temp.x > _maploader._walls[i].offset.x - _settings->COLLISION_ZONE)
 					collision = true;
 
 			for(int i = _maploader._obstacles.size() -1; i > -1; i--)
 				if (temp.z < _maploader._obstacles[i].offset.z + _settings->COLLISION_ZONE
-					&& temp.z > _maploader._obstacles[i].offset.z - _settings->COLLISION_ZONE
-					&& temp.x < _maploader._obstacles[i].offset.x + _settings->COLLISION_ZONE
-					&& temp.x > _maploader._obstacles[i].offset.x - _settings->COLLISION_ZONE)
+						&& temp.z > _maploader._obstacles[i].offset.z - _settings->COLLISION_ZONE
+						&& temp.x < _maploader._obstacles[i].offset.x + _settings->COLLISION_ZONE
+						&& temp.x > _maploader._obstacles[i].offset.x - _settings->COLLISION_ZONE)
 					collision = true;
 
 			for(int i = _maploader._enemies.size() -1; i > -1; i--)
 				if (temp.z < _maploader._enemies[i].offset.z + _settings->COLLISION_ZONE
-					&& temp.z > _maploader._enemies[i].offset.z - _settings->COLLISION_ZONE
-					&& temp.x < _maploader._enemies[i].offset.x + _settings->COLLISION_ZONE
-					&& temp.x > _maploader._enemies[i].offset.x - _settings->COLLISION_ZONE)
+						&& temp.z > _maploader._enemies[i].offset.z - _settings->COLLISION_ZONE
+						&& temp.x < _maploader._enemies[i].offset.x + _settings->COLLISION_ZONE
+						&& temp.x > _maploader._enemies[i].offset.x - _settings->COLLISION_ZONE)
 					collision = true;
+
+			for(int i = _maploader._powerups.size() -1; i > -1; i--)
+				if (temp.z < _maploader._powerups[i].offset.z + _settings->COLLISION_ZONE
+						&& temp.z > _maploader._powerups[i].offset.z - _settings->COLLISION_ZONE
+						&& temp.x < _maploader._powerups[i].offset.x + _settings->COLLISION_ZONE
+						&& temp.x > _maploader._powerups[i].offset.x - _settings->COLLISION_ZONE) {
+					_maploader._powerups.erase(_maploader._powerups.begin() + i);
+					_settings->BOMB_RADIUS += 1;
+				}
 
 			if (collision == false)
 			{
@@ -179,12 +188,14 @@ namespace Bomberman
 					&& temp.x > _maploader._obstacles[i].offset.x - _settings->COLLISION_ZONE)
 					collision = true;
 
-			for(int i = _maploader._enemies.size() -1; i > -1; i--)
-				if (temp.z < _maploader._enemies[i].offset.z + _settings->COLLISION_ZONE
-					&& temp.z > _maploader._enemies[i].offset.z - _settings->COLLISION_ZONE
-					&& temp.x < _maploader._enemies[i].offset.x + _settings->COLLISION_ZONE
-					&& temp.x > _maploader._enemies[i].offset.x - _settings->COLLISION_ZONE)
-					collision = true;
+			for(int i = _maploader._powerups.size() -1; i > -1; i--)
+				if (temp.z < _maploader._powerups[i].offset.z + _settings->COLLISION_ZONE
+						&& temp.z > _maploader._powerups[i].offset.z - _settings->COLLISION_ZONE
+						&& temp.x < _maploader._powerups[i].offset.x + _settings->COLLISION_ZONE
+						&& temp.x > _maploader._powerups[i].offset.x - _settings->COLLISION_ZONE) {
+					_maploader._powerups.erase(_maploader._powerups.begin() + i);
+					_settings->BOMB_RADIUS += 1;
+				}
 
 			if (collision == false)
 			{
@@ -221,6 +232,15 @@ namespace Bomberman
 					&& temp.x > _maploader._enemies[i].offset.x - _settings->COLLISION_ZONE)
 					collision = true;
 
+			for(int i = _maploader._powerups.size() -1; i > -1; i--)
+				if (temp.z < _maploader._powerups[i].offset.z + _settings->COLLISION_ZONE
+						&& temp.z > _maploader._powerups[i].offset.z - _settings->COLLISION_ZONE
+						&& temp.x < _maploader._powerups[i].offset.x + _settings->COLLISION_ZONE
+						&& temp.x > _maploader._powerups[i].offset.x - _settings->COLLISION_ZONE) {
+					_maploader._powerups.erase(_maploader._powerups.begin() + i);
+					_settings->BOMB_RADIUS += 1;
+				}
+
 			if (collision == false)
 			{
 				_maploader._player[0].rotation.y = 0;
@@ -254,6 +274,15 @@ namespace Bomberman
 					&& temp.x < _maploader._enemies[i].offset.x + _settings->COLLISION_ZONE
 					&& temp.x > _maploader._enemies[i].offset.x - _settings->COLLISION_ZONE)
 					collision = true;// reset map here
+			
+			for(int i = _maploader._powerups.size() -1; i > -1; i--)
+				if (temp.z < _maploader._powerups[i].offset.z + _settings->COLLISION_ZONE
+						&& temp.z > _maploader._powerups[i].offset.z - _settings->COLLISION_ZONE
+						&& temp.x < _maploader._powerups[i].offset.x + _settings->COLLISION_ZONE
+						&& temp.x > _maploader._powerups[i].offset.x - _settings->COLLISION_ZONE) {
+					_maploader._powerups.erase(_maploader._powerups.begin() + i);
+					_settings->BOMB_RADIUS += 1;
+				}
 
 			if (collision == false)
 			{
@@ -427,7 +456,7 @@ namespace Bomberman
 //				{
 				_maploader.load_map(level % _settings->LEVEL_COUNT);
 				can_leave = false;
-				bomb_radius = _settings->BOMB_RADIUS;
+				// bomb_radius = _settings->BOMB_RADIUS;
 //				}
 			}
 
@@ -442,7 +471,7 @@ namespace Bomberman
 				explosion_time = _settings->EXPLOSION_TIME;
 
 				gameEngine::SceneObject temp(*_maploader._explosion_template);
-				for (float k = 0; k <= bomb_radius; k++) {
+				for (float k = 0; k <= _settings->BOMB_RADIUS; k++) {
 					temp.offset = glm::vec3(bomb.offset.x + k, bomb.offset.y, bomb.offset.z);
 					_maploader._explosion.push_back(temp);
 					temp.offset = glm::vec3(bomb.offset.x - k, bomb.offset.y, bomb.offset.z);
@@ -457,8 +486,8 @@ namespace Bomberman
 
 				// Blow stuff up here
 				for(long i = _maploader._obstacles.size() -1; i > -1; i--) {
-					if (bomb.offset.z < _maploader._obstacles[i].offset.z + bomb_radius
-							&& bomb.offset.z > _maploader._obstacles[i].offset.z - bomb_radius
+					if (bomb.offset.z < _maploader._obstacles[i].offset.z + _settings->BOMB_RADIUS
+							&& bomb.offset.z > _maploader._obstacles[i].offset.z - _settings->BOMB_RADIUS
 							&& bomb.offset.x < _maploader._obstacles[i].offset.x + _settings->BOMB_COLLUMN
 							&& bomb.offset.x > _maploader._obstacles[i].offset.x - _settings->BOMB_COLLUMN) {
 						if ((std::rand() % 100) + 1 > _settings->POWERUP_CHANCE ) {
@@ -468,8 +497,8 @@ namespace Bomberman
 						}
 						_maploader._obstacles.erase(_maploader._obstacles.begin() + i);
 						i = _maploader._obstacles.size() -1;
-					} else if (bomb.offset.x < _maploader._obstacles[i].offset.x + bomb_radius
-							&& bomb.offset.x > _maploader._obstacles[i].offset.x - bomb_radius
+					} else if (bomb.offset.x < _maploader._obstacles[i].offset.x + _settings->BOMB_RADIUS
+							&& bomb.offset.x > _maploader._obstacles[i].offset.x - _settings->BOMB_RADIUS
 							&& bomb.offset.z < _maploader._obstacles[i].offset.z + _settings->BOMB_COLLUMN
 							&& bomb.offset.z > _maploader._obstacles[i].offset.z - _settings->BOMB_COLLUMN) {
 						_maploader._obstacles.erase(_maploader._obstacles.begin() + i);
@@ -482,8 +511,8 @@ namespace Bomberman
 				}
 
 				for(long i = _maploader._enemies.size() -1; i > -1; i--) {
-					if (bomb.offset.z < _maploader._enemies[i].offset.z + bomb_radius
-							&& bomb.offset.z > _maploader._enemies[i].offset.z - bomb_radius
+					if (bomb.offset.z < _maploader._enemies[i].offset.z + _settings->BOMB_RADIUS
+							&& bomb.offset.z > _maploader._enemies[i].offset.z - _settings->BOMB_RADIUS
 							&& bomb.offset.x < _maploader._enemies[i].offset.x + _settings->BOMB_COLLUMN
 							&& bomb.offset.x > _maploader._enemies[i].offset.x - _settings->BOMB_COLLUMN) {
 						_maploader._enemies.erase(_maploader._enemies.begin() + i);
@@ -492,8 +521,8 @@ namespace Bomberman
 							enemykilled.initialize("../SoundEngine/music/GameOverArcade.wav");
 							enemykilled.play(false);
 						}
-					} else if (bomb.offset.x < _maploader._enemies[i].offset.x + bomb_radius
-							&& bomb.offset.x > _maploader._enemies[i].offset.x - bomb_radius
+					} else if (bomb.offset.x < _maploader._enemies[i].offset.x + _settings->BOMB_RADIUS
+							&& bomb.offset.x > _maploader._enemies[i].offset.x - _settings->BOMB_RADIUS
 							&& bomb.offset.z < _maploader._enemies[i].offset.z + _settings->BOMB_COLLUMN
 							&& bomb.offset.z > _maploader._enemies[i].offset.z - _settings->BOMB_COLLUMN) {
 						_maploader._enemies.erase(_maploader._enemies.begin() + i);
@@ -505,14 +534,14 @@ namespace Bomberman
 					}
 				}
 
-				if (bomb.offset.z < _maploader._player[0].offset.z + bomb_radius
-						&& bomb.offset.z > _maploader._player[0].offset.z - bomb_radius
+				if (bomb.offset.z < _maploader._player[0].offset.z + _settings->BOMB_RADIUS
+						&& bomb.offset.z > _maploader._player[0].offset.z - _settings->BOMB_RADIUS
 						&& bomb.offset.x < _maploader._player[0].offset.x + _settings->BOMB_COLLUMN
 						&& bomb.offset.x > _maploader._player[0].offset.x - _settings->BOMB_COLLUMN) {
 					_maploader.load_map(level);
 				}
-				else if (bomb.offset.x < _maploader._player[0].offset.x + bomb_radius
-						&& bomb.offset.x > _maploader._player[0].offset.x - bomb_radius
+				else if (bomb.offset.x < _maploader._player[0].offset.x + _settings->BOMB_RADIUS
+						&& bomb.offset.x > _maploader._player[0].offset.x - _settings->BOMB_RADIUS
 						&& bomb.offset.z < _maploader._player[0].offset.z + _settings->BOMB_COLLUMN
 						&& bomb.offset.z > _maploader._player[0].offset.z - _settings->BOMB_COLLUMN)
 					_maploader.load_map(level);
