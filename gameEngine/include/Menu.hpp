@@ -27,6 +27,9 @@ public:
 	Menu( Menu const & copy );
     Menu& operator=( Menu const & copy );
     
+    void    setWinPosition(nanogui::Window *window, Eigen::Vector2i vec);
+    void    setWinLayout(nanogui::Window *window);
+
 };
 
 void        keyCallbackEvent(int key, int scancode, int action, int mods);

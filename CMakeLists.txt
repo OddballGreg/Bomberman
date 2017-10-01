@@ -16,8 +16,6 @@ set(GIT_FLAG "--init --recursive")
 execute_process(COMMAND ${BASH_CMD} ${BASH_ARG})
 execute_process(COMMAND	${GIT_CMD} ${GIT_ARG} ${GIT_FLAG})
 
-set(NANOGUI_DIR "external/nanogui")
-
 # Adding dependencies
 pkg_search_module(GLEW REQUIRED glew)
 pkg_search_module(GLFW3 REQUIRED glfw3)
@@ -76,6 +74,9 @@ set(SOURCE_FILES
         gameEngine/include/texture.hpp
 )
 
+#Add nangui-subdirectory
+add_subdirectory( external/nanogui EXCLUDE_FROM_ALL )
+
 # Directories to find the header files
 include_directories(
         include
@@ -83,6 +84,8 @@ include_directories(
 		~/.brew/include/freetype2
 		~/.brew/include/eigen3
 		${OPENAL_INCLUDE_DIR}
+        external/nanogui/include
+        external/nanogui/ext/nanovg/src
 )
 
 # Directories to find the libraries
@@ -110,6 +113,7 @@ target_link_libraries(${PROJECT_NAME}
 		png
 		glfw
 		GLEW
+        nanogui
 )
 
 set(LINKER_FLAGS "-framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lfreetype -lpng -lglfw -lGLEW")

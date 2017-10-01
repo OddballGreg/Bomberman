@@ -2,9 +2,12 @@
 
 #include <iostream>
 #include <cstring>
+#include <nanogui/nanogui.h>
 
 #include "text2D.hpp"
 #include "Menu.hpp"
+
+using namespace nanogui;
 
 class GameState {
 
@@ -18,7 +21,7 @@ public:
 	GameState& operator=( GameState const & copy );
 
     void    setTitle(char *title);
-    void    startMenu(int width, int height);
+    void    startMenu(nanogui::FormHelper *gui, int width, int height);
     void    playMenu(int width, int size);
     void    endMenu(int width, int height);
     void    pauseMenu(int width, int height);

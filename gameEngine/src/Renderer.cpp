@@ -357,6 +357,8 @@ namespace gameEngine {
 
 		glfwSetErrorCallback(error_callback);
 
+		nanogui::init();
+
 		if (!glfwInit())
 			throw std::runtime_error("Unable to initialise GLFW");
 
@@ -474,6 +476,8 @@ namespace gameEngine {
 			glDeleteProgram(perspectiveProgram);
 
 		glfwTerminate();
+
+		nanogui::shutdown();
 	}
 
 	GLFWwindow* Renderer::getWindow() const{

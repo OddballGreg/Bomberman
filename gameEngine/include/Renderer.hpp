@@ -8,6 +8,7 @@
 #include "Model.hpp"
 #include "SceneObject.hpp"
 #include "../include/Settings.hpp"
+#include "Menu.hpp"
 
 #include <unordered_map>
 #include <vector>
