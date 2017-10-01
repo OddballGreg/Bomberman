@@ -33,7 +33,7 @@ pkg_search_module(FREETYPE REQUIRED freetype2)
 pkg_search_module(SDL REQUIRED sdl)
 pkg_search_module(SDL2 REQUIRED sdl2)
 pkg_search_module(LIBPNG REQUIRED libpng)
-pkg_search_module(Boost REQUIRED boost)
+# pkg_search_module(Boost REQUIRED boost)
 
 file(COPY profiles DESTINATION .)
 
