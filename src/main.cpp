@@ -3,7 +3,8 @@
 #include <iostream>
 #include <stdexcept>
 
-# include <boost/program_options.hpp>
+#include <boost/program_options/option.hpp>
+#include <boost/program_options.hpp>
 
 #include "../include/GameLogic.hpp"
 #include "../include/KeyInput.hpp"
@@ -205,7 +206,7 @@ void			parseArgs(int ac, char **av) {
 		("verbose,v", boost::program_options::value<int>(&arg_verbosity), "runs logs with a verbosity of 0 to 5")
 		("height,h", boost::program_options::value<int>(&arg_height), "sets the window height")
 		("width,w", boost::program_options::value<int>(&arg_width), "sets the window width")
-		("volume,s", boost::program_options::value<int>(&arg_volume), "Set the volume level")
+		("volume,s", boost::program_options::value<int>(&arg_volume), "Set the volume level");
 		// ("ai,a", "enables the AI")
 		// ("delay,d", boost::program_options::value<unsigned int>(&g_delay), "Sets the timmers delay, default 90000usec")
 		// ("verse_ai,b", "allows the player to play against the AI");

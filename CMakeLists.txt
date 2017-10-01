@@ -7,6 +7,13 @@ find_package(OpenGL REQUIRED)
 find_package(OpenAL REQUIRED)
 find_package(PkgConfig REQUIRED)
 
+
+set(Boost_INCLUDE_DIR ~/.brew/Cellar/boost/1.65.1/include/boost/)
+set(Boost_LIBRARY_DIR ~/.brew/Cellar/boost/1.65.1/lib/)
+#find_package(Boost)
+include_directories(${Boost_INCLUDE_DIR})
+link_directories(${Boost_LIBRARY_DIR})
+
 # Run install script
 set(BASH_CMD "bash")
 set(BASH_ARG "../INSTALL.sh")
@@ -26,6 +33,7 @@ pkg_search_module(FREETYPE REQUIRED freetype2)
 pkg_search_module(SDL REQUIRED sdl)
 pkg_search_module(SDL2 REQUIRED sdl2)
 pkg_search_module(LIBPNG REQUIRED libpng)
+pkg_search_module(Boost REQUIRED boost)
 
 file(COPY profiles DESTINATION .)
 
@@ -80,7 +88,8 @@ set(SOURCE_FILES
 # Directories to find the header files
 include_directories(
         include
-		~/.brew/include
+		${Boost_INCLUDE_DIRS}
+		~/.brew/include/
 		~/.brew/include/freetype2
 		~/.brew/include/eigen3
 		${OPENAL_INCLUDE_DIR}
@@ -88,8 +97,9 @@ include_directories(
 
 # Directories to find the libraries
 link_directories(
-		~/.brew/lib
-        ${PROJECT_SOURCE_DIR}
+		~/.brew/lib/
+		${Boost_LIBRARY_DIRS}
+		${PROJECT_SOURCE_DIR}
         ${GLEW_LIBRARY_DIRS}
         ${GLM_LIBRARY_DIRS}
         ${GLFW_LIBRARY_DIRS}
@@ -105,13 +115,14 @@ target_link_libraries(${PROJECT_NAME}
         ${GLM_LIBRARIES}
         ${GLFW_LIBRARIES}
         ${FT_LIBRARIES}
+		${Boost_LIBRARIES}
 		freetype
 		png
 		glfw
 		GLEW
 )
 
-set(LINKER_FLAGS "-framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lfreetype -lpng -lglfw -lGLEW")
+set(LINKER_FLAGS "-framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lfreetype -lpng -lglfw -lGLEW -lboost_program_options")
 
 if (APPLE)
     target_link_libraries(${PROJECT_NAME}
