@@ -10,31 +10,31 @@
 class MenuScreen {
 
 private:
-    GLFWwindow  *_win;
-//    MenuState   _menuState;
-    nanogui::Screen* _screen;
-    nanogui::Window *_mainMenu;
+	GLFWwindow  *_win;
+//	MenuState   _menuState;
+	nanogui::Screen* _screen;
+	nanogui::Window *_mainMenu;
 
 public:
 
 	MenuScreen();
 //	MenuScreen(int width, int height, const char& windowName);
-    MenuScreen(GLFWwindow * pWin);
-    MenuScreen(MenuScreen const &);
-    MenuScreen(MenuScreen &obj) = default;
+	MenuScreen(GLFWwindow * pWin);
+	MenuScreen(MenuScreen const &);
+	MenuScreen(MenuScreen &obj) = default;
 	~MenuScreen();
 
-    MenuScreen &operator = (MenuScreen &obj) = default;
+	MenuScreen &operator = (MenuScreen &obj) = default;
 
-    MenuScreen const & operator=(MenuScreen const &);
+	MenuScreen const & operator=(MenuScreen const &);
 
-    void    mainMenu();
-    void	settingsMenu();
+	void	mainMenu();
+	void	settingsMenu();
 
-    void	menuHandler();
-    void	renderMenu();
+	void	menuHandler();
+	void	renderMenu();
 
 //	void initializeMenu(int width, int height, const char* windowName);
-    void initializeMenu(GLFWwindow * pWin);
+	void initializeMenu(GLFWwindow * pWin);
 
 };

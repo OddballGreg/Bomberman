@@ -17,19 +17,19 @@ Settings::Settings()
 	ENEMY_ROTATION_SPEED = 0.1f;
 	ENEMY_SPEED = 0.025f;
 
-    PLAY_SOUND = true;
-    COLLISION_ZONE = 0.8f;
+	PLAY_SOUND = true;
+	COLLISION_ZONE = 0.8f;
 
 	PLAYER_ROTATION_SPEED = 0.06f;
 	PLAYER_SPEED = 0.08f;
 
 	FULL_ROTATION = 6.28f; // More or less 360 degrees in radians
 
-    BOMB_RADIUS = 1;
-    BOMB_COLLUMN = 0.65;
+	BOMB_RADIUS = 1;
+	BOMB_COLLUMN = 0.8;
 
-    LEVEL_COUNT = 5;
+	LEVEL_COUNT = 5;
 	POWERUP_CHANCE = 50.0;
-	
+
 	EXPLOSION_TIME = 5;
 }

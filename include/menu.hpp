@@ -36,7 +36,7 @@ class MenuScreen
 
 		MenuScreen const & operator=(MenuScreen const &);
 
-		void    mainMenu();
+		void	mainMenu();
 		void	settingsMenu();
 
 		void	menuHandler();

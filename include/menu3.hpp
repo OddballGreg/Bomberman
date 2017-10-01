@@ -12,32 +12,32 @@
 
 enum class	MenuState
 {
-    MAIN_MENU,
-    SETTINGS,
-    LOAD,
-    EXIT
+	MAIN_MENU,
+	SETTINGS,
+	LOAD,
+	EXIT
 };
 
 class MenuScreen
 {
 private:
-    GLFWwindow  *_win;
-    MenuState   _menuState;
+	GLFWwindow  *_win;
+	MenuState   _menuState;
 
 public:
 
-    MenuScreen(GLFWwindow * pWin);
-    MenuScreen(MenuScreen const &);
-    ~MenuScreen();
-    MenuScreen const & operator=(MenuScreen const &);
+	MenuScreen(GLFWwindow * pWin);
+	MenuScreen(MenuScreen const &);
+	~MenuScreen();
+	MenuScreen const & operator=(MenuScreen const &);
 
-    void    mainMenu();
-    void	settingsMenu();
-    void	loadMenu();
+	void	mainMenu();
+	void	settingsMenu();
+	void	loadMenu();
 
-    void	menuHandler();
-    void	renderMenu();
-    void	popUpErrorMenu(std::string title, std::string message, std::string buttonText);
+	void	menuHandler();
+	void	renderMenu();
+	void	popUpErrorMenu(std::string title, std::string message, std::string buttonText);
 
-    bool	isTextFile(std::string);
+	bool	isTextFile(std::string);
 };

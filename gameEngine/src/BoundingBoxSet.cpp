@@ -24,7 +24,7 @@ namespace gameEngine {
 	BoundingBoxSet::BoundingBoxSet(const BoundingBoxSet &obj) {
 		this->numBoxes				= obj.numBoxes;
 		this->vertices				= obj.vertices;
-		this->facesVertexIndexes	= obj.facesVertexIndexes; 
+		this->facesVertexIndexes	= obj.facesVertexIndexes;
 	}
 
 	/*
@@ -34,7 +34,7 @@ namespace gameEngine {
 	BoundingBoxSet BoundingBoxSet::operator = (const BoundingBoxSet &obj) {
 		this->numBoxes				= obj.numBoxes;
 		this->vertices				= obj.vertices;
-		this->facesVertexIndexes	= obj.facesVertexIndexes; 
+		this->facesVertexIndexes	= obj.facesVertexIndexes;
 
 		return (*this);
 	}
