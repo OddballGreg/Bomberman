@@ -600,6 +600,12 @@ namespace Bomberman
 
 				if (_maploader._enemies.size() == 0)
 					can_leave = true;
+
+				if (_settings->PLAY_SOUND)
+				{
+					explosion.initialize("../SoundEngine/music/explosion.wav");
+					explosion.play(false);
+				}
 			}
 
 		}
