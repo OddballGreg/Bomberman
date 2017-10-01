@@ -39,8 +39,9 @@ namespace Bomberman {
 		bool		bombDropped;
 		int			bombDelay;
 		bool		can_leave = false;
-		// float		bomb_radius;
 		int			explosion_time = 0;
+		int			cache_width;
+		int			cache_height;
 
 		enum GameState {
 			START_SCREEN,
@@ -51,6 +52,7 @@ namespace Bomberman {
 		MenuScreen *_menu;
 
 		void initGame();
+		void initRenderer();
 		void processGame(const KeyInput &keyInput);
 		void processStartScreen(const KeyInput &keyInput);
 		void movePlayer(const KeyInput &keyInput);

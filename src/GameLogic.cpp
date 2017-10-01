@@ -38,10 +38,26 @@ namespace Bomberman
 
 		_maploader.load_map(level);
 
-		renderer = &Renderer::getInstance(settings, "BombermanTestV1", _settings->SCREEN_WIDTH, _settings->SCREEN_HEIGHT, 1.2f);
+		_maploader._player[0].setFrameDelay(1);
+		gameState = START_SCREEN;
+		seconds = 0;
+		lightModifier = -0.01f;
+
+		bombDropped = false;
+		bombDelay = 100;
+
+		initRenderer();
+	}
+
+	void	GameLogic::initRenderer() {
+		std::cout << "init renderer called" << std::endl;
+		renderer = &Renderer::getInstance(_settings, "BombermanTestV1", _settings->SCREEN_WIDTH, _settings->SCREEN_HEIGHT, 1.2f);
+
+		cache_width = _settings->SCREEN_WIDTH;
+		cache_height = _settings->SCREEN_HEIGHT;
 
 		_menu = new MenuScreen(renderer->getWindow()); // uncomment this for menu
-
+		
 		Image startScreenTexture("../resources/images/bom.png");
 		renderer->generateTexture("startScreen", startScreenTexture);
 
@@ -66,21 +82,12 @@ namespace Bomberman
 		Image explosionTexture("../resources/images/red_canvas.png");
 		renderer->generateTexture("explosionTexture", explosionTexture);
 
-		 Image treeTexture("../resources/images/blue_canvas.png");
-		 renderer->generateTexture("treeTexture", treeTexture);
-
-		_maploader._player[0].setFrameDelay(1);
-		gameState = START_SCREEN;
-		seconds = 0;
-		lightModifier = -0.01f;
-
-		bombDropped = false;
-		bombDelay = 100;
-		// bomb_radius = _settings->BOMB_RADIUS;
+		Image treeTexture("../resources/images/blue_canvas.png");
+		renderer->generateTexture("treeTexture", treeTexture);
 
 		// Initialise NanoGUI
-//		_menu = new MenuScreen(renderer->getWindow());
-//		_menu->renderMenu();
+		// _menu = new MenuScreen(renderer->getWindow());
+		// _menu->renderMenu();
 
 		// player chase camera
 		// renderer->cameraPosition = _maploader._player[0].offset;
@@ -94,7 +101,6 @@ namespace Bomberman
 		// renderer->cameraRotation.x = 0.90f;
 		// renderer->cameraRotation.y = 0.0f;
 		// renderer->cameraRotation.z = 0.0f;
-
 	}
 
 	GameLogic::~GameLogic() {
@@ -124,6 +130,12 @@ namespace Bomberman
 	void GameLogic::movePlayer(const KeyInput &keyInput)
 	{
 		_maploader._player[0].stopAnimating();
+
+		if (keyInput.x) {
+			_settings->SCREEN_HEIGHT = 400;
+			_settings->SCREEN_WIDTH = 640;
+			std::cout << "Captured X" << std::endl;
+		}// temp
 
 		if (keyInput.left)
 		{
@@ -381,6 +393,8 @@ namespace Bomberman
 
 	void GameLogic::render()
 	{
+		if (cache_height != _settings->SCREEN_HEIGHT || cache_width != _settings->SCREEN_WIDTH)
+			initRenderer();
 //		_menu->renderMenu(); //uncomment this for menu
 		renderer->clearScreen();
 //		_menu->menuHandler();

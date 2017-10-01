@@ -12,7 +12,7 @@ namespace Bomberman
 	{
 		bool	up, down, left, right, enter, camUp, camDown, camLeft, camRight, space, esc,
 				camRotXUp, camRotXDown, camRotYUp, camRotYDown, camRotZUp, camRotZDown,
-				camPosXUp, camPosXDown, camPosYUp, camPosYDown, camPosZUp, camPosZDown;
+				camPosXUp, camPosXDown, camPosYUp, camPosYDown, camPosZUp, camPosZDown, x;
 
 		KeyInput()
 		{
@@ -39,6 +39,7 @@ namespace Bomberman
 			enter = false;
 			space = false;
 			esc = false;
+			x = false;
 		}
 
 	} KeyInput;
