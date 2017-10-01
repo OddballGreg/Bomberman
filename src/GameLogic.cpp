@@ -410,6 +410,12 @@ namespace Bomberman
 			renderer->renderRectangle("skyTexture", glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f));
 			renderer->renderRectangle("startScreen", glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f));
 		}
+
+		else if (state == State::PAUSE)
+		{
+			renderer->renderRectangle("skyTexture", glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f));
+			renderer->renderRectangle("startScreen", glm::vec3(-1.0f, 1.0f, 1.0f), glm::vec3(1.0f, -1.0f, 1.0f));
+		}
 		else if (state == State::PLAYING)
 		{
 			renderer->renderRectangle("skyTexture", glm::vec3(-1.0f, 1.0f, 1.0f),
@@ -464,8 +470,11 @@ namespace Bomberman
 				profile.close();
 
 				//To make a player win in the end.
-//				if (level > _settings->LEVEL_COUNT)
-//					open menu.
+	//				if (level > _settings->LEVEL_COUNT)
+				// {
+				// 	state = State::SETTINGS;
+		
+				// }
 //				else
 //				{
 				_maploader.load_map(level % _settings->LEVEL_COUNT);
