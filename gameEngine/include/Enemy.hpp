@@ -23,6 +23,8 @@ public:
 
 	void move(MapLoader *maploader, int me);
 
+	bool collides(MapLoader *maploader, int me, glm::vec3 pos);
+
 	enum EnemyState {
 		TURNING,
 		WALKING_STRAIGHT
